@@ -34,8 +34,8 @@
 		</property>
 		<property name="packagesToScan">
 			<list>
-				<value>com.ptithcm.model</value>
-				<value>com.ptithcm.model.admin</value>
+				<value>ptithcm.model.product</value>
+				<value>ptithcm.model.admin</value>
 			</list>
 		</property>
 	</bean>

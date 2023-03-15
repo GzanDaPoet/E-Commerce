@@ -8,7 +8,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ptithcm.model.Product;
+import ptithcm.model.product.Product;
+
+
 
 @Service
 public class ProductDaoImp implements ProductDao{
