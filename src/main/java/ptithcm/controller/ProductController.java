@@ -13,15 +13,30 @@ import ptithcm.service.ProductService;
 	
 	@Transactional
 	@Controller
-	@RequestMapping("/shop/")
+	@RequestMapping("/e-commerce/")
 	public class ProductController {
 		
 		@Autowired
 		ProductService productService;
-		@RequestMapping("index")
+		@RequestMapping("shop")
+		public String shop(ModelMap model) {
+			List<Product> list = productService.getListProducts();
+			model.addAttribute("listProduct", list);
+			return "e-commerce/shop";
+		}
+		
+		@RequestMapping("product")
+		public String product(ModelMap model) {
+			List<Product> list = productService.getListProducts();
+			model.addAttribute("listProduct", list);
+			return "e-commerce/product";
+		}
+		
+		
+		@RequestMapping("list")
 		public String index(ModelMap model) {
 			List<Product> list = productService.getListProducts();
 			model.addAttribute("listProduct", list);
-			return "shop/index";
+			return "e-commerce/list";
 		}
 	}
