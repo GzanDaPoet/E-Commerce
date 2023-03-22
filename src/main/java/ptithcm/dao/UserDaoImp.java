@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ptithcm.model.admin.User;
 
-public class UserImp implements UserDao {
+public class UserDaoImp implements UserDao {
 	@Autowired
 	SessionFactory factory;
 	
 	@Override
 	public User findUserByName(String username) {
 		Session session = factory.getCurrentSession();
-		String hql ="FROM Product where username = " + username;
+		String hql ="FROM User where username = " + username;
 		Query query = session.createQuery(hql);
 		User user = (User) query.list();
 		return user;

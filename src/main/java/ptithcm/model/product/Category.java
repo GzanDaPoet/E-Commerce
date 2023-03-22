@@ -13,21 +13,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Product_Category")
 public class Category {
-	@Id @GeneratedValue
-	@Column(name="category_id")
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
-	@Column(name="parent_category_id")
+	@Column(name = "parent_category_id")
 	private Integer parentCategoryId;
-	@Column(name="category_name")
+	@Column(name = "category_name")
 	private String categoryName;
-	
+
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
 	private Collection<Product> products;
 
 	public Category() {
 		super();
 	}
-	
+
 	public Category(Integer id, Integer parentCategoryId, String categoryName) {
 		super();
 		this.id = id;
@@ -58,7 +59,5 @@ public class Category {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
-	
-	
+
 }

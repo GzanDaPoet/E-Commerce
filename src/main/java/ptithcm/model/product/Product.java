@@ -8,20 +8,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "Product")
 @Table(name = "Product")
 public class Product {
 	@Id
 	@GeneratedValue
 	@Column(name="id")
 	private Integer id;
+	
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
+	
 	@Column(name = "name")
 	private String name;
+	
 	@Column(name = "description")
 	private String description;
+	
 	@Column(name = "product_image")
 	private String productImage;
 	

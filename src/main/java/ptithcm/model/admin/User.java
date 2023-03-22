@@ -2,7 +2,11 @@ package ptithcm.model.admin;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,20 +14,29 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "user_permission")
-	private Integer user_permission;
+
+	@ManyToOne
+	@JoinColumn(name = "user_permission", nullable = false)
+	private UserPermission permission;
+
 	@Column(name = "username")
 	private String username;
+
 	@Column(name = "email")
 	private String email;
+
 	@Column(name = "password")
 	private String password;
+
 	@Column(name = "status")
 	private Boolean status;
 
-	public User() {
-		// TODO Auto-generated constructor stub
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
 	}
 
 	public Integer getId() {
@@ -34,12 +47,12 @@ public class User {
 		this.id = id;
 	}
 
-	public Integer getUser_permission() {
-		return user_permission;
+	public UserPermission getPermission() {
+		return permission;
 	}
 
-	public void setUser_permission(Integer user_permission) {
-		this.user_permission = user_permission;
+	public void setPermission(UserPermission permission) {
+		this.permission = permission;
 	}
 
 	public String getUsername() {
