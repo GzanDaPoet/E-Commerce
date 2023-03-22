@@ -21,4 +21,22 @@ public class ProductService {
 		return null;
 	}
 	
+	
+	public Product getProductById(int id) {
+		Product product = productDao.getProductById(id);
+		if (product != null) {
+			return product;
+		}
+		return null;
+	}
+	
+	public List<String> getAllCommentsById(int id) {
+		List<String> comments = productDao.getAllCommentsById(id);
+		if (!comments.isEmpty()) {
+			return comments;
+		}
+		return null;
+	}
+	
+	
 }

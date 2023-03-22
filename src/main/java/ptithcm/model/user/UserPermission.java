@@ -1,20 +1,27 @@
-package ptithcm.model.admin;
+package ptithcm.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "User_Permission")
 public class UserPermission {
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "value")
 	private String value;
-
+	
+	@OneToOne(mappedBy = "user_permission")
+	private User user;
+	
+	
 	public UserPermission() {
 		// TODO Auto-generated constructor stub
 	}

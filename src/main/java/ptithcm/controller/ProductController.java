@@ -6,7 +6,9 @@
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.stereotype.Controller;
 	import org.springframework.ui.ModelMap;
-	import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ptithcm.model.product.Product;
 import ptithcm.service.ProductService;
@@ -25,10 +27,12 @@ import ptithcm.service.ProductService;
 			return "e-commerce/shop";
 		}
 		
-		@RequestMapping("product")
-		public String product(ModelMap model) {
-			List<Product> list = productService.getListProducts();
-			model.addAttribute("listProduct", list);
+		@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
+		public String product(ModelMap model, @PathVariable("productId") int productId) {
+			Product product = productService.getProductById(productId);
+			List<String> comments = productService.getAllCommentsById(productId);
+			model.addAttribute("comments", comments);
+			model.addAttribute("product", product);
 			return "e-commerce/product";
 		}
 		

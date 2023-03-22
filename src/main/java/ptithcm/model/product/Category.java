@@ -10,10 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ptithcm.model.promotion.PromotionCategory;
+import ptithcm.model.variation.Variation;
+
 @Entity
 @Table(name = "Product_Category")
 public class Category {
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue
 	@Column(name="category_id")
 	private Integer id;
 	@Column(name="parent_category_id")
@@ -24,6 +28,13 @@ public class Category {
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
 	private Collection<Product> products;
 
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	private Collection<PromotionCategory> promotionCategories;
+	
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	private Collection<Variation> variations;
+	
+	
 	public Category() {
 		super();
 	}
