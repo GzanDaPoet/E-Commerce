@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ptithcm.dao.ProductDao;
 import ptithcm.model.product.Product;
 
-@Service("productService")
+@Service
 public class ProductService {
 	@Autowired 
 	private ProductDao productDao;

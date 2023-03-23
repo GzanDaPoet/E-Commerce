@@ -20,9 +20,9 @@ public class ProductCategory {
 	@GeneratedValue
 	@Column(name="id")
 	private Integer id;
-	@Column(name="parent_category_id")
+	@Column(name = "parent_category_id")
 	private Integer parentCategoryId;
-	@Column(name="category_name")
+	@Column(name = "category_name")
 	private String categoryName;
 	
 	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
@@ -69,7 +69,5 @@ public class ProductCategory {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
-	
-	
+
 }
