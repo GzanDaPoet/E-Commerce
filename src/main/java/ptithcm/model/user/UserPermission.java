@@ -16,9 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "User_Permission")
 public class UserPermission {
-	@Id 
-	@GeneratedValue
-	@Column(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
