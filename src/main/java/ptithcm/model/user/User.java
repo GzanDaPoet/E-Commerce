@@ -40,11 +40,11 @@ public class User {
 	private UserProfile userProfile;
 	
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<InventoryReceiving> inventoryReceivings;
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
-	@ManyToOne()
+	@ManyToOne()	
 	@JoinColumn(name = "user_id")
 	private Promotion promotion;
 	

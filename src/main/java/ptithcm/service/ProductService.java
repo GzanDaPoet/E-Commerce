@@ -1,5 +1,6 @@
 package ptithcm.service;
 
+import java.awt.print.Printable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ProductService {
 		return null;
 	}
 	
+	public int getOrderId(int id) {
+		int value = productDao.getOrderID(id);
+		System.out.println("Value: " + value);
+		return value;
+	}
 	
 }

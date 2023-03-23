@@ -122,6 +122,13 @@
 						fruitcake wafer.</div>
 				</div>
 			</div>
+			<div> 
+				<c:forEach var="u" items="${comments}">
+				<tr>
+					<td>${u}</td>
+				</tr>
+			</c:forEach>
+			</div>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
@@ -131,13 +138,7 @@
 				</div>
 				<hr />
 			</div>
-
-
-			<c:forEach var="u" items="${comments}">
-				<tr>
-					<td>${u}</td>
-				</tr>
-			</c:forEach>
+			
 		</div>
 	</div>
 

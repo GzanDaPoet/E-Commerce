@@ -31,7 +31,7 @@ public class CustomerPaymentMethod {
 	@Column(name = "expiry")
 	private LocalDate expiry;
 	
-	@OneToMany(mappedBy = "payment_method_id", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customerPaymentMethod", fetch = FetchType.LAZY)
 	private Collection<ShopOrder> shopOrders;
 	
 	

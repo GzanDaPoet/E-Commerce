@@ -20,7 +20,7 @@ public class StatusReceiving {
 	@Column(name = "status")
 	private String status;
 
-	@OneToMany(mappedBy = "statusReceiving", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "statusReceiving", fetch = FetchType.LAZY)
 	private Collection<InventoryReceiving> inventoryReceivings;
 
 	public StatusReceiving() {

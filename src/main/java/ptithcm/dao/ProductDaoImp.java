@@ -34,9 +34,9 @@ public class ProductDaoImp implements ProductDao{
 	    return (Product) query.uniqueResult();
 	}
 
-	public int getOrderID(int productId) {
+	public Integer getOrderID(int productId) {
 		Session session = factory.getCurrentSession();
-		String hql = "Select Order_Line.order_id FROM Product_Item , Order_Line where Product_Item.id = :productId and Product_Item.id = Order_Line.product_item_id";
+		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";
 		Query query = session.createQuery(hql);
 		query.setParameter("productId", productId);
 		return (int) query.uniqueResult();
@@ -44,9 +44,9 @@ public class ProductDaoImp implements ProductDao{
 	
 	public List<String> getAllCommentsById(int productId) {
 		Session session = factory.getCurrentSession();
-		String hql = "Select Customer_Review.comment FROM Order_Line , Customer_Review where Order_Line.id = 1 and Order_Line.id = Customer_Review.ordered_product_id";
+		String hql = "Select cr.comment FROM OrderLine ol, CustomerReview cr where ol.id = :orderId and ol.id = cr.orderLine.id";
 		Query query = session.createQuery(hql);
-		query.setParameter("orderId", 1);
+		query.setParameter("orderId", getOrderID(productId));
 		List<String> comments = query.list();
 		return comments;
 	}

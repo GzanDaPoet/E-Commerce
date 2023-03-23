@@ -31,7 +31,10 @@ import ptithcm.service.ProductService;
 		public String product(ModelMap model, @PathVariable("productId") int productId) {
 			Product product = productService.getProductById(productId);
 			List<String> comments = productService.getAllCommentsById(productId);
-			model.addAttribute("comments", comments);
+			if (!comments.isEmpty()) {
+				model.addAttribute("comments", comments);
+			}
+		
 			model.addAttribute("product", product);
 			return "e-commerce/product";
 		}

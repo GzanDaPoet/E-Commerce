@@ -24,7 +24,7 @@ public class ShippingMethod {
 	@Column(name = "price")
 	private Integer price;
 
-	@OneToMany(mappedBy = "shippinng_method_id", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "shippingMethod", fetch = FetchType.LAZY)
 	private Collection<ShopOrder> shopOrders;
 	
 	

@@ -29,7 +29,7 @@ public class Address {
 	private String detailAddress;
 	
 	
-	@OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddress;
 	
 	public Address() {

@@ -21,7 +21,7 @@ public class OrderStatus {
 	@Column(name = "status")
 	private String status;
 
-	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.LAZY)
 	private Collection<ShopOrder> shopOrders;
 
 	public OrderStatus() {

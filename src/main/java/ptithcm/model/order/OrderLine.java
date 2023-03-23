@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import ptithcm.model.customer.CustomerReivew;
+import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shop.ShopOrder;
 
@@ -34,8 +34,8 @@ public class OrderLine {
 	@Column(name = "price")
 	private Integer price;
 	
-	@OneToMany(mappedBy = "orderLine", fetch = FetchType.EAGER)
-	private Collection<CustomerReivew> customerReivew;
+	@OneToMany(mappedBy = "orderLine", fetch = FetchType.LAZY)
+	private Collection<CustomerReview> customerReivew;
 	
 	public OrderLine() {
 		super();

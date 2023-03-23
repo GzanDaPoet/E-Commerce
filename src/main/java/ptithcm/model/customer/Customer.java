@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,19 +28,19 @@ public class Customer {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddresses;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<ShoppingCart> shoppingCarts;
 	
 	@OneToOne(mappedBy = "customer")
 	private CustomerProfile customerProfile;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-	private Collection<CustomerReivew> customerReivews;
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	private Collection<CustomerReview> customerReivews;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerPaymentMethod> customerPaymentMethods;
 	
 	

@@ -1,6 +1,5 @@
 package ptithcm.model.product;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -11,13 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import ptithcm.model.cart.ShoppingCartItem;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.updation.UpdatePriceProductItem;
 import ptithcm.model.warranty.WarrantyDetail;
 
-@Entity(name = "Product_Item")
+@Entity
+@Table(name = "Product_Item")
 
 public class ProductItem {
 	@Id
@@ -36,18 +37,18 @@ public class ProductItem {
 	@Column(name = "price")
 	private int price;
 	@Column(name = "warranty_time")
-	private LocalDate date;
+	private int date;
 	@Column(name = "status")
 	private String status;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<ShoppingCartItem> cartItems;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<ProductConfigruation> productConfigruations;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<WarrantyDetail> warrantyDetails;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
 	
 	
@@ -58,7 +59,7 @@ public class ProductItem {
 	}
 
 	public ProductItem(int id, Product product, String sKU, int quantityInStock, String productImage, int price,
-			LocalDate date, String status) {
+			int date, String status) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -118,11 +119,11 @@ public class ProductItem {
 		this.price = price;
 	}
 
-	public LocalDate getDate() {
+	public int getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(int date) {
 		this.date = date;
 	}
 

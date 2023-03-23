@@ -17,7 +17,7 @@ public class Product {
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name="category_id")
-	private Category category;
+	private ProductCategory productCategory;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "description")
@@ -31,10 +31,10 @@ public class Product {
 
 	
 
-	public Product(Integer id, Category category, String name, String description, String productImage) {
+	public Product(Integer id, ProductCategory productCategory, String name, String description, String productImage) {
 		super();
 		this.id = id;
-		this.category = category;
+		this.productCategory = productCategory;
 		this.name = name;
 		this.description = description;
 		this.productImage = productImage;
@@ -42,14 +42,14 @@ public class Product {
 
 
 
-	public Category getCategory() {
-		return category;
+	public ProductCategory getCategory() {
+		return productCategory;
 	}
 
 
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategory(ProductCategory productCategory) {
+		this.productCategory = productCategory;
 	}
 
 

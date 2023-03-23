@@ -27,8 +27,55 @@ public class VariationOption {
 	@Column(name = "value")
 	private String value;
 	
-	@OneToMany(mappedBy = "variationOption", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "variationOption", fetch = FetchType.LAZY)
 	private Collection<ProductConfigruation> productConfigruations;
+
+	
+	
+	public VariationOption() {
+		super();
+	}
+
+	public VariationOption(Integer id, Variation variation, String value,
+			Collection<ProductConfigruation> productConfigruations) {
+		super();
+		this.id = id;
+		this.variation = variation;
+		this.value = value;
+		this.productConfigruations = productConfigruations;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Variation getVariation() {
+		return variation;
+	}
+
+	public void setVariation(Variation variation) {
+		this.variation = variation;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public Collection<ProductConfigruation> getProductConfigruations() {
+		return productConfigruations;
+	}
+
+	public void setProductConfigruations(Collection<ProductConfigruation> productConfigruations) {
+		this.productConfigruations = productConfigruations;
+	}
 	
 	
 	

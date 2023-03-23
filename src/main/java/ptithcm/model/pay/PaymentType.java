@@ -20,7 +20,7 @@ public class PaymentType {
 	private String status;
 	
 	
-	@OneToMany(mappedBy = "paymentType", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "paymentType", fetch = FetchType.LAZY)
 	private Collection<CustomerPaymentMethod> customerPaymentMethods;
 	
 	public PaymentType() {

@@ -11,11 +11,12 @@ import javax.persistence.Table;
 import ptithcm.model.order.OrderLine;
 
 @Entity
-@Table(name = "Customer_Reivew")
-public class CustomerReivew {
+@Table(name = "Customer_Review")
+public class CustomerReview {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
+	private Integer id;
 	@ManyToOne()
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -27,16 +28,25 @@ public class CustomerReivew {
 	@Column(name = "comment")
 	private String comment;
 
-	public CustomerReivew() {
+	public CustomerReview() {
 		super();
 	}
 
-	public CustomerReivew(Customer customer, OrderLine orderLine, Integer ratingValue, String comment) {
+	public CustomerReview(Integer id, Customer customer, OrderLine orderLine, Integer ratingValue, String comment) {
 		super();
+		this.id = id;
 		this.customer = customer;
 		this.orderLine = orderLine;
 		this.ratingValue = ratingValue;
 		this.comment = comment;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Customer getCustomer() {
@@ -71,4 +81,5 @@ public class CustomerReivew {
 		this.comment = comment;
 	}
 
+	
 }

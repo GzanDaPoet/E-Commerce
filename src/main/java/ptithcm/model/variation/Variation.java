@@ -1,7 +1,7 @@
 package ptithcm.model.variation;
 
 import java.util.Collection;
-import java.util.Locale.Category;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ptithcm.model.product.ProductCategory;
+
 @Entity
 @Table(name = "Variation")
 public class Variation {
@@ -22,21 +24,21 @@ public class Variation {
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private Category category;
+	private ProductCategory productCategory;
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "variation", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY)
 	private Collection<VariationOption> variationOptions;
 
 	public Variation() {
 		super();
 	}
 
-	public Variation(Integer id, Category category, String name, Collection<VariationOption> variationOptions) {
+	public Variation(Integer id, ProductCategory category, String name, Collection<VariationOption> variationOptions) {
 		super();
 		this.id = id;
-		this.category = category;
+		this.productCategory = category;
 		this.name = name;
 		this.variationOptions = variationOptions;
 	}
@@ -49,12 +51,12 @@ public class Variation {
 		this.id = id;
 	}
 
-	public Category getCategory() {
-		return category;
+	public ProductCategory getCategory() {
+		return productCategory;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategory(ProductCategory category) {
+		this.productCategory = category;
 	}
 
 	public String getName() {

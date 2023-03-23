@@ -34,10 +34,141 @@ public class Promotion {
 	private LocalDate createAt;
 	
 	
-	@OneToMany(mappedBy = "promotion", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
 	private Collection<User> users;
-	@OneToMany(mappedBy = "promotion", fetch = FetchType.EAGER)
-	private Collection<PromotionCategory> promotionCategories;
+	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
+	private Collection<PromotionCategory> promotionCategory;
+	
+	
+	
+	public Promotion() {
+		super();
+	}
+
+
+
+	public Promotion(Integer id, String name, String description, int discountRate, LocalDate startDate,
+			LocalDate endDate, LocalDate createAt, Collection<User> users,
+			Collection<PromotionCategory> promotionCategory) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.discountRate = discountRate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.createAt = createAt;
+		this.users = users;
+		this.promotionCategory = promotionCategory;
+	}
+
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+	public int getDiscountRate() {
+		return discountRate;
+	}
+
+
+
+	public void setDiscountRate(int discountRate) {
+		this.discountRate = discountRate;
+	}
+
+
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+	public LocalDate getCreateAt() {
+		return createAt;
+	}
+
+
+
+	public void setCreateAt(LocalDate createAt) {
+		this.createAt = createAt;
+	}
+
+
+
+	public Collection<User> getUsers() {
+		return users;
+	}
+
+
+
+	public void setUsers(Collection<User> users) {
+		this.users = users;
+	}
+
+
+
+	public Collection<PromotionCategory> getPromotionCategories() {
+		return promotionCategory;
+	}
+
+
+
+	public void setPromotionCategories(Collection<PromotionCategory> promotionCategory) {
+		this.promotionCategory = promotionCategory;
+	}
 	
 	
 	

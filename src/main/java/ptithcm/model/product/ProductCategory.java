@@ -15,31 +15,31 @@ import ptithcm.model.variation.Variation;
 
 @Entity
 @Table(name = "Product_Category")
-public class Category {
+public class ProductCategory {
 	@Id 
 	@GeneratedValue
-	@Column(name="category_id")
+	@Column(name="id")
 	private Integer id;
 	@Column(name="parent_category_id")
 	private Integer parentCategoryId;
 	@Column(name="category_name")
 	private String categoryName;
 	
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<Product> products;
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<PromotionCategory> promotionCategories;
 	
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<Variation> variations;
 	
 	
-	public Category() {
+	public ProductCategory() {
 		super();
 	}
 	
-	public Category(Integer id, Integer parentCategoryId, String categoryName) {
+	public ProductCategory(Integer id, Integer parentCategoryId, String categoryName) {
 		super();
 		this.id = id;
 		this.parentCategoryId = parentCategoryId;

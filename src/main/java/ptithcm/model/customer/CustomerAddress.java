@@ -32,7 +32,7 @@ public class CustomerAddress {
 	@ManyToOne()
 	@JoinColumn(name = "address_id")
 	private Address address;
-	@OneToMany(mappedBy = "customerAddress", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customerAddress", fetch = FetchType.LAZY)
 	private Collection<ShopOrder> shopOrders;
 	
 	public CustomerAddress() {

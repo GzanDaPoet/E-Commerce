@@ -17,6 +17,7 @@ public class WarrantyDetail {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "product_item_id")
 	private ProductItem productItem;
@@ -31,11 +32,20 @@ public class WarrantyDetail {
 		super();
 	}
 
-	public WarrantyDetail(ProductItem productItem, Warranty warranty, ShopOrder shopOrder) {
+	public WarrantyDetail(Integer id, ProductItem productItem, Warranty warranty, ShopOrder shopOrder) {
 		super();
+		this.id = id;
 		this.productItem = productItem;
 		this.warranty = warranty;
 		this.shopOrder = shopOrder;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public ProductItem getProductItem() {
