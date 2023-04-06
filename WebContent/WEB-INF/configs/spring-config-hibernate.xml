@@ -37,7 +37,7 @@
 				<value>ptithcm.model.product</value>
 				<value>ptithcm.model.address</value>
 				<value>ptithcm.model.agency</value>
-				<value>ptithcm.model.cart</value>
+				<value>ptithcm.model.shoppingCart</value>
 				<value>ptithcm.model.customer</value>
 				<value>ptithcm.model.inventory</value>
 				<value>ptithcm.model.order</value>
@@ -49,11 +49,11 @@
 				<value>ptithcm.model.variation</value>
 				<value>ptithcm.model.warranty</value>
 				<value>ptithcm.model.promotion</value>
-				
 			</list>
 		</property>
 	</bean>
-
+	
+	
 	<!-- Transaction Manager -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"

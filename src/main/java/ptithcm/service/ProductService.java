@@ -1,21 +1,22 @@
 package ptithcm.service;
 
-import java.awt.print.Printable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ptithcm.dao.ProductDao;
+import ptithcm.dao.product.ProductDao;
+import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.product.Product;
+import ptithcm.model.product.ProductItem;
 
 @Service
 public class ProductService {
 	@Autowired 
 	private ProductDao productDao;
 	
-	public List<Product> getListProducts() {
-		List<Product> listProducts = productDao.getAllProducts();
+	public List<ProductItem> getListProducts() {
+		List<ProductItem> listProducts = productDao.getAllProducts();
 		if (!listProducts.isEmpty()) {
 			return listProducts;
 		}
@@ -23,26 +24,33 @@ public class ProductService {
 	}
 	
 	
-	public Product getProductById(int id) {
-		Product product = productDao.getProductById(id);
+	public ProductItem getProductById(int id) {
+		ProductItem product = productDao.getProductById(id);
 		if (product != null) {
 			return product;
 		}
 		return null;
 	}
 	
-	public List<String> getAllCommentsById(int id) {
-		List<String> comments = productDao.getAllCommentsById(id);
-		if (!comments.isEmpty()) {
-			return comments;
-		}
-		return null;
-	}
+//	public List<CustomerReview> getAllCommentsById(int id) {
+//		List<CustomerReview> comments = productDao.getAllCommentsById(id);
+//		if (!comments.isEmpty()) {
+//			return comments;
+//		}
+//		return null;
+//	}
+//	
+//	public int getOrderId(int id) {
+//		int value = productDao.getOrderID(id);
+//		System.out.println("Value: " + value);
+//		return value;
+//	}
 	
-	public int getOrderId(int id) {
-		int value = productDao.getOrderID(id);
-		System.out.println("Value: " + value);
-		return value;
-	}
+//	public Boolean checkIsCart(int customerId) {
+//		if (productDao.checkIsCart(customerId)) {
+//			return true;
+//		}
+//		return false;
+//	}
 	
 }

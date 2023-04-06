@@ -12,7 +12,6 @@ import ptithcm.model.variation.VariationOption;
 @Entity
 @Table(name = "Product_Configuration")
 public class ProductConfigruation {
-
 	@EmbeddedId
     private ProductConfigurationId id;
 	@ManyToOne()

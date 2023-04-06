@@ -6,19 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ptithcm.model.cart.ShoppingCart;
 import ptithcm.model.pay.CustomerPaymentMethod;
+import ptithcm.model.shoppingCart.ShoppingCart;
 
 @Entity
 @Table(name = "Customer")
 public class Customer {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "username")
@@ -37,7 +38,7 @@ public class Customer {
 	@OneToOne(mappedBy = "customer")
 	private CustomerProfile customerProfile;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
 	private Collection<CustomerReview> customerReivews;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
