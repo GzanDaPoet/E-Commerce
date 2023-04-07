@@ -20,7 +20,7 @@
 					<div class="card">
 						<img class="card-img-top" src="${u.getProductImage()}" alt="Shoe">
 						<div class="card-body">
-							<h4 class="card-title"> <a href ="product/${u.getId()}.htm"> ${u.getName()}</a></h4>
+							<h4 class="card-title"> <a href ="product/${u.getId()}.htm"> ${u.getProduct().getName()}</a></h4>
 							<span class="fa fa-star checked"></span> <span
 								class="fa fa-star checked"></span> <span
 								class="fa fa-star checked"></span> <span class="fa fa-star"></span>

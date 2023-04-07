@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ import ptithcm.model.ship.ShippingMethod;
 @Table(name = "Shop_Order")
 public class ShopOrder {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 
@@ -42,7 +43,7 @@ public class ShopOrder {
 	@JoinColumn(name = "payment_method_id")
 	private CustomerPaymentMethod customerPaymentMethod;
 
-	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.EAGER)
 	private Collection<OrderLine> orderLines;
 
 	@Column(name = "order_date")

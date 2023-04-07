@@ -6,14 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import ptithcm.model.cart.ShoppingCartItem;
 import ptithcm.model.order.OrderLine;
+import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.model.updation.UpdatePriceProductItem;
 import ptithcm.model.warranty.WarrantyDetail;
 
@@ -22,13 +23,13 @@ import ptithcm.model.warranty.WarrantyDetail;
 
 public class ProductItem {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	@ManyToOne()
 	@JoinColumn(name = "product_id")
 	private Product product;
-	@Column(name = "SKU")
+	@Column(name = "SKU")	
 	private String SKU;
 	@Column(name = "qty_in_stock")	
 	private int quantityInStock;
@@ -39,7 +40,7 @@ public class ProductItem {
 	@Column(name = "warranty_time")
 	private int date;
 	@Column(name = "status")
-	private String status;
+	private String statusProduct;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
@@ -68,7 +69,7 @@ public class ProductItem {
 		this.productImage = productImage;
 		this.price = price;
 		this.date = date;
-		this.status = status;
+		this.statusProduct = status;
 	}
 
 	public int getId() {
@@ -128,11 +129,11 @@ public class ProductItem {
 	}
 
 	public String getStatus() {
-		return status;
+		return statusProduct;
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		this.statusProduct = status;
 	}
 
 }
