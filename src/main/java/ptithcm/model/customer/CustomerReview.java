@@ -13,6 +13,7 @@ import ptithcm.model.order.OrderLine;
 
 @Entity
 @Table(name = "Customer_Review")
+
 public class CustomerReview {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,5 +83,4 @@ public class CustomerReview {
 		this.comment = comment;
 	}
 
-	
 }

@@ -23,29 +23,29 @@ public class ShoppingCartService {
 	}
 	
 	
-//	public Integer isHaveCart(int customerId) {
-//		System.out.println("1");
-//		if (!getAllShoppingCart().isEmpty())
-//		{
-//			for (ShoppingCart s: getAllShoppingCart()) {
-//				if (s.getCustomer().getId() == customerId) {
-//					return s.getId();
-//				}
-//			}
-//		}
-//		return 0;
-//	}
+	public Integer isHaveCart(int customerId) {
+		System.out.println("1");
+		if (!getAllShoppingCart().isEmpty())
+		{
+			for (ShoppingCart s: getAllShoppingCart()) {
+				if (s.getCustomer().getId() == customerId) {
+					return s.getId();
+				}
+			}
+		}
+		return 0;
+	}
 	
-//	public ShoppingCart getShoppingCartId(int cartId, int customerId) {
-//		if (isHaveCart(customerId) > 0 && getAllShoppingCart().size() > 0) {
-//			for (ShoppingCart s: getAllShoppingCart()) {
-//				if (s.getId() == cartId) {
-//					return s;
-//				}
-//			}
-//		}
-//		return null;
-//	}
+	public ShoppingCart getShoppingCartId(int cartId, int customerId) {
+		if (isHaveCart(customerId) > 0 && getAllShoppingCart().size() > 0) {
+			for (ShoppingCart s: getAllShoppingCart()) {
+				if (s.getId() == cartId) {
+					return s;
+				}
+			}
+		}
+		return null;
+	}
 	
 	public List<ShoppingCartItem> getAllCartItemsById(int cartId) {
 		List<ShoppingCartItem> list = shoppingCartDao.getAllCartItemsById(cartId);

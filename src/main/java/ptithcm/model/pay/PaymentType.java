@@ -17,8 +17,8 @@ public class PaymentType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "status")
-	private String status;
+	@Column(name = "value")
+	private String value;
 	
 	
 	@OneToMany(mappedBy = "paymentType", fetch = FetchType.LAZY)
@@ -31,7 +31,7 @@ public class PaymentType {
 	public PaymentType(Integer id, String status) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.value = status;
 	}
 
 	public Integer getId() {
@@ -43,11 +43,11 @@ public class PaymentType {
 	}
 
 	public String getStatus() {
-		return status;
+		return value;
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		this.value = status;
 	}
 	
 	

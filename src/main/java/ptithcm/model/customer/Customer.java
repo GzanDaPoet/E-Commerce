@@ -2,6 +2,7 @@ package ptithcm.model.customer;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,10 +36,10 @@ public class Customer {
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<ShoppingCart> shoppingCarts;
 	
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private CustomerProfile customerProfile;
 	
-	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerReview> customerReivews;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)

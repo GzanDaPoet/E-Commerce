@@ -1,5 +1,6 @@
 package ptithcm.model.shop;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -47,7 +48,7 @@ public class ShopOrder {
 	private Collection<OrderLine> orderLines;
 
 	@Column(name = "order_date")
-	private LocalDate localDate;
+	private Date orderDate;
 	@Column(name = "order_total")
 	private Integer orderTotal;
 
@@ -55,18 +56,23 @@ public class ShopOrder {
 		super();
 	}
 
+	
+
 	public ShopOrder(Integer id, ShippingMethod shippingMethod, CustomerAddress customerAddress,
-			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, LocalDate localDate,
-			Integer orderTotal) {
+			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, Collection<OrderLine> orderLines,
+			Date orderDate, Integer orderTotal) {
 		super();
 		this.id = id;
 		this.shippingMethod = shippingMethod;
 		this.customerAddress = customerAddress;
 		this.orderStatus = orderStatus;
 		this.customerPaymentMethod = customerPaymentMethod;
-		this.localDate = localDate;
+		this.orderLines = orderLines;
+		this.orderDate = orderDate;
 		this.orderTotal = orderTotal;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -108,12 +114,20 @@ public class ShopOrder {
 		this.customerPaymentMethod = customerPaymentMethod;
 	}
 
-	public LocalDate getLocalDate() {
-		return localDate;
+	public Collection<OrderLine> getOrderLines() {
+		return orderLines;
 	}
 
-	public void setLocalDate(LocalDate localDate) {
-		this.localDate = localDate;
+	public void setOrderLines(Collection<OrderLine> orderLines) {
+		this.orderLines = orderLines;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public Integer getOrderTotal() {
@@ -123,5 +137,8 @@ public class ShopOrder {
 	public void setOrderTotal(Integer orderTotal) {
 		this.orderTotal = orderTotal;
 	}
+
+	
+	
 
 }

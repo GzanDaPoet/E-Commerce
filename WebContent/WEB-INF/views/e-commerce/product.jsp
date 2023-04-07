@@ -88,7 +88,7 @@
 		</div>
 
 		<div class="cart-icon">
-			<i class="fa fa-shopping-cart"></i> <span>${quantityOrdered }</span>
+			<i class="fa fa-shopping-cart"></i> <span>${quantityOrdered}</span>
 		</div>
 
 		<div>${message}</div>

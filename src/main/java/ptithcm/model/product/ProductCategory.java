@@ -26,7 +26,7 @@ public class ProductCategory {
 	@Column(name = "category_name")
 	private String categoryName;
 	
-	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
 	private Collection<Product> products;
 
 	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)

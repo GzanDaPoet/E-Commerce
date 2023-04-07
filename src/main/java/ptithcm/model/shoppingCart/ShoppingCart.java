@@ -22,18 +22,18 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
-	private Collection<ShoppingCartItem> shoppingCartItems;	
-
 	@ManyToOne()
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
-
+	
+	@OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
+	private Collection<ShoppingCartItem> shoppingCartItems;
+	
 	public ShoppingCart() {
 		super();
 	}
 
-	public ShoppingCart(Integer id, Collection<ShoppingCartItem> shoppingCartItems, Customer customer) {
+	public ShoppingCart(Integer id,  Customer customer, Collection<ShoppingCartItem> shoppingCartItems) {
 		super();
 		this.id = id;
 		this.shoppingCartItems = shoppingCartItems;
@@ -63,7 +63,4 @@ public class ShoppingCart {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
-	
-
 }

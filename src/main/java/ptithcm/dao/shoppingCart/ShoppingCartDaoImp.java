@@ -16,7 +16,6 @@ public class ShoppingCartDaoImp implements ShoppingCartDao {
 	@Autowired
 	SessionFactory factory;
 
-	@Override
 	public List<ShoppingCart> getAllShoppingCart() {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ShoppingCart";
