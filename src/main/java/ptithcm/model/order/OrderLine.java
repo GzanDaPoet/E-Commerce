@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ import ptithcm.model.shop.ShopOrder;
 @Table(name = "Order_Line")
 public class OrderLine {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@ManyToOne()
@@ -28,7 +29,7 @@ public class OrderLine {
 	private ProductItem productItem;
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	private ShopOrder shopOrder;
+	private ShopOrder shopOrder;			
 	@Column(name = "qty")
 	private Integer quantity;
 	@Column(name = "price")

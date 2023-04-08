@@ -2,23 +2,25 @@ package ptithcm.model.customer;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ptithcm.model.cart.ShoppingCart;
 import ptithcm.model.pay.CustomerPaymentMethod;
+import ptithcm.model.shoppingCart.ShoppingCart;
 
 @Entity
 @Table(name = "Customer")
 public class Customer {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "username")
@@ -34,7 +36,7 @@ public class Customer {
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<ShoppingCart> shoppingCarts;
 	
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private CustomerProfile customerProfile;
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)

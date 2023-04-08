@@ -47,13 +47,12 @@
 						<td><img
 							src="${u.getProductImage() }"
 							alt="Product Image" class="product-image mr-2"/>
-							${u.getName()}</td>
+							${u.product.getName()}</td>
 						<td>2022-02-01</td>
 						<td><span class="badge badge-success">In stock</span></td>
 						<td>$50</td>
 						<td><div class="btn-group">
 								<div class="ti-settings"></div>
-								</button>
 								<ul class="dropdown-menu">
 									<li><a class="dropdown-item"
 										href="https://minimals.cc/dashboard/user/list">Edit</a></li>

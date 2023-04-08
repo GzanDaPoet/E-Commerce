@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ import ptithcm.model.variation.Variation;
 @Table(name = "Product_Category")
 public class ProductCategory {
 	@Id 
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Integer id;
 	@Column(name = "parent_category_id")
@@ -25,7 +26,7 @@ public class ProductCategory {
 	@Column(name = "category_name")
 	private String categoryName;
 	
-	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
 	private Collection<Product> products;
 
 	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)

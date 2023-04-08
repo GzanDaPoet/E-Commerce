@@ -7,16 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.controller.ProductController;
 import ptithcm.service.admin.LoginService;
+
+
+
+
 
 @Controller
 public class AdminController {
-
 	@Autowired
 	LoginService service;
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String showAdminLogin() {
+		System.out.println("Customer id: " + ProductController.getIdCustomer());
 		return "admin/login";
 	}
 

@@ -1,11 +1,10 @@
 package ptithcm.model.customer;
 
-import java.time.LocalDate;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -15,11 +14,11 @@ import javax.persistence.Table;
 @Table(name = "Customer_Profile")
 public class CustomerProfile {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	@Column(name = "name")
@@ -29,16 +28,16 @@ public class CustomerProfile {
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 	@Column(name = "create_at")
-	private LocalDate createAt;
+	private String createAt;
 	@Column(name = "modified_at")
-	private LocalDate modifiedAt;
+	private String modifiedAt;
 
 	public CustomerProfile() {
 		super();
 	}
 
 	public CustomerProfile(Integer id, Customer customer, String name, String address, String phoneNumber,
-			LocalDate createAt, LocalDate modifiedAt) {
+			String createAt, String modifiedAt) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -89,19 +88,19 @@ public class CustomerProfile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public LocalDate getCreateAt() {
+	public String getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(LocalDate createAt) {
+	public void setCreateAt(String createAt) {
 		this.createAt = createAt;
 	}
 
-	public LocalDate getModifiedAt() {
+	public String getModifiedAt() {
 		return modifiedAt;
 	}
 
-	public void setModifiedAt(LocalDate modifiedAt) {
+	public void setModifiedAt(String modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 

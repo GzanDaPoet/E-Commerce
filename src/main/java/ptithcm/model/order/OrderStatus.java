@@ -1,11 +1,12 @@
 package ptithcm.model.order;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,12 +17,13 @@ import ptithcm.model.shop.ShopOrder;
 @Table(name = "Order_Status")
 public class OrderStatus {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "status")
+	@Column(name="status")
 	private String status;
 
-	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.LAZY)	
 	private Collection<ShopOrder> shopOrders;
 
 	public OrderStatus() {

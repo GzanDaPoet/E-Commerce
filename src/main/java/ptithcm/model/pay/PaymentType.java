@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,11 +14,11 @@ import javax.persistence.Table;
 @Table(name = "Payment_Type")
 public class PaymentType {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "status")
-	private String status;
+	@Column(name = "value")
+	private String value;
 	
 	
 	@OneToMany(mappedBy = "paymentType", fetch = FetchType.LAZY)
@@ -30,7 +31,7 @@ public class PaymentType {
 	public PaymentType(Integer id, String status) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.value = status;
 	}
 
 	public Integer getId() {
@@ -42,11 +43,11 @@ public class PaymentType {
 	}
 
 	public String getStatus() {
-		return status;
+		return value;
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		this.value = status;
 	}
 	
 	

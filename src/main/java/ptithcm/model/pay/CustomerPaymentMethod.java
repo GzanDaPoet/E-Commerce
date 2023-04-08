@@ -1,5 +1,6 @@
 package ptithcm.model.pay;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -7,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import ptithcm.model.shop.ShopOrder;
 @Table(name = "Customer_Payment_Method")
 public class CustomerPaymentMethod {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@ManyToOne()
@@ -29,7 +31,7 @@ public class CustomerPaymentMethod {
 	@JoinColumn(name = "payment_type_id")
 	private PaymentType paymentType;
 	@Column(name = "expiry")
-	private LocalDate expiry;
+	private Date expiry;
 	
 	@OneToMany(mappedBy = "customerPaymentMethod", fetch = FetchType.LAZY)
 	private Collection<ShopOrder> shopOrders;
@@ -40,7 +42,7 @@ public class CustomerPaymentMethod {
 	}
 
 
-	public CustomerPaymentMethod(Integer id, Customer customer, PaymentType paymentType, LocalDate expiry,
+	public CustomerPaymentMethod(Integer id, Customer customer, PaymentType paymentType, Date expiry,
 			Collection<ShopOrder> shopOrders) {
 		super();
 		this.id = id;
@@ -81,12 +83,12 @@ public class CustomerPaymentMethod {
 	}
 
 
-	public LocalDate getExpiry() {
+	public Date getExpiry() {
 		return expiry;
 	}
 
 
-	public void setExpiry(LocalDate expiry) {
+	public void setExpiry(Date expiry) {
 		this.expiry = expiry;
 	}
 
