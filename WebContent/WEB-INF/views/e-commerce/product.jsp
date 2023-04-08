@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +13,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 .row {
@@ -43,6 +46,51 @@
 .item-subtitle {
 	font-size: 18px;
 	color: #666;
+}
+
+/* Thiết lập kiểu cho phần tử trường văn bản */
+input[type="text"], textarea {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: none;
+}
+
+/* Thiết lập kiểu cho phần tử container */
+.comment-container {
+	border: 2px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #f8f8f8;
+	margin-top: 10px;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.comment {
+	padding: 5px;
+	margin-bottom: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.comment .author {
+	font-weight: bold;
+}
+
+.comment .date {
+	color: #aaa;
+	font-size: 0.8em;
+}
+
+.comment .message {
+	margin-top: 5px;
+	font-size: 0.9em;
 }
 </style>
 </head>
@@ -79,7 +127,8 @@
 						<input type="hidden" name="productItem.price"
 							value="${product.price}" /> <input type="hidden"
 							name="customer.id" value="1" />
-						<button type="submit" class="btn btn-primary">Add to Cart</button>
+						<button type="submit" class="btn btn-primary" name="addToCart">Add
+							to Cart</button>
 					</div>
 				</form:form>
 				<div></div>
@@ -106,7 +155,7 @@
 					<i class="fas fa-mobile-alt"></i>
 				</div>
 				<div class="item-title">10 Day Replacement</div>
-				<div class="item-subtitle">Marshmallow biscuit donut drag�e
+				<div class="item-subtitle">Marshmallow biscuit donut dragée
 					fruitcake wafer.</div>
 			</div>
 			<div class="item" style="border-radius: 10px;">
@@ -114,7 +163,7 @@
 					<i class="fas fa-headphones"></i>
 				</div>
 				<div class="item-title">Year Warranty</div>
-				<div class="item-subtitle">Marshmallow biscuit donut drag�e
+				<div class="item-subtitle">Marshmallow biscuit donut dragée
 					fruitcake wafer.</div>
 			</div>
 		</div>
@@ -126,6 +175,32 @@
 				</div>
 			</div>
 			<hr />
+		</div>
+
+		<!--  Comment -->
+
+
+		<form:form action="${product.getId()}.htm"
+			modelAttribute="CustomerReview">
+			<label for="comment-input">Nhập comment</label>
+			<textarea 
+				id="comment-input" name="commentInput" rows="5">
+			</textarea>
+			<div class="btn_submit_comment">
+				<button name="addComment" type="submit" class="btn btn-primary">Submit
+				</button>
+			</div>
+		</form:form>
+
+
+
+		<div class="comment-container">
+			<div class="comment">
+				<c:forEach var="c" items="${comments}">
+					<div class="author">${c.getCustomer().getUserName()}</div>
+					<div class="message">${c.getComment()}</div>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </body>

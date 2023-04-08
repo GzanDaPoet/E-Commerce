@@ -62,4 +62,12 @@ public class ProductDaoImp implements ProductDao {
 		return (Double) query.uniqueResult();
 	}
 	
+	public OrderLine getOrderLineById(int productId) {
+		Session session = factory.getCurrentSession();
+		String hql = "Select cr.orderLine From CustomerReview cr JOIN cr.orderLine ol JOIN ol.productItem pi WHERE pi.id = :productId";
+		Query query = session.createQuery(hql);
+		query.setParameter("productId", productId);
+		return (OrderLine) query.uniqueResult();
+	}
+	
 }

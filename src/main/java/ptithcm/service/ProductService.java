@@ -59,4 +59,12 @@ public class ProductService {
 		return null;
 	}
 	
+	public OrderLine getOrderLinebyId(int id) {
+		OrderLine orderLine = productDao.getOrderLineById(id);
+		if (orderLine != null) {
+			return orderLine;
+		}
+		return null;
+	}
+	
 }

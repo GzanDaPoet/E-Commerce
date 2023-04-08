@@ -8,7 +8,7 @@ import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.ProductItem;
-import ptithcm.model.shop.ShopOrder;
+
 
 public interface ProductDao {
 	public List<ProductItem> getAllProducts();
@@ -16,5 +16,5 @@ public interface ProductDao {
 	public Integer getOrderID(int id);
 	public List<CustomerReview> getAllCommentsById(int id);
 	public Double getRatingAverageProduct(int productId);
-
+	public OrderLine getOrderLineById(int id);
 }
