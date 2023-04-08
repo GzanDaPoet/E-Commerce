@@ -2,30 +2,35 @@ package ptithcm.dao.shoppingCart;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.loader.custom.Return;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
-import ptithcm.model.shoppingCart.ShoppingCart;
-import ptithcm.model.shoppingCart.ShoppingCartItem;
 
-@Service
-public class ShoppingCartDaoImp implements ShoppingCartDao {
+
+import ptithcm.model.shoppingCart.*;
+
+
+@Controller
+@Transactional
+public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	@Autowired
 	SessionFactory factory;
-
-	@Override
-	public List<ShoppingCart> getAllShoppingCart() {
-		Session session = factory.getCurrentSession();
+	
+	public List<ShoppingCart> dsCart(){
+		Session session = 	factory.getCurrentSession();
 		String hql = "FROM ShoppingCart";
 		Query query = session.createQuery(hql);
 		List<ShoppingCart> list = query.list();
-		System.out.println("List size: " + list.size());
 		return list;
 	}
-
+	
 	public List<ShoppingCartItem> getAllCartItemsById(int cartId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ShoppingCartItem s where s.cart.id = :cartId";
