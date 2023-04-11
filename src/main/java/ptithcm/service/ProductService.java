@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ptithcm.dao.product.ProductDao;
-import ptithcm.model.customer.CustomerReview;
-import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 
 @Service

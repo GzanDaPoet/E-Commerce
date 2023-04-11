@@ -81,7 +81,7 @@
 										</div>
 									</td>
 									<td>${q.name }</td>
-									<td>${q.price }</td>
+									<td>${q.price } VNĐ</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -93,7 +93,7 @@
 					<div>
 						<h4 class="col-sm-12 title">Order Summary</h4>
 						<h5>Sub total:</h5>
-						<h5>Shipping:</h5>
+						<h5>Shipping: </h5>
 						<hr>
 						<h4>
 							Total:

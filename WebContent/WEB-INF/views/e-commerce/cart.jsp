@@ -26,17 +26,19 @@
 			<ul class="col-sm-12 breadscrum-custom">
 				<li class="breadscrum-custom-item"><a href="http://">Dashboard</a>
 				</li>
-				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://">E-Commerce</a>
-				</li>
-				<li class="breadscrum-custom-item"> <span class="dotted"> </span> Check Out</li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<a href="http://">E-Commerce</a></li>
+				<li class="breadscrum-custom-item"><span class="dotted">
+				</span> Check Out</li>
 			</ul>
 		</div>
 		<div class="row">
 			<ul class="col-xl-2 breadscrum-custom">
 				<li class="breadscrum-custom-item"><p>Cart</p></li>
-				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://localhost:8080/com.ecommerce/e-commerce/address.htm">Billing . Address </a></li>
-				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">Payment </a>
-				</li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<a href="http://localhost:8080/com.ecommerce/e-commerce/address.htm"> Address</a></li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<a href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm"> Payment</a></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -58,9 +60,16 @@
 							<c:forEach var="i" items="${shoppingCart}">
 								<tr>
 									<td>${i.productItem.product.getName()}</td>
-									<td>${i.quantity}</td>
-									<td>${i.productItem.getPrice()}</td>
-									<td>${i.productItem.getPrice() * i.quantity } </td>
+									
+									<td><div class="btn-group btn-group-justified">
+											<a href="#" class="btn btn-outline-primary">-</a> 
+											<button disabled class="btn btn-outline-primary" >${i.quantity}</button>
+											<a href="#" class="btn btn-outline-primary">+</a>
+										</div>
+									</td>
+
+									<td>${i.productItem.getPrice()} VNĐ</td>
+									<td>${i.productItem.getPrice() * i.quantity } VNĐ</td>
 									<td><button type="button" class="btn btn-outline-primary">Del</button>
 									</td>
 								</tr>
@@ -69,7 +78,7 @@
 					</table>
 					<div>
 						<button type="button" class="btn btn-outline-primary">
-							Continue Shopping</button>
+							&#171  Continue Shopping</button>
 					</div>
 				</div>
 			</div>
@@ -80,13 +89,14 @@
 						<h4 class="col-sm-12 title">Order Summary</h4>
 						<h5>Sub total:</h5>
 						<hr>
-						<h4>
-							Total:
-							</h5>
+						<h4> Total: </h4>
 					</div>
 					<div>
-						<button type="button" class="btn btn-success btn-lg btn-center">Check
-							Out</button>
+						<form action="address.htm" method="post">
+							<button type="submit" class="btn btn-success btn-lg"
+								name="checkOut">Check Out</button>
+						</form>
+
 					</div>
 				</div>
 			</div>

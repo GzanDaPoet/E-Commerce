@@ -27,7 +27,7 @@ public class AddressController{
 //		model.addAttribute("address",addressList);
 //		return "e-commerce/address";
 //	}
-	public String showCart(ModelMap model) {
+	public String showAddress(ModelMap model) {
 		List<CustomerAddress> addressList = addressService.getAddressByID(1);
 		model.addAttribute("customerAddress",addressList);
 		return "e-commerce/address";
