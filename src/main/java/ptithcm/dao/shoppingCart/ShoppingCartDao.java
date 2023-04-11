@@ -11,6 +11,4 @@ import ptithcm.service.CartService;
 public interface ShoppingCartDao {
 	public List<ShoppingCart> dsCart();
 	public List<ShoppingCartItem> getAllCartItemsById(int cartId);
-	
-
 }

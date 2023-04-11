@@ -16,7 +16,7 @@
 	rel="stylesheet">
 
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/cart/cart.css' />">
+	href="<c:url value ='/common/assets/css/cart/cart.css' ">
 </head>
 
 <body>
@@ -45,44 +45,49 @@
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-xl-6 col-md">
+			<div class="col-xl-9 col-md">
 				<div class="box">
-					<h3 class="col-sm-12 title">Cart</h3>
+					<div>
+						<h3 class="col-xl-1 col-md title">Payment</h3>
+					</div>
 					<table class="table">
-						<thead>
-
-							<tr>
-								<th>Product</th>
-								<th>Quantity</th>
-								<th>Price</th>
-								<th>Total Price</th>
-								<th></th>
-							</tr>
-						</thead>
 						<tbody>
-							<c:forEach var="i" items="${shoppingCart}">
+							<c:forEach var="i" items="${cart}">
 								<tr>
-									<td>${i.productItem.product.getName()}</td>
-									<td>${i.quantity}</td>
-									<td>${i.productItem.getPrice()}</td>
-									<td><button type="button" class="btn btn-outline-primary">Del</button>
-									</td>
+									<td>Thon 2 som 2 ap 3</td>
+									<td><button type="button" class="btn btn-outline-primary">Shipping
+											to this address</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+				</div>
+				<div class="box mt-3">
 					<div>
-						<button type="button" class="btn btn-outline-primary">
-							Continue Shopping</button>
+						<h3 class="col-xl-1 col-md title">Shipping</h3>
 					</div>
+					<table class="table">
+						<tbody>
+							<c:forEach var="i" items="${cart}">
+								<tr>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="exampleRadios" id="exampleRadios1" value="option1"
+											checked> <label class="form-check-label"
+											for="exampleRadios1"> Default radio </label>
+									</div>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
-
 			<div class="col-xl-3">
 				<div class="box2">
 					<div>
 						<h4 class="col-sm-12 title">Order Summary</h4>
 						<h5>Sub total:</h5>
+						<h5>Shipping:</h5>
 						<hr>
 						<h4>
 							Total:
@@ -94,6 +99,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="mt-3">
+			<button type="button" class="btn btn-outline-primary">Back</button>
 		</div>
 	</div>
 </body>

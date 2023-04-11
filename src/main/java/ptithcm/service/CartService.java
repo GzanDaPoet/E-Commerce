@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import ptithcm.dao.shoppingCart.ShoppingCartDao;
 import ptithcm.model.shoppingCart.ShoppingCart;
+import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.model.address.Address;
 
 
 @Service
@@ -22,7 +24,13 @@ public class CartService {
 		return listCarts;
 	};
 	
-	
+	public List<ShoppingCartItem> getAllCartItemsById(int cartId){
+		List<ShoppingCartItem> listCartItems = shoppingCartDao.getAllCartItemsById(cartId);
+		if (listCartItems == null) {
+			return null;
+		}
+		return listCartItems;
+	}
 	
 	
 	

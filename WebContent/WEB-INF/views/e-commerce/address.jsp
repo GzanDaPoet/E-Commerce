@@ -17,6 +17,7 @@
 
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/cart/cart.css' />">
+
 </head>
 
 <body>
@@ -45,56 +46,39 @@
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-xl-6 col-md">
+			<div class="col-xl-9 col-md">
 				<div class="box">
-					<h3 class="col-sm-12 title">Cart</h3>
-					<table class="table">
-						<thead>
-
-							<tr>
-								<th>Product</th>
-								<th>Quantity</th>
-								<th>Price</th>
-								<th>Total Price</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="i" items="${shoppingCart}">
-								<tr>
-									<td>${i.productItem.product.getName()}</td>
-									<td>${i.quantity}</td>
-									<td>${i.productItem.getPrice()}</td>
-									<td><button type="button" class="btn btn-outline-primary">Del</button>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<div>
-						<button type="button" class="btn btn-outline-primary">
-							Continue Shopping</button>
+					<div class="row">
+						<h3 class="col-xl-1 col-md title">Address</h3>
 					</div>
+					<button type="button" class="btn btn-outline-primary">Add
+						new address</button>
 				</div>
+				<ul class="list-group">
+					<c:forEach var="i" items="${customerAddress}">
+						<li class="list-group-item">
+							<div class=row>
+								<div>${i.address.detailAddress }
+									${i.address.ward } ${i.address.district } ${i.address.city }
+								</div>
+								<div><button type="button" class="btn btn-outline-primary sl-3">Del</button>
+								</div>
+								<div> <button type="button" class="btn btn-outline-primary">Delivery
+										to this address</button></div>
+									
+								
+
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
 			</div>
-
-			<div class="col-xl-3">
-				<div class="box2">
-					<div>
-						<h4 class="col-sm-12 title">Order Summary</h4>
-						<h5>Sub total:</h5>
-						<hr>
-						<h4>
-							Total:
-							</h5>
-					</div>
-					<div>
-						<button type="button" class="btn btn-success btn-lg btn-center">Check
-							Out</button>
-					</div>
-				</div>
+			<div>
+				<button type="button" class="btn btn-outline-primary">Back</button>
 			</div>
 		</div>
+	</div>
+
 	</div>
 </body>
 
