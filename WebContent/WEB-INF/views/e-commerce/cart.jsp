@@ -26,21 +26,16 @@
 			<ul class="col-sm-12 breadscrum-custom">
 				<li class="breadscrum-custom-item"><a href="http://">Dashboard</a>
 				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">E-Commerce</a>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://">E-Commerce</a>
 				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item">Check Out</li>
+				<li class="breadscrum-custom-item"> <span class="dotted"> </span> Check Out</li>
 			</ul>
 		</div>
 		<div class="row">
 			<ul class="col-xl-2 breadscrum-custom">
-				<li class="breadscrum-custom-item"><a href="http://">Cart</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Billing
-						& Address</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Payment</a>
+				<li class="breadscrum-custom-item"><p>Cart</p></li>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://localhost:8080/com.ecommerce/e-commerce/address.htm">Billing . Address </a></li>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">Payment </a>
 				</li>
 			</ul>
 		</div>
@@ -65,6 +60,7 @@
 									<td>${i.productItem.product.getName()}</td>
 									<td>${i.quantity}</td>
 									<td>${i.productItem.getPrice()}</td>
+									<td>${i.productItem.getPrice() * i.quantity } </td>
 									<td><button type="button" class="btn btn-outline-primary">Del</button>
 									</td>
 								</tr>

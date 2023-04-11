@@ -15,8 +15,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/cart/cart.css' ">
+<link rel="stylesheet" href="/common/assets/css/cart/cart.css">
 </head>
 
 <body>
@@ -26,22 +25,22 @@
 			<ul class="col-sm-12 breadscrum-custom">
 				<li class="breadscrum-custom-item"><a href="http://">Dashboard</a>
 				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">E-Commerce</a>
-				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item">Check Out</li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<a href="http://">E-Commerce</a></li>
+				<li class="breadscrum-custom-item"><span class="dotted">
+				</span> Check Out</li>
 			</ul>
 		</div>
 		<div class="row">
 			<ul class="col-xl-2 breadscrum-custom">
-				<li class="breadscrum-custom-item"><a href="http://">Cart</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Billing
-						& Address</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Payment</a>
-				</li>
+				<li class="breadscrum-custom-item"><a
+					href="http://localhost:8080/com.ecommerce/e-commerce/cart.htm">Cart</a></li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<a
+					href="http://localhost:8080/com.ecommerce/e-commerce/address.htm">Address
+				</a></li>
+				<li class="breadscrum-custom-item"><span class="dotted"></span>
+					<p>Payment</p></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -52,11 +51,15 @@
 					</div>
 					<table class="table">
 						<tbody>
-							<c:forEach var="i" items="${cart}">
+							<c:forEach var="i" items="${payment}">
 								<tr>
-									<td>Thon 2 som 2 ap 3</td>
-									<td><button type="button" class="btn btn-outline-primary">Shipping
-											to this address</button></td>
+									<td><div>
+											<input class="form-check-input" type="radio"
+												name="PaymentMethod" id="${i.id }" value="option1"
+												checked>
+										</div></td>
+									<td>${i.paymentType.status }</td>
+									<td>${i.expiry}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -68,14 +71,17 @@
 					</div>
 					<table class="table">
 						<tbody>
-							<c:forEach var="i" items="${cart}">
+							<c:forEach var="q" items="${shipping }">
 								<tr>
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="exampleRadios" id="exampleRadios1" value="option1"
-											checked> <label class="form-check-label"
-											for="exampleRadios1"> Default radio </label>
-									</div>
+									<td>
+										<div>
+											<input class="form-check-input" type="radio"
+												name="ShippingMethod" id="${i.id }" value="option1"
+												checked>
+										</div>
+									</td>
+									<td>${q.name }</td>
+									<td>${q.price }</td>
 								</tr>
 							</c:forEach>
 						</tbody>

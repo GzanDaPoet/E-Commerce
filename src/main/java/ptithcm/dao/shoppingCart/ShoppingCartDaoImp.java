@@ -33,8 +33,6 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	public List<ShoppingCartItem> getAllCartItemsById(int cartId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ShoppingCartItem s where s.cart.customer.id = :cartId";
-		//String hql = "SELECT sci.productItemId, sci.qty, pi.price FROM ShoppingCartItem JOIN ShoppingCart sc ON sci.cartId = sc.id JOIN ProductItem pi ON sci.productItemId = pi.id WHERE sc.customerId = : address_id";
-		//String hql = "SELECT sci FROM ShoppingCartItem sci JOIN sc.ShoppingCart sc WHERE sc.customerId = :cartId";
 		Query query = session.createQuery(hql);
 		query.setParameter("cartId", cartId);
 		List<ShoppingCartItem> list = query.list();

@@ -27,21 +27,16 @@
 			<ul class="col-sm-12 breadscrum-custom">
 				<li class="breadscrum-custom-item"><a href="http://">Dashboard</a>
 				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">E-Commerce</a>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://">E-Commerce</a>
 				</li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item">Check Out</li>
+				<li class="breadscrum-custom-item"> <span class="dotted"> </span> Check Out</li>
 			</ul>
 		</div>
 		<div class="row">
 			<ul class="col-xl-2 breadscrum-custom">
-				<li class="breadscrum-custom-item"><a href="http://">Cart</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Billing
-						& Address</a></li>
-				<span class="dotted"></span>
-				<li class="breadscrum-custom-item"><a href="http://">Payment</a>
+				<li class="breadscrum-custom-item"><a href="http://localhost:8080/com.ecommerce/e-commerce/cart.htm">Cart</a></li>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <p> Address </p></li>
+				<li class="breadscrum-custom-item"> <span class="dotted"></span> <a href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">Payment </a>
 				</li>
 			</ul>
 		</div>
