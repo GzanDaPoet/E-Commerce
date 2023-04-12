@@ -35,8 +35,8 @@ public class Promotion {
 	private LocalDate createAt;
 	
 	
-	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
-	private Collection<User> users;
+//	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
+//	private Collection<User> users;
 	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
 	private Collection<PromotionCategory> promotionCategory;
 	
@@ -59,7 +59,7 @@ public class Promotion {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.createAt = createAt;
-		this.users = users;
+//		this.users = users;
 		this.promotionCategory = promotionCategory;
 	}
 
@@ -149,15 +149,15 @@ public class Promotion {
 
 
 
-	public Collection<User> getUsers() {
-		return users;
-	}
+//	public Collection<User> getUsers() {
+//		return users;
+//	}
 
 
 
-	public void setUsers(Collection<User> users) {
-		this.users = users;
-	}
+//	public void setUsers(Collection<User> users) {
+//		this.users = users;
+//	}
 
 
 
