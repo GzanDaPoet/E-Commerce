@@ -24,33 +24,33 @@
 			<div class="login__logo">
 				<img src="<c:url value ='/common/images/logo.png'/>" alt="">
 			</div>
-			<h3>Hi, Welcome back!</h3>
+			<h3>Chào mừng bạn quay trở lại!</h3>
 			<img
 				src="<c:url value ='/common/images/illustration_dashboard.svg'/>"
 				alt="">
 		</div>
 		<div class="login__form">
-			<form action="">
+			<form action="login.htm" method="POST">
 				<div class="login__form-group">
 					<div class="group-header">
-						<h3>Sign up to E-commerce</h3>
-						<span>New user? <a href="#">Create an account</a></span>
+						<h3>Đăng nhập vào thương mại điện tử</h3>
+						<span>Người dùng mới? <a href="#">Tạo tài khoản</a></span>
 					</div>
 					<div class="input-container">
 						<input type="text" required="required" id="username"
 							name="username" aria-labelledby="username"><span
 							class="highlight"></span><span class="bar"></span> <label
-							for="searchText">User name</label>
+							for="searchText">Tên người dùng</label>
 					</div>
 					<div class="input-container">
 						<input type="password" required="required" id="password"
 							name="password" aria-labelledby="password"><span
 							class="highlight"></span><span class="bar"></span> <label
-							for="searchText">Password</label>
+							for="searchText">Mật khẩu</label>
 					</div>
 					<div class="form-submit">
-						<a href="#">Forgot password?</a>
-						<button>Login</button>
+						<a href="#">Quên mật khẩu?</a>
+						<button type="submit">Đang nhập</button>
 					</div>
 				</div>
 			</form>

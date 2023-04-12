@@ -19,7 +19,7 @@ import ptithcm.model.promotion.Promotion;
 import ptithcm.model.updation.UpdatePriceProductItem;
 
 @Entity
-@Table(name = "User")
+@Table(name = "[User]")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,22 +36,14 @@ public class User {
 	private String password;
 	@Column(name = "status")
 	private Boolean status;
-	
+
 	@OneToOne(mappedBy = "user")
 	private UserProfile userProfile;
-	
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<InventoryReceiving> inventoryReceivings;
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
-	@ManyToOne()	
-	@JoinColumn(name = "user_id")
-	private Promotion promotion;
-	
-	
-	
-	
 
 	public User(Integer id, UserPermission user_permission, String username, String email, String password,
 			Boolean status) {
@@ -115,10 +107,5 @@ public class User {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-	
-	
-
-
-	
 
 }

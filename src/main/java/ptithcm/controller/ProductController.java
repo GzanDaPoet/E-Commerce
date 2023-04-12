@@ -1,4 +1,5 @@
 package ptithcm.controller;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,9 +22,11 @@ import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.model.user.User;
 import ptithcm.service.CustomerService;
 import ptithcm.service.ProductService;
 import ptithcm.service.ShoppingCartService;
+import ptithcm.util.SessionUtil;
 
 @Transactional
 @Controller
@@ -43,14 +45,15 @@ public class ProductController {
 	CustomerService customerService;
 
 	@RequestMapping("shop")
-	public String shop(ModelMap model) {
+	public String shop(ModelMap model, HttpServletRequest request) {
 		List<ProductItem> list = productService.getListProducts();
 		model.addAttribute("listProduct", list);
+		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
 		return "e-commerce/shop";
 	}
-	
+
 	static Integer id = 0;
-	
+
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
 	public String product(ModelMap model, @PathVariable("productId") int productId) {
 		ProductItem product = productService.getProductById(productId);
@@ -74,8 +77,7 @@ public class ProductController {
 	public static Integer getIdCustomer() {
 		return id;
 	}
-	
-	
+
 	@RequestMapping("list")
 	public String index(ModelMap model) {
 		List<ProductItem> list = productService.getListProducts();
@@ -101,7 +103,7 @@ public class ProductController {
 				model.addAttribute("comments", comments);
 			}
 		}
-		Session session = sessionFactory.openSession();	
+		Session session = sessionFactory.openSession();
 		Transaction t = session.beginTransaction();
 		if (cartId > 0) {
 			shoppingCartItem.setCart(shoppingCartService.getShoppingCartId(cartId, 1));
@@ -115,14 +117,13 @@ public class ProductController {
 			} finally {
 				session.close();
 			}
-		}	
-		else {
+		} else {
 			ShoppingCart shoppingCart = new ShoppingCart();
 			shoppingCart.setCustomer(customer);
 			try {
 				session.save(shoppingCart);
 				t.commit();
-				model.addAttribute("message", "Thêm mới giỏ hàng thành công! ");	
+				model.addAttribute("message", "Thêm mới giỏ hàng thành công! ");
 
 			} catch (Exception e) {
 				t.rollback();
@@ -135,10 +136,10 @@ public class ProductController {
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		return "e-commerce/product";
 	}
-	
+
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addComment")
-	public String addComment(ModelMap model, @PathVariable("productId") int productId, @ModelAttribute("CustomerReview")
-		CustomerReview customerReview,	 HttpServletRequest request)  {
+	public String addComment(ModelMap model, @PathVariable("productId") int productId,
+			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
 		Customer customer = customerService.getCustomerById(getIdCustomer());
 		customerReview.setCustomer(customer);
 		String comment = request.getParameter("commentInput").trim();
@@ -146,7 +147,7 @@ public class ProductController {
 		customerReview.setComment(comment);
 		customerReview.setOrderLine(productService.getOrderLinebyId(productId));
 		customerReview.setRatingValue(5);
-		Session session = sessionFactory.openSession();	
+		Session session = sessionFactory.openSession();
 		Transaction t = session.beginTransaction();
 		if (customerReview.getComment() != "") {
 			try {
@@ -160,7 +161,7 @@ public class ProductController {
 				session.close();
 			}
 		}
-	   return product(model, productId);
+		return product(model, productId);
 	}
 
 }
