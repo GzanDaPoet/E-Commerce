@@ -66,19 +66,29 @@
 								<tr>
 									<td>${i.productItem.product.getName()}</td>
 
-									<td><div class="btn-group btn-group-justified">
-											<a href="#" class=" btn btn-outline-primary" id="decrease">-</a>
+									<td>
+										<div class="btn-group btn-group-justified">
+											<form action="../e-commerce/cart/decrease.htm" method="post">
+												<input type="hidden" name="productId" value="${i.getId()}">
+												<button class="btn btn-outline-primary" id="decrease">
+													-</button>
+											</form>
 											<button disabled class="btn btn-outline-primary"
 												id="quantity">${i.quantity}</button>
-											<a href="#" class="btn btn-outline-primary" id="increase">+</a>
+											<form action="../e-commerce/cart/increase.htm" method="post">
+												<input type="hidden" name="productId" value="${i.getId()}">
+												<button class="btn btn-outline-primary" id="increase">
+													+</button>
+											</form>
+										</div>
 
-										</div></td>
+									</td>
 
 									<td>${i.productItem.getPrice()}VNĐ</td>
 									<td>${i.productItem.getPrice() * i.quantity }VNĐ</td>
-									<td><form action="/e-commerce/cart/delete" method="post">
-											<input type="hidden" name="productId"
-												value="${i.productItem.product.getId()}">
+									<td><form action="../e-commerce/cart/delete.htm"
+											method="post">
+											<input type="hidden" name="productId" value="${i.getId()}">
 											<button type="submit" class="btn btn-outline-primary">Del</button>
 										</form></td>
 								</tr>

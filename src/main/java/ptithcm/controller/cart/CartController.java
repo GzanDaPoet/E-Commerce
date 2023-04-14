@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.product.Product;
@@ -28,21 +30,17 @@ import ptithcm.service.CartService;
 @RequestMapping("/e-commerce/")
 @Controller
 @Transactional
+
 public class CartController{
 	
 	@Autowired
 	CartService cartService;
 	@Autowired
 	AddressService addressService;
-//	@RequestMapping(value = "cart")
-//	public String showCart(ModelMap model) {
-//		model.addAttribute("cart",cartService.dsCart());
-//		return "e-commerce/cart";
-//	}
+
 	public static ShoppingCartItem shoppingCartItem;
-	
-	
 	public static ProductItem productItem;
+	
 	@RequestMapping(value = "cart")
 	public String showCart(ModelMap model,HttpSession ss) {
 		int sum = 0;
@@ -63,13 +61,24 @@ public class CartController{
 		return "e-commerce/address";
 	}
 	
-	@RequestMapping(value = "cart/delete",params = "idcart",method = RequestMethod.POST)
-	public String deleteCart(@RequestParam(required = true) int idcart,  RedirectAttributes ra,ModelMap model) {
-		int result = cartService.deleteCartItem(idcart);
-		model.addAttribute("delete",result);
-		ra.addFlashAttribute("delete_cart",0);
-		System.out.println("kq");
-		return "e-commerce/cart";
+	@RequestMapping(value ="cart/increase",method = RequestMethod.POST)
+	public String increaseCartItem(@RequestParam("productId") int productId) {
+		cartService.increaseQty(productId);
+		return "redirect:/e-commerce/cart.htm";
 	}
+	
+	@RequestMapping(value ="cart/decrease",method = RequestMethod.POST)
+	public String decreaseCartItem(@RequestParam("productId") int productId) {
+		cartService.decreaseQty(productId);
+		return "redirect:/e-commerce/cart.htm";
+	}
+
+    @RequestMapping(value = "cart/delete", method = RequestMethod.POST)
+    public String deleteCartItem(@RequestParam("productId") int productId) {
+        cartService.deleteCartItem(productId);
+		 return "redirect:/e-commerce/cart.htm";
+    }
+	
+	
 	
 }

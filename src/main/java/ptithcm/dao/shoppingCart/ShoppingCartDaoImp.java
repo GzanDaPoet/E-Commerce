@@ -51,9 +51,9 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	@Override
 	public int increaseQty(int shoppingCartItemId) {
 		Session session = factory.getCurrentSession();
-		String hql = "UPDATE ShoppingCartItem s SET s.quantity = s.quantity + 1 : WHERE s.id = :itemId";
+		String hql = "UPDATE ShoppingCartItem s SET s.quantity = s.quantity + 1 WHERE s.id  = :itemId";
 		Query query = session.createQuery(hql);
-		query.setParameter("itemId", shoppingCartItemId);
+		query.setParameter("itemId" , shoppingCartItemId);
 		int result = query.executeUpdate();
 		return result;
 	}
@@ -61,7 +61,7 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	@Override
 	public int decreaseQty(int shoppingCartItemId) {
 		Session session = factory.getCurrentSession();
-		String hql = "UPDATE ShoppingCartItem s SET s.quantity = s.quantity - 1 : WHERE s.id = :itemId";
+		String hql = "UPDATE ShoppingCartItem s SET s.quantity = s.quantity - 1 WHERE s.id = :itemId";
 		Query query = session.createQuery(hql);
 		query.setParameter("itemId", shoppingCartItemId);
 		int result = query.executeUpdate();
