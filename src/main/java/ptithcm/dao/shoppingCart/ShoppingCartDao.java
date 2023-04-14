@@ -11,4 +11,7 @@ import ptithcm.model.shoppingCart.*;
 public interface ShoppingCartDao {
 	public List<ShoppingCart> dsCart();
 	public List<ShoppingCartItem> getAllCartItemsById(int cartId);
+	public int deleteCartItem(int idCartItem);
+	public int increaseQty( int shoppingCartItemId); 
+	public int decreaseQty( int shoppingCartItemId);	
 }

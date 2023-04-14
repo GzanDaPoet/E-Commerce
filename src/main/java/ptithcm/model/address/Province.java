@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Province")
 public class Province{
+	@Id
 	@Column(name ="id")
 	private Integer id;
 	@Column(name="name")

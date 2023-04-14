@@ -39,4 +39,14 @@ public class AddressDaoImp implements AddressDao {
 		return addressList;
 	}
 
+
+	@Override
+	public int deleteAddress(int addressId) {
+		Session session = factory.getCurrentSession();
+		String hql = "DELETE FROM Address WHERE id = " + addressId;
+		Query query = session.createQuery(hql);
+		int result = query.executeUpdate();
+		return result;
+	}
+
 }

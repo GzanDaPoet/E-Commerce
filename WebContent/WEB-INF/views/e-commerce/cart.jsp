@@ -17,6 +17,7 @@
 
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/cart/cart.css' />">
+
 </head>
 
 <body>
@@ -36,9 +37,13 @@
 			<ul class="col-xl-2 breadscrum-custom">
 				<li class="breadscrum-custom-item"><p>Cart</p></li>
 				<li class="breadscrum-custom-item"><span class="dotted"></span>
-					<a href="http://localhost:8080/com.ecommerce/e-commerce/address.htm"> Address</a></li>
+					<a
+					href="http://localhost:8080/com.ecommerce/e-commerce/address.htm">
+						Address</a></li>
 				<li class="breadscrum-custom-item"><span class="dotted"></span>
-					<a href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm"> Payment</a></li>
+					<a
+					href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">
+						Payment</a></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -60,25 +65,29 @@
 							<c:forEach var="i" items="${shoppingCart}">
 								<tr>
 									<td>${i.productItem.product.getName()}</td>
-									
-									<td><div class="btn-group btn-group-justified">
-											<a href="#" class="btn btn-outline-primary">-</a> 
-											<button disabled class="btn btn-outline-primary" >${i.quantity}</button>
-											<a href="#" class="btn btn-outline-primary">+</a>
-										</div>
-									</td>
 
-									<td>${i.productItem.getPrice()} VNĐ</td>
-									<td>${i.productItem.getPrice() * i.quantity } VNĐ</td>
-									<td><button type="button" class="btn btn-outline-primary">Del</button>
-									</td>
+									<td><div class="btn-group btn-group-justified">
+											<a href="#" class=" btn btn-outline-primary" id="decrease">-</a>
+											<button disabled class="btn btn-outline-primary"
+												id="quantity">${i.quantity}</button>
+											<a href="#" class="btn btn-outline-primary" id="increase">+</a>
+
+										</div></td>
+
+									<td>${i.productItem.getPrice()}VNĐ</td>
+									<td>${i.productItem.getPrice() * i.quantity }VNĐ</td>
+									<td><form action="/e-commerce/cart/delete" method="post">
+											<input type="hidden" name="productId"
+												value="${i.productItem.product.getId()}">
+											<button type="submit" class="btn btn-outline-primary">Del</button>
+										</form></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 					<div>
 						<button type="button" class="btn btn-outline-primary">
-							&#171  Continue Shopping</button>
+							&#171 Continue Shopping</button>
 					</div>
 				</div>
 			</div>
@@ -87,9 +96,9 @@
 				<div class="box2">
 					<div>
 						<h4 class="col-sm-12 title">Order Summary</h4>
-						<h5>Sub total:</h5>
+						<h5>Sub total: ${sum} VND</h5>
 						<hr>
-						<h4> Total: </h4>
+						<h4>Total: ${sum} VND</h4>
 					</div>
 					<div>
 						<form action="address.htm" method="post">
@@ -102,6 +111,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 
 </html>

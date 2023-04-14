@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,17 +18,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Province")
 public class District{
+	@Id
 	@Column(name ="id")
 	private Integer id;
 	@Column(name="name")
 	private String name;
 	@Column(name="prefix")
 	private String prefix;
-	@ManyToOne
-	@Column(name="province_id")
+	@ManyToOne()
+	@JoinColumn(name="province_id")
 	private Province province;
 	@OneToMany(mappedBy = "district")
-    private List<Ward> wards;
+	private List<Ward> wards;
 	
 	
 	public District() {

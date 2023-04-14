@@ -13,4 +13,5 @@ import ptithcm.model.ship.ShippingMethod;
 public interface PaymentDao {
 	public List<CustomerPaymentMethod> getPaymentListById(int ctmID);
 	public List<ShippingMethod> getListShippingMethods();
+	//public int checkOut();
 }

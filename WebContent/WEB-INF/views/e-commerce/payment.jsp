@@ -92,7 +92,7 @@
 				<div class="box2">
 					<div>
 						<h4 class="col-sm-12 title">Order Summary</h4>
-						<h5>Sub total:</h5>
+						<h5>Sub total: ${sum}</h5>
 						<h5>Shipping: </h5>
 						<hr>
 						<h4>

@@ -32,10 +32,19 @@ public class CartService {
 		return listCartItems;
 	}
 	
+	public int deleteCartItem(int idCartItem) {
+		int delete = shoppingCartDao.deleteCartItem(idCartItem);
+		return delete;
+	}
 	
+	public int increaseQty(int shoppingCartItemId) {
+		int increase =shoppingCartDao.increaseQty(shoppingCartItemId);
+		return increase;
+	}
 	
-	
-	
-	
+	public int decreaseQty(int shoppingCartItemId) {
+		int decrease =shoppingCartDao.decreaseQty(shoppingCartItemId);
+		return decrease;
+	}
 	
 }

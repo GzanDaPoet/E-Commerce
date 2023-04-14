@@ -12,4 +12,5 @@ import ptithcm.model.customer.CustomerAddress;
 public interface AddressDao {
 	//public List<Address> getAddressByID(int addressId);
 	public List<CustomerAddress> getAddressByID(int addressId);
+	public int deleteAddress(int addressId);
 }

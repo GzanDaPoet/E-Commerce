@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Province")
 public class Ward{
+	@Id
 	@Column(name ="id")
 	private Integer id;
 	@Column(name="name")
@@ -23,10 +25,10 @@ public class Ward{
 	@Column(name="prefix")
 	private String prefix;
 	@ManyToOne
-	@Column(name="province_id")
+	@JoinColumn(name="province_id")
 	private Province province;
 	@ManyToOne
-	@Column(name="district_id")
+	@JoinColumn(name="district_id")
 	private District district;
 	
 	
@@ -39,8 +41,8 @@ public class Ward{
 		this.id = id;
 		this.name = name;
 		this.prefix=prefix;
-		this.province=province;
-		this.district=district;
+//		this.province=province;
+//		this.district=district;
 	}
 
 	public Integer getId() {
@@ -67,21 +69,21 @@ public class Ward{
 		this.prefix = prefix;
 	}
 
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
-	}
-
-	public District getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(District district) {
-		this.district = district;
-	}
+//	public Province getProvince() {
+//		return province;
+//	}
+//
+//	public void setProvince(Province province) {
+//		this.province = province;
+//	}
+//
+//	public District getDistrict() {
+//		return district;
+//	}
+//
+//	public void setDistrict(District district) {
+//		this.district = district;
+//	}
 	
 	
 	
