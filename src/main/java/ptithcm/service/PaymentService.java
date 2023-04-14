@@ -1,12 +1,13 @@
 package ptithcm.service;
 
-import java.awt.print.Printable;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ptithcm.dao.payment.PaymentDao;
+
 import ptithcm.model.pay.CustomerPaymentMethod;
 import ptithcm.model.ship.ShippingMethod;
 
@@ -29,6 +30,16 @@ public class PaymentService {
 			return null;
 		}
 		return listShippingMethods;
+	}
+	
+	public ShippingMethod getShippingById(int Id) {
+		ShippingMethod shippingMethod = paymentDao.getShippingById(Id);
+		return shippingMethod;
+	}
+
+	public CustomerPaymentMethod getPaymentById(int Id) {
+		CustomerPaymentMethod paymentMethod = paymentDao.getPaymentById(Id);
+		return paymentMethod;
 	}
 	
 }

@@ -22,19 +22,12 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	@Autowired
 	SessionFactory factory;
 	
-	public List<ShoppingCart> dsCart(){
-		Session session = 	factory.getCurrentSession();
-		String hql = "FROM ShoppingCart";
-		Query query = session.createQuery(hql);
-		List<ShoppingCart> list = query.list();
-		return list;
-	}
 	
-	public List<ShoppingCartItem> getAllCartItemsById(int cartId) {
+	public List<ShoppingCartItem> getAllCartItemsById(int ctmId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ShoppingCartItem s where s.cart.customer.id = :cartId";
+		String hql = "FROM ShoppingCartItem s where s.cart.customer.id = :ctmId";
 		Query query = session.createQuery(hql);
-		query.setParameter("cartId", cartId);
+		query.setParameter("ctmId", ctmId);
 		List<ShoppingCartItem> list = query.list();
 		return list;
 	}
@@ -67,5 +60,7 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 		int result = query.executeUpdate();
 		return result;
 	}
+
+	
 
 }

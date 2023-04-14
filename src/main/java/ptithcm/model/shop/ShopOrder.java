@@ -1,7 +1,9 @@
 package ptithcm.model.shop;
 
-import java.time.LocalDate;
+
+import java.sql.Date;
 import java.util.Collection;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +49,7 @@ public class ShopOrder {
 	private Collection<OrderLine> orderLines;
 
 	@Column(name = "order_date")
-	private LocalDate localDate;
+	private Date date;
 	@Column(name = "order_total")
 	private Integer orderTotal;
 
@@ -56,7 +58,7 @@ public class ShopOrder {
 	}
 
 	public ShopOrder(Integer id, ShippingMethod shippingMethod, CustomerAddress customerAddress,
-			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, LocalDate localDate,
+			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, Date date,
 			Integer orderTotal) {
 		super();
 		this.id = id;
@@ -64,7 +66,7 @@ public class ShopOrder {
 		this.customerAddress = customerAddress;
 		this.orderStatus = orderStatus;
 		this.customerPaymentMethod = customerPaymentMethod;
-		this.localDate = localDate;
+		this.date = date;
 		this.orderTotal = orderTotal;
 	}
 
@@ -108,12 +110,12 @@ public class ShopOrder {
 		this.customerPaymentMethod = customerPaymentMethod;
 	}
 
-	public LocalDate getLocalDate() {
-		return localDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setLocalDate(LocalDate localDate) {
-		this.localDate = localDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Integer getOrderTotal() {

@@ -36,48 +36,48 @@ public class PaymentController{
 	PaymentService paymentService;
 	@Autowired
 	SessionFactory factory;
-	@RequestMapping(value = "payment")
-	public String showPayment(ModelMap model,HttpSession ss) {
-		int sum= 0;
-		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(3);
-		model.addAttribute("payment",payment);
-		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
-		model.addAttribute("shipping", shipping);
-		List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(3);
-		model.addAttribute("cart", listCartItems);
-		for (ShoppingCartItem item : listCartItems ) {
-			sum +=item.getProductItem().getPrice() * item.getQuantity(); 
-		}
-		ss.setAttribute("sum", sum);
-		return "e-commerce/payment";
-	}
-
-	@RequestMapping(value="checkout", method = RequestMethod.GET)
-	public String checkOut(ModelMap model) {
-		model.addAttribute("shopOrder",  new ShopOrder());
-		return "e-commerce/payment";
-	}
-	
-	@RequestMapping(value = "checkout", method = RequestMethod.POST)
-	public String checkOut (ModelMap model, @ModelAttribute("shopOrder") ShopOrder shopOrder) {
-		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
-		try {
-			session.save(shopOrder);
-			t.commit();
-			model.addAttribute("message", "Thêm mới thành công! ");
-		} catch ( Exception e) {
-			t.rollback();
-			model.addAttribute("message", "Thêm mới thất bại! ");
-		}
-		finally {
-			session.close();
-		}
-		List<ShoppingCartItem> listItems =cartService.getAllCartItemsById(3);
-		for (ShoppingCartItem item : listItems ) {
-			
-		}
-		return "e-commerce/payment";
-	}
+//	@RequestMapping(value = "payment")
+//	public String showPayment(ModelMap model,HttpSession ss) {
+//		int sum= 0;
+//		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(3);
+//		model.addAttribute("payment",payment);
+//		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
+//		model.addAttribute("shipping", shipping);
+//		List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(3);
+//		model.addAttribute("cart", listCartItems);
+//		for (ShoppingCartItem item : listCartItems ) {
+//			sum +=item.getProductItem().getPrice() * item.getQuantity(); 
+//		}
+//		ss.setAttribute("sum", sum);
+//		return "e-commerce/payment";
+//	}
+//
+//	@RequestMapping(value="checkout", method = RequestMethod.GET)
+//	public String checkOut(ModelMap model) {
+//		model.addAttribute("shopOrder",  new ShopOrder());
+//		return "e-commerce/payment";
+//	}
+//	
+//	@RequestMapping(value = "checkout", method = RequestMethod.POST)
+//	public String checkOut (ModelMap model, @ModelAttribute("shopOrder") ShopOrder shopOrder) {
+//		Session session = factory.openSession();
+//		Transaction t = session.beginTransaction();
+//		try {
+//			session.save(shopOrder);
+//			t.commit();
+//			model.addAttribute("message", "Thêm mới thành công! ");
+//		} catch ( Exception e) {
+//			t.rollback();
+//			model.addAttribute("message", "Thêm mới thất bại! ");
+//		}
+//		finally {
+//			session.close();
+//		}
+//		List<ShoppingCartItem> listItems =cartService.getAllCartItemsById(3);
+//		for (ShoppingCartItem item : listItems ) {
+//			
+//		}
+//		return "e-commerce/payment";
+//	}
 	
 }

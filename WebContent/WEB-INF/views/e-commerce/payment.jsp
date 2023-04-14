@@ -43,69 +43,34 @@
 					<p>Payment</p></li>
 			</ul>
 		</div>
-		<div class="row">
-			<div class="col-xl-9 col-md">
-				<div class="box">
-					<div>
-						<h3 class="col-xl-1 col-md title">Payment</h3>
-					</div>
-					<table class="table">
-						<tbody>
-							<c:forEach var="i" items="${payment}">
-								<tr>
-									<td><div>
-											<input class="form-check-input" type="radio"
-												name="PaymentMethod" id="${i.id }" value="option1"
-												checked>
-										</div></td>
-									<td>${i.paymentType.status }</td>
-									<td>${i.expiry}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+		<form action="../checkout.htm" method="post">
+			<div class="form-group">
+				<div>
+					<h3 class="col-xl-1 col-md title">Payment</h3>
 				</div>
-				<div class="box mt-3">
-					<div>
-						<h3 class="col-xl-1 col-md title">Shipping</h3>
+				<c:forEach var="i" items="${payment}">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="PaymentMethod"
+							id="${i.id }" value="${i.id }">
+						<label class="form-check-label" for="${i.id }"> ${i.paymentType.status }  Ngày hết hạn: ${ i.expiry } VND</label>
 					</div>
-					<table class="table">
-						<tbody>
-							<c:forEach var="q" items="${shipping }">
-								<tr>
-									<td>
-										<div>
-											<input class="form-check-input" type="radio"
-												name="ShippingMethod" id="${i.id }" value="option1"
-												checked>
-										</div>
-									</td>
-									<td>${q.name }</td>
-									<td>${q.price } VNĐ</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+				</c:forEach>
 			</div>
-			<div class="col-xl-3">
-				<div class="box2">
-					<div>
-						<h4 class="col-sm-12 title">Order Summary</h4>
-						<h5>Sub total: ${sum}</h5>
-						<h5>Shipping: </h5>
-						<hr>
-						<h4>
-							Total:
-							</h5>
-					</div>
-					<div>
-						<button type="button" class="btn btn-success btn-lg btn-center">Check
-							Out</button>
-					</div>
+			<div class="form-group">
+				
+				<div>
+					<h3 class="col-xl-1 col-md title">Shipping</h3>
 				</div>
+				<c:forEach var="q" items="${shipping}">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="ShippingMethod"
+							id="${q.id }" value="${q.id }">
+						<label class="form-check-label" for="${q.id }"> ${q.name } ${ q.price } VND</label>
+					</div>
+				</c:forEach>
 			</div>
-		</div>
+			<button type="submit" class="btn btn-primary">Check out</button>
+		</form>
 		<div class="mt-3">
 			<button type="button" class="btn btn-outline-primary">Back</button>
 		</div>

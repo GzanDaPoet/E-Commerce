@@ -36,45 +36,57 @@
 		<div class="row">
 			<ul class="col-xl-2 breadscrum-custom">
 				<li class="breadscrum-custom-item"><a
-					href="http://localhost:8080/com.ecommerce/e-commerce/cart.htm">Cart</a>  &#8226</li>
-				<li class="breadscrum-custom-item">Address  &#8226</li>
-				<li class="breadscrum-custom-item">
-				</span> <a
-					href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">Payment</a> </li>
+					href="http://localhost:8080/com.ecommerce/e-commerce/cart.htm">Cart</a>
+					&#8226</li>
+				<li class="breadscrum-custom-item">Address &#8226</li>
+				<li class="breadscrum-custom-item"></span> <a
+					href="http://localhost:8080/com.ecommerce/e-commerce/payment.htm">Payment</a>
+				</li>
 			</ul>
 		</div>
 		<div class="row">
 			<div class="col-xl-9 col-md">
 				<div class="box mb-3">
-					<div class="row">
-						<h3 class="col-xl-1 col-md title">Address</h3>
-					</div>
-					<button type="button" class="btn btn-outline-primary">Add
-						new address</button>
+
+					<h3 class="col-md title">Address</h3>
 				</div>
 				<ul class="list-group">
 					<c:forEach var="i" items="${customerAddress}">
 						<li class="list-group-item">
 							<div class=row>
-								<div>${i.address.detailAddress }, ${i.address.ward },
+								<div class="col-md-7">${i.address.detailAddress }, ${i.address.ward },
 									${i.address.district }, ${i.address.city }</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary sl-3">Del</button>
+
+								<div class="col-md-2">
+									<form action="../e-commerce/address/delete.htm" method="post">
+										<input type="hidden" name="addressId" value="${i.getId()}">
+										<button class="btn btn-outline-primary" id="delete">
+											Delete</button>
+									</form>
 								</div>
-								<div>
-									<button type="button" class="btn btn-outline-primary">Delivery
-										to this address</button>
+								<div class="col-md-3">
+									<form action="../e-commerce/address/deliver.htm" method="post">
+										<input type="hidden" name="addressId" value="${i.getId()}">
+										<button class="btn btn-outline-primary" id="deliver">
+											Deliver to this address</button>
+									</form>
 								</div>
 							</div>
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
-			<div>
-				<button type="button" class="btn btn-outline-primary">Back</button>
+			<div class="row mt-3">
+				<div class="col-xl-7 ">
+					<button type="button" class="btn btn-outline-primary ">
+						&#171 Back</button>
+				</div>
+				<div class="col-xl-5">
+					<button type="button" class="btn btn-outline-primary">Add
+						new address</button>
+				</div>
 			</div>
 		</div>
-	</div>
 
 	</div>
 </body>

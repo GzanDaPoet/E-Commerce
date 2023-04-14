@@ -44,7 +44,7 @@ public class CartController{
 	@RequestMapping(value = "cart")
 	public String showCart(ModelMap model,HttpSession ss) {
 		int sum = 0;
-		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(3);
+		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(1);
 		model.addAttribute("shoppingCart",listCart);
 		for (ShoppingCartItem item : listCart ) {
 			sum +=item.getProductItem().getPrice() * item.getQuantity(); 
@@ -56,7 +56,7 @@ public class CartController{
 	
 	@RequestMapping(params = "checkOut")
 	public String showAddress(ModelMap model) {
-		List<CustomerAddress> addressList = addressService.getAddressByID(1);
+		List<CustomerAddress> addressList = addressService.getAddressListByID(1);
 		model.addAttribute("customerAddress",addressList);
 		return "e-commerce/address";
 	}
@@ -78,7 +78,6 @@ public class CartController{
         cartService.deleteCartItem(productId);
 		 return "redirect:/e-commerce/cart.htm";
     }
-	
 	
 	
 }
