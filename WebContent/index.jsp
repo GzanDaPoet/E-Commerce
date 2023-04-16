@@ -8,5 +8,6 @@
 </head>
 <body>
 	Xin chao moi nguoi 
+	<a href="admin/login.htm">đang nhập vào e-commerce</a>
 </body>
 </html>
