@@ -31,7 +31,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Chỉnh sửa nhãn</h3>
+						<h3 class="heading">Danh sách nhãn</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -67,51 +67,33 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="td-body">1</td>
-									<td class="td-body">Máy tinhs</td>
-									<td class="td-body">Không</td>
-									<td class="td-body">
-										<div class="mui-chip">
-											<span class="mui-chip-label">Hoạt động</span>
-										</div>
-									</td>
-									<td class="td-body">
-										<div class="mui-chip">
-											<span class="mui-chip-label"></span>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td-body">1</td>
-									<td class="td-body">Máy tinhs</td>
-									<td class="td-body">Không</td>
-									<td class="td-body">
-										<div class="mui-chip">
-											<span class="mui-chip-label">Hoạt động</span>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td-body">1</td>
-									<td class="td-body">Máy tinhs</td>
-									<td class="td-body">Không</td>
-									<td class="td-body">
-										<div class="mui-chip">
-											<span class="mui-chip-label">Hoạt động</span>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td-body">1</td>
-									<td class="td-body">Máy tinhs</td>
-									<td class="td-body">Không</td>
-									<td class="td-body">
-										<div class="mui-chip">
-											<span class="mui-chip-label">Hoạt động</span>
-										</div>
-									</td>
-								</tr>
+								<c:forEach items="${listCategory}" var="element">
+									<tr>
+										<td class="td-body">${element.id}</td>
+										<td class="td-body">${element.categoryName }</td>
+										<td class="td-body">${element.parentCategoryName}</td>
+										<td class="td-body">
+											<div class="mui-chip">
+												<span class="mui-chip-label">Hoạt động</span>
+											</div>
+										</td>
+										<td class="td-body">
+											<div class="group-btn">
+												<a
+													href="${contextPath}/admin/product/category/${element.id}.htm">
+
+													<button class="btn--add">
+														<span>Chỉnh sửa</span>
+													</button>
+												</a> <a href="#">
+													<button class="btn--delete">
+														<span>Xoá</span>
+													</button>
+												</a>
+											</div>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

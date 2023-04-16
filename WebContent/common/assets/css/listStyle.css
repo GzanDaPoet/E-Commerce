@@ -768,4 +768,134 @@ main {
 		padding-right: 24px;
 	}
 }
+
+/* ====================== CUSTOM BUTTON =========================== */
+.group-btn {
+	float: right;
+	/* ====================== CUSTOM BUTTON =========================== */
+}
+
+.group-btn .btn--add {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	outline: 0px;
+	border: 0px;
+	margin: 0px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.875rem;
+	text-transform: capitalize;
+	font-family: "Public Sans", sans-serif;
+	min-width: 64px;
+	padding: 6px 16px;
+	border-radius: 8px;
+	-webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1)
+		0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	color: white;
+	background-color: #00ab55;
+	-webkit-box-shadow: rgba(0, 171, 85, 0.24) 0px 8px 16px 0px;
+	box-shadow: rgba(0, 171, 85, 0.24) 0px 8px 16px 0px;
+	gap: 12px;
+}
+
+.group-btn .btn--add span {
+	color: white !important;
+}
+
+.group-btn .btn--delete {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	outline: 0px;
+	border: 0px;
+	margin: 0px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.875rem;
+	text-transform: capitalize;
+	font-family: "Public Sans", sans-serif;
+	min-width: 64px;
+	padding: 6px 16px;
+	border-radius: 8px;
+	-webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1)
+		0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms, -webkit-box-shadow 250ms
+		cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	color: white;
+	background-color: #ff3030;
+	-webkit-box-shadow: rgba(0, 171, 85, 0.24) 0px 8px 16px 0px;
+	box-shadow: rgba(0, 171, 85, 0.24) 0px 8px 16px 0px;
+	gap: 12px;
+}
+
+.group-btn .btn--delete span {
+	color: white !important;
+}
 /*# sourceMappingURL=table.css.map */

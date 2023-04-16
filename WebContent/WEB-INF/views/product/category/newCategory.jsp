@@ -46,7 +46,7 @@
 						</nav>
 					</div>
 				</div>
-				<form>
+				<form action="new.htm" method="POST">
 					<div class="input-group">
 						<div class="input-container">
 							<input type="text" required="required" id="categoryName"
@@ -57,9 +57,10 @@
 						<div class="select-container">
 							<select name="parentCategoryId" id="parentCategoryId"
 								class="select" aria-invalid="false">
-								<option value="1">Máy tính</option>
-								<option value="2">Điện thoại</option>
-								<option value="3">Laptop</option>
+								<option value="null" selected="selected">Không</option>
+								<c:forEach items="${listCategory}" var="element">
+									<option value="${element.id}">${element.categoryName }</option>
+								</c:forEach>
 							</select> <label for="parentCategoryId">Nhãn cha</label> <span
 								class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
 						</div>
