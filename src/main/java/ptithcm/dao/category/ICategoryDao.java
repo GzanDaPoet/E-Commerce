@@ -9,10 +9,12 @@ public interface ICategoryDao {
 
 	public void deleteById(int categoryId);
 
-	public void updateById(int categoryId);
+	public void updateById(ProductCategory category);
 
 	public ProductCategory getCategoryById(int categoryId);
 
 	public List<ProductCategory> getAllCategory();
+
+	public List<ProductCategory> listPaginatedProductCategory(int firstResult, int maxResults);
 
 }

@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.annotations.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +24,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
+	// Controller new product category
 	@RequestMapping(value = "category/new", method = RequestMethod.GET)
 	public String showFormNewCategory(ModelMap modelMap) {
 		List<ProductCategory> allCategories = categoryService.getAllCategory();
@@ -55,24 +56,60 @@ public class CategoryController {
 		return "redirect:/admin/product/category/list.htm";
 	}
 
+	// Controller list product category
 	@RequestMapping(value = "category/list", method = RequestMethod.GET)
-	public String handleGetListCategory(ModelMap modelMap) {
+	public String handleGetListCategory(ModelMap modelMap, @RequestParam(defaultValue = "5") int limit,
+			@RequestParam(defaultValue = "1") int page) {
+
+		List<ProductCategory> listCategories = categoryService.getListPaginatedCategories(limit * (page - 1), limit);
+		List<ProductCategoryDTO> listCategoryDTOs = new ArrayList<ProductCategoryDTO>();
+		for (int i = 0; i < listCategories.size(); i++) {
+			ProductCategoryDTO categoryDTO = new ProductCategoryDTO(categoryService, listCategories.get(i));
+			listCategoryDTOs.add(categoryDTO);
+		}
+		modelMap.addAttribute("currentPage", page);
+		modelMap.addAttribute("limit", limit);
+		modelMap.addAttribute("listCategory", listCategoryDTOs);
+		return "product/category/listCategory";
+	}
+
+	// Delete product category
+	@RequestMapping(value = "category/delete/{id}")
+	public String deleteProductCategoryById(@PathVariable int id) {
+		categoryService.deleteCategoryById(id);
+		return "redirect:/admin/product/category/list.htm";
+	}
+
+	// Edit and view detail product category
+	@RequestMapping(value = "category/edit/{id}", method = RequestMethod.GET)
+	public String editProductCategoryById(@PathVariable int id, ModelMap modelMap) {
+		ProductCategory productCategory = categoryService.getProductCategoryById(id);
 		List<ProductCategory> allCategories = categoryService.getAllCategory();
-		List<ProductCategoryDTO> categoryDTOs = new ArrayList<ProductCategoryDTO>();
+		modelMap.addAttribute("listCategory", allCategories);
+		modelMap.addAttribute("currentCategory", productCategory);
+		return "product/category/editCategory";
+	}
+
+	@RequestMapping(value = "category/edit/{id}", method = RequestMethod.POST)
+	public String handleEditProductCategoryById(@RequestParam String categoryName,
+			@RequestParam String parentCategoryId, @PathVariable int id) {
+
+		ProductCategory productCategory = categoryService.getProductCategoryById(id);
+		productCategory.setCategoryName(categoryName);
 		try {
-			for (int i = 0; i < allCategories.size(); i++) {
-				String parentName = "";
-				if (allCategories.get(i).getParentCategoryId() != null) {
-					parentName = allCategories.get(allCategories.get(i).getParentCategoryId()).getCategoryName();
+			for (ProductCategory category : categoryService.getAllCategory()) {
+				if (category.getId().equals(Integer.parseInt(parentCategoryId))) {
+					productCategory.setParentCategoryId(Integer.parseInt(parentCategoryId));
+					break;
 				}
-				ProductCategoryDTO temProductCategoryDTO = new ProductCategoryDTO(allCategories.get(i), parentName);
-				categoryDTOs.add(temProductCategoryDTO);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.print("loi fen oi!");
+			System.out.println("Convert loi!!");
 		}
-		modelMap.addAttribute("listCategory", categoryDTOs);
-		return "product/category/listCategory";
+
+		// Save the updated product category
+		categoryService.updateCategory(productCategory);
+
+		return "redirect:/admin/product/category/list.htm";
 	}
 }
