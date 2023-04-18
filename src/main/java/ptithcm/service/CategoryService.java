@@ -17,12 +17,16 @@ public class CategoryService {
 	private ICategoryDao categoryDao;
 
 	public void insertCategory(ProductCategory category) {
-		
+
 		categoryDao.insert(category);
 	}
 
 	public List<ProductCategory> getAllCategory() {
 		return categoryDao.getAllCategory();
+	}
+
+	public List<ProductCategory> getListPaginatedCategories(int firstResult, int maxResults) {
+		return categoryDao.listPaginatedProductCategory(firstResult, maxResults);
 	}
 
 }

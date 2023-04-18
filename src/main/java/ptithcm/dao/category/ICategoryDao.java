@@ -15,4 +15,6 @@ public interface ICategoryDao {
 
 	public List<ProductCategory> getAllCategory();
 
+	public List<ProductCategory> listPaginatedProductCategory(int firstResult, int maxResults);
+
 }

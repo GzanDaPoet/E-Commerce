@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.annotations.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,23 +55,18 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "category/list", method = RequestMethod.GET)
-	public String handleGetListCategory(ModelMap modelMap) {
-		List<ProductCategory> allCategories = categoryService.getAllCategory();
-		List<ProductCategoryDTO> categoryDTOs = new ArrayList<ProductCategoryDTO>();
-		try {
-			for (int i = 0; i < allCategories.size(); i++) {
-				String parentName = "";
-				if (allCategories.get(i).getParentCategoryId() != null) {
-					parentName = allCategories.get(allCategories.get(i).getParentCategoryId()).getCategoryName();
-				}
-				ProductCategoryDTO temProductCategoryDTO = new ProductCategoryDTO(allCategories.get(i), parentName);
-				categoryDTOs.add(temProductCategoryDTO);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.print("loi fen oi!");
+	public String handleGetListCategory(ModelMap modelMap, @RequestParam(defaultValue = "5") int limit,
+			@RequestParam(defaultValue = "1") int page) {
+
+		List<ProductCategory> listCategories = categoryService.getListPaginatedCategories(limit * (page - 1), limit);
+		List<ProductCategoryDTO> listCategoryDTOs = new ArrayList<ProductCategoryDTO>();
+		for (int i = 0; i < listCategories.size(); i++) {
+			ProductCategoryDTO categoryDTO = new ProductCategoryDTO(categoryService, listCategories.get(i));
+			listCategoryDTOs.add(categoryDTO);
 		}
-		modelMap.addAttribute("listCategory", categoryDTOs);
+		modelMap.addAttribute("currentPage", page);
+		modelMap.addAttribute("limit", limit);
+		modelMap.addAttribute("listCategory", listCategoryDTOs);
 		return "product/category/listCategory";
 	}
 }

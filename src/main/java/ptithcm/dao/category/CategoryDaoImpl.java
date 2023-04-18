@@ -1,6 +1,5 @@
 package ptithcm.dao.category;
 
-import java.lang.constant.Constable;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.ProductItem;
 
 @Repository
 public class CategoryDaoImpl implements ICategoryDao {
@@ -25,9 +23,22 @@ public class CategoryDaoImpl implements ICategoryDao {
 	}
 
 	@Override
+	public List<ProductCategory> listPaginatedProductCategory(int firstResult, int maxResults) {
+		firstResult = firstResult <= 0 ? 0 : firstResult;
+		maxResults = maxResults <= 5 ? 5 : maxResults;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM ProductCategory proc ORDER BY proc.id";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(maxResults);
+		List<ProductCategory> list = query.list();
+		return list;
+	}
+
+	@Override
 	public List<ProductCategory> getAllCategory() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM ProductCategory";
+		String hql = "FROM ProductCategory proc ORDER BY proc.id";
 		Query query = session.createQuery(hql);
 		List<ProductCategory> list = query.list();
 		return list;

@@ -102,20 +102,32 @@
 							<div class="tool-bar">
 								<p class="text" id=":r2:">Số hàng mỗi trang:</p>
 								<div class="select">
-									<select>
-										<option value="10">5</option>
-										<option value="10">10</option>
-										<option value="10">20</option>
+									<select onchange="location = this.value;">
+										<option value="?page=1&limit=5"
+											${limit == 5 ? 'selected' : ''}>5</option>
+										<option value="?page=1&limit=10"
+											${limit == 10 ? 'selected' : ''}>10</option>
+										<option value="?page=1&limit=20"
+											${limit == 20 ? 'selected' : ''}>20</option>
 									</select>
 								</div>
-								<p class="text">1–5 trong 5</p>
+								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
+									${limit}</p>
 								<div class="pagination-action">
-									<button type="button" class="disable">
-										<i class="fa-solid fa-angle-left"></i>
-									</button>
-									<button type="button" class="disable">
-										<i class="fa-solid fa-angle-right"></i>
-									</button>
+									<c:if test="${currentPage > 1}">
+										<a href="?page=${currentPage - 1}&limit=${limit}"> <i
+											class="fa-solid fa-angle-left"></i>
+										</a>
+									</c:if>
+									<c:if test="${currentPage <= 1}">
+										<a href="#"> <i class="fa-solid fa-angle-left"></i>
+										</a>
+									</c:if>
+									<c:if test="${currentPage >= 1}">
+										<a href="?page=${currentPage + 1}&limit=${limit}"> <i
+											class="fa-solid fa-angle-right"></i>
+										</a>
+									</c:if>
 								</div>
 							</div>
 						</div>

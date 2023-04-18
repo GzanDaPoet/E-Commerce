@@ -1,18 +1,39 @@
 package ptithcm.dto;
 
-import ptithcm.model.product.ProductCategory;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import ptithcm.model.product.ProductCategory;
+import ptithcm.service.CategoryService;
+
+@Repository
 public class ProductCategoryDTO {
+
 	private String categoryName;
 	private Integer id;
 	private String parentCategoryName;
 	private Integer parentId;
 
-	public ProductCategoryDTO(ProductCategory productCategory, String parentName) {
+	@Autowired
+	public ProductCategoryDTO(CategoryService categoryService, ProductCategory productCategory) {
+		List<ProductCategory> allCategories = categoryService.getAllCategory();
 		this.categoryName = productCategory.getCategoryName();
 		this.id = productCategory.getId();
 		this.parentId = productCategory.getParentCategoryId();
-		this.parentCategoryName = parentName;
+		try {
+			for (int i = 0; i < allCategories.size(); i++) {
+				if (productCategory.getParentCategoryId() == null)
+					break;
+				if (productCategory.getParentCategoryId() == allCategories.get(i).getId()) {
+					this.parentCategoryName = allCategories.get(i).getCategoryName();
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.print("Loi trans du lieu category");
+		}
 	}
 
 	public String getCategoryName() {
