@@ -30,7 +30,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Tạo nhãn mới</h3>
+						<h3 class="heading">Chỉnh sửa nhãn</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -41,31 +41,29 @@
 									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
 								</li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Tạo mới</li>
+								<li class="breadcrumb__item">Chỉnh sửa</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
-				<form>
+				<form action="${currentCategory.id }.htm" method="POST">
 					<div class="input-group">
 						<div class="input-container">
-							<input type="text" required="required" id="categoryId"
-								name="categoryId" aria-labelledby="categoryId"><span
-								class="highlight"></span><span class="bar"></span> <label
-								for="categoryId">Tên nhãn</label>
-						</div>
-						<div class="input-container">
 							<input type="text" required="required" id="categoryName"
-								name="categoryName" aria-labelledby="categoryName"><span
-								class="highlight"></span><span class="bar"></span> <label
-								for="categoryName">Tên nhãn</label>
+								value="${currentCategory.categoryName}" name="categoryName"
+								aria-labelledby="categoryName"><span class="highlight"></span><span
+								class="bar"></span> <label for="categoryName">Tên nhãn</label>
 						</div>
 						<div class="select-container">
 							<select name="parentCategoryId" id="parentCategoryId"
 								class="select" aria-invalid="false">
-								<option value="1">Máy tính</option>
-								<option value="2">Điện thoại</option>
-								<option value="3">Laptop</option>
+								<option value="null" selected="selected">Không</option>
+								<c:forEach items="${listCategory}" var="element">
+									<option value="${element.id}"
+										<c:if test="${element.id == currentCategory.parentCategoryId && element.categoryName != currentCategory.categoryName}">
+										selected
+									</c:if>>${element.categoryName }</option>
+								</c:forEach>
 							</select> <label for="parentCategoryId">Nhãn cha</label> <span
 								class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
 						</div>

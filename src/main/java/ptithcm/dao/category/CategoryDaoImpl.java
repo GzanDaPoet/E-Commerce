@@ -18,8 +18,11 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	@Override
 	public void deleteById(int categoryId) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "delete ProductCategory proc where proc.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", categoryId);
+		query.executeUpdate();
 	}
 
 	@Override
@@ -46,8 +49,11 @@ public class CategoryDaoImpl implements ICategoryDao {
 
 	@Override
 	public ProductCategory getCategoryById(int categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM ProductCategory proc where proc.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", categoryId);
+		return (ProductCategory) query.uniqueResult();
 	}
 
 	@Override
@@ -71,8 +77,8 @@ public class CategoryDaoImpl implements ICategoryDao {
 	}
 
 	@Override
-	public void updateById(int categoryId) {
-		// TODO Auto-generated method stub
-
+	public void updateById(ProductCategory category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(category);
 	}
 }

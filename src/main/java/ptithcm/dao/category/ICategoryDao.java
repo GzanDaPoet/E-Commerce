@@ -9,7 +9,7 @@ public interface ICategoryDao {
 
 	public void deleteById(int categoryId);
 
-	public void updateById(int categoryId);
+	public void updateById(ProductCategory category);
 
 	public ProductCategory getCategoryById(int categoryId);
 

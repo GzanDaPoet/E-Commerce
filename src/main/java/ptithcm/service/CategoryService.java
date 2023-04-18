@@ -29,4 +29,16 @@ public class CategoryService {
 		return categoryDao.listPaginatedProductCategory(firstResult, maxResults);
 	}
 
+	public void deleteCategoryById(int categoryId) {
+		categoryDao.deleteById(categoryId);
+	}
+
+	public ProductCategory getProductCategoryById(int categoryId) {
+		return categoryDao.getCategoryById(categoryId);
+	}
+
+	public void updateCategory(ProductCategory productCategory) {
+		categoryDao.updateById(productCategory);
+	}
+
 }
