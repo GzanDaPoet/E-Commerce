@@ -24,9 +24,11 @@ import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.model.user.User;
 import ptithcm.service.CustomerService;
 import ptithcm.service.ProductService;
 import ptithcm.service.ShoppingCartService;
+import ptithcm.util.SessionUtil;
 import ptithcm.service.admin.PromotionService;
 
 @Transactional
@@ -50,12 +52,12 @@ public class ProductController {
 	
 
 	@RequestMapping("shop")
-	public String shop(ModelMap model) {
+	public String shop(ModelMap model, HttpServletRequest request) {
 		List<ProductItem> list = productService.getListProducts();
 		model.addAttribute("listProduct", list);
+		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
 		return "e-commerce/shop";
 	}
-
 
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)

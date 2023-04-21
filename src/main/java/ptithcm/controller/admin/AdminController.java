@@ -26,13 +26,17 @@ import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.service.ProductCategoryService;
 import ptithcm.service.ProductService;
+import ptithcm.service.UserService;
 import ptithcm.service.admin.LoginService;
+import ptithcm.util.SessionUtil;
 import ptithcm.model.user.User;
 import ptithcm.model.user.UserPermission;
 
 @Transactional
 @Controller
+@RequestMapping(value = "/admin/")
 public class AdminController {
+
 
 	@Autowired
 	SessionFactory sessionFactory;
@@ -41,6 +45,8 @@ public class AdminController {
 	LoginService service;
 
 	@Autowired
+	UserService userService;
+
 	ProductCategoryService productCategoryService;
 
 	@Autowired
@@ -51,17 +57,20 @@ public class AdminController {
 		return "admin/login";
 	}
 
-	@RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password,
-			ModelMap model) {
-		if (service.validateUser(username, password)) {
-			model.put("password", password);
-			model.put("username", username);
-			return "shop/index";
-		} else {
-			return "admin/login";
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password, ModelMap model,
+			HttpServletRequest request) {
+		User user = userService.findByUserNameAndPasswordAndStatus(username, password, true);
+		if (user != null) {
+			SessionUtil.getInstance().putValue(request, "USER_MODEL", user);
+			if (user.getUser_permission().getValue().equals("ROLE_USER")) {
+				return "redirect:/e-commerce/shop.htm";
+			} else if (user.getUser_permission().getValue().equals("ROLE_ADMIN")
+					|| user.getUser_permission().getValue().equals("ROLE_SUPER_ADMIN")) {
+				return "redirect:/e-commerce/list.htm";
+			}
 		}
-
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/admin/promotion", method = RequestMethod.GET)

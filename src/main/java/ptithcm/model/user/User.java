@@ -40,8 +40,7 @@ public class User {
 	
 	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 	private UserProfile userProfile;
-	
-	
+
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<InventoryReceiving> inventoryReceivings;
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
