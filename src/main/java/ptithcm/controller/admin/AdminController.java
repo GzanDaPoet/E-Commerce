@@ -26,7 +26,9 @@ import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.service.ProductCategoryService;
 import ptithcm.service.ProductService;
+import ptithcm.service.UserService;
 import ptithcm.service.admin.LoginService;
+import ptithcm.util.SessionUtil;
 import ptithcm.model.user.User;
 import ptithcm.model.user.UserPermission;
 
@@ -45,7 +47,6 @@ public class AdminController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value = "login", method = RequestMethod.GET)
 	ProductCategoryService productCategoryService;
 
 	@Autowired
