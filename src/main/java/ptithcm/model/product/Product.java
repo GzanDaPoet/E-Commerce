@@ -33,7 +33,7 @@ public class Product {
 	@Column(name = "product_image")
 	private String productImage;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private Collection<ProductItem> productItems;
 
 	public Product() {
