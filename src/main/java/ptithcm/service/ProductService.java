@@ -12,6 +12,7 @@ import ptithcm.dao.product.ProductDao;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
+import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shop.ShopOrder;
 
@@ -67,4 +68,23 @@ public class ProductService {
 		return null;
 	}
 	
+	public void deleteProductItem(int id) {
+		productDao.deleteProductItem(id);
+	}
+	
+	public List<ProductItem> searchProductItem(String name) {
+		List<ProductItem> list = productDao.searchProductItem(name);
+		if (list != null) {
+			return list;
+		}
+		return null;
+	}
+	
+	public List<Product> getAllProductByCateId(int categoryId) {
+		List<Product> list = productDao.getAllProductByCateId(categoryId);
+		if (!list.isEmpty()) {
+			return list;
+		}
+		return null;
+	}
 }

@@ -1,7 +1,10 @@
 package ptithcm.model.promotion;
 
-import javax.persistence.EmbeddedId;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -9,38 +12,31 @@ import javax.persistence.Table;
 import ptithcm.model.product.ProductCategory;
 
 @Entity
-@Table(name = "Promotion_Category")
-
+@Table(name = "promotion_category")
+@IdClass(PromotionCategoryId.class)
 public class PromotionCategory {
 
-	@EmbeddedId
-	private PromotionCategoryId id;
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promotion_id", referencedColumnName = "id", nullable = false)
+    private Promotion promotion;
 
-	@ManyToOne()
-	@JoinColumn(name = "promotion_id", insertable = false, updatable = false)
-	private Promotion promotion;
-
-	@ManyToOne()
-	@JoinColumn(name = "category_id")
-	private ProductCategory productCategory;
-
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    private ProductCategory productCategory;
+    
+    
+    
+    
 	public PromotionCategory() {
 		super();
 	}
 
-	public PromotionCategory(PromotionCategoryId id, Promotion promotion, ProductCategory productCategory) {
+	public PromotionCategory(Promotion promotion, ProductCategory productCategory) {
 		super();
-		this.id = id;
 		this.promotion = promotion;
 		this.productCategory = productCategory;
-	}
-
-	public PromotionCategoryId getId() {
-		return id;
-	}
-
-	public void setId(PromotionCategoryId id) {
-		this.id = id;
 	}
 
 	public Promotion getPromotion() {

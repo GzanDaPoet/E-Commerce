@@ -44,7 +44,7 @@ public class ShopOrder {
 	@JoinColumn(name = "payment_method_id")
 	private CustomerPaymentMethod customerPaymentMethod;
 
-	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
 
 	@Column(name = "order_date")

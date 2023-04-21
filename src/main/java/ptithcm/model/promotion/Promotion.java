@@ -1,5 +1,6 @@
 package ptithcm.model.promotion;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -9,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,150 +31,100 @@ public class Promotion {
 	@Column(name = "discount_rate")
 	private int discountRate;
 	@Column(name = "start_date")
-	private LocalDate startDate;
+	private Date startDate;
 	@Column(name = "end_date")
-	private LocalDate endDate;
+	private Date endDate;
 	@Column(name = "create_at")
-	private LocalDate createAt;
-	
-	
-	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
-	private Collection<User> users;
+	private Date createAt;
+
+	@ManyToOne()
+	@JoinColumn(name = "user_id")
+	private User user;
 	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
 	private Collection<PromotionCategory> promotionCategory;
-	
-	
-	
+
 	public Promotion() {
 		super();
 	}
 
-
-
-	public Promotion(Integer id, String name, String description, int discountRate, LocalDate startDate,
-			LocalDate endDate, LocalDate createAt, Collection<User> users,
-			Collection<PromotionCategory> promotionCategory) {
+	public Promotion(String name, String description, int discountRate, Date startDate, Date endDate,
+			Date createAt, User user) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.discountRate = discountRate;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.createAt = createAt;
-		this.users = users;
-		this.promotionCategory = promotionCategory;
+		this.user = user;
 	}
-
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
-
 	public int getDiscountRate() {
 		return discountRate;
 	}
-
-
 
 	public void setDiscountRate(int discountRate) {
 		this.discountRate = discountRate;
 	}
 
-
-
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-
-
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-
-
-	public LocalDate getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-
-
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-
-
-	public LocalDate getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
 
-
-
-	public void setCreateAt(LocalDate createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 
-
-
-	public Collection<User> getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-
-
-	public void setUsers(Collection<User> users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-
-
-	public Collection<PromotionCategory> getPromotionCategories() {
+	public Collection<PromotionCategory> getPromotionCategory() {
 		return promotionCategory;
 	}
 
-
-
-	public void setPromotionCategories(Collection<PromotionCategory> promotionCategory) {
+	public void setPromotionCategory(Collection<PromotionCategory> promotionCategory) {
 		this.promotionCategory = promotionCategory;
 	}
-	
-	
-	
-	
+
 }

@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,19 +17,23 @@
 <body>
 
 	<div class="row-container">
-		<select class="status-dropdown">
-			<option value="all">In stock</option>
-			<option value="active">In stock</option>
-			<option value="inactive">Out of stock</option>
-		</select> <input type="text" class="search-box" placeholder="Search...">
+
+		<div class="btn_filter">
+			<form action="list.htm" >
+				<select
+					id="selectOption" name="selectOption">
+					<option value="all">All</option>
+					<option value="active">In stock</option>
+					<option value="inactive">Out of stock</option>
+				</select>
+				<button name="filter" type="submit">Filter</button>
+			</form>
+		</div>
+		<form method="POST" action="list.htm">
+			<input type="text" name="searchText" placeholder="Tìm kiếm sản phẩm">
+		</form> 
 	</div>
 
-	<div class="dropdown">
-		<button class="dropbtn">Dropdown</button>
-		<div class="dropdown-content">
-			<a href="#">Link 1</a> <a href="#">Link 2</a> <a href="#">Link 3</a>
-		</div>
-	</div>
 
 
 	<div class="container mt-5">
@@ -44,20 +50,26 @@
 			<tbody>
 				<c:forEach var="u" items="${listProduct}">
 					<tr>
-						<td><img
-							src="${u.getProductImage() }"
-							alt="Product Image" class="product-image mr-2"/>
-							${u.product.getName()}</td>
+						<td><img src="${u.getProductImage() }" alt="Product Image"
+							class="product-image mr-2" /> ${u.product.getName()}</td>
 						<td>2022-02-01</td>
-						<td><span class="badge badge-success">In stock</span></td>
-						<td>$50</td>
+						<td><span class="badge">${u.getStatus()}</span></td>
+						<td>50$</td>
 						<td><div class="btn-group">
 								<div class="ti-settings"></div>
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item"
-										href="https://minimals.cc/dashboard/user/list">Edit</a></li>
-									<li><a class="dropdown-item"
-										href="https://minimals.cc/dashboard/user/list">Delete</a></li>
+									<li>
+										<form action="list.htm" method="get">
+											<input type="hidden" name="productId" value="${u.getId()}">
+											<button type="submit">Sửa</button>
+										</form>
+									</li>
+									<li>
+										<form action="list.htm" method="post">
+											<input type="hidden" name="productId" value="${u.getId()}">
+											<button name= "deleteProduct" type="submit">Xóa</button>
+										</form>
+									</li>
 								</ul>
 							</div></td>
 					</tr>

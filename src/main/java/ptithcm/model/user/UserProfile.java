@@ -1,5 +1,6 @@
 package ptithcm.model.user;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="UserProfile")
+@Table(name="User_Profile")
 public class UserProfile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +29,9 @@ public class UserProfile {
 	@Column(name="phoneNumber")
 	private String phoneNumber;
 	@Column(name="create_at")
-	private LocalDate createAt;
+	private Date createAt;
 	@Column(name="modified_at")
-	private LocalDate modifiedAt;
+	private Date modifiedAt;
 	public Integer getId() {
 		return id;
 	}
@@ -61,20 +62,20 @@ public class UserProfile {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public LocalDate getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
-	public void setCreateAt(LocalDate createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	public LocalDate getModifiedAt() {
+	public Date getModifiedAt() {
 		return modifiedAt;
 	}
-	public void setModifiedAt(LocalDate modifiedAt) {
+	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
-	public UserProfile(Integer id, User user, String name, String address, String phoneNumber, LocalDate createAt,
-			LocalDate modifiedAt) {
+	public UserProfile(Integer id, User user, String name, String address, String phoneNumber, Date createAt,
+			Date modifiedAt) {
 		super();
 		this.id = id;
 		this.user = user;
