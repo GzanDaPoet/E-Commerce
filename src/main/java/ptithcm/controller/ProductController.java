@@ -73,8 +73,6 @@ public class ProductController {
 				model.addAttribute("comments", comments);
 			}
 		}
-		
-		
 		// cap nhat gia KM cho san pham tại đây
 		int percentDiscount = promotionService.getPriceDiscount(productId);
 		double result = ((100.0 - (double)percentDiscount) / 100.0);
