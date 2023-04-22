@@ -7,8 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import ptithcm.model.variation.VariationOption;
-
 @Entity
 @Table(name = "Product_Configuration")
 public class ProductConfigruation {

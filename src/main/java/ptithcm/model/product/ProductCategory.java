@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ptithcm.model.promotion.PromotionCategory;
-import ptithcm.model.variation.Variation;
 
 @Entity
 @Table(name = "Product_Category")
@@ -39,36 +38,78 @@ public class ProductCategory {
 	public ProductCategory() {
 		super();
 	}
-	
-	public ProductCategory(Integer id, Integer parentCategoryId, String categoryName) {
+
+
+	public ProductCategory(Integer id, Integer parentCategoryId, String categoryName, Collection<Product> products,
+			Collection<PromotionCategory> promotionCategories, Collection<Variation> variations) {
 		super();
 		this.id = id;
 		this.parentCategoryId = parentCategoryId;
 		this.categoryName = categoryName;
+		this.products = products;
+		this.promotionCategories = promotionCategories;
+		this.variations = variations;
 	}
+
 
 	public Integer getId() {
 		return id;
 	}
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	public Integer getParentCategoryId() {
 		return parentCategoryId;
 	}
 
+
 	public void setParentCategoryId(Integer parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
+
 
 	public String getCategoryName() {
 		return categoryName;
 	}
 
+
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 
+
+	public Collection<Product> getProducts() {
+		return products;
+	}
+
+
+	public void setProducts(Collection<Product> products) {
+		this.products = products;
+	}
+
+
+	public Collection<PromotionCategory> getPromotionCategories() {
+		return promotionCategories;
+	}
+
+
+	public void setPromotionCategories(Collection<PromotionCategory> promotionCategories) {
+		this.promotionCategories = promotionCategories;
+	}
+
+
+	public Collection<Variation> getVariations() {
+		return variations;
+	}
+
+
+	public void setVariations(Collection<Variation> variations) {
+		this.variations = variations;
+	}
+
+	
 }

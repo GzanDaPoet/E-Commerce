@@ -36,11 +36,11 @@ public class ProductItem {
 	@Column(name = "product_image")
 	private String productImage;
 	@Column(name = "price")
-	private int price;
+	private Integer price;
 	@Column(name = "warranty_time")
 	private int date;
 	@Column(name = "status")
-	private String statusProduct;
+	private String status;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
@@ -59,8 +59,11 @@ public class ProductItem {
 		super();
 	}
 
-	public ProductItem(int id, Product product, String sKU, int quantityInStock, String productImage, int price,
-			int date, String status) {
+	
+	public ProductItem(int id, Product product, String sKU, int quantityInStock, String productImage, Integer price,
+			int date, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
+			Collection<ProductConfigruation> productConfigruations, Collection<WarrantyDetail> warrantyDetails,
+			Collection<UpdatePriceProductItem> updatePriceProductItems) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -69,71 +72,145 @@ public class ProductItem {
 		this.productImage = productImage;
 		this.price = price;
 		this.date = date;
-		this.statusProduct = status;
+		this.status = status;
+		this.orderLines = orderLines;
+		this.cartItems = cartItems;
+		this.productConfigruations = productConfigruations;
+		this.warrantyDetails = warrantyDetails;
+		this.updatePriceProductItems = updatePriceProductItems;
 	}
+
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public Product getProduct() {
 		return product;
 	}
 
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 
 	public String getSKU() {
 		return SKU;
 	}
 
+
 	public void setSKU(String sKU) {
 		SKU = sKU;
 	}
+
 
 	public int getQuantityInStock() {
 		return quantityInStock;
 	}
 
+
 	public void setQuantityInStock(int quantityInStock) {
 		this.quantityInStock = quantityInStock;
 	}
+
 
 	public String getProductImage() {
 		return productImage;
 	}
 
+
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 
-	public int getPrice() {
+
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
+
 
 	public int getDate() {
 		return date;
 	}
 
+
 	public void setDate(int date) {
 		this.date = date;
 	}
 
+
 	public String getStatus() {
-		return statusProduct;
+		return status;
 	}
 
+
 	public void setStatus(String status) {
-		this.statusProduct = status;
+		this.status = status;
 	}
+
+
+	public Collection<OrderLine> getOrderLines() {
+		return orderLines;
+	}
+
+
+	public void setOrderLines(Collection<OrderLine> orderLines) {
+		this.orderLines = orderLines;
+	}
+
+
+	public Collection<ShoppingCartItem> getCartItems() {
+		return cartItems;
+	}
+
+
+	public void setCartItems(Collection<ShoppingCartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+
+	public Collection<ProductConfigruation> getProductConfigruations() {
+		return productConfigruations;
+	}
+
+
+	public void setProductConfigruations(Collection<ProductConfigruation> productConfigruations) {
+		this.productConfigruations = productConfigruations;
+	}
+
+
+	public Collection<WarrantyDetail> getWarrantyDetails() {
+		return warrantyDetails;
+	}
+
+
+	public void setWarrantyDetails(Collection<WarrantyDetail> warrantyDetails) {
+		this.warrantyDetails = warrantyDetails;
+	}
+
+
+	public Collection<UpdatePriceProductItem> getUpdatePriceProductItems() {
+		return updatePriceProductItems;
+	}
+
+
+	public void setUpdatePriceProductItems(Collection<UpdatePriceProductItem> updatePriceProductItems) {
+		this.updatePriceProductItems = updatePriceProductItems;
+	}
+
+
+	
 
 }

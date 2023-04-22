@@ -1,7 +1,6 @@
 package ptithcm.model.order;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,11 +18,12 @@ import ptithcm.model.shop.ShopOrder;
 public class OrderStatus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 	@Column(name="status")
-	private String orderStatus;
+	private String status;
 
-	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.LAZY)	
 	private Collection<ShopOrder> shopOrders;
 
 	public OrderStatus() {
@@ -33,7 +33,7 @@ public class OrderStatus {
 	public OrderStatus(Integer id, String status, Collection<ShopOrder> shopOrders) {
 		super();
 		this.id = id;
-		this.orderStatus = status;
+		this.status = status;
 		this.shopOrders = shopOrders;
 	}
 
@@ -46,11 +46,11 @@ public class OrderStatus {
 	}
 
 	public String getStatus() {
-		return orderStatus;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		this.orderStatus = status;
+		this.status = status;
 	}
 
 	public Collection<ShopOrder> getShopOrders() {

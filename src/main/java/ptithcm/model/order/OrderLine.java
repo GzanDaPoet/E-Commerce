@@ -35,7 +35,7 @@ public class OrderLine {
 	@Column(name = "price")
 	private Integer price;
 	
-	@OneToMany(mappedBy = "orderLine", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderLine", fetch = FetchType.LAZY)
 	private Collection<CustomerReview> customerReivew;
 	
 	public OrderLine() {
