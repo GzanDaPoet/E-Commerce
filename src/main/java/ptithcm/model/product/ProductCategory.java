@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ptithcm.model.promotion.PromotionCategory;
-import ptithcm.model.variation.Variation;
 
 @Entity
 @Table(name = "Product_Category")

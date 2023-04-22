@@ -1,4 +1,4 @@
-package ptithcm.model.variation;
+package ptithcm.model.product;
 
 import java.util.Collection;
 
@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import ptithcm.model.product.ProductCategory;
 
 @Entity
 @Table(name = "Variation")

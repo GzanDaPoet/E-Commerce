@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | List Category</title>
+<title>Admin | List Variation</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -31,7 +31,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách nhãn</h3>
+						<h3 class="heading">Danh sách thuộc tính</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -39,15 +39,15 @@
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
-								</li>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Thuộc
+										tính</a></li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách nhãn</li>
+								<li class="breadcrumb__item">Danh sách thuộc tính</li>
 							</ul>
 						</nav>
 					</div>
 					<div>
-						<a href="${contextPath}/admin/product/category/new.htm">
+						<a href="${contextPath}/admin/product/variation/new.htm">
 							<button class="btn--add">
 								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
 							</button>
@@ -59,19 +59,19 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Mã</span></th>
-									<th class="th-header"><span>Tên nhãn</span></th>
-									<th class="th-header"><span>Nhãn cha</span></th>
-									<th class="th-header"><span>Trạng thái</span></th>
+									<th class="th-header"><span>mã</span></th>
+									<th class="th-header"><span>Tên thuộc tính</span></th>
+									<th class="th-header"><span>Thuộc nhãn</span></th>
+									<th class="th-header"><span>status</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listCategory}" var="element">
+								<c:forEach items="${listVariations}" var="element">
 									<tr>
-										<td class="td-body">${element.id}</td>
-										<td class="td-body">${element.categoryName }</td>
-										<td class="td-body">${element.parentCategoryName}</td>
+										<td class="td-body">${element.variationId}</td>
+										<td class="td-body">${element.variationName }</td>
+										<td class="td-body">${element.categoryName}</td>
 										<td class="td-body">
 											<div class="mui-chip">
 												<span class="mui-chip-label">Hoạt động</span>
@@ -80,13 +80,13 @@
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
+													href="${contextPath}/admin/product/variation/edit/${element.variationId}.htm">
 
 													<button class="btn--add">
 														<span>Chỉnh sửa</span>
 													</button>
 												</a> <a
-													href="${contextPath}/admin/product/category/delete/${element.id}.htm">
+													href="${contextPath}/admin/product/variation/delete/${element.variationId}.htm">
 													<button class="btn--delete">
 														<span>Xoá</span>
 													</button>
