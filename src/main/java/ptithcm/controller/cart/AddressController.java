@@ -92,6 +92,7 @@ public class AddressController {
 		shopOrder.setOrderTotal(sum);
 		Session session1 = sessionFactory.openSession();
 		org.hibernate.Transaction t =  session1.beginTransaction();
+		
 		try {
 			session1.save(shopOrder);
 			t.commit();
@@ -107,8 +108,9 @@ public class AddressController {
         List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(1);
         for (ShoppingCartItem item : listCartItems ) {
         	OrderLine orderLine = new OrderLine();
+        	orderLine.setId(null);
         	orderLine.setProductItem(item.getProductItem());
-        	orderLine.setShopOrder(shopOrder);
+        	orderLine.setShopOrder(shopOrder);	
         	orderLine.setQuantity(item.getQuantity());
         	orderLine.setPrice(item.getProductItem().getPrice());
         	Session session2 = sessionFactory.openSession();

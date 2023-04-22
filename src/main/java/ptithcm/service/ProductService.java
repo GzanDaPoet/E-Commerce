@@ -30,6 +30,12 @@ public class ProductService {
 		return null;
 	}
 	
+	
+	public int updateQty(int produtItemId, int qty) {
+		int update =productDao.updateQty(produtItemId,qty);
+		return update;
+	}
+		
 //	public List<CustomerReview> getAllCommentsById(int id) {
 //		List<CustomerReview> comments = productDao.getAllCommentsById(id);
 //		if (!comments.isEmpty()) {

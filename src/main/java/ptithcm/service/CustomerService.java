@@ -22,12 +22,4 @@ public class CustomerService {
 		return null;
 	}
 	
-	public List<Integer> getListAddressById(int id){
-		List<Integer> listAdressID = customerDao.getListAddressById(id);
-		if(listAdressID != null) {
-			return listAdressID;
-		}
-		return null;
-	}
-	
 }

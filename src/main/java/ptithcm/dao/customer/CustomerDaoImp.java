@@ -24,19 +24,5 @@ public class CustomerDaoImp implements CustomerDao {
 		return (Customer) query.uniqueResult();
 	}
 
-	@Override
-	public List<Integer> getListAddressById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-//	public List<Integer> getListAddressById(int id) {
-//		Session session = sessionFactory.getCurrentSession();
-//		String hql = "From CustomerAddress c where c.customer = :id";
-//		Query query = session.createQuery(hql);
-//		query.setParameter("id", id);
-//		return null;
-//	}
 
 }

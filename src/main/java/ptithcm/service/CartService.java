@@ -16,13 +16,7 @@ import ptithcm.model.address.Address;
 public class CartService {
 	@Autowired
 	private ShoppingCartDao shoppingCartDao;
-//	public List<ShoppingCart> dsCart(){
-//		List<ShoppingCart> listCarts = shoppingCartDao.dsCart();
-//		if (listCarts == null) {
-//			return null;
-//		}
-//		return listCarts;
-//	};
+
 	
 	public List<ShoppingCartItem> getAllCartItemsById(int ctmId){
 		List<ShoppingCartItem> listCartItems = shoppingCartDao.getAllCartItemsById(ctmId);

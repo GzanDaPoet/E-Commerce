@@ -34,6 +34,17 @@ public class ProductDaoImp implements ProductDao {
 		return (ProductItem) query.uniqueResult();
 	}
 
+	@Override
+	public int updateQty(int Id, int qty) {
+		Session session = factory.getCurrentSession();
+		String hql = "UPDATE ProductItem s SET s.quantityInStock = s.quantityInStock + :qty WHERE s.id  = :Id";
+		Query query = session.createQuery(hql);
+		query.setParameter("qty", qty);
+		query.setParameter("Id" , Id);
+		int result = query.executeUpdate();
+		return result;
+	}
+
 //	public Integer getOrderID(int productId) {
 //		Session session = factory.getCurrentSession();
 //		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";
