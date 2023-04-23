@@ -62,13 +62,13 @@ public class VariationController {
 	}
 
 	@RequestMapping(value = "variation/delete/{id}")
-	public String deleteProductCategoryById(@PathVariable int id) {
+	public String deleteVariationById(@PathVariable int id) {
 		variationService.deleteVariationById(id);
 		return "redirect:/admin/product/variation/list.htm";
 	}
 
 	@RequestMapping(value = "variation/edit/{id}", method = RequestMethod.GET)
-	public String editProductCategoryById(@PathVariable int id, ModelMap modelMap) {
+	public String editVariationById(@PathVariable int id, ModelMap modelMap) {
 		Variation variation = variationService.getVariationById(id);
 		ProductVariationDTO productVariationDTO = new ProductVariationDTO(variation);
 		List<ProductCategory> allCategories = categoryService.getAllCategory();
@@ -78,7 +78,7 @@ public class VariationController {
 	}
 
 	@RequestMapping(value = "variation/edit/{id}", method = RequestMethod.POST)
-	public String handleEditProductCategoryById(@RequestParam String variationName, @RequestParam String categoryId,
+	public String handleEditVariationById(@RequestParam String variationName, @RequestParam String categoryId,
 			@RequestParam String variationId) {
 		Variation variation = variationService.getVariationById(Integer.parseInt(variationId));
 		ProductCategory productCategory = categoryService.getProductCategoryById(Integer.parseInt(categoryId));
@@ -87,5 +87,4 @@ public class VariationController {
 		variationService.updateVariation(variation);
 		return "redirect:/admin/product/variation/list.htm";
 	}
-
 }
