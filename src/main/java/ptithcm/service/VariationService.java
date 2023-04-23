@@ -39,4 +39,14 @@ public class VariationService {
 	public void updateVariation(Variation variation) {
 		variationDao.updateById(variation);
 	}
+
+	public boolean checkVariationExist(int variationId) {
+		List<Variation> allVariations = variationDao.getAllVariations();
+		for (int i = 0; i < allVariations.size(); i++) {
+			if (allVariations.get(i).getId().equals(variationId)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
