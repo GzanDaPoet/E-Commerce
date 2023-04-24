@@ -59,14 +59,15 @@ public class CategoryController {
 	// Controller list product category
 	@RequestMapping(value = "category/list", method = RequestMethod.GET)
 	public String handleGetListCategory(ModelMap modelMap, @RequestParam(defaultValue = "5") int limit,
-			@RequestParam(defaultValue = "1") int page) {
-
-		List<ProductCategory> listCategories = categoryService.getListPaginatedCategories(limit * (page - 1), limit);
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String search) {
+		List<ProductCategory> listCategories = categoryService.getListPaginatedCategories(limit * (page - 1), limit,
+				search);
 		List<ProductCategoryDTO> listCategoryDTOs = new ArrayList<ProductCategoryDTO>();
 		for (int i = 0; i < listCategories.size(); i++) {
 			ProductCategoryDTO categoryDTO = new ProductCategoryDTO(categoryService, listCategories.get(i));
 			listCategoryDTOs.add(categoryDTO);
 		}
+		modelMap.addAttribute("search", search);
 		modelMap.addAttribute("currentPage", page);
 		modelMap.addAttribute("limit", limit);
 		modelMap.addAttribute("listCategory", listCategoryDTOs);

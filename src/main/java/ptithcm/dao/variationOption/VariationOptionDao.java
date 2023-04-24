@@ -16,5 +16,5 @@ public interface VariationOptionDao {
 
 	public List<VariationOption> getAllVariationOptionons();
 
-	public List<VariationOption> listPaginatedVariationOptions(int firstResult, int maxResults);
+	public List<VariationOption> listPaginatedVariationOptions(int firstResult, int maxResults, String search);
 }
