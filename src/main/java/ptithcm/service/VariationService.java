@@ -24,8 +24,8 @@ public class VariationService {
 		return variationDao.getAllVariations();
 	}
 
-	public List<Variation> getListPaginatedVariations(int firstResult, int maxResults) {
-		return variationDao.listPaginatedProductVariation(firstResult, maxResults);
+	public List<Variation> getListPaginatedVariations(int firstResult, int maxResults, String search) {
+		return variationDao.listPaginatedProductVariation(firstResult, maxResults, search);
 	}
 
 	public void deleteVariationById(int variationId) {

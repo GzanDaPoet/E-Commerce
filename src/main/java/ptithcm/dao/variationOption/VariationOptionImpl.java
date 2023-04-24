@@ -63,12 +63,13 @@ public class VariationOptionImpl implements VariationOptionDao {
 	}
 
 	@Override
-	public List<VariationOption> listPaginatedVariationOptions(int firstResult, int maxResults) {
+	public List<VariationOption> listPaginatedVariationOptions(int firstResult, int maxResults, String search) {
 		firstResult = firstResult <= 0 ? 0 : firstResult;
 		maxResults = maxResults <= 5 ? 5 : maxResults;
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM VariationOption v ORDER BY v.id";
+		String hql = "FROM VariationOption v WHERE v.value LIKE :search ORDER BY v.id";
 		Query query = session.createQuery(hql);
+		query.setParameter("search", "%" + search + "%");
 		query.setFirstResult(firstResult);
 		query.setMaxResults(maxResults);
 		List<VariationOption> list = query.list();

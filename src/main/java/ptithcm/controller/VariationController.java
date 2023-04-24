@@ -48,13 +48,14 @@ public class VariationController {
 
 	@RequestMapping(value = "variation/list", method = RequestMethod.GET)
 	public String showListVariation(ModelMap modelMap, @RequestParam(defaultValue = "5") int limit,
-			@RequestParam(defaultValue = "1") int page) {
-		List<Variation> listVariations = variationService.getListPaginatedVariations(limit * (page - 1), limit);
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String search) {
+		List<Variation> listVariations = variationService.getListPaginatedVariations(limit * (page - 1), limit, search);
 		List<ProductVariationDTO> listVariationDTOs = new ArrayList<ProductVariationDTO>();
 		for (int i = 0; i < listVariations.size(); i++) {
 			ProductVariationDTO productVariationDTO = new ProductVariationDTO(listVariations.get(i));
 			listVariationDTOs.add(productVariationDTO);
 		}
+		modelMap.addAttribute("search", search);
 		modelMap.addAttribute("currentPage", page);
 		modelMap.addAttribute("limit", limit);
 		modelMap.addAttribute("listVariations", listVariationDTOs);
