@@ -18,6 +18,8 @@
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxxxxxx" crossorigin="anonymous" />
+
 	
 <style>
 <style>
@@ -232,13 +234,11 @@ input[type="text"], textarea {
 						<p class= "priceProduct"> ${product.getPrice()} VND</p>
 						<div class="mb-3">
 							<span class="mr-2">Rating:</span>
-							<div class="rating">
-							  <span class="star" data-value="1"></span>
-							  <span class="star" data-value="2"></span>
-							  <span class="star" data-value="3"></span>
-							  <span class="star" data-value="4"></span>
-							  <span class="star" data-value="5"></span>
-							</div>
+							<span class="fa fa-star checked"></span> 
+							<span class="fa fa-star checked"></span> 
+							<span class="fa fa-star checked"></span> 
+							<span class="fa fa-star"></span> 
+							<span class="fa fa-star"></span>
 						</div>
 						<form:form action="${product.getId()}.htm"
 							modelAttribute="shoppingCartItem">
