@@ -3,7 +3,7 @@ package ptithcm.model.pay;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -60,6 +60,15 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 		int result = query.executeUpdate();
 		return result;
 	}
+	
+	public List<ShoppingCart> getAllShoppingCart() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ShoppingCart";
+		Query query = session.createQuery(hql);
+		List<ShoppingCart> list = query.list();
+		System.out.println("List size: " + list.size());
+		return list;
+	}
 
 	
 

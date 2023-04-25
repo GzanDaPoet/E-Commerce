@@ -88,7 +88,7 @@ public class AddressController {
 		shopOrder.setCustomerAddress(addressService.getAddressById(addressId));
 		shopOrder.setOrderStatus(addressService.getOrderStatusById(2));
 		shopOrder.setCustomerPaymentMethod(paymentService.getPaymentById(PaymentMethod));
-		shopOrder.setDate(sqlDate);
+		shopOrder.setOrderDate(sqlDate);
 		shopOrder.setOrderTotal(sum);
 		Session session1 = sessionFactory.openSession();
 		org.hibernate.Transaction t =  session1.beginTransaction();
@@ -128,6 +128,12 @@ public class AddressController {
     		}
     		cartService.deleteCartItem(item.getId());
 		}
-        return "e-commerce/checkout";
+        return "e-commerce/orderSuccess";
 	}
+	
+	@RequestMapping(value = "order-success")
+	  public String showOrderSuccessPage() {
+	    return "e-commerce/orderSuccess";
+	  }
 }
+
