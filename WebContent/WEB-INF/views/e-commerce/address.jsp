@@ -74,11 +74,7 @@
 						<div class="col-xl-7 ">
 							<button type="button" class="btn btn-outline-primary ">
 								&#171 Back</button>
-						</div>
-						<div class="col-xl-5">
-							<button type="button" class="btn btn-outline-primary">Add
-								new address</button>
-						</div>
+						</div>			
 					</div>
 				</div>
 			</div>

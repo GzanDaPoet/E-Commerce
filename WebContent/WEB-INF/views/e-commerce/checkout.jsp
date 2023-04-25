@@ -1,73 +1,57 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%> -->
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Out</title>
-    <script src="https://kit.fontawesome.com/dbd4881242.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/cart/cart.css' />">
-	
+<title>Cart</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/dbd4881242.js"
+	crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
+	rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+    .success-message {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <h2 class="col-sm-12 title">Inventory recieve</h2>
-            <ul class="col-sm-12 breadscrum-custom">
-                <li class="breadscrum-custom-item"><a href="http://">Dashboard</a>
-                </li>
-                <span class="dotted"></span>
-                <li class="breadscrum-custom-item"><a href="http://">Inventory</a>
-                </li>
-                <span class="dotted"></span>
-                <li class="breadscrum-custom-item">Recieve</li>
-                <span class="dotted"></span>
-                <li class="breadscrum-custom-item">Recieve Details</li>
-            </ul>
-        </div>
-        <form>
-            <div class="box">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="select1">Agency</label>
-                        <select id="select1" name="select1">
-                            <option value="option1">Apple </option>
-                            <option value="option2">Sam sung </option>
-                            <option value="option3">Nokia </option>
-                            <option value="option4">Oppo </option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="select2">Status</label>
-                        <select id="select2" name="select2">
-                            <option value="option1">Đã nhận</option>
-                            <option value="option2">Đang vận chuyển</option>
-                            <option value="option3">hmm </option>
-                            <option value="option4">Test</option>
-                        </select>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="box mt-3">
-                <h5>Chi tiết đơn nhập:</h5>
-                <div id="inputs">
-                    <input type="text" name="input1" id="input1">
-                    <input type="text" name="input2" id="input2">
-                    <input type="text" name="input3" id="input3">
-                    <button onclick="addInput()">Add</button>
-                </div>
-                <script src="recieve.js"></script>
-            </div>
-        </form>
-    </div>
+	<div class="container-cts">
+		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
+		<div class="content">
+			<div class="success-message">
+				<p>Đặt hàng thành công!</p>
+			</div>
+			<div>
+				<button type="button" class="btn btn-outline-primary">
+					&#171 Continue Shopping</button>
+			</div>
+		</div>
+	</div>
+
 </body>
 
 </html>

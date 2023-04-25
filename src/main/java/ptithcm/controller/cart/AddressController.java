@@ -128,7 +128,7 @@ public class AddressController {
     		}
     		cartService.deleteCartItem(item.getId());
 		}
-        return "e-commerce/orderSuccess";
+        return "e-commerce/checkout";
 	}
 	
 	@RequestMapping(value = "order-success")
