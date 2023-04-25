@@ -11,6 +11,7 @@ public interface ProductDao {
 	public List<ProductItem> getAllProducts();
 
 	public ProductItem getProductById(int id);
+	public int updateQty(int Id, int qty); 
 
 	public Integer getOrderID(int id);
 
