@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ptithcm.model.customer.Customer;
 import ptithcm.model.user.User;
 
 @Repository
@@ -23,4 +24,15 @@ public class UserDaoImp implements UserDao {
 		query.setParameter("status", status);
 		return (User) query.uniqueResult();
 	}
+
+	@Override
+	public User getUserById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "From User c where c.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		return (User) query.uniqueResult();
+		
+	}
+	
 }

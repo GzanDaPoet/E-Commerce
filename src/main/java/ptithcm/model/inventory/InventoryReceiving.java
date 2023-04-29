@@ -1,5 +1,7 @@
 package ptithcm.model.inventory;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +21,8 @@ public class InventoryReceiving {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+	@Column(name="received_date")
+	private Date date;
 	@ManyToOne()
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -28,17 +32,19 @@ public class InventoryReceiving {
 	@ManyToOne()
 	@JoinColumn(name = "status_id")
 	private StatusReceiving statusReceiving;
-
+	
 	public InventoryReceiving() {
 		super();
 	}
 
-	public InventoryReceiving(Integer id, User user, Agency agency, StatusReceiving statusReceiving) {
+	public InventoryReceiving(Integer id, Date date, User user, Agency agency, StatusReceiving statusReceiving) {
 		super();
 		this.id = id;
+		this.date = date;
 		this.user = user;
 		this.agency = agency;
 		this.statusReceiving = statusReceiving;
+		
 	}
 
 	public Integer getId() {
@@ -71,6 +77,14 @@ public class InventoryReceiving {
 
 	public void setStatusReceiving(StatusReceiving statusReceiving) {
 		this.statusReceiving = statusReceiving;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

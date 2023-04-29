@@ -121,7 +121,8 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript"
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
 
 </html>
