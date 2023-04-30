@@ -39,7 +39,6 @@
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
 			<div class="container">
-
 				<div class="row">
 					<div class="col-xl-8 col-md mt-3 mb-3">
 						<div class="box">
@@ -81,8 +80,7 @@
 													<div class="col-6">
 														<p>Available:${i.productItem.quantityInStock}</p>
 													</div>
-												</div>
-											</td>
+												</div></td>
 
 											<td>${i.productItem.getPrice()}VNĐ</td>
 											<td>${i.productItem.getPrice() * i.quantity }VNĐ</td>
@@ -100,8 +98,10 @@
 								</tbody>
 							</table>
 							<div>
-								<button type="button" class="btn btn-outline-primary">
-									&#171 Continue Shopping</button>
+								<button type="button" class="btn btn-outline-primary"
+									onclick="window.location='${contextPath}/e-commerce/shop.htm'">&#171;
+									Continue Shopping</button>
+
 							</div>
 						</div>
 					</div>

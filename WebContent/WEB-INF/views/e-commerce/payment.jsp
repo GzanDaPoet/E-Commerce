@@ -53,7 +53,7 @@
 								<c:forEach var="i" items="${payment}">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="PaymentMethod" id="${i.id }" value="${i.id }" checked>
+											name="PaymentMethod" id="${i.id }" value="${i.id }" >
 										<label class="form-check-label" for="${i.id }">
 											${i.paymentType.status } Ngày hết hạn: ${ i.expiry } VND</label>
 									</div>
@@ -67,10 +67,12 @@
 								<c:forEach var="q" items="${shipping}">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="ShippingMethod" id="${q.id }" value="${q.id }" checked>
+											name="ShippingMethod" id="${q.id }" value="${q.price }" >
 										<label class="form-check-label" for="${q.id }">
 											${q.name } ${ q.price } VND</label>
 									</div>
+								<script type="text/javascript"
+									src="<c:url value='/common/assets/js/payment.js'/>"></script>
 								</c:forEach>
 							</div>
 						</div>
@@ -79,13 +81,13 @@
 							<div class="box2">
 								<div>
 									<h4 class="col-sm-12 title">Order Summary</h4>
-									<h5>Sub total: ${sum}</h5>
-									<h5>Shipping:</h5>
+									<h5>Sub total: <span id="total-price">${sum}</span></h5>
+									<h5>Shipping: <span id="shipping-price"></span> </h5> 
 									<hr>
-									<h4>Total: ${sum}</h4>
+									<h4>Total: <span id="total"></span></h4>
 								</div>
 								<div>
-									<button type="submit" class="btn btn-primary">Check
+									<button type="submit" class="btn btn-success btn-lg">Check
 										out</button>
 								</div>
 
@@ -93,9 +95,11 @@
 						</div>
 					</div>
 					<div class="mt-3">
-						<button type="button" class="btn btn-outline-primary">Back</button>
+						<button type="button" class="btn btn-outline-primary"
+							onclick="window.location='${contextPath}/e-commerce/address.htm'">&#171;
+							Back</button>
 					</div>
-			</form>
+				</form>
 			</div>
 		</div>
 	</div>

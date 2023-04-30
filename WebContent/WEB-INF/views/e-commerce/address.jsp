@@ -72,9 +72,10 @@
 					</ul>
 					<div class="row mt-3">
 						<div class="col-xl-7 ">
-							<button type="button" class="btn btn-outline-primary ">
-								&#171 Back</button>
-						</div>			
+							<button type="button" class="btn btn-outline-primary"
+								onclick="window.location='${contextPath}/e-commerce/cart.htm'">&#171;
+								Back</button>
+						</div>
 					</div>
 				</div>
 			</div>
