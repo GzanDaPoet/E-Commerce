@@ -40,7 +40,7 @@ public class ProductService {
 	
 	
 	public int updateQty(int produtItemId, int qty) {
-		int update =productDao.updateQty(produtItemId,qty);
+		int update = productDao.updateQty(produtItemId,qty);
 		return update;
 	}
 		

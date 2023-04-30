@@ -74,7 +74,6 @@ public class InventoryController {
 		} finally {
 			session.close();
 		}
-		System.out.println(newInventoryReceiving.getId());
 		for(int i = 0;i < productItems.size();i++) {
 			InventoryReceivingDetails newIRDetails = new InventoryReceivingDetails();
 			newIRDetails.setInventoryReceiving(newInventoryReceiving);
@@ -93,9 +92,7 @@ public class InventoryController {
 			} finally {
 				session1.close();
 			}
-			System.out.println(productItems.get(i));
-			System.out.println(qtys.get(i));
-			System.out.println(prices.get(i));
+			productService.updateQty(productItems.get(i), qtys.get(i));
 		}
 		return "admin/login";
 	}

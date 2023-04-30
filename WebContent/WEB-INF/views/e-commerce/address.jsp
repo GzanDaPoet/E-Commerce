@@ -62,7 +62,7 @@
 									<div class="col-md-3">
 										<form action="../e-commerce/address/deliver.htm" method="post">
 											<input type="hidden" name="addressId" value="${i.getId()}">
-											<button class="btn btn-outline-primary" id="deliver">
+											<button class="btn btn-success btn-lg" id="deliver">
 												Deliver to this address</button>
 										</form>
 									</div>

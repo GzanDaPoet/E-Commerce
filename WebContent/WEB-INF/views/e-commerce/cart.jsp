@@ -59,24 +59,29 @@
 										<tr>
 											<td>${i.productItem.product.getName()}</td>
 
-											<td>
-												<div class="btn-group btn-group-justified">
-													<form action="../e-commerce/cart/decrease.htm"
-														method="post">
-														<input type="hidden" name="productId" value="${i.getId()}">
-														<button class="btn btn-outline-primary" id="decrease">
-															-</button>
-													</form>
-													<button disabled class="btn btn-outline-primary"
-														id="quantity">${i.quantity}</button>
-													<form action="../e-commerce/cart/increase.htm"
-														method="post">
-														<input type="hidden" name="productId" value="${i.getId()}">
-														<button class="btn btn-outline-primary" id="increase">
-															+</button>
-													</form>
+											<td><div class="col">
+													<div class="col-6">
+														<div class="btn-group btn-group-justified">
+															<form action="../e-commerce/cart/decrease.htm"
+																method="post">
+																<input type="hidden" name="productId"
+																	value="${i.getId()}">
+																<button class="btn btn-outline-primary" id="decrease">-</button>
+															</form>
+															<button disabled class="btn btn-outline-primary"
+																id="quantity">${i.quantity}</button>
+															<form action="../e-commerce/cart/increase.htm"
+																method="post">
+																<input type="hidden" name="productId"
+																	value="${i.getId()}">
+																<button class="btn btn-outline-primary" id="increase">+</button>
+															</form>
+														</div>
+													</div>
+													<div class="col-6">
+														<p>Available:${i.productItem.quantityInStock}</p>
+													</div>
 												</div>
-
 											</td>
 
 											<td>${i.productItem.getPrice()}VNĐ</td>
@@ -86,7 +91,8 @@
 													<input type="hidden" name="productId" value="${i.getId()}">
 													<button type="submit" class="btn btn-outline-primary"
 														onclick="return confirm('Are you sure you want to delete this product?')">Del</button>
-												</form></td>
+												</form>
+											</td>
 
 
 										</tr>

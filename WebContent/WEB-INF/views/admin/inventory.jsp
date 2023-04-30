@@ -57,8 +57,7 @@
 							</div>
 						</div>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 					<div id="product-list">
 						<div class="row mb-3 mt-3">
 							<div class="col">
@@ -81,11 +80,16 @@
 							</div>
 						</div>
 					</div>
-					<button type="button" class="btn btn-primary"
-						onclick="addProduct()">Add</button>
-					<script  type="text/javascript"
-		src="<c:url value='/common/assets/js/inventory.js'/>"> </script>
-					<button type="submit">Submit</button>
+					<button type="button" class="btn btn-success"
+						onclick="addProduct()">+ Add product</button>
+					<script type="text/javascript"
+						src="<c:url value='/common/assets/js/inventory.js'/>">
+						
+					</script>
+					<div class="mt-3">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+
 				</form>
 			</div>
 		</div>
