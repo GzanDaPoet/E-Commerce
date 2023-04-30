@@ -27,6 +27,7 @@ import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.service.AddressService;
 import ptithcm.service.CartService;
 import ptithcm.service.PaymentService;
+import ptithcm.service.ProductService;
 
 @RequestMapping("/e-commerce/")
 @Controller
@@ -39,6 +40,8 @@ public class AddressController {
 	PaymentService paymentService;
 	@Autowired
 	CartService cartService;
+	@Autowired
+	ProductService productService;
 	@Autowired
 	SessionFactory sessionFactory;
 
@@ -126,6 +129,7 @@ public class AddressController {
     		finally {
     			session2.close();
     		}
+    		productService.updateQty(item.getProductItem().getId(), item.getQuantity()*(-1));
     		cartService.deleteCartItem(item.getId());
 		}
         return "e-commerce/checkout";
