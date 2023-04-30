@@ -39,9 +39,8 @@
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
 			<div class="container">
-
 				<div class="row">
-					<div class="col-xl-8 col-md mt-3 mb-3">
+					<div class="col-xl-9 col-md mt-3 mb-3">
 						<div class="box">
 							<h3 class="col-sm-12 title">Cart</h3>
 							<table class="table">
@@ -59,25 +58,29 @@
 										<tr>
 											<td>${i.productItem.product.getName()}</td>
 
-											<td>
-												<div class="btn-group btn-group-justified">
-													<form action="../e-commerce/cart/decrease.htm"
-														method="post">
-														<input type="hidden" name="productId" value="${i.getId()}">
-														<button class="btn btn-outline-primary" id="decrease">
-															-</button>
-													</form>
-													<button disabled class="btn btn-outline-primary"
-														id="quantity">${i.quantity}</button>
-													<form action="../e-commerce/cart/increase.htm"
-														method="post">
-														<input type="hidden" name="productId" value="${i.getId()}">
-														<button class="btn btn-outline-primary" id="increase">
-															+</button>
-													</form>
-												</div>
-
-											</td>
+											<td><div class="col">
+													<div class="col-6">
+														<div class="btn-group btn-group-justified">
+															<form action="../e-commerce/cart/decrease.htm"
+																method="post">
+																<input type="hidden" name="productId"
+																	value="${i.getId()}">
+																<button class="btn btn-outline-primary" id="decrease">-</button>
+															</form>
+															<button disabled class="btn btn-outline-primary"
+																id="quantity">${i.quantity}</button>
+															<form action="../e-commerce/cart/increase.htm"
+																method="post">
+																<input type="hidden" name="productId"
+																	value="${i.getId()}">
+																<button class="btn btn-outline-primary" id="increase">+</button>
+															</form>
+														</div>
+													</div>
+													<div class="col-6">
+														<p>Available:${i.productItem.quantityInStock}</p>
+													</div>
+												</div></td>
 
 											<td>${i.productItem.getPrice()}VNĐ</td>
 											<td>${i.productItem.getPrice() * i.quantity }VNĐ</td>
@@ -85,8 +88,9 @@
 												<form action="../e-commerce/cart/delete.htm" method="post">
 													<input type="hidden" name="productId" value="${i.getId()}">
 													<button type="submit" class="btn btn-outline-primary"
-														onclick="return confirm('Are you sure you want to delete this product?')">Del</button>
-												</form></td>
+														onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+												</form>
+											</td>
 
 
 										</tr>
@@ -94,8 +98,10 @@
 								</tbody>
 							</table>
 							<div>
-								<button type="button" class="btn btn-outline-primary">
-									&#171 Continue Shopping</button>
+								<button type="button" class="btn btn-outline-primary"
+									onclick="window.location='${contextPath}/e-commerce/shop.htm'">&#171;
+									Continue Shopping</button>
+
 							</div>
 						</div>
 					</div>
@@ -121,7 +127,8 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript"
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
 
 </html>

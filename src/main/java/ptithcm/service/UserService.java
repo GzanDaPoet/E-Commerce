@@ -18,4 +18,5 @@ public class UserService {
 	public User findByUserNameAndPasswordAndStatus(String userName, String password, boolean status) {
 		return userDao.findByUserNameAndPasswordAndStatus(userName, password, status);
 	}
+	
 }

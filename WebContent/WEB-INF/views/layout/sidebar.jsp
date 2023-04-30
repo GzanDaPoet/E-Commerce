@@ -52,7 +52,7 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/e-commerce/list.htm">Danh sách sản phẩm</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/e-commerce/checkout.htm">Thanh toán</a></li>
+							href="${contextPath}/e-commerce/cart.htm">Thanh toán</a></li>
 					</ul>
 				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">

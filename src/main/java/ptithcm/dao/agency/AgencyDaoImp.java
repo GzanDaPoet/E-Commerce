@@ -27,7 +27,7 @@ public class AgencyDaoImp implements AgencyDao {
 		return (Agency) query.uniqueResult();
 	}
 
-	
+	@Override
 	public List<Agency> getListAgencies() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "From Agency";
@@ -36,6 +36,8 @@ public class AgencyDaoImp implements AgencyDao {
 		return list;
 	}
 
+	
+	@Override
 	public StatusReceiving getStatusReceivingById(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "From StatusReceiving c where c.id = :id";

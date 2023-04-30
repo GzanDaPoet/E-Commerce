@@ -48,7 +48,6 @@ public class CartController{
 		model.addAttribute("shoppingCart",listCart);
 		for (ShoppingCartItem item : listCart ) {
 			sum +=item.getProductItem().getPrice() * item.getQuantity(); 
-			
 		}
 		ss.setAttribute("sum", sum);
 		return "e-commerce/cart";

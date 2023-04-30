@@ -62,7 +62,7 @@
 									<div class="col-md-3">
 										<form action="../e-commerce/address/deliver.htm" method="post">
 											<input type="hidden" name="addressId" value="${i.getId()}">
-											<button class="btn btn-outline-primary" id="deliver">
+											<button class="btn btn-success btn-lg" id="deliver">
 												Deliver to this address</button>
 										</form>
 									</div>
@@ -72,14 +72,17 @@
 					</ul>
 					<div class="row mt-3">
 						<div class="col-xl-7 ">
-							<button type="button" class="btn btn-outline-primary ">
-								&#171 Back</button>
-						</div>			
+							<button type="button" class="btn btn-outline-primary"
+								onclick="window.location='${contextPath}/e-commerce/cart.htm'">&#171;
+								Back</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
 
 </html>
