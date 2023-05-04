@@ -72,7 +72,14 @@ public class AdminController {
 		}
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String deleteProduct(@RequestParam Integer productId) {
+		
+		return "redirect:/";
+				
+	}
+	
 	
 
 }

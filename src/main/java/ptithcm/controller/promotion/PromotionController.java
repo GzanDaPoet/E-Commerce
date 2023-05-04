@@ -44,15 +44,19 @@ public class PromotionController {
 	
 	@RequestMapping(value = "promotion/create", method = RequestMethod.GET)
 	public String showPromotion(ModelMap model, HttpServletRequest request) {
+		List<ProductCategory> listCategories = productCategoryService.getAllProductCategory();
+		model.addAttribute("categories", listCategories);
 		return "product/promotion/createPromotion";
 	}
 
-	@RequestMapping(value = "promotion", method = RequestMethod.POST)
+
+	@RequestMapping(value = "promotion/create", method = RequestMethod.POST)
 	public String createPromotion(ModelMap model, @RequestParam("promotion-name") String promotionName,
 			@RequestParam("promotion-description") String promotionDescription, @RequestParam("brand") Integer cateId,
 			@RequestParam("discount-percentage") int discountPercentage,
 			@RequestParam("start-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+		System.out.println("Vao day them KM");
 		LocalDate currentDate = LocalDate.now();
 		UserPermission userPermission = new UserPermission();
 		userPermission.setId(7);
@@ -85,12 +89,13 @@ public class PromotionController {
 		    	 session.merge(productItem);
 			}
 		    tx.commit();
+		    System.out.println("Thanh cong");
 		    model.addAttribute("message", "Success");
 		} catch (Exception e) {
 		    if (tx != null) {
 		        tx.rollback();
 		        model.addAttribute("message", "Fail");
-		        System.out.println(e);
+		        System.out.println("That bai");
 		    }   
 		} finally {
 		    if(session != null){

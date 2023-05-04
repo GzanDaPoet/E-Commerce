@@ -1,0 +1,44 @@
+main {
+	font-size: 14px;
+	font-weight: 400;
+	font-family: "Public Sans", sans-serif;
+}
+
+
+.content .content-container {
+	border: none;
+	margin: 20px;
+	padding: 15px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+}
+
+.nhanHang {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.tenKM {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.moTa {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.phanTramGiam {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.ngayBD {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.ngayKT {
+	margin-bottom: 10px;
+	font-weight: bold;
+}

@@ -18,11 +18,10 @@ public class productCategoryImp implements productCategoryDao{
 	SessionFactory sessionFactory;
 	
 	public List<ProductCategory> getAllProductCategory() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		String hql = "From ProductCategory";
 		Query query = session.createQuery(hql);
 		List<ProductCategory> list = query.list();
-		System.out.println("Thanh cong 1");
 		return list;
 	}
 	

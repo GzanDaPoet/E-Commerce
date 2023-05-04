@@ -73,10 +73,6 @@ public class ProductController {
 				model.addAttribute("comments", comments);
 			}
 		}
-		// cap nhat gia KM cho san pham tại đây
-		int percentDiscount = promotionService.getPriceDiscount(productId);
-		double result = ((100.0 - (double)percentDiscount) / 100.0);
-		System.out.println("Gia sau khi KM la: " +  product.getPrice() * result);
 		model.addAttribute("product", product);
 		return "e-commerce/product";
 	}
@@ -97,7 +93,6 @@ public class ProductController {
 		shoppingCartItem.setQuantity(quantity);
 		Customer customer = customerService.getCustomerById(1);
 		int cartId = shoppingCartService.isHaveCart(1);
-		System.out.println("Cart ID: " + cartId);
 		if (cartId > 0) {
 			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
 			model.addAttribute("quantityOrdered", quantityOrdered);
@@ -146,7 +141,6 @@ public class ProductController {
 		Customer customer = customerService.getCustomerById(1);
 		customerReview.setCustomer(customer);
 		String comment = request.getParameter("commentInput").trim();
-		System.out.println("Comment: " + comment);
 		customerReview.setComment(comment);
 		customerReview.setOrderLine(productService.getOrderLinebyId(productId));
 		customerReview.setRatingValue(5);
@@ -167,48 +161,40 @@ public class ProductController {
 		return product(model, productId);
 	}
 
-	@RequestMapping(value = "list", method = RequestMethod.POST, params = "deleteProduct")
-	public String deleteProduct(HttpServletRequest request, ModelMap modelMap) {
-		int productId = Integer.valueOf(request.getParameter("productId"));
-		System.out.println("Product ID bi xoa la: " + productId);
+	@RequestMapping(value = "list/delete/{productId}")
+	public String deleteProduct(@PathVariable int productId) {
+		System.out.println("Vao day");
+		System.out.println("Product Id: " + productId);
 		productService.deleteProductItem(productId);
-		return list(modelMap);
+		return "redirect:/e-commerce/list.htm";
 	}
 
-	@RequestMapping(value = "list", method = RequestMethod.POST, params = "searchText")
-	public String searchProduct(ModelMap model, HttpServletRequest request) {
-		String searchText = request.getParameter("searchText").trim();
-		List<ProductItem> list = productService.searchProductItem(searchText);
-		model.addAttribute("listProduct", list);
-		return "e-commerce/list";
-	}
+	/*
+	 * @RequestMapping(value = "list", method = RequestMethod.POST, params =
+	 * "searchText") public String searchProduct(ModelMap model, HttpServletRequest
+	 * request) { String searchText = request.getParameter("searchText").trim();
+	 * List<ProductItem> list = productService.searchProductItem(searchText);
+	 * model.addAttribute("listProduct", list); return "e-commerce/list"; }
+	 */
 
-	@RequestMapping(value = "list", method = RequestMethod.GET, params = "filter")
-	public String processSelectedItem(ModelMap model, @RequestParam("selectOption") String selectOption) {
-		List<ProductItem> listProductItems = productService.getListProducts();
-		if (selectOption.equals("active")) {
-			System.out.println("Chon active");
-			List<ProductItem> listActiveItems = new ArrayList<>();
-			for (ProductItem productItem : listProductItems) {
-				if (productItem.getStatus().equals("In stock")) {
-					listActiveItems.add(productItem);
-				}
-			}
-			model.addAttribute("listProduct", listActiveItems);
-		} else if (selectOption.equals("inactive")) {
-			System.out.println("Chon InActive");
-			List<ProductItem> listInActiveItems = new ArrayList<>();
-			for (ProductItem productItem : listProductItems) {
-				if (productItem.getStatus().equals("Out of stock")) {
-					listInActiveItems.add(productItem);
-				}
-			}
-			model.addAttribute("listProduct", listInActiveItems);
-		}
-		else if (selectOption.equals("all")) {
-			model.addAttribute("listProduct", listProductItems);
-		}
-		return "e-commerce/list";
-	}
+	/*
+	 * @RequestMapping(value = "list", method = RequestMethod.GET, params =
+	 * "filter") public String processSelectedItem(ModelMap
+	 * model, @RequestParam("selectOption") String selectOption) { List<ProductItem>
+	 * listProductItems = productService.getListProducts(); if
+	 * (selectOption.equals("active")) { System.out.println("Chon active");
+	 * List<ProductItem> listActiveItems = new ArrayList<>(); for (ProductItem
+	 * productItem : listProductItems) { if
+	 * (productItem.getStatus().equals("In stock")) {
+	 * listActiveItems.add(productItem); } } model.addAttribute("listProduct",
+	 * listActiveItems); } else if (selectOption.equals("inactive")) {
+	 * System.out.println("Chon InActive"); List<ProductItem> listInActiveItems =
+	 * new ArrayList<>(); for (ProductItem productItem : listProductItems) { if
+	 * (productItem.getStatus().equals("Out of stock")) {
+	 * listInActiveItems.add(productItem); } } model.addAttribute("listProduct",
+	 * listInActiveItems); } else if (selectOption.equals("all")) {
+	 * model.addAttribute("listProduct", listProductItems); } return
+	 * "e-commerce/list"; }
+	 */
 
 }

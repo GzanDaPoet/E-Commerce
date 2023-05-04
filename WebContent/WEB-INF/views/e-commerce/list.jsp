@@ -81,12 +81,11 @@
 											<div class="group-btn">
 												<a
 													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
-
 													<button class="btn--add">
 														<span>Chỉnh sửa</span>
 													</button>
 												</a> <a
-													href="${contextPath}/admin/product/category/delete/${element.id}.htm">
+													href="${contextPath}/e-commerce/list/delete/${element.id}.htm">
 													<button class="btn--delete">
 														<span>Xoá</span>
 													</button>
