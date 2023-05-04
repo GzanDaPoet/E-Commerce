@@ -1,5 +1,6 @@
 package ptithcm.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +15,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ptithcm.dto.ProductVariationDTO;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.Variation;
+import ptithcm.model.user.UserPermission;
 import ptithcm.service.CategoryService;
+import ptithcm.service.UserService;
 import ptithcm.service.VariationService;
 
 @Controller
 @RequestMapping(value="/admin/")
 public class UserController{
 	
+	@Autowired
+	UserService userService;
+	
 	@RequestMapping(value="adduser")
-	public String  adduser () {
+	public String  adduser (ModelMap model) {
+		List<UserPermission> list = userService.getListUserPermissions();
+		model.addAttribute("listPermission",list);
+		return "admin/adduser";
+	}
+	
+	@RequestMapping(value = "adduser/new")
+	public String newUserString () {
+		
 		return "admin/adduser";
 	}
 	
