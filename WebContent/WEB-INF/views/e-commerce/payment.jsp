@@ -53,7 +53,7 @@
 								<c:forEach var="i" items="${payment}">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="PaymentMethod" id="${i.id }" value="${i.id }" >
+											name="PaymentMethod" id="${i.id }"  value="${i.id }" >
 										<label class="form-check-label" for="${i.id }">
 											${i.paymentType.status } Ngày hết hạn: ${ i.expiry } VND</label>
 									</div>
@@ -67,12 +67,11 @@
 								<c:forEach var="q" items="${shipping}">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="ShippingMethod" id="${q.id }" value="${q.price }" >
+											name="ShippingMethod" id="${q.id}" value="${q.id }" onclick = "getprice('${q.price}')" >
 										<label class="form-check-label" for="${q.id }">
 											${q.name } ${ q.price } VND</label>
 									</div>
-								<script type="text/javascript"
-									src="<c:url value='/common/assets/js/payment.js'/>"></script>
+								
 								</c:forEach>
 							</div>
 						</div>
@@ -81,10 +80,10 @@
 							<div class="box2">
 								<div>
 									<h4 class="col-sm-12 title">Order Summary</h4>
-									<h5>Sub total: <span id="total-price">${sum}</span></h5>
-									<h5>Shipping: <span id="shipping-price"></span> </h5> 
+									<h5>Sub total: <span id="total-price">${sum} VND</span></h5>
+									<h5>Shipping: <span id="shipping-price"></span> VND</h5> 
 									<hr>
-									<h4>Total: <span id="total"></span></h4>
+									<h4>Total: <span id="total">VND</span></h4>
 								</div>
 								<div>
 									<button type="submit" class="btn btn-success btn-lg">Check
@@ -104,7 +103,18 @@
 		</div>
 	</div>
 	<script type="text/javascript"
-		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>	
+	<script>
+	function getprice(price) {
+		  document.getElementById("shipping-price").innerHTML = price;
+		  var ship = parseInt(price);
+		  var currentTotal = parseInt(document.getElementById("total-price").textContent);
+	      // Hiển thị giá lên trang web
+	      document.getElementById("shipping-price").textContent = price;
+	      var newTotal = currentTotal + ship;
+	      document.getElementById("total").textContent = newTotal;}
+	 </script>
 </body>
 
 </html>
+
