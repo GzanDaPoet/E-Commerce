@@ -24,8 +24,8 @@ public class CategoryService {
 		return categoryDao.getAllCategory();
 	}
 
-	public List<ProductCategory> getListPaginatedCategories(int firstResult, int maxResults) {
-		return categoryDao.listPaginatedProductCategory(firstResult, maxResults);
+	public List<ProductCategory> getListPaginatedCategories(int firstResult, int maxResults, String search) {
+		return categoryDao.listPaginatedProductCategory(firstResult, maxResults, search);
 	}
 
 	public void deleteCategoryById(int categoryId) {

@@ -1,4 +1,4 @@
-package ptithcm.dao.variation;
+package ptithcm.dao.variationOption;
 
 import java.util.List;
 
@@ -8,52 +8,51 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ptithcm.model.product.Variation;
+import ptithcm.model.product.VariationOption;
 
 @Repository
-public class VariationDaoImpl implements VariationDao {
-
+public class VariationOptionImpl implements VariationOptionDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void deleteById(int variationId) {
+	public void deleteById(int variationOptionId) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "delete Variation v where v.id = :id";
+		String hql = "delete VariationOption vo where vo.id = :id";
 		Query query = session.createQuery(hql);
-		query.setParameter("id", variationId);
+		query.setParameter("id", variationOptionId);
 		query.executeUpdate();
 	}
 
 	@Override
-	public List<Variation> getAllVariations() {
+	public List<VariationOption> getAllVariationOptionons() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM Variation v ORDER BY v.id";
+		String hql = "FROM VariationOption v ORDER BY v.id";
 		Query query = session.createQuery(hql);
-		List<Variation> list = query.list();
+		List<VariationOption> list = query.list();
 		return list;
 	}
 
 	@Override
-	public Variation getVariationById(int variationId) {
+	public VariationOption getVariationOptionById(int variationOptionId) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM Variation v where v.id = :id";
+		String hql = "FROM VariationOption v where v.id = :id";
 		Query query = session.createQuery(hql);
-		query.setParameter("id", variationId);
-		return (Variation) query.uniqueResult();
+		query.setParameter("id", variationOptionId);
+		return (VariationOption) query.uniqueResult();
 	}
 
 	@Override
-	public void insert(Variation variation) {
+	public void insert(VariationOption variationOption) {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
 
-			session.save(variation);
+			session.save(variationOption);
 
 			session.getTransaction().commit();
 
-			System.out.print("insert variation success!");
+			System.out.print("insert variation option success!");
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();
@@ -61,27 +60,25 @@ public class VariationDaoImpl implements VariationDao {
 			session.flush();
 			session.close();
 		}
-
 	}
 
 	@Override
-	public List<Variation> listPaginatedProductVariation(int firstResult, int maxResults, String search) {
+	public List<VariationOption> listPaginatedVariationOptions(int firstResult, int maxResults, String search) {
 		firstResult = firstResult <= 0 ? 0 : firstResult;
 		maxResults = maxResults <= 5 ? 5 : maxResults;
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM Variation v WHERE v.name LIKE :search ORDER BY v.id";
+		String hql = "FROM VariationOption v WHERE v.value LIKE :search ORDER BY v.id";
 		Query query = session.createQuery(hql);
 		query.setParameter("search", "%" + search + "%");
 		query.setFirstResult(firstResult);
 		query.setMaxResults(maxResults);
-		List<Variation> list = query.list();
+		List<VariationOption> list = query.list();
 		return list;
 	}
 
 	@Override
-	public void updateById(Variation variation) {
+	public void updateById(VariationOption variationOption) {
 		Session session = sessionFactory.getCurrentSession();
-		session.update(variation);
-
+		session.update(variationOption);
 	}
 }

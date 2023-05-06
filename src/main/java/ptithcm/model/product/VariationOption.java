@@ -25,12 +25,10 @@ public class VariationOption {
 	private Variation variation;
 	@Column(name = "value")
 	private String value;
-	
+
 	@OneToMany(mappedBy = "variationOption", fetch = FetchType.LAZY)
 	private Collection<ProductConfigruation> productConfigruations;
 
-	
-	
 	public VariationOption() {
 		super();
 	}
@@ -75,8 +73,5 @@ public class VariationOption {
 	public void setProductConfigruations(Collection<ProductConfigruation> productConfigruations) {
 		this.productConfigruations = productConfigruations;
 	}
-	
-	
-	
-	
+
 }

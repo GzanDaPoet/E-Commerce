@@ -26,12 +26,13 @@ public class CategoryDaoImpl implements ICategoryDao {
 	}
 
 	@Override
-	public List<ProductCategory> listPaginatedProductCategory(int firstResult, int maxResults) {
+	public List<ProductCategory> listPaginatedProductCategory(int firstResult, int maxResults, String search) {
 		firstResult = firstResult <= 0 ? 0 : firstResult;
 		maxResults = maxResults <= 5 ? 5 : maxResults;
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM ProductCategory proc ORDER BY proc.id";
+		String hql = "FROM ProductCategory proc WHERE proc.categoryName LIKE :search ORDER BY proc.id";
 		Query query = session.createQuery(hql);
+		query.setParameter("search", "%" + search + "%");
 		query.setFirstResult(firstResult);
 		query.setMaxResults(maxResults);
 		List<ProductCategory> list = query.list();

@@ -39,15 +39,15 @@
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Thuộc
-										tính</a></li>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Giá
+										trị thuộc tính</a></li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách thuộc tính</li>
+								<li class="breadcrumb__item">Danh sách giá trị thuộc tính</li>
 							</ul>
 						</nav>
 					</div>
 					<div>
-						<a href="${contextPath}/admin/product/variation/new.htm">
+						<a href="${contextPath}/admin/product/variation-option/new.htm">
 							<button class="btn--add">
 								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
 							</button>
@@ -83,17 +83,17 @@
 								<tr>
 									<th class="th-header"><span>mã</span></th>
 									<th class="th-header"><span>Tên thuộc tính</span></th>
-									<th class="th-header"><span>Thuộc nhãn</span></th>
+									<th class="th-header"><span>Giá trị thuộc tính</span></th>
 									<th class="th-header"><span>status</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listVariations}" var="element">
+								<c:forEach items="${listVariationOption}" var="element">
 									<tr>
-										<td class="td-body">${element.variationId}</td>
+										<td class="td-body">${element.id}</td>
 										<td class="td-body">${element.variationName }</td>
-										<td class="td-body">${element.categoryName}</td>
+										<td class="td-body">${element.variationOptionValue}</td>
 										<td class="td-body">
 											<div class="mui-chip">
 												<span class="mui-chip-label">Hoạt động</span>
@@ -102,13 +102,13 @@
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/variation/edit/${element.variationId}.htm">
+													href="${contextPath}/admin/product/variation-option/edit/${element.id}.htm">
 
 													<button class="btn--add">
 														<span>Chỉnh sửa</span>
 													</button>
 												</a> <a
-													href="${contextPath}/admin/product/variation/delete/${element.variationId}.htm">
+													href="${contextPath}/admin/product/variation-option/delete/${element.id}.htm">
 													<button class="btn--delete">
 														<span>Xoá</span>
 													</button>

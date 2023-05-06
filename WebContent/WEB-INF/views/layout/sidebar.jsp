@@ -218,8 +218,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách giá trị</a></li>
-						<li class="submenu-item"><a href="#">Tạo mới giá trị</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation-option/list.htm">Danh
+								sách giá trị</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation-option/new.htm">Tạo
+								mới giá trị</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
