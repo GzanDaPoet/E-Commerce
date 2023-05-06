@@ -28,7 +28,7 @@ public class User {
 	private Integer id;
 	@OneToOne()
 	@JoinColumn(name = "user_permission")
-	private UserPermission user_permission;
+	private UserPermission userPermission;
 	@Column(name = "username")
 	private String username;
 	@Column(name = "email")
@@ -57,7 +57,7 @@ public class User {
 			Boolean status) {
 		super();
 		this.id = id;
-		this.user_permission = user_permission;
+		this.userPermission = user_permission;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -69,11 +69,11 @@ public class User {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public UserPermission getUser_permission() {
-		return user_permission;
+	public UserPermission getUserPermission() {
+		return userPermission;
 	}
-	public void setUser_permission(UserPermission user_permission) {
-		this.user_permission = user_permission;
+	public void setUserPermission(UserPermission userPermission) {
+		this.userPermission = userPermission;
 	}
 	public String getUsername() {
 		return username;

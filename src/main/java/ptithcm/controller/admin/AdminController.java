@@ -63,10 +63,10 @@ public class AdminController {
 		User user = userService.findByUserNameAndPasswordAndStatus(username, password, true);
 		if (user != null) {
 			SessionUtil.getInstance().putValue(request, "USER_MODEL", user);
-			if (user.getUser_permission().getValue().equals("ROLE_USER")) {
+			if (user.getUserPermission().getValue().equals("ROLE_USER")) {
 				return "redirect:/e-commerce/shop.htm";
-			} else if (user.getUser_permission().getValue().equals("ROLE_ADMIN")
-					|| user.getUser_permission().getValue().equals("ROLE_SUPER_ADMIN")) {
+			} else if (user.getUserPermission().getValue().equals("ROLE_ADMIN")
+					|| user.getUserPermission().getValue().equals("ROLE_SUPER_ADMIN")) {
 				return "redirect:/e-commerce/list.htm";
 			}
 		}

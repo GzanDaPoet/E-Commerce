@@ -30,4 +30,8 @@ public class UserService {
 		}
 		return permissionList;
 	}
+	
+	public UserPermission getPermissionById(int id) {
+		return userDao.getPermissionbyId(id);
+	}
 }

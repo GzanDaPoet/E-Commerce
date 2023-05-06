@@ -48,5 +48,14 @@ public class UserDaoImp implements UserDao {
 		return list;
 		
 	}
+
+	@Override
+	public UserPermission getPermissionbyId(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "From UserPermission c where c.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		return (UserPermission) query.uniqueResult();
+	}
 	
 }

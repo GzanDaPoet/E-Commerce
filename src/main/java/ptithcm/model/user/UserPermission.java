@@ -21,8 +21,7 @@ public class UserPermission {
 	private Integer id;
 	@Column(name = "value")
 	private String value;
-	
-	@OneToOne(mappedBy = "user_permission")
+	@OneToOne(mappedBy = "userPermission")
 	private User user;
 	
 	
