@@ -71,7 +71,9 @@
 									</div>
 									<div class="ckeditor">
 										<h6>Mô tả sản phẩm</h6>
-										<div class="ckeditor-wrapper"></div>
+										<div class="ckeditor-wrapper">
+											<textarea id="description" name="description"></textarea>
+										</div>
 									</div>
 									<div class="upload-image">
 										<h6>Ảnh thumbnail</h6>
@@ -121,6 +123,8 @@
 			</div>
 		</main>
 	</div>
+	<script type="text/javascript"
+		src="<c:url value='/ckeditor/ckeditor.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script type="text/javascript"

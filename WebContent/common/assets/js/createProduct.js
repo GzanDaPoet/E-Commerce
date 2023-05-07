@@ -1,3 +1,14 @@
+// apply ckeditor
+var ckeditor = "";
+
+document.addEventListener(
+	"DOMContentLoaded",
+	function() {
+		ckeditor = CKEDITOR.replace("description");
+	},
+	false
+);
+
 // Dynamic field
 const addBtn = document.getElementById("btnAddField");
 const categoryList = document.querySelector(".category");

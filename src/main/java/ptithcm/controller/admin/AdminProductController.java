@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +30,11 @@ public class AdminProductController {
 	public String handleSubmitFormCreateProduct(
 			@RequestParam(value = "productName", required = true) String productName,
 			@RequestParam(value = "categoryId", required = true) String categoryId,
+			@RequestParam(value = "description", required = true) String productDescription,
 			@RequestParam("SKU") List<String> SKU) {
 		System.out.println(productName);
 		System.out.println(categoryId);
-		System.out.println(SKU.get(0));
+		System.out.println(productDescription);
 		return "redirect:/admin/product/category/new.htm";
 	}
 
