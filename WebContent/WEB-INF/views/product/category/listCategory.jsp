@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | Edit Category</title>
+<title>Admin | List Category</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -55,14 +55,36 @@
 					</div>
 				</div>
 				<div class="paper-wrapper">
+					<form id="search-form">
+						<div class="search-container">
+							<!-- Input search -->
+							<div class="select-container">
+								<select name="status" id="status" class="select"
+									aria-invalid="false">
+									<option value="null" selected="selected">Không</option>
+								</select> <label for="status">Trạng thái</label> <span
+									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+							<div class="input-container">
+								<input type="text" id="search" name="search"
+									aria-labelledby="label-search" value="${search}"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="search">Tìm kiếm</label>
+								<button id="clear-search" type="button"
+									aria-label="Clear search text">
+									<i class="fa-solid fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 					<div class="table-container">
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>id</span></th>
-									<th class="th-header"><span>category name</span></th>
-									<th class="th-header"><span>category parent</span></th>
-									<th class="th-header"><span>status</span></th>
+									<th class="th-header"><span>Mã</span></th>
+									<th class="th-header"><span>Tên nhãn</span></th>
+									<th class="th-header"><span>Nhãn cha</span></th>
+									<th class="th-header"><span>Trạng thái</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>

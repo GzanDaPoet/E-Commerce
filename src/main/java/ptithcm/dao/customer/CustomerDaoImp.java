@@ -1,5 +1,7 @@
 package ptithcm.dao.customer;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,5 +23,6 @@ public class CustomerDaoImp implements CustomerDao {
 		query.setParameter("id", id);
 		return (Customer) query.uniqueResult();
 	}
+
 
 }

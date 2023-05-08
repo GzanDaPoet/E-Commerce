@@ -17,7 +17,6 @@ public class CategoryService {
 	private ICategoryDao categoryDao;
 
 	public void insertCategory(ProductCategory category) {
-
 		categoryDao.insert(category);
 	}
 
@@ -25,8 +24,8 @@ public class CategoryService {
 		return categoryDao.getAllCategory();
 	}
 
-	public List<ProductCategory> getListPaginatedCategories(int firstResult, int maxResults) {
-		return categoryDao.listPaginatedProductCategory(firstResult, maxResults);
+	public List<ProductCategory> getListPaginatedCategories(int firstResult, int maxResults, String search) {
+		return categoryDao.listPaginatedProductCategory(firstResult, maxResults, search);
 	}
 
 	public void deleteCategoryById(int categoryId) {
@@ -41,4 +40,13 @@ public class CategoryService {
 		categoryDao.updateById(productCategory);
 	}
 
+	public boolean checkCategoryExist(int categoryId) {
+		List<ProductCategory> listCategories = categoryDao.getAllCategory();
+		for (int i = 0; i < listCategories.size(); i++) {
+			if (listCategories.get(i).getId().equals(categoryId)) {
+				return true;
+			}
+		}
+		return true;
+	}
 }

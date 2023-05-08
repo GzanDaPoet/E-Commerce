@@ -52,7 +52,7 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/e-commerce/list.htm">Danh sách sản phẩm</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/e-commerce/checkout.htm">Thanh toán</a></li>
+							href="${contextPath}/e-commerce/cart.htm">Thanh toán</a></li>
 					</ul>
 				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">
@@ -197,9 +197,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách thuộc tính</a>
-						</li>
-						<li class="submenu-item"><a href="#">Tạo mới thuộc tính</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation/list.htm">Danh
+								sách thuộc tính</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation/new.htm">Tạo mới
+								thuộc tính</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -215,8 +218,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách giá trị</a></li>
-						<li class="submenu-item"><a href="#">Tạo mới giá trị</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation-option/list.htm">Danh
+								sách giá trị</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/variation-option/new.htm">Tạo
+								mới giá trị</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">

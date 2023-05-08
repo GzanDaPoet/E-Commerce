@@ -34,6 +34,34 @@ public class ProductDaoImp implements ProductDao {
 		return (ProductItem) query.uniqueResult();
 	}
 
+	@Override
+	public int updateQty(int Id, int qty) {
+		Session session = factory.getCurrentSession();
+		String hql = "UPDATE ProductItem s SET s.quantityInStock = s.quantityInStock + :qty WHERE s.id  = :Id";
+		Query query = session.createQuery(hql);
+		query.setParameter("qty", qty);
+		query.setParameter("Id" , Id);
+		int result = query.executeUpdate();
+		return result;
+	}
+
+//	public Integer getOrderID(int productId) {
+//		Session session = factory.getCurrentSession();
+//		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("productId", productId);
+//		return (int) query.uniqueResult();
+//	}
+//
+//	public List<CustomerReview> getAllCommentsById(int productId) {
+//		Session session = factory.getCurrentSession();
+//		System.out.println("Cart ID: " + getOrderID(productId));
+//		String hql = "SELECT cr FROM CustomerReview cr, OrderLine ol WHERE ol.id = cr.orderLine.id AND ol.id = :orderId";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("orderId", getOrderID(productId));
+//		List<CustomerReview> comments = query.list();
+//		return comments;
+//	}
 	public Integer getOrderID(int productId) {
 		Session session = factory.getCurrentSession();
 		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";

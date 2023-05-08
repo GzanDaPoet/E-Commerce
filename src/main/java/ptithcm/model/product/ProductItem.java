@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ptithcm.model.inventory.InventoryReceivingDetails;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.model.updation.UpdatePriceProductItem;
@@ -51,7 +52,8 @@ public class ProductItem {
 	private Collection<WarrantyDetail> warrantyDetails;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
-	
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
+	private Collection<InventoryReceivingDetails> inventoryReceivingDetails;
 	
 
 	
@@ -63,7 +65,7 @@ public class ProductItem {
 	public ProductItem(int id, Product product, String sKU, int quantityInStock, String productImage, Integer price,
 			int date, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
 			Collection<ProductConfigruation> productConfigruations, Collection<WarrantyDetail> warrantyDetails,
-			Collection<UpdatePriceProductItem> updatePriceProductItems) {
+			Collection<UpdatePriceProductItem> updatePriceProductItems, Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -78,6 +80,17 @@ public class ProductItem {
 		this.productConfigruations = productConfigruations;
 		this.warrantyDetails = warrantyDetails;
 		this.updatePriceProductItems = updatePriceProductItems;
+		this.inventoryReceivingDetails = inventoryReceivingDetails;
+	}
+
+
+	public Collection<InventoryReceivingDetails> getInventoryReceivingDetails() {
+		return inventoryReceivingDetails;
+	}
+
+
+	public void setInventoryReceivingDetails(Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
+		this.inventoryReceivingDetails = inventoryReceivingDetails;
 	}
 
 
