@@ -23,8 +23,10 @@ import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.model.user.User;
 import ptithcm.service.AddressService;
 import ptithcm.service.CartService;
+import ptithcm.util.SessionUtil;
 
 
 @RequestMapping("/e-commerce/")
@@ -42,9 +44,11 @@ public class CartController{
 	public static ProductItem productItem;
 	
 	@RequestMapping(value = "cart")
-	public String showCart(ModelMap model,HttpSession ss) {
+	public String showCart(HttpServletRequest request, ModelMap model,HttpSession ss) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		System.out.println("Id: " + id);
 		int sum = 0;
-		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(1);
+		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
 		model.addAttribute("shoppingCart",listCart);
 		for (ShoppingCartItem item : listCart ) {
 			sum +=item.getProductItem().getPrice() * item.getQuantity(); 

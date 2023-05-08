@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ptithcm.dao.shoppingCart.ShoppingCartDao;
+import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 
@@ -15,17 +16,19 @@ public class ShoppingCartService {
 	private ShoppingCartDao shoppingCartDao;
 	
 	public List<ShoppingCart> getAllShoppingCart() {
-		List<ShoppingCart> shoppingCarts = shoppingCartDao.getAllShoppingCart();
-		if (!shoppingCarts.isEmpty()) {
+		List<ShoppingCart> shoppingCarts = null;
+		shoppingCarts =  shoppingCartDao.getAllShoppingCart();
+		System.out.println(shoppingCarts.size());
+		if (shoppingCarts.size() > 0) {
 			return shoppingCarts;
 		}
 		return null;
 	}
 	
 	
-	public Integer isHaveCart(int customerId) {
-		System.out.println("1");
-		if (!getAllShoppingCart().isEmpty())
+	public int isHaveCart(int customerId) {
+	
+		if (getAllShoppingCart().size() > 0)
 		{
 			for (ShoppingCart s: getAllShoppingCart()) {
 				if (s.getCustomer().getId() == customerId) {
@@ -47,29 +50,36 @@ public class ShoppingCartService {
 		return null;
 	}
 	
-	public List<ShoppingCartItem> getAllCartItemsById(int cartId) {
-		List<ShoppingCartItem> list = shoppingCartDao.getAllCartItemsById(cartId);
+	public List<ShoppingCartItem> getAllCartItemsById(int customerId) {
+		List<ShoppingCartItem> list = shoppingCartDao.getAllCartItemsById(customerId);
 		if (!list.isEmpty()) {
 			return list;
 		}
 		return null;
 	}
 
-	public int getTotalQuantityOrdered(int cartId) {
+	public int getTotalQuantityOrdered(int customerId) {
 		int sum = 0;
-		List<ShoppingCartItem> list = getAllCartItemsById(cartId);
-		System.out.println("Qua day");
-		if (list.size() == 0) {
-			System.out.println("List is empty");
+		List<ShoppingCartItem> listCartItem = shoppingCartDao.getAllCartItemsById(customerId);
+		if (listCartItem.size() == 0) {
+			System.out.println("NULLLLL");
 			return 0;
 		}
 		else {
-			System.out.println("List isn't empty");
-			for (ShoppingCartItem s: list) {
+			for (ShoppingCartItem s: listCartItem) {
 				sum += s.getQuantity();
 			}
 		}
 		return sum;
+	}
+	
+	public boolean isAddedToCart(int productId, int cartId) {
+		for (ShoppingCartItem productItem: getAllCartItemsById(cartId)) {
+			if (productId == productItem.getProductItem().getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

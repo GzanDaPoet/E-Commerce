@@ -31,7 +31,6 @@ public class ProductDaoImp implements ProductDao {
 		String hql = "FROM ProductItem p WHERE p.id = :productId";
 		Query query = session.createQuery(hql);
 		query.setParameter("productId", productId);
-		System.out.println("Lay product by Id thanh cong");
 		return (ProductItem) query.uniqueResult();
 	}
 

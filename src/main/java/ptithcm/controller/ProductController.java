@@ -1,12 +1,12 @@
 package ptithcm.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
@@ -55,20 +54,20 @@ public class ProductController {
 	public String shop(ModelMap model, HttpServletRequest request) {
 		List<ProductItem> list = productService.getListProducts();
 		model.addAttribute("listProduct", list);
-		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
 		return "e-commerce/shop";
 	}
 
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
-	public String product(ModelMap model, @PathVariable("productId") int productId) {
+	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		System.out.println("ID nguoi dang su dung: " + id);
 		ProductItem product = productService.getProductById(productId);
-		System.out.println("Product Image URL: " + product.getProductImage());
-		int cartId = shoppingCartService.isHaveCart(1);
-		System.out.println("Cart ID: " + cartId);
+		int quantityOrdered = 0;
+		int cartId = shoppingCartService.isHaveCart(id);
+		System.out.println("cartId: " + cartId);
 		if (cartId > 0) {
-			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
-			System.out.println("quantity: " + quantityOrdered);
+			quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 			model.addAttribute("quantityOrdered", quantityOrdered);
 			List<CustomerReview> comments = productService.getAllCommentsById(productId);
 			if (comments != null) {
@@ -76,6 +75,7 @@ public class ProductController {
 				model.addAttribute("comments", comments);
 			}
 		}
+		model.addAttribute("quantityOrdered", quantityOrdered);
 		model.addAttribute("product", product);
 		return "e-commerce/product";
 	}
@@ -94,11 +94,11 @@ public class ProductController {
 		model.addAttribute("product", product);
 		Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
 		shoppingCartItem.setQuantity(quantity);
-		Customer customer = customerService.getCustomerById(1);
-		int cartId = shoppingCartService.isHaveCart(1);
+		int quantityOrdered = 0;
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		Customer customer = customerService.getCustomerById(id);
+		int cartId = shoppingCartService.isHaveCart(id);
 		if (cartId > 0) {
-			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
-			model.addAttribute("quantityOrdered", quantityOrdered);
 			List<CustomerReview> comments = productService.getAllCommentsById(productId);
 			if (comments != null) {
 				model.addAttribute("comments", comments);
@@ -133,7 +133,7 @@ public class ProductController {
 				session.close();
 			}
 		}
-		int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
+		quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		return "e-commerce/product";
 	}
@@ -141,7 +141,8 @@ public class ProductController {
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
-		Customer customer = customerService.getCustomerById(1);
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		Customer customer = customerService.getCustomerById(id);
 		customerReview.setCustomer(customer);
 		String comment = request.getParameter("commentInput").trim();
 		customerReview.setComment(comment);
@@ -161,13 +162,11 @@ public class ProductController {
 				session.close();
 			}
 		}
-		return product(model, productId);
+		return product(request, model, productId);
 	}
 
 	@RequestMapping(value = "list/delete/{productId}")
 	public String deleteProduct(@PathVariable int productId) {
-		System.out.println("Vao day");
-		System.out.println("Product Id: " + productId);
 		productService.deleteProductItem(productId);
 		return "redirect:/e-commerce/list.htm";
 	}

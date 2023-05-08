@@ -82,7 +82,10 @@
 				</div>
 
 				<div class="cart-icon">
-					<i class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
+					<a href="${contextPath}/e-commerce/cart.htm">
+					 	<i class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
+					</a>
+				
 				</div>
 				<div class="container">
 					<div class="item">
