@@ -58,12 +58,13 @@ public class ShoppingCartService {
 	public int getTotalQuantityOrdered(int cartId) {
 		int sum = 0;
 		List<ShoppingCartItem> list = getAllCartItemsById(cartId);
-		
-		if (list.isEmpty()) {
+		System.out.println("Qua day");
+		if (list.size() == 0) {
+			System.out.println("List is empty");
 			return 0;
 		}
 		else {
-			
+			System.out.println("List isn't empty");
 			for (ShoppingCartItem s: list) {
 				sum += s.getQuantity();
 			}

@@ -63,9 +63,12 @@ public class ProductController {
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
 	public String product(ModelMap model, @PathVariable("productId") int productId) {
 		ProductItem product = productService.getProductById(productId);
+		System.out.println("Product Image URL: " + product.getProductImage());
 		int cartId = shoppingCartService.isHaveCart(1);
+		System.out.println("Cart ID: " + cartId);
 		if (cartId > 0) {
 			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
+			System.out.println("quantity: " + quantityOrdered);
 			model.addAttribute("quantityOrdered", quantityOrdered);
 			List<CustomerReview> comments = productService.getAllCommentsById(productId);
 			if (comments != null) {
