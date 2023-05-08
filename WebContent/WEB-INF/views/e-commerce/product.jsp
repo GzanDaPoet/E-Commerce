@@ -18,227 +18,46 @@
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
-	
-<style>
-<style>
+<link rel="stylesheet"
+	href="<c:url value='/common/assets/css/ecommerce/product/style.css'/>">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-.row {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.item {
-	flex-basis: calc(25% - 20px);
-	margin-bottom: 20px;
-	background-color: #f2f2f2;
-	padding: 20px;
-	text-align: center;
-	margin-right: 50px;
-	margin-left: 50px;'
-}
-
-.item-icon {
-	font-size: 40px;
-	margin-bottom: 10px;
-}
-
-.item-title {
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.item-subtitle {
-	font-size: 18px;
-	color: #666;
-}
-
-.description-title {
-	font-weight: bold;
-	font-size: 30px;
-	margin-bottom: 10px;
-}
-
-
-/* Thiết lập kiểu cho phần tử trường văn bản */
-input[type="text"], textarea {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	box-sizing: border-box;
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	background-color: #f8f8f8;
-	resize: none;
-}
-
-/* Thiết lập kiểu cho phần tử container */
-.comment-container {
-	padding: 20px;
-	border-radius: 15px;
-	background-color: beige;
-	margin-top: 10px;
-	overflow-y: scroll;
-}
-
-.comment {
-	padding: 10px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-	font-size: 20px;
-}
-
-.comment .author {
-	font-weight: bold;
-}
-
-.comment .date {
-	color: #aaa;
-	font-size: 0.8em;
-}
-
-.comment .message {
-	margin-top: 5px;
-	font-size: 0.9em;
-}
-
-.cart-icon {
-	position: fixed;
-	bottom: 200px;
-	right: 20px;
-	background-color: #ccc;
-	width: 65px;
-	height: 65px;
-	border-radius: 50%;
-	text-align: center;
-	line-height: 50px;
-	font-size: 24px;
-	padding: 8px;
-}
-
-.cart-icon span {
-	position: relative;
-	height: 18px;
-	right: -5px;
-	top: -15px;
-	background-color: red;
-	color: white;
-	font-size: 15px;
-	padding: 5px;
-	border-radius: 15px;
-	min-width: 20px;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-}
-
-.description {
-	padding: 10px;
-	background-color: aquamarine;
-	border-radius: 10px;
-	
-}
-
-.btnAddToCart {
-	width: 120px;
-	background-color: coral;
-	border-radius: 5px;
-	border: none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	color: #fff;
-}
-
-.btn_comment {
-	width: 80px;
-	padding: 4px;
-	background-color: burlywood;
-	border-radius: 10px;
-	border: none;
-	display: block;
-	margin: 0 auto;
-}
-
-.title_comment {
-	font-size: 25px;
-	font-weight: 500;
-}
-
-.info-product {
-	margin-top: 10px;
-}
-
-.productName {
-	font-size: 40px;
-	font-weight: bold;
-}
-
-.priceProduct {
-	margin-top: 15px;
-}
-
-.mb-3 {
-	margin-top: 15px;
-}
-
-
-.form-control {
-	margin-top: 10px;
-}
-
-.rating {
-  display: flex;
-  position: relative;
-  height: 20px;
-  line-height: 20px;
-  font-size: 20px;
-}
-.rating .star {
-  display: flex;
-  box-sizing: border-box;
-  padding: 0 10px;
-  cursor: pointer;
-  transition: color 200ms;
-}
-
-.star {
-	color: green;
-}
-
-.rating .star:hover,
-.rating .star.active {
-  color: #FFD700;
-}
-
-
-</style>
 </head>
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-6">
+				<div class="header-product">
+					<div class="product-image">
 						<img
 							src="${product.getProductImage()}"
-							alt="Product Image" class="img-fluid" style="margin-top: 10px"
-							alt="Product Image" class="img-fluid" />
+							alt="Product Image" class="img-fluid" alt="Product Image"
+							class="img-fluid" />
+
 					</div>
 					<div class="info-product">
-						<h1 class= "productName">${product.getProduct().getName()}</h1>
-						<p class= "priceProduct"> ${product.getPrice()} VND</p>
+						<h1 class="productName">${product.getProduct().getName()}</h1>
+						<p class="priceProduct" style="color: #FF0000; font-weight: bold;"></p>
+						<script>
+							var money = $
+							{
+								product.getPrice()
+							};
+							document.querySelector('.priceProduct').textContent = ''
+									+ money.toLocaleString('vi-VN', {
+										maximumFractionDigits : 2
+									}) + " " + "VND";
+						</script>
 						<div class="mb-3">
-							<span class="mr-2">Rating:</span>
-							<div class="rating">
-							  <span class="star" data-value="1"></span>
-							  <span class="star" data-value="2"></span>
-							  <span class="star" data-value="3"></span>
-							  <span class="star" data-value="4"></span>
-							  <span class="star" data-value="5"></span>
-							</div>
+							<span class="mr-2">Rating:</span> <span
+								class="fa fa-star checked"></span> <span
+								class="fa fa-star checked"></span> <span
+								class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
 						</div>
 						<form:form action="${product.getId()}.htm"
 							modelAttribute="shoppingCartItem">
@@ -250,10 +69,12 @@ input[type="text"], textarea {
 							<div class="d-flex">
 								<input type="hidden" name="productItem.id" value="${product.id}" />
 								<input type="hidden" name="productItem.price"
-									value="${product.price}" /> <input
-									type="hidden" name="customer.id" value="1" />
+									value="${product.price}" /> <input type="hidden"
+									name="customer.id" value="1" />
 								<button type="submit" class="btnAddToCart" name="addToCart">
-									Add to Cart</button>
+									Add To Cart</button>
+								<button type="submit" class="btnBuyNow" name="buyNow">
+									Buy Now</button>
 							</div>
 						</form:form>
 						<div></div>
@@ -263,24 +84,25 @@ input[type="text"], textarea {
 				<div class="cart-icon">
 					<i class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
 				</div>
-				<div class="row" style="margin-top: 20px">
-					<div class="item" style="border-radius: 10px">
-						<div>
+				<div class="container">
+					<div class="item">
+						<div class="item-icon">
 							<img src="<c:url value ='/common/assets/icons/original.png' />">
 						</div>
 						<div class="item-title">100% Original</div>
 						<div class="item-subtitle">Tất cả sản phẩm của chúng tôi là
-							chính hãng. Được nhập về từ nhiều hãng nổi tiếng</div>
+							chính hãng</div>
 					</div>
-					<div class="item" style="border-radius: 10px">
+					<div class="item">
 						<div class="item-icon">
-							<img src="<c:url value ='/common/assets/icons/replacement.png' />">
+							<img
+								src="<c:url value ='/common/assets/icons/replacement.png' />">
 						</div>
 						<div class="item-title">10 Day Replacement</div>
 						<div class="item-subtitle">Chính sách 1 đổi 1 trong vòng 10
 							ngày đầu tiên</div>
 					</div>
-					<div class="item" style="border-radius: 10px">
+					<div class="item">
 						<div class="item-icon">
 							<img src="<c:url value ='/common/assets/icons/warranty.png' />">
 						</div>
@@ -289,19 +111,17 @@ input[type="text"], textarea {
 							bảo hành</div>
 					</div>
 				</div>
+
 				<div class="description">
-					<div class="row">
-						<div class="col-md-6">
-							<h3 class="description-title">Description</h3>
-							<p>Bản nâng cấp 32GB RAM sẽ trao cho MacBook Pro 14 2023
-								nguồn sức mạnh tuyệt vời để dễ dàng đa nhiệm mọi tác vụ nặng và
-								đòi hỏi cấu hình chuyên nghiệp nhất. Dung lượng RAM rộng rãi tạo
-								điều kiện cho chip xử lý M2 Pro giải phóng được toàn bộ hiệu
-								năng ẩn chứa, đem lại trải nghiệm vượt quá kỳ vọng của bạn.</p>
-						</div>
-					</div>
+
+					<h3 class="description-title">Description</h3>
+					<p>Bản nâng cấp 32GB RAM sẽ trao cho MacBook Pro 14 2023 nguồn
+						sức mạnh tuyệt vời để dễ dàng đa nhiệm mọi tác vụ nặng và đòi hỏi
+						cấu hình chuyên nghiệp nhất. Dung lượng RAM rộng rãi tạo điều kiện
+						cho chip xử lý M2 Pro giải phóng được toàn bộ hiệu năng ẩn chứa,
+						đem lại trải nghiệm vượt quá kỳ vọng của bạn.</p>
 				</div>
-				<hr/>
+				<hr />
 				<form:form action="${product.getId()}.htm"
 					modelAttribute="CustomerReview">
 					<div class="title_comment">Bình luận</div>
@@ -312,20 +132,35 @@ input[type="text"], textarea {
 							Submit</button>
 					</div>
 				</form:form>
-				<div class="comment-container">
-					<div class="comment">
-						<c:forEach var="c" items="${comments}">
-							<div class="author">${c.getCustomer().getUserName()}</div>
-							<div class="message">${c.getComment()}</div>
-							<hr/>
-						</c:forEach>
-					</div>
+
+				<div class="box-comments">
+
+					<c:forEach var="c" items="${comments}">
+						<div class="comment-container">
+							<div class="left-col">
+								<img
+									src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
+									alt="Avatar" class="avatar">
+								<h4 class="username">${c.getCustomer().getUserName()}</h4>
+							</div>
+							<div class="right-col">
+								<div class="mb-3">
+									<span class="fa fa-star checked"></span> <span
+										class="fa fa-star checked"></span> <span
+										class="fa fa-star checked"></span> <span class="fa fa-star">
+									</span> <span class="fa fa-star"></span>
+									<p class="comment-text">${c.getComment()}</p>
+								</div>
+							</div>
+						</div>
+						<hr/>
+					</c:forEach>
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript"
-		src="<c:url value='/common/assets/js/navbar.js'/>">
-	</script>
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
 </html>

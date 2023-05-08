@@ -31,7 +31,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách sản phẩm</h3>
+						<h3 class="heading">Danh sách khuyến mãi</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -39,15 +39,15 @@
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">ECommrece</a>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Sản phẩm</a>
 								</li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách sản phẩm</li>
+								<li class="breadcrumb__item">Danh sách khuyến mãi</li>
 							</ul>
 						</nav>
 					</div>
 					<div>
-						<a href="${contextPath}/admin/product/category/new.htm">
+						<a href="${contextPath}/admin/product/promotion/create.htm">
 							<button class="btn--add">
 								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
 							</button>
@@ -59,28 +59,27 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>id</span></th>
-									<th class="th-header"><span>Tên sản phẩm</span></th>
-									<th class="th-header"><span>Giá</span></th>
-									<th class="th-header"><span>Trạng thái</span></th>
+<!-- 									<th class="th-header"><span>id</span></th> -->
+									<th class="th-header"><span>Tên KM</span></th>
+									<th class="th-header"><span>Mô tả</span></th>
+									<th class="th-header"><span>Ngày bắt đầu </span></th>
+									<th class="th-header"><span>Ngày kết thúc</span></th>
+				
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listProduct}" var="element">
+								<c:forEach items="${listPromotions}" var="element">
 									<tr>
-										<td class="td-body">${element.id}</td>
-										<td class="td-body">${element.getProduct().getName() }</td>
-										<td class="td-body">${element.getPrice()}</td>
-										<td class="td-body">
-											<div class="mui-chip">
-												<span class="mui-chip-label">Hoạt động</span>
-											</div>
-										</td>
+<%-- 										<td class="td-body">${element.id}</td> --%>
+										<td class="td-body">${element.getName()}</td>
+										<td class="td-body">${element.getDescription()}</td>
+										<td class="td-body">${element.getStartDate()}</td>
+										<td class="td-body">${element.getEndDate()}</td>
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
+													href="${contextPath}/admin/product/promotion/edit/${element.id}.htm">
 													<button class="btn--add">
 														<span>Chỉnh sửa</span>
 													</button>
@@ -134,68 +133,8 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row-container">
-
-				<div class="btn_filter">
-					<form action="list.htm">
-						<select id="selectOption" name="selectOption">
-							<option value="all">All</option>
-							<option value="active">In stock</option>
-							<option value="inactive">Out of stock</option>
-						</select>
-						<button name="filter" type="submit">Filter</button>
-					</form>
-				</div>
-				<form method="POST" action="list.htm">
-					<input type="text" name="searchText"
-						placeholder="Tìm kiếm sản phẩm">
-				</form>
-			</div>
-
-
-
-			<div class="container mt-5">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Create at</th>
-							<th>Status</th>
-							<th>Price</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="u" items="${listProduct}">
-							<tr>
-								<td><img src="${u.getProductImage() }" alt="Product Image"
-									class="product-image mr-2" /> ${u.product.getName()}</td>
-								<td>2022-02-01</td>
-								<td><span class="badge">${u.getStatus()}</span></td>
-								<td>50$</td>
-								<td><div class="btn-group">
-										<div class="ti-settings"></div>
-										<ul class="dropdown-menu">
-											<li>
-												<form action="list.htm" method="get">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button type="submit">Sửa</button>
-												</form>
-											</li>
-											<li>
-												<form action="list.htm" method="post">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button name="deleteProduct" type="submit">Xóa</button>
-												</form>
-											</li>
-										</ul>
-									</div></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-			<script type="text/javascript"
-				src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+		</main>
+	</div>
+	<script type="text/javascript"
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
