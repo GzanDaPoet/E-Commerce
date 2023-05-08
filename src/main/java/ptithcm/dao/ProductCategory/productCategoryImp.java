@@ -26,7 +26,7 @@ public class productCategoryImp implements productCategoryDao{
 	}
 	
 	public ProductCategory getProductCategory(int cateId) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		String hql = "FROM ProductCategory pc where pc.id = :cateId";
 		Query query = session.createQuery(hql);
 		query.setParameter("cateId", cateId);

@@ -31,19 +31,18 @@
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<main class="content">
 			<div class="content-container">
-				<form:form action="create.htm">
+				<form:form action="${promotion.getId()}.htm">
 					<div class="form-group">
 						<label class="tenKM" for="ten-khuyen-mai">Tên Khuyến Mãi:</label>
-						<input type="text" class="form-control" name ="promotion-name" id="promotion-name" placeholder="Nhập tên khuyến mãi">
+						<input type="text"  value = "${promotion.getName()}" class="form-control" name ="promotion-name" id="promotion-name" placeholder="Nhập tên khuyến mãi">
 					</div>
 					<div class="form-group">
 						<label class="moTa" for="mo-ta">Mô Tả:</label>
-						<textarea class="form-control" name="promotion-description" id="promotion-description" rows="3" placeholder="Nhập mô tả khuyến mãi"></textarea>
-					</div>
+						<textarea class="form-control" name="promotion-description" id="promotion-description" rows="3" placeholder="Nhập mô tả khuyến mãi">${promotion.getDescription()}</textarea>
 					<div class="form-group">
 						<label class="nhanHang" for="nhan-hang">Nhãn Hãng:</label>
 						<select class="form-control" id="brand" name="brand">
-							<option value="">--Chọn nhãn hàng--</option>
+							<option value="">${categories.get(selectedItem).getCategoryName()}</option>
 							<c:forEach var="u" items="${categories}">
 								<option value="${u.getId()}"> ${u.getCategoryName()}</option>
 							</c:forEach>
@@ -51,19 +50,19 @@
 					</div>
 					<div class="form-group">
 						<label class="phanTramGiam" for="phan-tram-giam">Phần Trăm Giảm:</label>
-						<input type="number" min="0" max="100" class="form-control" 
+						<input type="number"  value="${promotion.getDiscountRate()}" min="0" max="100" class="form-control" 
 							name="discount-percentage"
 							id="discount-percentage" placeholder="Nhập phần trăm giảm">
 					</div>
 					<div class="form-group">
 						<label class="ngayBD" for="ngay-bat-dau">Ngày Bắt Đầu:</label>
-						<input type="date" class="form-control" name="start-date" id="start-date" >
+						<input type="date" value="${promotion.getStartDate() }" class="form-control" name="start-date" id="start-date" >
 					</div>
 					<div class="form-group">
 						<label class="ngayKT" for="ngay-ket-thuc">Ngày Kết Thúc:</label>
-						<input type="date" class="form-control" name="end-date" id="end-date">
+						<input type="date" value="${promotion.getEndDate() }" class="form-control" name="end-date" id="end-date">
 					</div>
-					<button type="submit" class="btn btn-primary">Tạo Khuyến Mãi</button>
+					<button type="submit" class="btn btn-primary">Chỉnh sửa khuyến mãi</button>
 				</form:form>
 			</div>
 		</main>

@@ -20,7 +20,10 @@
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
 	href="<c:url value='/common/assets/css/ecommerce/product/style.css'/>">
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
@@ -31,7 +34,7 @@
 				<div class="header-product">
 					<div class="product-image">
 						<img
-							src="https://th.bing.com/th/id/R.64d6ec6d313e3e79330ba3465c5c4959?rik=WHfwzI5KlfQEOw&pid=ImgRaw&r=0"
+							src="${product.getProductImage()}"
 							alt="Product Image" class="img-fluid" alt="Product Image"
 							class="img-fluid" />
 
@@ -79,34 +82,8 @@
 				</div>
 
 				<div class="cart-icon">
-					<i class="fa fa-shopping-cart"></i> <span> 3</span>
+					<i class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
 				</div>
-				<%-- 		<div class="row" style="margin-top: 20px">
-					<div class="item" style="border-radius: 10px">
-						<div>
-							<img src="<c:url value ='/common/assets/icons/original.png' />">
-						</div>
-						
-						
-					</div>
-					<div class="item" style="border-radius: 10px">
-						<div class="item-icon">
-							<img
-								src="<c:url value ='/common/assets/icons/replacement.png' />">
-						</div>
-						
-						
-					</div>
-					<div class="item" style="border-radius: 10px">
-						<div class="item-icon">
-							<img src="<c:url value ='/common/assets/icons/warranty.png' />">
-						</div>
-						<div class="item-title">Year Warranty</div>
-						<div class="item-subtitle">Tất cả sản phẩm đều có trên 1 năm
-							bảo hành</div>
-					</div>
-				</div> --%>
-
 				<div class="container">
 					<div class="item">
 						<div class="item-icon">
@@ -184,8 +161,6 @@
 		</div>
 	</div>
 	<script type="text/javascript"
-		src="<c:url value='/common/assets/js/navbar.js'/>">
-		
-	</script>
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
 </html>

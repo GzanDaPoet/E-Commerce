@@ -52,7 +52,7 @@ public class AdminController {
 	@Autowired
 	ProductService productService;
 
-	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showAdminLogin() {
 		return "admin/login";
 	}
