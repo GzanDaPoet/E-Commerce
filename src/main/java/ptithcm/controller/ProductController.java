@@ -61,11 +61,31 @@ public class ProductController {
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
 	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId) {
 		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
-		System.out.println("ID nguoi dang su dung: " + id);
 		ProductItem product = productService.getProductById(productId);
 		int quantityOrdered = 0;
-		int cartId = shoppingCartService.isHaveCart(id);
-		System.out.println("cartId: " + cartId);
+		int cartId = 0;
+		Customer customer = customerService.getCustomerById(id);
+		if (shoppingCartService.getAllCartItemsById(id).size() == 0) {
+			System.out.println("Them gio hang cho khach hang");
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setCustomer(customer);
+			Session session = sessionFactory.openSession();
+			Transaction t = session.beginTransaction();
+			try {
+				session.save(shoppingCart);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+			} catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+			} finally {
+				session.close();
+			}
+			
+		}
+		else {
+			cartId = shoppingCartService.getAllCartItemsById(id).size();
+		}
 		if (cartId > 0) {
 			quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 			model.addAttribute("quantityOrdered", quantityOrdered);
@@ -88,51 +108,24 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addToCart")
-	public String addToCart(ModelMap model, @PathVariable("productId") int productId,
-			@ModelAttribute("shoppingCartItem") ShoppingCartItem shoppingCartItem, HttpServletRequest request) {
+	public String addToCart(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
 		ProductItem product = productService.getProductById(productId);
 		model.addAttribute("product", product);
 		Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
-		shoppingCartItem.setQuantity(quantity);
-		int quantityOrdered = 0;
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
-		Customer customer = customerService.getCustomerById(id);
 		int cartId = shoppingCartService.isHaveCart(id);
-		if (cartId > 0) {
-			List<CustomerReview> comments = productService.getAllCommentsById(productId);
-			if (comments != null) {
-				model.addAttribute("comments", comments);
-			}
+		int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
+		System.out.println("bonus: " + bonusQuantity);
+		int quantityOrdered = 0;
+		ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+		shoppingCartItem.setProductItem(product);
+		List<CustomerReview> comments = productService.getAllCommentsById(productId);
+		if (comments != null) {
+			model.addAttribute("comments", comments);
 		}
-		Session session = sessionFactory.openSession();
-		Transaction t = session.beginTransaction();
-		if (cartId > 0) {
-			shoppingCartItem.setCart(shoppingCartService.getShoppingCartId(cartId, 1));
-			try {
-				session.save(shoppingCartItem);
-				t.commit();
-				model.addAttribute("message", "Thêm mới thành công! ");
-			} catch (Exception e) {
-				t.rollback();
-				model.addAttribute("message", "Thêm mới thất bại! ");
-			} finally {
-				session.close();
-			}
-		} else {
-			ShoppingCart shoppingCart = new ShoppingCart();
-			shoppingCart.setCustomer(customer);
-			try {
-				session.save(shoppingCart);
-				t.commit();
-				model.addAttribute("message", "Thêm mới giỏ hàng thành công! ");
-
-			} catch (Exception e) {
-				t.rollback();
-				model.addAttribute("message", "Thêm mới giỏ hàng thất bại! ");
-			} finally {
-				session.close();
-			}
-		}
+		System.out.println("cart id: " + cartId);
+		System.out.println("customer id: " + id);
+		productService.addToCart(shoppingCartItem, cartId, id, bonusQuantity, quantity);
 		quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		return "e-commerce/product";

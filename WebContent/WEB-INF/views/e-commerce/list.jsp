@@ -55,6 +55,31 @@
 					</div>
 				</div>
 				<div class="paper-wrapper">
+					<form id="search-form">
+						<div class="search-container">
+							<!-- Input search -->
+							
+							<div class="select-container">
+								<select name="status" id="status" class="select"
+									aria-invalid="false">
+									<option value="null" selected="selected">Không</option>
+									<option value="In stock">Đang hoạt động</option>
+									<option value="Out of stock">Ngưng hoạt động</option>
+								</select> <label for="status">Trạng thái</label> <span
+									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+							<div class="input-container">
+								<input type="text" id="search" name="search"
+									aria-labelledby="label-search" value="${search}"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="search">Tìm kiếm</label>
+								<button id="clear-search" type="button"
+									aria-label="Clear search text">
+									<i class="fa-solid fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 					<div class="table-container">
 						<table>
 							<thead>

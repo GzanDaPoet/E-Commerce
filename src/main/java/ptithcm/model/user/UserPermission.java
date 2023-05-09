@@ -1,15 +1,12 @@
 package ptithcm.model.user;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,12 +19,17 @@ public class UserPermission {
 	@Column(name = "value")
 	private String value;
 	
-	@OneToOne(mappedBy = "user_permission")
+	@OneToOne(mappedBy = "user_permission",cascade = CascadeType.ALL)
 	private User user;
 	
-	
 	public UserPermission() {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	public UserPermission(String value, User user) {
+		super();
+		this.value = value;
+		this.user = user;
 	}
 
 	public Integer getId() {

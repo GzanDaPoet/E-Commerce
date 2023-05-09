@@ -75,7 +75,6 @@ public class PromotionController {
 			List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
 			listProductAdd.addAll(listProductItems);
 		}
-
 		promotionCategory.setProductCategory(productCategory);
 		promotionCategory.setPromotion(promotion);
 		Session session = sessionFactory.openSession();
@@ -108,6 +107,7 @@ public class PromotionController {
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String listPromotion(ModelMap model) {
+		System.out.println("I came here");
 		List<Promotion> listPromotions = promotionService.getAllPromotions();
 		model.addAttribute("listPromotions", listPromotions);
 		return "product/promotion/listPromotion";

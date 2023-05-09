@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javassist.runtime.Inner;
 import ptithcm.dao.shoppingCart.ShoppingCartDao;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
@@ -18,7 +19,6 @@ public class ShoppingCartService {
 	public List<ShoppingCart> getAllShoppingCart() {
 		List<ShoppingCart> shoppingCarts = null;
 		shoppingCarts =  shoppingCartDao.getAllShoppingCart();
-		System.out.println(shoppingCarts.size());
 		if (shoppingCarts.size() > 0) {
 			return shoppingCarts;
 		}
@@ -27,8 +27,7 @@ public class ShoppingCartService {
 	
 	
 	public int isHaveCart(int customerId) {
-	
-		if (getAllShoppingCart().size() > 0)
+		if (getAllShoppingCart().size() != 0)
 		{
 			for (ShoppingCart s: getAllShoppingCart()) {
 				if (s.getCustomer().getId() == customerId) {
@@ -39,25 +38,26 @@ public class ShoppingCartService {
 		return 0;
 	}
 	
-	public ShoppingCart getShoppingCartId(int cartId, int customerId) {
-		if (isHaveCart(customerId) > 0 && getAllShoppingCart().size() > 0) {
+	public ShoppingCart getShoppingCart(int cartId, int customerId) {
+		System.out.println("size getAllShoppingCart: " + getAllShoppingCart().size());
+		if (getAllShoppingCart().size() > 0) {
+			System.out.println("Co vao day de tim");
 			for (ShoppingCart s: getAllShoppingCart()) {
 				if (s.getId() == cartId) {
+					System.out.println("Co cart nha");
 					return s;
 				}
 			}
 		}
+		System.out.println("Khong co cart");
 		return null;
 	}
 	
 	public List<ShoppingCartItem> getAllCartItemsById(int customerId) {
-		List<ShoppingCartItem> list = shoppingCartDao.getAllCartItemsById(customerId);
-		if (!list.isEmpty()) {
-			return list;
-		}
-		return null;
+	  return shoppingCartDao.getAllCartItemsById(customerId);
 	}
 
+	
 	public int getTotalQuantityOrdered(int customerId) {
 		int sum = 0;
 		List<ShoppingCartItem> listCartItem = shoppingCartDao.getAllCartItemsById(customerId);
@@ -73,13 +73,24 @@ public class ShoppingCartService {
 		return sum;
 	}
 	
-	public boolean isAddedToCart(int productId, int cartId) {
-		for (ShoppingCartItem productItem: getAllCartItemsById(cartId)) {
+	public ShoppingCartItem getExistItemCart(int productId, int customerId) {
+		for (ShoppingCartItem productItem: getAllCartItemsById(customerId)) {
 			if (productId == productItem.getProductItem().getId()) {
-				return true;
+				System.out.println("Lay thanh cong");
+				return productItem;
 			}
 		}
-		return false;
+		System.out.println("Lấy thât bại");
+		return null;
 	}
-
+	
+	public Integer getQuantityOfProductAdded(int productId, int customerId) {
+		for (ShoppingCartItem item: getAllCartItemsById(customerId)) {
+			if (item.getProductItem().getId() == productId) {
+				return item.getQuantity();
+			}
+		}
+		return 0;
+	}
+	
 }
