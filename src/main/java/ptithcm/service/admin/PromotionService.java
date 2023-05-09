@@ -26,6 +26,7 @@ public class PromotionService {
 	}
 	
 	public List<Promotion> getAllPromotions() {
+		System.out.println("Came here 2");
 		List<Promotion> list = promotionDao.getListPromotion();
 		if (!list.isEmpty()) {
 			return list;

@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,17 @@ import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.shoppingCart.ShoppingCart;
+import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.service.ShoppingCartService;
 
 @Service
 public class ProductDaoImp implements ProductDao {
 	@Autowired
 	SessionFactory factory;
+	
+	@Autowired
+	ShoppingCartService shoppingCartService;
 
 	public List<ProductItem> getAllProducts() {
 		Session session = factory.getCurrentSession();
@@ -138,5 +145,21 @@ public class ProductDaoImp implements ProductDao {
 		}
 	}
 	
-	
+	@Override 
+	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity) {
+		Session session = factory.getCurrentSession();
+	    ShoppingCart shoppingCart = shoppingCartService.getShoppingCart(cartId, customerId);
+	    System.out.println("ID shopping cart: " + shoppingCart.getId());
+	    shoppingCartItem.setCart(shoppingCart);
+	    if (bonus > 0) {
+	    	shoppingCartItem = shoppingCartService.getExistItemCart(shoppingCartItem.getProductItem().getId(), customerId);
+	        shoppingCartItem.setQuantity(bonus + quantity);
+	        System.out.println("Update");
+	        session.update(shoppingCartItem);
+	    } else {
+	        shoppingCartItem.setQuantity(quantity);
+	        System.out.println("Save");
+	        session.save(shoppingCartItem);
+	    }
+	}
 }

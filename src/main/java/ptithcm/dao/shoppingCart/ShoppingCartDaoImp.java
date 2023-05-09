@@ -22,7 +22,6 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 	@Autowired
 	SessionFactory factory;
 	
-	
 	public List<ShoppingCartItem> getAllCartItemsById(int ctmId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ShoppingCartItem s where s.cart.customer.id = :ctmId";
@@ -66,7 +65,6 @@ public class ShoppingCartDaoImp  implements ShoppingCartDao{
 		String hql = "FROM ShoppingCart";
 		Query query = session.createQuery(hql);
 		List<ShoppingCart> list = query.list();
-		System.out.println("List size: " + list.size());
 		return list;
 	}
 

@@ -6,6 +6,7 @@ import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.shoppingCart.ShoppingCartItem;
 
 public interface ProductDao {
 	public List<ProductItem> getAllProducts();
@@ -23,6 +24,6 @@ public interface ProductDao {
 	public void deleteProductItem(int id);
 	public List<ProductItem> searchProductItem(String name);
 	public List<Product> getAllProductByCateId(int categoryId);
-	
+	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity);
 	
 }

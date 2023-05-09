@@ -1,12 +1,12 @@
 package ptithcm.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
@@ -55,17 +54,40 @@ public class ProductController {
 	public String shop(ModelMap model, HttpServletRequest request) {
 		List<ProductItem> list = productService.getListProducts();
 		model.addAttribute("listProduct", list);
-		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
 		return "e-commerce/shop";
 	}
 
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
-	public String product(ModelMap model, @PathVariable("productId") int productId) {
+	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
 		ProductItem product = productService.getProductById(productId);
-		int cartId = shoppingCartService.isHaveCart(1);
+		int quantityOrdered = 0;
+		int cartId = 0;
+		Customer customer = customerService.getCustomerById(id);
+		if (shoppingCartService.getAllCartItemsById(id).size() == 0) {
+			System.out.println("Them gio hang cho khach hang");
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setCustomer(customer);
+			Session session = sessionFactory.openSession();
+			Transaction t = session.beginTransaction();
+			try {
+				session.save(shoppingCart);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+			} catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+			} finally {
+				session.close();
+			}
+			
+		}
+		else {
+			cartId = shoppingCartService.getAllCartItemsById(id).size();
+		}
 		if (cartId > 0) {
-			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
+			quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 			model.addAttribute("quantityOrdered", quantityOrdered);
 			List<CustomerReview> comments = productService.getAllCommentsById(productId);
 			if (comments != null) {
@@ -73,6 +95,7 @@ public class ProductController {
 				model.addAttribute("comments", comments);
 			}
 		}
+		model.addAttribute("quantityOrdered", quantityOrdered);
 		model.addAttribute("product", product);
 		return "e-commerce/product";
 	}
@@ -85,52 +108,25 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addToCart")
-	public String addToCart(ModelMap model, @PathVariable("productId") int productId,
-			@ModelAttribute("shoppingCartItem") ShoppingCartItem shoppingCartItem, HttpServletRequest request) {
+	public String addToCart(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
 		ProductItem product = productService.getProductById(productId);
 		model.addAttribute("product", product);
 		Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
-		shoppingCartItem.setQuantity(quantity);
-		Customer customer = customerService.getCustomerById(1);
-		int cartId = shoppingCartService.isHaveCart(1);
-		if (cartId > 0) {
-			int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
-			model.addAttribute("quantityOrdered", quantityOrdered);
-			List<CustomerReview> comments = productService.getAllCommentsById(productId);
-			if (comments != null) {
-				model.addAttribute("comments", comments);
-			}
+		int cartId = shoppingCartService.isHaveCart(id);
+		int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
+		System.out.println("bonus: " + bonusQuantity);
+		int quantityOrdered = 0;
+		ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+		shoppingCartItem.setProductItem(product);
+		List<CustomerReview> comments = productService.getAllCommentsById(productId);
+		if (comments != null) {
+			model.addAttribute("comments", comments);
 		}
-		Session session = sessionFactory.openSession();
-		Transaction t = session.beginTransaction();
-		if (cartId > 0) {
-			shoppingCartItem.setCart(shoppingCartService.getShoppingCartId(cartId, 1));
-			try {
-				session.save(shoppingCartItem);
-				t.commit();
-				model.addAttribute("message", "Thêm mới thành công! ");
-			} catch (Exception e) {
-				t.rollback();
-				model.addAttribute("message", "Thêm mới thất bại! ");
-			} finally {
-				session.close();
-			}
-		} else {
-			ShoppingCart shoppingCart = new ShoppingCart();
-			shoppingCart.setCustomer(customer);
-			try {
-				session.save(shoppingCart);
-				t.commit();
-				model.addAttribute("message", "Thêm mới giỏ hàng thành công! ");
-
-			} catch (Exception e) {
-				t.rollback();
-				model.addAttribute("message", "Thêm mới giỏ hàng thất bại! ");
-			} finally {
-				session.close();
-			}
-		}
-		int quantityOrdered = shoppingCartService.getTotalQuantityOrdered(cartId);
+		System.out.println("cart id: " + cartId);
+		System.out.println("customer id: " + id);
+		productService.addToCart(shoppingCartItem, cartId, id, bonusQuantity, quantity);
+		quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		return "e-commerce/product";
 	}
@@ -138,7 +134,8 @@ public class ProductController {
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
-		Customer customer = customerService.getCustomerById(1);
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		Customer customer = customerService.getCustomerById(id);
 		customerReview.setCustomer(customer);
 		String comment = request.getParameter("commentInput").trim();
 		customerReview.setComment(comment);
@@ -158,13 +155,11 @@ public class ProductController {
 				session.close();
 			}
 		}
-		return product(model, productId);
+		return product(request, model, productId);
 	}
 
 	@RequestMapping(value = "list/delete/{productId}")
 	public String deleteProduct(@PathVariable int productId) {
-		System.out.println("Vao day");
-		System.out.println("Product Id: " + productId);
 		productService.deleteProductItem(productId);
 		return "redirect:/e-commerce/list.htm";
 	}

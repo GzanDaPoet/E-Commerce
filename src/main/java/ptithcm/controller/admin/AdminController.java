@@ -67,7 +67,7 @@ public class AdminController {
 				return "redirect:/e-commerce/shop.htm";
 			} else if (user.getUser_permission().getValue().equals("ROLE_ADMIN")
 					|| user.getUser_permission().getValue().equals("ROLE_SUPER_ADMIN")) {
-				return "redirect:/e-commerce/list.htm";
+				return "redirect:/e-commerce/shop.htm";
 			}
 		}
 		return "redirect:/";

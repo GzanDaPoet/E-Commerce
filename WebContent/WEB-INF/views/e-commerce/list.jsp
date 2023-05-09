@@ -55,6 +55,31 @@
 					</div>
 				</div>
 				<div class="paper-wrapper">
+					<form id="search-form">
+						<div class="search-container">
+							<!-- Input search -->
+							
+							<div class="select-container">
+								<select name="status" id="status" class="select"
+									aria-invalid="false">
+									<option value="null" selected="selected">Không</option>
+									<option value="In stock">Đang hoạt động</option>
+									<option value="Out of stock">Ngưng hoạt động</option>
+								</select> <label for="status">Trạng thái</label> <span
+									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+							<div class="input-container">
+								<input type="text" id="search" name="search"
+									aria-labelledby="label-search" value="${search}"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="search">Tìm kiếm</label>
+								<button id="clear-search" type="button"
+									aria-label="Clear search text">
+									<i class="fa-solid fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 					<div class="table-container">
 						<table>
 							<thead>
@@ -133,68 +158,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="row-container">
-
-				<div class="btn_filter">
-					<form action="list.htm">
-						<select id="selectOption" name="selectOption">
-							<option value="all">All</option>
-							<option value="active">In stock</option>
-							<option value="inactive">Out of stock</option>
-						</select>
-						<button name="filter" type="submit">Filter</button>
-					</form>
-				</div>
-				<form method="POST" action="list.htm">
-					<input type="text" name="searchText"
-						placeholder="Tìm kiếm sản phẩm">
-				</form>
-			</div>
-
-
-
-			<div class="container mt-5">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Create at</th>
-							<th>Status</th>
-							<th>Price</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="u" items="${listProduct}">
-							<tr>
-								<td><img src="${u.getProductImage() }" alt="Product Image"
-									class="product-image mr-2" /> ${u.product.getName()}</td>
-								<td>2022-02-01</td>
-								<td><span class="badge">${u.getStatus()}</span></td>
-								<td>50$</td>
-								<td><div class="btn-group">
-										<div class="ti-settings"></div>
-										<ul class="dropdown-menu">
-											<li>
-												<form action="list.htm" method="get">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button type="submit">Sửa</button>
-												</form>
-											</li>
-											<li>
-												<form action="list.htm" method="post">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button name="deleteProduct" type="submit">Xóa</button>
-												</form>
-											</li>
-										</ul>
-									</div></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
 			</div>
 			<script type="text/javascript"
 				src="<c:url value='/common/assets/js/navbar.js'/>"></script>

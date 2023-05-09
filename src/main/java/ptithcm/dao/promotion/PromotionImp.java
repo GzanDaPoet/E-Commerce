@@ -32,10 +32,16 @@ public class PromotionImp implements PromotionDao {
 	@Override
 	public List<Promotion> getListPromotion() {
 		Session session = sessionFactory.openSession();
-		String hql = "FROM Promotion";
-		Query query = session.createQuery(hql);
-		List<Promotion> list = query.list();
-		return list;
+		try {
+			String hql = "FROM Promotion";
+			Query query = session.createQuery(hql);
+			List<Promotion> list = query.list();
+			System.out.println("Lay thanh cong danh sach khuyen mai");
+			return list;
+		} catch (Exception e) {
+			System.out.println("error: " + e);
+			return null;
+		}
 	}
 
 	@Override
@@ -123,10 +129,6 @@ public class PromotionImp implements PromotionDao {
 	public void deleteOldPromotionCategory(PromotionCategory promotionCategory) {
 		Transaction tx = null;
 		Session session = sessionFactory.openSession();
-		
-
-	
-
 		try {
 			tx = session.beginTransaction();
 			Statistics statistics = sessionFactory.getStatistics();
