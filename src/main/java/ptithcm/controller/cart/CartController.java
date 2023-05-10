@@ -20,6 +20,8 @@ import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.service.AddressService;
 import ptithcm.service.CartService;
+import ptithcm.util.SessionUtil;
+import ptithcm.model.user.*;
 
 @RequestMapping("/e-commerce/")
 @Controller

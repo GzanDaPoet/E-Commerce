@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create User</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://kit.fontawesome.com/dbd4881242.js"
-	crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Admin | List Variation</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -22,56 +17,86 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/listStyle.css' />">
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
-<link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/admin/addUser.css' />">
 
 </head>
-
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
-			<div class="container-fluid">
-				<h3 class="col-sm-12 title">Create User</h3>
+		<main class="content">
+				<div class="list-header">
+					<div class="header-breadcrumb">
+						<h3 class="heading">Tạo nhân viên mới</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="">Trang
+										chủ</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="">Quản lý nhân viên</a>
+								</li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Tạo nhân viên mới</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			<div class="content-container">
 				<div class="form-section">
 					<form action="adduser/new.htm" method="post" class="row">
-						<div class="col-xl-12 form-floating mb-3 mt-3">
-							<input type="text" class="form-control" name="username">
-							<label for="username">Username</label>
+						<div class="input-group">
+							<div class="input-container">
+								<input type="text" required="required" id="username"
+									name="username" aria-labelledby="username"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="categoryName">Tên người dùng</label>
+							</div>
+							<div class="input-container">
+								<input type="text" required="required" id="email" name="email"
+									aria-labelledby="email"><span class="highlight"></span><span
+									class="bar"></span> <label for="categoryName">Địa chỉ
+									Email</label>
+							</div>
+							<div class="input-container">
+								<input type="text" required="required" id="password"
+									name="password" aria-labelledby="password"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="categoryName">Mật khẩu</label>
+							</div>
+							<div class="select-container">
+								<select name="permission" id="permission" class="select"
+									aria-invalid="false">
+									<option value="null" selected="selected">Không</option>
+									<c:forEach items="${listPermission}" var="element">
+										<option value="${element.id}">${element.value}</option>
+									</c:forEach>
+								</select> <label for="parentCategoryId">Quyền người dùng</label> <span
+									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+							<div class="button-group">
+								<button class="button button-submit" type="submit">
+									<span> <i class="fa-solid fa-plus"></i>
+									</span> <span> Thêm mới </span>
+								</button>
+								<button class="button button-cancel" type="button">
+									<span> <i class="fa-regular fa-circle-xmark"></i>
+									</span> <span>Huỷ</span>
+								</button>
+							</div>
 						</div>
-						<div class="col-xl-12 form-floating mb-3 mt-3">
-							<input type="email" class="form-control" name="email"> <label
-								for="email">Email Address</label>
-						</div>
-						<div class="col-xl-12 form-floating mb-3 mt-3">
-							<input type="tel" class="form-control" name="password"> <label
-								for="password">Password</label>
-						</div>
-						<div class="mb-3">
-							<label for="select2">User Permission</label> <select
-								class="form-select" id="permission" name="permission">
-								<c:forEach items="${listPermission}" var="element">
-									<option value="${element.id}">${element.value}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="mt-3">
-							<button type="submit" class="btn btn-primary">Create
-								User</button>
-						</div>
+
 					</form>
 				</div>
-
 			</div>
-		</div>
+		</main>
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
-
 </html>

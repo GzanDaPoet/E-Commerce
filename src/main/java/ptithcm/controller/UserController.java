@@ -32,32 +32,25 @@ public class UserController {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	@RequestMapping(value="adduser")
-	public String  adduser (ModelMap model) {
+	@RequestMapping(value = "adduser")
+	public String adduser(ModelMap model) {
 		List<UserPermission> list = userService.getListUserPermissions();
-		model.addAttribute("listPermission",list);
+		model.addAttribute("listPermission", list);
 		return "admin/adduser";
 	}
 
 	@RequestMapping(value = "adduser/new", method = RequestMethod.POST)
-	public String newUser (@RequestParam("username") String username,
-			@RequestParam("email") String email,
-			@RequestParam("password") String password,
-			@RequestParam("permission") Integer permision,
-			ModelMap model) {
+	public String newUser(@RequestParam("username") String username, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("permission") Integer permision, ModelMap model) {
 		User newUser = new User();
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		newUser.setEmail(email);
 		newUser.setUserPermission(userService.getPermissionById(permision));
 		newUser.setStatus(true);
-		System.out.println(newUser.getUsername());
-		System.out.println(newUser.getPassword());
-		System.out.println(newUser.getEmail());
-		System.out.println(newUser.getUserPermission().getValue());
 		Session session1 = sessionFactory.openSession();
-		org.hibernate.Transaction t =  session1.beginTransaction();
-				try {
+		org.hibernate.Transaction t = session1.beginTransaction();
+		try {
 			session1.save(newUser);
 			t.commit();
 			model.addAttribute("message", "Thêm mới thành công! ");
@@ -69,7 +62,7 @@ public class UserController {
 		} finally {
 			session1.close();
 		}
-		return "admin/adduser";
+		return "redirect:/admin/adduser.htm";
 	}
-	
+
 }
