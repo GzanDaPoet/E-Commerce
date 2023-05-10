@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import ptithcm.model.inventory.InventoryReceiving;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.updation.UpdatePriceProductItem;
@@ -24,9 +26,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@OneToOne
+	@ManyToOne()
 	@JoinColumn(name = "user_permission")
-	private UserPermission user_permission;
+	private UserPermission userPermission;
 	@Column(name = "username")
 	private String username;
 	@Column(name = "email")
@@ -35,10 +37,8 @@ public class User {
 	private String password;
 	@Column(name = "status")
 	private Boolean status;
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 	private UserProfile userProfile;
-
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<InventoryReceiving> inventoryReceivings;
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -50,11 +50,11 @@ public class User {
 		super();
 	}
 
-	public User(Integer id, UserPermission user_permission, String username, String email, String password,
+	public User(Integer id, UserPermission userPermission, String username, String email, String password,
 			Boolean status) {
 		super();
 		this.id = id;
-		this.user_permission = user_permission;
+		this.userPermission = userPermission;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -65,16 +65,48 @@ public class User {
 		return id;
 	}
 
+	public UserProfile getUserProfile() {
+		return userProfile;	
+	}
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public Collection<InventoryReceiving> getInventoryReceivings() {
+		return inventoryReceivings;
+	}
+
+	public void setInventoryReceivings(Collection<InventoryReceiving> inventoryReceivings) {
+		this.inventoryReceivings = inventoryReceivings;
+	}
+
+	public Collection<UpdatePriceProductItem> getUpdatePriceProductItems() {
+		return updatePriceProductItems;
+	}
+
+	public void setUpdatePriceProductItems(Collection<UpdatePriceProductItem> updatePriceProductItems) {
+		this.updatePriceProductItems = updatePriceProductItems;
+	}
+
+	public Collection<Promotion> getPromotions() {
+		return promotions;
+	}
+
+	public void setPromotions(Collection<Promotion> promotions) {
+		this.promotions = promotions;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public UserPermission getUser_permission() {
-		return user_permission;
+	public UserPermission getUserPermission() {
+		return userPermission;
 	}
 
-	public void setUser_permission(UserPermission user_permission) {
-		this.user_permission = user_permission;
+	public void setUserPermission(UserPermission userPermission) {
+		this.userPermission = userPermission;
 	}
 
 	public String getUsername() {

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <title>Create User</title>
 <meta charset="UTF-8">
@@ -38,27 +37,32 @@
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
 			<div class="container-fluid">
-					<h3 class="col-sm-12 title">Create User</h3>
+				<h3 class="col-sm-12 title">Create User</h3>
 				<div class="form-section">
-					<form action="" method="post" class="row">
-						<div class="col-xl-7 form-floating mb-3 mt-3">
-							<input type="text" class="form-control" name="full-name"
-								placeholder="Enter full-name"> <label for="full-name">Full
-								Name</label>
+					<form action="adduser/new.htm" method="post" class="row">
+						<div class="col-xl-12 form-floating mb-3 mt-3">
+							<input type="text" class="form-control" name="username">
+							<label for="username">Username</label>
 						</div>
-						<div class="col-xl-7 form-floating mb-3 mt-3">
-							<input type="email" class="form-control" name="email"
-								placeholder="Enter email"> <label for="email">Email
-								Address</label>
+						<div class="col-xl-12 form-floating mb-3 mt-3">
+							<input type="email" class="form-control" name="email"> <label
+								for="email">Email Address</label>
 						</div>
-						<div class="col-xl-7 form-floating mb-3 mt-3">
-							<input type="tel" class="form-control" name="phone-number"
-								placeholder="Enter phone-number"> <label
-								for="phone-number">Phone Number</label>
+						<div class="col-xl-12 form-floating mb-3 mt-3">
+							<input type="tel" class="form-control" name="password"> <label
+								for="password">Password</label>
 						</div>
-						
-						<div class="submit-section">
-							<input type="button" value="Create User" class="create-btn">
+						<div class="mb-3">
+							<label for="select2">User Permission</label> <select
+								class="form-select" id="permission" name="permission">
+								<c:forEach items="${listPermission}" var="element">
+									<option value="${element.id}">${element.value}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="mt-3">
+							<button type="submit" class="btn btn-primary">Create
+								User</button>
 						</div>
 					</form>
 				</div>

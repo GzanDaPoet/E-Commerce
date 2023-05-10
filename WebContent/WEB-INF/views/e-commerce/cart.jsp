@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>Cart</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://kit.fontawesome.com/dbd4881242.js"
-	crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Ecommerce | Giỏ hàng</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -23,91 +16,104 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/cart/cart.css' />">
-<link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/cart/cart.css' />">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
-
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
-			<div class="container">
+		<main class="content">
+			<div class="content-container">
+				<div class="list-header">
+					<div class="header-breadcrumb">
+						<h3 class="heading">Giỏ hàng</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">E-Commerce</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Thanh
+										Toán</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Giỏ hàng</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-xl-9 col-md mt-3 mb-3">
-						<div class="box">
-							<h3 class="col-sm-12 title">Cart</h3>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Product</th>
-										<th>Quantity</th>
-										<th>Price</th>
-										<th>Total Price</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="i" items="${shoppingCart}">
+						<div class="paper-wrapper">
+							<div class="table-container">
+								<table>
+									<thead>
 										<tr>
-											<td>${i.productItem.product.getName()}</td>
-
-											<td><div class="col">
-													<div class="col-6">
-														<div class="btn-group btn-group-justified">
-															<form action="../e-commerce/cart/decrease.htm"
-																method="post">
-																<input type="hidden" name="productId"
-																	value="${i.getId()}">
-																<button class="btn btn-outline-primary" id="decrease">-</button>
-															</form>
-															<button disabled class="btn btn-outline-primary"
-																id="quantity">${i.quantity}</button>
-															<form action="../e-commerce/cart/increase.htm"
-																method="post">
-																<input type="hidden" name="productId"
-																	value="${i.getId()}">
-																<button class="btn btn-outline-primary" id="increase">+</button>
-															</form>
-														</div>
-													</div>
-													<div class="col-6">
-														<p>Available:${i.productItem.quantityInStock}</p>
-													</div>
-												</div></td>
-
-											<td>${i.productItem.getPrice()}VNĐ</td>
-											<td>${i.productItem.getPrice() * i.quantity }VNĐ</td>
-											<td>
-												<form action="../e-commerce/cart/delete.htm" method="post">
-													<input type="hidden" name="productId" value="${i.getId()}">
-													<button type="submit" class="btn btn-outline-primary"
-														onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-												</form>
-											</td>
-
-
+											<th class="th-header"><span>Sản phẩm</span></th>
+											<th class="th-header"><span>Số lượng</span></th>
+											<th class="th-header"><span>Đơn giá</span></th>
+											<th class="th-header"><span>Tổng giá</span></th>
+											<th class="th-header"><span></span></th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<div>
-								<button type="button" class="btn btn-outline-primary"
-									onclick="window.location='${contextPath}/e-commerce/shop.htm'">&#171;
-									Continue Shopping</button>
+									</thead>
+									<tbody>
+										<c:forEach var="i" begin="0" end="${shoppingCart.size() -1}">
+											<tr>
+												<td class="td-body">${shoppingCart.get(i).productItem.product.getName()}</td>
+												<td class="td-body"><div class="col">
+														<div class="col-6">
+															<div class="btn-group btn-group-justified">
+																<form action="../e-commerce/cart/decrease.htm"
+																	method="post">
+																	<input type="hidden" name="productId"
+																		value="${shoppingCart.get(i).getId()}">
+																	<button class="btn btn-outline-primary" id="decrease">-</button>
+																</form>
+																<button disabled class="btn btn-outline-primary"
+																	id="quantity">${shoppingCart.get(i).quantity}</button>
+																<form action="../e-commerce/cart/increase.htm"
+																	method="post">
+																	<input type="hidden" name="productId"
+																		value="${shoppingCart.get(i).getId()}">
+																	<button class="btn btn-outline-primary" id="increase">+</button>
+																</form>
+															</div>
+														</div>
+														<div class="col-6">
+															<p>Available:${shoppingCart.get(i).productItem.quantityInStock}</p>
+														</div>
+													</div></td>
+												<td class="td-body">${price.get(i)}VNĐ
+												</td>
+												<td class="td-body">${price.get(i) * shoppingCart.get(i).quantity }VNĐ
+												</td>
+												<td class="td-body">
+													<div class="group-btn">
+														<form action="../e-commerce/cart/delete.htm" method="post">
+															<input type="hidden" name="productId"
+																value="${shoppingCart.get(i).getId()}">
+															<button type="submit" class="btn--delete"
+																onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+														</form>
+													</div>
 
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
-
 					<div class="col-xl-3 mt-3 mb-3">
-						<div class="box2">
+						<div class="paper-wrapper">
 							<div>
 								<h4 class="col-sm-12 title">Order Summary</h4>
 								<h5>Sub total: ${sum} VND</h5>
@@ -116,19 +122,19 @@
 							</div>
 							<div>
 								<form action="address.htm" method="post">
-									<button type="submit" class="btn btn-success btn-lg"
-										name="checkOut">Check Out</button>
+									<button type="submit" class="btn--add" name="checkOut">Check
+										Out</button>
 								</form>
-
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
-		</div>
+
+		</main>
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
-
 </html>

@@ -1,6 +1,7 @@
 package ptithcm.controller.cart;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -51,6 +52,13 @@ public class AddressController {
 		model.addAttribute("customerAddress", addressList);
 		return "e-commerce/address";
 	}
+	
+	@RequestMapping(value = "address1")
+	public String showAddress1(ModelMap model) {
+		List<CustomerAddress> addressList = addressService.getAddressListByID(1);
+		model.addAttribute("customerAddress", addressList);
+		return "e-commerce/address1";
+	}
 
 	@RequestMapping(value = "address/delete", method = RequestMethod.POST)
 	public String deleteAddress(@RequestParam("addressId") int addressId) {
@@ -63,17 +71,10 @@ public class AddressController {
 	public String deliver(@RequestParam("addressId") int addressId, ModelMap model, HttpSession session) {
 		System.out.println(addressId);
 		session.setAttribute("addressId", addressId);
-		int sum = 0;
 		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(1);
 		model.addAttribute("payment", payment);
 		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
 		model.addAttribute("shipping", shipping);
-		List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(1);
-		model.addAttribute("cart", listCartItems);
-		for (ShoppingCartItem item : listCartItems) {
-			sum += item.getProductItem().getPrice() * item.getQuantity();
-		}
-		session.setAttribute("sum", sum);
 		return "e-commerce/payment";
 	}
 
@@ -84,6 +85,7 @@ public class AddressController {
 		System.out.println(ShippingMethod);
 		int addressId = (int) session.getAttribute("addressId");
 		int sum = (int) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
+		List<Integer> price = (List<Integer>) session.getAttribute("price"); 
 		System.out.println(addressId);
 		Date sqlDate = new Date(System.currentTimeMillis());
 		ShopOrder shopOrder = new ShopOrder();
@@ -109,13 +111,13 @@ public class AddressController {
 			session1.close();
 		}
         List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(1);
-        for (ShoppingCartItem item : listCartItems ) {
+        for (int i=0;i<listCartItems.size();i++) {
+        	System.out.println(listCartItems.size());
         	OrderLine orderLine = new OrderLine();
-        	orderLine.setId(null);
-        	orderLine.setProductItem(item.getProductItem());
+        	orderLine.setProductItem(listCartItems.get(i).getProductItem());
         	orderLine.setShopOrder(shopOrder);	
-        	orderLine.setQuantity(item.getQuantity());
-        	orderLine.setPrice(item.getProductItem().getPrice());
+        	orderLine.setQuantity(listCartItems.get(i).getQuantity());
+        	orderLine.setPrice(price.get(i));
         	Session session2 = sessionFactory.openSession();
     		org.hibernate.Transaction t1 =  session2.beginTransaction();
     		try {
@@ -129,8 +131,8 @@ public class AddressController {
     		finally {
     			session2.close();
     		}
-    		productService.updateQty(item.getProductItem().getId(), item.getQuantity()*(-1));
-    		cartService.deleteCartItem(item.getId());
+    		productService.updateQty(listCartItems.get(i).getId(), listCartItems.get(i).getQuantity()*(-1));
+    		cartService.deleteCartItem(listCartItems.get(i).getId());
 		}
         return "e-commerce/checkout";
 	}

@@ -2,9 +2,12 @@ package ptithcm.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ptithcm.dao.promotion.PromotionDao;
 import ptithcm.dao.shoppingCart.ShoppingCartDao;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 
@@ -13,6 +16,8 @@ import ptithcm.model.shoppingCart.ShoppingCartItem;
 public class CartService {
 	@Autowired
 	private ShoppingCartDao shoppingCartDao;
+	@Autowired
+	private PromotionDao promotionDao;
 
 	
 	public List<ShoppingCartItem> getAllCartItemsById(int ctmId){
@@ -33,5 +38,10 @@ public class CartService {
 		int decrease =shoppingCartDao.decreaseQty(shoppingCartItemId);
 		return decrease;
 	}
-	
+
+	public int getSalePrice(int productId){
+		int percent = 100 - promotionDao.getPriceDiscount(productId);
+		return percent;
+	}
+
 }
