@@ -40,7 +40,7 @@ public class Promotion {
 	@ManyToOne()
 	@JoinColumn(name = "user_id")
 	private User user;
-	@OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "promotion", fetch = FetchType.EAGER)
 	private Collection<PromotionCategory> promotionCategory;
 
 	public Promotion() {

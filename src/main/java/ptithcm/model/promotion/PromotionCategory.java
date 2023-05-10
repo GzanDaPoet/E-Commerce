@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import ptithcm.model.product.ProductCategory;
@@ -17,12 +18,13 @@ import ptithcm.model.product.ProductCategory;
 public class PromotionCategory {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "promotion_id", referencedColumnName = "id", nullable = false)
     private Promotion promotion;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("category_id")
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private ProductCategory productCategory;
     

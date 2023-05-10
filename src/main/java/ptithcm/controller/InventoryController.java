@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.realtut.service.UserService;
-
 import ptithcm.model.agency.Agency;
 import ptithcm.model.inventory.InventoryReceiving;
 import ptithcm.model.inventory.InventoryReceivingDetails;
@@ -74,6 +72,7 @@ public class InventoryController {
 		} finally {
 			session.close();
 		}
+		
 		for(int i = 0;i < productItems.size();i++) {
 			InventoryReceivingDetails newIRDetails = new InventoryReceivingDetails();
 			newIRDetails.setInventoryReceiving(newInventoryReceiving);
@@ -94,7 +93,7 @@ public class InventoryController {
 			}
 			productService.updateQty(productItems.get(i), qtys.get(i));
 		}
-		return "admin/login";
+		return "redirect:/admin/inventory.htm";
 	}
 
 }
