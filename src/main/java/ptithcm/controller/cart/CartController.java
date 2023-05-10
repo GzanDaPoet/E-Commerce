@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -36,11 +37,11 @@ public class CartController {
 	public static ProductItem productItem;
 
 	@RequestMapping(value = "cart")
-	public String showCart(ModelMap model, HttpSession ss) {
-		int sum = 0;
-		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(1);
+	public String showCart(ModelMap model, HttpSession ss, HttpServletRequest request) {
+		long sum = 0;
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
 		List<Integer> price = new ArrayList<>();
-		cartService.getAllCartItemsById(2);
 		for (ShoppingCartItem item : listCart) {
 			System.out.println(item.getProductItem().getStatus());
 			if (item.getProductItem().getStatus().equals("ON_SALE")) {

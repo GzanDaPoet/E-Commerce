@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
@@ -29,6 +30,8 @@ import ptithcm.service.AddressService;
 import ptithcm.service.CartService;
 import ptithcm.service.PaymentService;
 import ptithcm.service.ProductService;
+import ptithcm.util.SessionUtil;
+import ptithcm.model.user.*;
 
 @RequestMapping("/e-commerce/")
 @Controller
@@ -47,18 +50,13 @@ public class AddressController {
 	SessionFactory sessionFactory;
 
 	@RequestMapping(value = "address")
-	public String showAddress(ModelMap model) {
-		List<CustomerAddress> addressList = addressService.getAddressListByID(1);
+	public String showAddress(ModelMap model, HttpServletRequest request) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		List<CustomerAddress> addressList = addressService.getAddressListByID(id);
 		model.addAttribute("customerAddress", addressList);
 		return "e-commerce/address";
 	}
 	
-	@RequestMapping(value = "address1")
-	public String showAddress1(ModelMap model) {
-		List<CustomerAddress> addressList = addressService.getAddressListByID(1);
-		model.addAttribute("customerAddress", addressList);
-		return "e-commerce/address1";
-	}
 
 	@RequestMapping(value = "address/delete", method = RequestMethod.POST)
 	public String deleteAddress(@RequestParam("addressId") int addressId) {
@@ -68,10 +66,11 @@ public class AddressController {
 	}
 
 	@RequestMapping(value = "address/deliver", method = RequestMethod.POST)
-	public String deliver(@RequestParam("addressId") int addressId, ModelMap model, HttpSession session) {
+	public String deliver(@RequestParam("addressId") int addressId, ModelMap model, HttpServletRequest request, HttpSession session) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
 		System.out.println(addressId);
 		session.setAttribute("addressId", addressId);
-		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(1);
+		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(id);
 		model.addAttribute("payment", payment);
 		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
 		model.addAttribute("shipping", shipping);
@@ -80,9 +79,8 @@ public class AddressController {
 
 	@RequestMapping(value = "checkout", method = RequestMethod.POST)
 	public String checkout(@RequestParam int PaymentMethod, @RequestParam int ShippingMethod, ModelMap model,
-			HttpSession session) {
-		System.out.println(PaymentMethod);
-		System.out.println(ShippingMethod);
+			HttpSession session,  HttpServletRequest request) {
+		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
 		int addressId = (int) session.getAttribute("addressId");
 		int sum = (int) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
 		List<Integer> price = (List<Integer>) session.getAttribute("price"); 
@@ -110,7 +108,7 @@ public class AddressController {
 		} finally {
 			session1.close();
 		}
-        List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(1);
+        List<ShoppingCartItem> listCartItems = cartService.getAllCartItemsById(id);
         for (int i=0;i<listCartItems.size();i++) {
         	System.out.println(listCartItems.size());
         	OrderLine orderLine = new OrderLine();
