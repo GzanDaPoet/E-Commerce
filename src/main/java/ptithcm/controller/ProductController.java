@@ -60,7 +60,7 @@ public class ProductController {
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
 	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		ProductItem product = productService.getProductById(productId);
 		int quantityOrdered = 0;
 		int cartId = 0;
@@ -109,7 +109,7 @@ public class ProductController {
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addToCart")
 	public String addToCart(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		ProductItem product = productService.getProductById(productId);
 		model.addAttribute("product", product);
 		Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
@@ -134,7 +134,7 @@ public class ProductController {
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		Customer customer = customerService.getCustomerById(id);
 		customerReview.setCustomer(customer);
 		String comment = request.getParameter("commentInput").trim();

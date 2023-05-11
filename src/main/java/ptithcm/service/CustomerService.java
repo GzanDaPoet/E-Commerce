@@ -1,8 +1,5 @@
 package ptithcm.service;
 
-import java.util.List;
-
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +13,14 @@ public class CustomerService {
 	
 	public Customer getCustomerById(int id) {
 		Customer customer = customerDao.getCustomerById(id);
+		if (customer != null) {
+			return  customer;
+		}
+		return null;
+	}
+	
+	public Customer getCustomerByUsernamePassword(String userName,String password) {
+		Customer customer = customerDao.getCustomerByUsernamePassword(userName, password);
 		if (customer != null) {
 			return  customer;
 		}

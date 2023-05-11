@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
@@ -39,7 +40,7 @@ public class CartController {
 	@RequestMapping(value = "cart")
 	public String showCart(ModelMap model, HttpSession ss, HttpServletRequest request) {
 		long sum = 0;
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
 		List<Integer> price = new ArrayList<>();
 		for (ShoppingCartItem item : listCart) {

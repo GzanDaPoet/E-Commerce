@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.pay.CustomerPaymentMethod;
@@ -51,7 +52,7 @@ public class AddressController {
 
 	@RequestMapping(value = "address")
 	public String showAddress(ModelMap model, HttpServletRequest request) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		List<CustomerAddress> addressList = addressService.getAddressListByID(id);
 		model.addAttribute("customerAddress", addressList);
 		return "e-commerce/address";
@@ -67,7 +68,7 @@ public class AddressController {
 
 	@RequestMapping(value = "address/deliver", method = RequestMethod.POST)
 	public String deliver(@RequestParam("addressId") int addressId, ModelMap model, HttpServletRequest request, HttpSession session) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		System.out.println(addressId);
 		session.setAttribute("addressId", addressId);
 		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(id);
@@ -80,9 +81,9 @@ public class AddressController {
 	@RequestMapping(value = "checkout", method = RequestMethod.POST)
 	public String checkout(@RequestParam int PaymentMethod, @RequestParam int ShippingMethod, ModelMap model,
 			HttpSession session,  HttpServletRequest request) {
-		int id = (int) ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		int addressId = (int) session.getAttribute("addressId");
-		int sum = (int) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
+		Long sum = (Long) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
 		List<Integer> price = (List<Integer>) session.getAttribute("price"); 
 		System.out.println(addressId);
 		Date sqlDate = new Date(System.currentTimeMillis());

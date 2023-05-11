@@ -51,7 +51,7 @@ public class ShopOrder {
 	@Column(name = "order_date")
 	private Date orderDate;
 	@Column(name = "order_total")
-	private Integer orderTotal;
+	private Long orderTotal;
 
 	public ShopOrder() {
 		super();
@@ -61,7 +61,7 @@ public class ShopOrder {
 
 	public ShopOrder(Integer id, ShippingMethod shippingMethod, CustomerAddress customerAddress,
 			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, Collection<OrderLine> orderLines,
-			Date orderDate, Integer orderTotal) {
+			Date orderDate, Long orderTotal) {
 		super();
 		this.id = id;
 		this.shippingMethod = shippingMethod;
@@ -131,11 +131,11 @@ public class ShopOrder {
 		this.orderDate = orderDate;
 	}
 
-	public Integer getOrderTotal() {
+	public Long getOrderTotal() {
 		return orderTotal;
 	}
 
-	public void setOrderTotal(Integer orderTotal) {
+	public void setOrderTotal(Long orderTotal) {
 		this.orderTotal = orderTotal;
 	}
 
