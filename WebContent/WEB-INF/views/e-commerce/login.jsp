@@ -35,7 +35,7 @@
 				<div class="login__form-group">
 					<div class="group-header">
 						<h3>Đăng nhập</h3>
-						<span>Người dùng mới? <a href="${contextPath}/e-commerce/signin.htm">Tạo tài khoản</a></span>
+						<span>Người dùng mới? <a href="${contextPath}/e-commerce/signIn.htm">Tạo tài khoản</a></span>
 					</div>
 					<div class="input-container">
 						<input type="text" required="required" id="username"

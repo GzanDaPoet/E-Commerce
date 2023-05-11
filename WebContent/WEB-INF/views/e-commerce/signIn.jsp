@@ -31,7 +31,7 @@
 				alt="">
 		</div>
 		<div class="login__form">
-			<form action="signin.htm" method="POST">
+			<form action="signIn.htm" method="POST">
 				<div class="login__form-group">
 					<div class="group-header">
 						<h3>Tạo tài khoản</h3>
