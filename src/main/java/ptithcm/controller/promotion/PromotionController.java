@@ -85,7 +85,7 @@ public class PromotionController {
 			session.save(promotion);
 			session.merge(promotionCategory);
 			for (ProductItem productItem : listProductAdd) {
-				productItem.setStatus("ON SALE");
+				productItem.setStatus("ON_SALE");
 				session.merge(productItem);
 			}
 			tx.commit();

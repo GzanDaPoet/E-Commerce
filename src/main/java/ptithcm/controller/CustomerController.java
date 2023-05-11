@@ -58,7 +58,7 @@ public class CustomerController {
 		return "e-commerce/login";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.GET)
+	@RequestMapping(value = "signIn", method = RequestMethod.GET)
 	public String showSignIn() {
 		return "e-commerce/signIn";
 	}
@@ -66,6 +66,7 @@ public class CustomerController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password,
 			HttpServletRequest request) {
+		System.out.println("Dang dang nhap");
 		Customer customer = customerService.getCustomerByUsernamePassword(username, password);
 		if (customer != null) {
 			SessionUtil.getInstance().putValue(request, "CUSTOMER_MODEL", customer);
@@ -82,7 +83,7 @@ public class CustomerController {
 
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	@RequestMapping(value = "signIn", method = RequestMethod.POST)
 	public String newCustomer(@RequestParam("username") String username, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 
