@@ -42,6 +42,9 @@ public class CartController {
 		long sum = 0;
 		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
+		if(listCart.size()==0) {
+			return  "e-commerce/emptyCart";
+		}
 		List<Integer> price = new ArrayList<>();
 		for (ShoppingCartItem item : listCart) {
 			System.out.println(item.getProductItem().getStatus());
@@ -63,6 +66,11 @@ public class CartController {
 		ss.setAttribute("price",price);
 		ss.setAttribute("sum", sum);
 		return "e-commerce/cart";
+	}
+	
+	@RequestMapping(value = "emptyCart")
+	public String showEmptyCart() {
+		return  "e-commerce/emptyCart";
 	}
 
 	@RequestMapping(params = "checkOut")

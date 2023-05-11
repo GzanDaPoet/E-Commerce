@@ -1,87 +1,3 @@
-
-.input[type=submit] {
-    background-color: #333;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
-.input[type=submit]:hover {
-    background-color: #555;
-}
-
-.breadscrum-custom {
-    list-style-type: none;
-
-}
-
-.breadscrum-custom-item {
-    display: inline-block;
-    padding: 4px 0;
-    margin-right: 4px;
-    font-size: 14px;
-}
-
-.breadscrum-custom-item:not(.breadscrum-custom-item:first-child) {
-    margin-left: 4px;
-}
-
-.dotted {
-    display: inline-block;
-    width: 4px;
-    height: 4px;
-    background-color: #7e7777;
-    border-radius: 50%;
-    transform: translate(0, -50%);
-}
-
-.breadscrum-custom-item a {
-    text-decoration: none;
-    color: #000;
-}
-
-.breadscrum-custom-item:hover a {
-    text-decoration: underline;
-}
-
-.breadscrum-custom-item:last-child {
-    color: #7e7777;
-}
-
-.box{
-    box-shadow: 0 0 8px #7e7777;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-}
-.box2{
-    box-shadow: 0 0 8px #7e7777;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 16px;
-}
-
-.btn-center{
-    align-self: center;
-}
-
-.h3 {
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
-
 main {
 	font-size: 14px;
 	font-weight: 400;
@@ -931,7 +847,6 @@ main {
 	-webkit-tap-highlight-color: transparent;
 	outline: 0px;
 	border: 0px;
-	margin: 0px 0px 5px 20px;
 	cursor: pointer;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -942,7 +857,7 @@ main {
 	-moz-appearance: none;
 	appearance: none;
 	text-decoration: none;
-	font-weight: 700;
+	font-weight: 1400;
 	font-size: 0.875rem;
 	text-transform: capitalize;
 	font-family: "Public Sans", sans-serif;
