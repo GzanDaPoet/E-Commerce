@@ -33,7 +33,7 @@ public class UserController {
 	SessionFactory sessionFactory;
 
 	@RequestMapping(value="new")
-	public String  adduser (ModelMap model) {
+	public String  newUser (ModelMap model) {
 		List<UserPermission> list = userService.getListUserPermissions();
 		model.addAttribute("listPermission",list);
 		return "user/new";
@@ -70,6 +70,13 @@ public class UserController {
 			session1.close();
 		}
 		return "redirect:/user/new.htm";
+	}
+	
+	@RequestMapping(value="list")
+	public String  listUser (ModelMap model) {
+		List<User> list = userService.getAllUser();
+		model.addAttribute("listUser",list);
+		return "user/list";
 	}
 	
 }

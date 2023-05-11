@@ -57,5 +57,14 @@ public class UserDaoImp implements UserDao {
 		query.setParameter("id", id);
 		return (UserPermission) query.uniqueResult();
 	}
+
+	@Override
+	public List<User> getAllUsers() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User";
+		Query query = session.createQuery(hql);
+		List<User> list = query.list();
+		return list;
+	}
 	
 }

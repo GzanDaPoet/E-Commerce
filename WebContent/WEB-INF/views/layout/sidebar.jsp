@@ -82,11 +82,11 @@
 					</span></li>
 					<ul class="submenu">
 						<li class="submenu-item"><a
-							href="${contextPath}/account/profile.htm">Thông tin cá nhân</a></li>
+							href="">Thông tin cá nhân</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/account/list.htm">Danh sách nhân viên</a></li>
+							href="${contextPath}/user/list.htm">Danh sách nhân viên</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/account/new.htm">Tạo nhân viên</a></li>
+							href="${contextPath}/user/new.htm">Tạo nhân viên</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
