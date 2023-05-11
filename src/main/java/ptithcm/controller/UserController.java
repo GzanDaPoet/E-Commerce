@@ -24,7 +24,7 @@ import ptithcm.service.UserService;
 import ptithcm.service.VariationService;
 
 @Controller
-@RequestMapping(value = "/admin/")
+@RequestMapping(value = "/user/")
 public class UserController {
 
 	@Autowired
@@ -32,14 +32,14 @@ public class UserController {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	@RequestMapping(value="adduser")
+	@RequestMapping(value="new")
 	public String  adduser (ModelMap model) {
 		List<UserPermission> list = userService.getListUserPermissions();
 		model.addAttribute("listPermission",list);
-		return "admin/adduser";
+		return "user/new";
 	}
 
-	@RequestMapping(value = "adduser/new", method = RequestMethod.POST)
+	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String newUser (@RequestParam("username") String username,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
@@ -69,7 +69,7 @@ public class UserController {
 		} finally {
 			session1.close();
 		}
-		return "admin/adduser";
+		return "redirect:/user/new.htm";
 	}
 	
 }
