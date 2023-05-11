@@ -46,7 +46,7 @@ public class CustomerController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	CustomerService customerService;
 
@@ -56,6 +56,11 @@ public class CustomerController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showLogin() {
 		return "e-commerce/login";
+	}
+
+	@RequestMapping(value = "signin", method = RequestMethod.GET)
+	public String showSignIn() {
+		return "e-commerce/signIn";
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -75,6 +80,39 @@ public class CustomerController {
 
 		return "redirect:/";
 
+	}
+
+	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	public String newCustomer(@RequestParam("username") String username, 
+			@RequestParam("email") String email,
+			@RequestParam("password") String password, 
+			@RequestParam("password1") String password1, ModelMap model) {
+		if (password.equals(password1)) {
+			Customer newCustomer = new Customer();
+			newCustomer.setUserName(username);
+			newCustomer.setPassword(password);
+			newCustomer.setEmail(email);
+			System.out.println(newCustomer.getUserName());
+			System.out.println(newCustomer.getPassword());
+			System.out.println(newCustomer.getEmail());
+			Session session1 = sessionFactory.openSession();
+			org.hibernate.Transaction t = session1.beginTransaction();
+			try {
+				session1.save(newCustomer);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+				System.out.println("done");
+			} catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+				System.out.println(e);
+			} finally {
+				session1.close();
+			}
+			return "redirect:/e-commerce/login.htm";
+		}
+		model.addAttribute("passwordError", "Mật khẩu không khớp");
+		return "e-commerce/signIn";
 	}
 
 }
