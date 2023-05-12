@@ -40,6 +40,10 @@ public class CartController {
 	@RequestMapping(value = "cart")
 	public String showCart(ModelMap model, HttpSession ss, HttpServletRequest request) {
 		long sum = 0;
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
+			return "redirect:/e-commerce/login.htm";
+		}
 		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
 		if(listCart.size()==0) {
@@ -75,8 +79,6 @@ public class CartController {
 
 	@RequestMapping(params = "checkOut")
 	public String showAddress(ModelMap model) {
-		List<CustomerAddress> addressList = addressService.getAddressListByID(1);
-		model.addAttribute("customerAddress", addressList);
 		return "e-commerce/address";
 	}
 

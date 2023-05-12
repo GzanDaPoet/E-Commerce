@@ -16,6 +16,7 @@ import org.hibernate.mapping.DenormalizedTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,27 +59,29 @@ public class AddressController {
 		return "e-commerce/address";
 	}
 	
-
-	@RequestMapping(value = "address/delete", method = RequestMethod.POST)
-	public String deleteAddress(@RequestParam("addressId") int addressId) {
-		addressService.deleteCustomerAddress(addressId);
+	
+	@RequestMapping(value = "address/delete/{id}")
+	public String deleteAddress(@PathVariable int id) {
+		int addressId = addressService.getAddressById(id).getAddress().getId();
+		addressService.deleteCustomerAddress(id);
 		addressService.deleteAddress(addressId);
 		return "redirect:/e-commerce/address.htm";
 	}
-
-	@RequestMapping(value = "address/deliver", method = RequestMethod.POST)
-	public String deliver(@RequestParam("addressId") int addressId, ModelMap model, HttpServletRequest request, HttpSession session) {
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
-		System.out.println(addressId);
-		session.setAttribute("addressId", addressId);
-		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(id);
+	
+	@RequestMapping(value = "address/deliver/{id}")
+	public String deliver(@PathVariable int id, ModelMap model, HttpServletRequest request, HttpSession session) {
+		int ctmid = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		System.out.println(id);
+		session.setAttribute("addressId", id);
+		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(ctmid);
 		model.addAttribute("payment", payment);
 		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
 		model.addAttribute("shipping", shipping);
 		return "e-commerce/payment";
 	}
 
-	@RequestMapping(value = "checkout", method = RequestMethod.POST)
+
+	@RequestMapping(value = "address/deliver/checkout", method = RequestMethod.POST)
 	public String checkout(@RequestParam int PaymentMethod, @RequestParam int ShippingMethod, ModelMap model,
 			HttpSession session,  HttpServletRequest request) {
 		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
@@ -86,6 +89,8 @@ public class AddressController {
 		Long sum = (Long) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
 		List<Integer> price = (List<Integer>) session.getAttribute("price"); 
 		System.out.println(addressId);
+		System.out.println("zoday");
+	
 		Date sqlDate = new Date(System.currentTimeMillis());
 		ShopOrder shopOrder = new ShopOrder();
 		shopOrder.setShippingMethod(paymentService.getShippingById(ShippingMethod));
@@ -136,9 +141,9 @@ public class AddressController {
         return "e-commerce/checkout";
 	}
 	
-	@RequestMapping(value = "order-success")
+	@RequestMapping(value = "checkout")
 	  public String showOrderSuccessPage() {
-	    return "e-commerce/orderSuccess";
+	    return "e-commerce/checkout";
 	  }
 }
 

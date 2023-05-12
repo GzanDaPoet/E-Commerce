@@ -30,18 +30,18 @@ public class AddressDaoImp implements AddressDao {
 	}
 
 	@Override
-	public int deleteAddress(int addressId) {
+	public int deleteAddress(int id) {
 		Session session = factory.getCurrentSession();
-		String hql = "DELETE FROM Address WHERE id = " + addressId;
+		String hql = "DELETE FROM Address WHERE id = " + id;
 		Query query = session.createQuery(hql);
 		int result = query.executeUpdate();
 		return result;
 	}
 
 	@Override
-	public int deleteCustomerAddress(int addressId) {
+	public int deleteCustomerAddress(int id) {
 		Session session = factory.getCurrentSession();
-		String hql = "DELETE FROM CustomerAddress WHERE  address.id = " + addressId;
+		String hql = "DELETE FROM CustomerAddress WHERE id = " + id;
 		Query query = session.createQuery(hql);
 		int result = query.executeUpdate();
 		return result;
