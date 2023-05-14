@@ -46,14 +46,11 @@ public class CustomerController {
 	@Autowired
 	PaymentService paymentService;
 	
-	@Autowired
-	UserService userService;
 
 	@Autowired
 	CustomerService customerService;
 
-	@Autowired
-	ProductService productService;
+
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showLogin() {

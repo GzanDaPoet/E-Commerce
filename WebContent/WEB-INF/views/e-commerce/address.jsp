@@ -18,7 +18,7 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/listStyle.css' />">
+	href="<c:url value ='/common/assets/css/formStyle.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
@@ -31,26 +31,18 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Địa chỉ</h3>
+						<h3 class="heading">Tạo địa chỉ mới</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">E_Commerce</a></li>
+									href="">E_Commerce</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Thanh
-										toán</a></li>
+									href="">Người dùng</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Địa chỉ</li>
 							</ul>
 						</nav>
-					</div>
-					<div>
-						<a href="${contextPath}/admin/product/category/new.htm">
-							<button class="btn--add">
-								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
-							</button>
-						</a>
 					</div>
 				</div>
 				<div class="paper-wrapper">

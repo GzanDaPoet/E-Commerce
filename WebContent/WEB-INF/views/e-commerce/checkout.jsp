@@ -27,13 +27,13 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <style>
-    .success-message {
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-  </style>
+.success-message {
+	background-color: #4CAF50;
+	color: white;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+</style>
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 </head>
@@ -46,8 +46,9 @@
 				<p>Đặt hàng thành công!</p>
 			</div>
 			<div>
-				<button type="button" class="btn btn-outline-primary">
-					&#171 Continue Shopping</button>
+				<button type="button" class="btn btn-outline-primary" name="back"
+					onclick="window.location='${contextPath}/e-commerce/shop.htm'">Tiếp
+					tục mua hàng</button>
 			</div>
 		</div>
 	</div>
