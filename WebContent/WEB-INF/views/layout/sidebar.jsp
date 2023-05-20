@@ -147,7 +147,7 @@
 			<h4>Sản phẩm</h4>
 			<ul class="menu">
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-mobile-retro"></i></span>
 							</div>
@@ -159,12 +159,15 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách sản phẩm</a></li>
-						<li class="submenu-item"><a href="#">Tạo mới sản phẩm</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/list.htm">Danh sách sản
+								phẩm</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/new.htm">Tạo mới sản phẩm</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-tags"></i></span>
 							</div>
@@ -185,7 +188,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-atom"></i></span>
 							</div>
@@ -206,7 +209,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a  class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-table-list"></i></span>
 							</div>
@@ -227,7 +230,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a  class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-percent"></i></span>
 							</div>
@@ -245,7 +248,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a href="#" class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-shield"></i></span>
 							</div>
