@@ -1,18 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>Product List</title>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | Edit Category</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -21,95 +18,147 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/thong_css/style.css' />">
-<link rel="stylesheet"
-	href="<c:url value ='/common/assets/icons/themify-icons/css/themify-icons.css' />">
-<link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
+	href="<c:url value ='/common/assets/css/listStyle.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
-
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 </head>
-
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
-			<c:if test="${not empty USER_MODEL} }">
-			da dang nhap ${USER_MODEL.username}
-		</c:if>
-			${USER_MODEL.username}
-			<div class="row-container">
-				<select class="status-dropdown">
-					<option value="all">In stock</option>
-					<option value="active">In stock</option>
-					<option value="inactive">Out of stock</option>
-				</select> <input type="text" class="search-box" placeholder="Search...">
-			</div>
-
-			<div class="row-container">
-
-				<div class="btn_filter">
-					<form action="list.htm">
-						<select id="selectOption" name="selectOption">
-							<option value="all">All</option>
-							<option value="active">In stock</option>
-							<option value="inactive">Out of stock</option>
-						</select>
-						<button name="filter" type="submit">Filter</button>
-					</form>
+		<main class="content">
+			<div class="content-container">
+				<div class="list-header">
+					<div class="header-breadcrumb">
+						<h3 class="heading">Danh sách sản phẩm</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
+										chủ</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">ECommrece</a>
+								</li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Danh sách sản phẩm</li>
+							</ul>
+						</nav>
+					</div>
+					<div>
+						<a href="${contextPath}/admin/product/category/new.htm">
+							<button class="btn--add">
+								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
+							</button>
+						</a>
+					</div>
 				</div>
-				<form method="POST" action="list.htm">
-					<input type="text" name="searchText"
-						placeholder="Tìm kiếm sản phẩm">
-				</form>
-			</div>
-
-
-
-			<div class="container mt-5">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Product</th>
-							<th>Create at</th>
-							<th>Status</th>
-							<th>Price</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="u" items="${listProduct}">
-							<tr>
-								<td><img src="${u.getProductImage() }" alt="Product Image"
-									class="product-image mr-2" /> ${u.product.getName()}</td>
-								<td>2022-02-01</td>
-								<td><span class="badge">${u.getStatus()}</span></td>
-								<td>50$</td>
-								<td><div class="btn-group">
-										<div class="ti-settings"></div>
-										<ul class="dropdown-menu">
-											<li>
-												<form action="list.htm" method="get">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button type="submit">Sửa</button>
-												</form>
-											</li>
-											<li>
-												<form action="list.htm" method="post">
-													<input type="hidden" name="productId" value="${u.getId()}">
-													<button name="deleteProduct" type="submit">Xóa</button>
-												</form>
-											</li>
-										</ul>
-									</div></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+				<div class="paper-wrapper">
+					<form id="search-form">
+						<div class="search-container">
+							<!-- Input search -->
+							
+							<div class="select-container">
+								<select name="status" id="status" class="select"
+									aria-invalid="false">
+									<option value="null" selected="selected">Không</option>
+									<option value="In stock">Đang hoạt động</option>
+									<option value="Out of stock">Ngưng hoạt động</option>
+								</select> <label for="status">Trạng thái</label> <span
+									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+							<div class="input-container">
+								<input type="text" id="search" name="search"
+									aria-labelledby="label-search" value="${search}"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="search">Tìm kiếm</label>
+								<button id="clear-search" type="button"
+									aria-label="Clear search text">
+									<i class="fa-solid fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<div class="table-container">
+						<table>
+							<thead>
+								<tr>
+									<th class="th-header"><span>id</span></th>
+									<th class="th-header"><span>Tên sản phẩm</span></th>
+									<th class="th-header"><span>Giá</span></th>
+									<th class="th-header"><span>Trạng thái</span></th>
+									<th class="th-header"><span></span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${listProduct}" var="element">
+									<tr>
+										<td class="td-body">${element.id}</td>
+										<td class="td-body">${element.getProduct().getName() }</td>
+										<td class="td-body">${element.getPrice()}</td>
+										<td class="td-body">
+											<div class="mui-chip">
+												<span class="mui-chip-label">Hoạt động</span>
+											</div>
+										</td>
+										<td class="td-body">
+											<div class="group-btn">
+												<a
+													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
+													<button class="btn--add">
+														<span>Chỉnh sửa</span>
+													</button>
+												</a> <a
+													href="${contextPath}/e-commerce/list/delete/${element.id}.htm">
+													<button class="btn--delete">
+														<span>Xoá</span>
+													</button>
+												</a>
+											</div>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<div class="pagination">
+						<div class="table-pagination">
+							<div class="tool-bar">
+								<p class="text" id=":r2:">Số hàng mỗi trang:</p>
+								<div class="select">
+									<select onchange="location = this.value;">
+										<option value="?page=1&limit=5"
+											${limit == 5 ? 'selected' : ''}>5</option>
+										<option value="?page=1&limit=10"
+											${limit == 10 ? 'selected' : ''}>10</option>
+										<option value="?page=1&limit=20"
+											${limit == 20 ? 'selected' : ''}>20</option>
+									</select>
+								</div>
+								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
+									${limit}</p>
+								<div class="pagination-action">
+									<c:if test="${currentPage > 1}">
+										<a href="?page=${currentPage - 1}&limit=${limit}"> <i
+											class="fa-solid fa-angle-left"></i>
+										</a>
+									</c:if>
+									<c:if test="${currentPage <= 1}">
+										<a href="#"> <i class="fa-solid fa-angle-left"></i>
+										</a>
+									</c:if>
+									<c:if test="${currentPage >= 1}">
+										<a href="?page=${currentPage + 1}&limit=${limit}"> <i
+											class="fa-solid fa-angle-right"></i>
+										</a>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<script type="text/javascript"
 				src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
-
-</html>

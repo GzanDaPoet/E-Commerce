@@ -15,20 +15,18 @@ import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shop.ShopOrder;
+import ptithcm.model.shoppingCart.ShoppingCartItem;
 
 @Service
 public class ProductService {
 	@Autowired 
 	private ProductDao productDao;
 	
-	public List<ProductItem> getListProducts() {
-		List<ProductItem> listProducts = productDao.getAllProducts();
-		if (!listProducts.isEmpty()) {
-			return listProducts;
-		}
-		return null;
-	}
 	
+	
+	public List<ProductItem> getListProducts() {
+		return productDao.getAllProducts();
+	}
 	
 	public ProductItem getProductById(int id) {
 		ProductItem product = productDao.getProductById(id);
@@ -38,6 +36,12 @@ public class ProductService {
 		return null;
 	}
 	
+	
+	public int updateQty(int produtItemId, int qty) {
+		int update = productDao.updateQty(produtItemId,qty);
+		return update;
+	}
+		
 	public List<CustomerReview> getAllCommentsById(int id) {
 		List<CustomerReview> comments = productDao.getAllCommentsById(id);
 		if (!comments.isEmpty()) {
@@ -87,4 +91,21 @@ public class ProductService {
 		}
 		return null;
 	}
+	
+	public boolean isExistInCart(int productId) {
+		if (getListProducts() == null) {
+			return false;
+		}
+		for (ProductItem productItem: getListProducts()) {
+			if (productItem.getId() == productId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity) {
+		productDao.addToCart(shoppingCartItem, cartId, customerId, bonus, quantity);
+	}
+	
 }

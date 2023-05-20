@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+}
+
+.title {
+    padding: 8;
+} 
+
+.breadscrum-custom {
+    list-style-type: none;
+    
+}
+
+.breadscrum-custom-item {
+    display: inline-block;
+    padding: 4px 0;
+    margin-right: 4px;
+    font-size: 14px;
+}
+
+.breadscrum-custom-item:not(.breadscrum-custom-item:first-child) {
+    margin-left: 4px;
+}
+
+.dotted {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background-color: #7e7777;
+    border-radius: 50%;
+    transform: translate(0, -50%);
+}
+
+.breadscrum-custom-item a {
+    text-decoration: none;
+    color: #000;
+}
+
+.breadscrum-custom-item:hover a {
+    text-decoration: underline;
+}
+
+.breadscrum-custom-item:last-child {
+    color: #7e7777;
+}
+
+.upload-section {
+    max-height: 400px;
+    min-height: 350px;
+    box-shadow: 0 0 8px #7e7777;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+}
+
+.upload-section .upload-btn {
+    width: 150px;
+    height: 150px;
+    border: 12px solid #fff;
+    outline: 1px dashed #5c5e60;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f4f6f8;
+    cursor: pointer;
+}
+
+.upload-section .upload-btn:hover {
+    opacity: 0.8;
+}
+
+.upload-section .upload-heading {
+    font-size: 12px;
+}
+
+.upload-section .upload-heading, 
+.upload-section .icon {
+    color: #919eab;
+}
+
+.upload-description {
+    margin-top: 12px;
+}
+.css-description {
+    margin: 16px auto 0px;
+    line-height: 1.5;
+    font-size: 0.75rem;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 400;
+    color: rgb(99, 115, 129);
+    display: block;
+    text-align: center;
+}
+.form-section {
+    padding: 16px;
+    box-shadow: 0 0 8px #7e7777;
+    border-radius: 8px;
+}
+
+.form-control ~ label{
+    margin: 0 10px;
+    font-size: 14px;
+    color: #7e7777;
+}
+
+.create-btn {
+    width: 100px;
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: #15ba15;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    float: right;
+}
+.submit-section .button:hover{
+    
+}

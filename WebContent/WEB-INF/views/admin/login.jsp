@@ -50,7 +50,7 @@
 					</div>
 					<div class="form-submit">
 						<a href="#">Quên mật khẩu?</a>
-						<button type="submit">Đang nhập</button>
+						<button type="submit">Đăng nhập</button>
 					</div>
 				</div>
 			</form>

@@ -52,7 +52,7 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/e-commerce/list.htm">Danh sách sản phẩm</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/e-commerce/checkout.htm">Thanh toán</a></li>
+							href="${contextPath}/e-commerce/cart.htm">Thanh toán</a></li>
 					</ul>
 				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">
@@ -242,9 +242,9 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách khuyến mãi</a>
+						<li class="submenu-item"><a href="${contextPath}/admin/product/promotion/list.htm">Danh sách khuyến mãi</a>
 						</li>
-						<li class="submenu-item"><a href="#">Tạo mới khuyến mãi</a></li>
+						<li class="submenu-item"><a href="${contextPath}/admin/product/promotion/create.htm">Tạo mới khuyến mãi</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">

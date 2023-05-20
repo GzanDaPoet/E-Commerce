@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ptithcm.model.inventory.InventoryReceivingDetails;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.model.updation.UpdatePriceProductItem;
@@ -29,7 +30,7 @@ public class ProductItem {
 	@ManyToOne()
 	@JoinColumn(name = "product_id")
 	private Product product;
-	@Column(name = "SKU")	
+	@Column(name = "SKU")
 	private String SKU;
 	@Column(name = "qty_in_stock")
 	private int quantityInStock;
@@ -51,6 +52,8 @@ public class ProductItem {
 	private Collection<WarrantyDetail> warrantyDetails;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
+	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
+	private Collection<InventoryReceivingDetails> inventoryReceivingDetails;
 
 	public ProductItem() {
 		super();
@@ -58,6 +61,20 @@ public class ProductItem {
 
 	public ProductItem(Product product, String SKU, int quantityInStock, String productImage, Integer price,
 			int warrantyTime, String status) {
+		this.product = product;
+		this.SKU = SKU;
+		this.quantityInStock = quantityInStock;
+		this.productImage = productImage;
+		this.price = price;
+		this.status = status;
+		this.warrantyTime = warrantyTime;
+	}
+
+	public ProductItem(int id, Product product, String SKU, int quantityInStock, String productImage, Integer price,
+			int warrantyTime, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
+			Collection<ProductConfigruation> productConfigruations, Collection<WarrantyDetail> warrantyDetails,
+			Collection<UpdatePriceProductItem> updatePriceProductItems,
+			Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
 		super();
 		this.product = product;
 		this.SKU = SKU;
@@ -66,6 +83,20 @@ public class ProductItem {
 		this.price = price;
 		this.status = status;
 		this.warrantyTime = warrantyTime;
+		this.orderLines = orderLines;
+		this.cartItems = cartItems;
+		this.productConfigruations = productConfigruations;
+		this.warrantyDetails = warrantyDetails;
+		this.updatePriceProductItems = updatePriceProductItems;
+		this.inventoryReceivingDetails = inventoryReceivingDetails;
+	}
+
+	public Collection<InventoryReceivingDetails> getInventoryReceivingDetails() {
+		return inventoryReceivingDetails;
+	}
+
+	public void setInventoryReceivingDetails(Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
+		this.inventoryReceivingDetails = inventoryReceivingDetails;
 	}
 
 	public int getId() {

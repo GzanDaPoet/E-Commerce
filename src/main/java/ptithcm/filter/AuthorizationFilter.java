@@ -36,10 +36,10 @@ public class AuthorizationFilter implements Filter {
 			User model = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
 			System.out.print("in auth" + model.getUsername());
 			if (model != null) {
-				if (model.getUser_permission().getValue().equals(SystemConstant.ADMIN)
-						|| model.getUser_permission().getValue().equals(SystemConstant.SUPER_ADMIN)) {
+				if (model.getUserPermission().getValue().equals(SystemConstant.ADMIN)
+						|| model.getUserPermission().getValue().equals(SystemConstant.SUPER_ADMIN)) {
 					filterChain.doFilter(servletRequest, servletResponse);
-				} else if (model.getUser_permission().getValue().equals(SystemConstant.USER)) {
+				} else if (model.getUserPermission().getValue().equals(SystemConstant.USER)) {
 					response.sendRedirect(request.getContextPath() + "admin/login.htm");
 				}
 			} else {

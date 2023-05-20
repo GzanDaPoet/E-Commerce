@@ -49,6 +49,7 @@
 				<value>ptithcm.model.variation</value>
 				<value>ptithcm.model.warranty</value>
 				<value>ptithcm.model.promotion</value>
+			
 			</list>
 		</property>
 	</bean>
