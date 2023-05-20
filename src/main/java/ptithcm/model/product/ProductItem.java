@@ -31,14 +31,14 @@ public class ProductItem {
 	private Product product;
 	@Column(name = "SKU")	
 	private String SKU;
-	@Column(name = "qty_in_stock")	
+	@Column(name = "qty_in_stock")
 	private int quantityInStock;
 	@Column(name = "product_image")
 	private String productImage;
 	@Column(name = "price")
 	private Integer price;
 	@Column(name = "warranty_time")
-	private int date;
+	private int warrantyTime;
 	@Column(name = "status")
 	private String status;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
@@ -51,166 +51,125 @@ public class ProductItem {
 	private Collection<WarrantyDetail> warrantyDetails;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
-	
-	
 
-	
 	public ProductItem() {
 		super();
 	}
 
-	
-	public ProductItem(int id, Product product, String sKU, int quantityInStock, String productImage, Integer price,
-			int date, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
-			Collection<ProductConfigruation> productConfigruations, Collection<WarrantyDetail> warrantyDetails,
-			Collection<UpdatePriceProductItem> updatePriceProductItems) {
+	public ProductItem(Product product, String SKU, int quantityInStock, String productImage, Integer price,
+			int warrantyTime, String status) {
 		super();
-		this.id = id;
 		this.product = product;
-		SKU = sKU;
+		this.SKU = SKU;
 		this.quantityInStock = quantityInStock;
 		this.productImage = productImage;
 		this.price = price;
-		this.date = date;
 		this.status = status;
-		this.orderLines = orderLines;
-		this.cartItems = cartItems;
-		this.productConfigruations = productConfigruations;
-		this.warrantyDetails = warrantyDetails;
-		this.updatePriceProductItems = updatePriceProductItems;
+		this.warrantyTime = warrantyTime;
 	}
-
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public Product getProduct() {
 		return product;
 	}
 
-
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
 
 	public String getSKU() {
 		return SKU;
 	}
 
-
 	public void setSKU(String sKU) {
 		SKU = sKU;
 	}
-
 
 	public int getQuantityInStock() {
 		return quantityInStock;
 	}
 
-
 	public void setQuantityInStock(int quantityInStock) {
 		this.quantityInStock = quantityInStock;
 	}
-
 
 	public String getProductImage() {
 		return productImage;
 	}
 
-
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
-
 
 	public Integer getPrice() {
 		return price;
 	}
 
-
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
-
-	public int getDate() {
-		return date;
+	public int getWarrantyTime() {
+		return warrantyTime;
 	}
 
-
-	public void setDate(int date) {
-		this.date = date;
+	public void setWarrantyTime(int warrantyTime) {
+		this.warrantyTime = warrantyTime;
 	}
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public Collection<OrderLine> getOrderLines() {
 		return orderLines;
 	}
 
-
 	public void setOrderLines(Collection<OrderLine> orderLines) {
 		this.orderLines = orderLines;
 	}
-
 
 	public Collection<ShoppingCartItem> getCartItems() {
 		return cartItems;
 	}
 
-
 	public void setCartItems(Collection<ShoppingCartItem> cartItems) {
 		this.cartItems = cartItems;
 	}
-
 
 	public Collection<ProductConfigruation> getProductConfigruations() {
 		return productConfigruations;
 	}
 
-
 	public void setProductConfigruations(Collection<ProductConfigruation> productConfigruations) {
 		this.productConfigruations = productConfigruations;
 	}
-
 
 	public Collection<WarrantyDetail> getWarrantyDetails() {
 		return warrantyDetails;
 	}
 
-
 	public void setWarrantyDetails(Collection<WarrantyDetail> warrantyDetails) {
 		this.warrantyDetails = warrantyDetails;
 	}
-
 
 	public Collection<UpdatePriceProductItem> getUpdatePriceProductItems() {
 		return updatePriceProductItems;
 	}
 
-
 	public void setUpdatePriceProductItems(Collection<UpdatePriceProductItem> updatePriceProductItems) {
 		this.updatePriceProductItems = updatePriceProductItems;
 	}
-
-
-	
 
 }

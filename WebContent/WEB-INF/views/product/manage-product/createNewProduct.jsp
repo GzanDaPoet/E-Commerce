@@ -49,7 +49,7 @@
 				</div>
 
 				<!-- Form create new product -->
-				<form action="new.htm" method="POST" class="form-create-product">
+				<form action="new.htm" method="POST" class="form-create-product" enctype="multipart/form-data">
 					<div class="form-wrapper">
 						<div class="wrapper-content-product">
 							<div class="wrapper">

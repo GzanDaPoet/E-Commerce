@@ -192,7 +192,6 @@ main {
   .wrapper
   .flex
   .ckeditor {
-  margin: 24px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -322,7 +321,6 @@ main {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin: 24px 0px 0px;
 }
 
 .upload-image h6 {

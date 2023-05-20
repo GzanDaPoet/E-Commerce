@@ -40,15 +40,12 @@ public class Product {
 		super();
 	}
 
-	public Product(Integer id, ProductCategory productCategory, String name, String description, String productImage,
-			Collection<ProductItem> productItems) {
+	public Product(ProductCategory productCategory, String name, String description, String productImage) {
 		super();
-		this.id = id;
 		this.productCategory = productCategory;
 		this.name = name;
 		this.description = description;
 		this.productImage = productImage;
-		this.productItems = productItems;
 	}
 
 	public Integer getId() {

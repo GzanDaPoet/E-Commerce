@@ -557,6 +557,23 @@ main {
 	padding: 8px;
 }
 
+.paper-wrapper .table-container table tbody tr .td-body .table-image {
+	width: 50px;
+	height: 50px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 8px 16px 0px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 8px 16px 0px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.paper-wrapper .table-container table tbody tr .td-body .table-image img
+	{
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
 .paper-wrapper .table-container table tbody tr:hover {
 	cursor: pointer;
 	background-color: rgba(145, 158, 171, 0.08);
