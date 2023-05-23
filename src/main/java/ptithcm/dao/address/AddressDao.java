@@ -25,5 +25,8 @@ public interface AddressDao {
 	public List<Province> getProvincesList();
 	public List<District> getDistricesList(int id);
 	public List<Ward> getWardsList (int id);
+	public Province getProvince(int id);
+	public District getDistrict(int id);
+	public Ward getWard(int id);
 		
 }

@@ -47,7 +47,6 @@ public class AddressController {
 		return "e-commerce/address";
 	}
 	
-	
 	@RequestMapping(value = "address/delete/{id}")
 	public String deleteAddress(@PathVariable int id) {
 		int addressId = addressService.getAddressById(id).getAddress().getId();

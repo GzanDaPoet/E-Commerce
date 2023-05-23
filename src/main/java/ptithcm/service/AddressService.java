@@ -75,4 +75,13 @@ public class AddressService {
 	}
 	
 	
+	public Address newAddressById(int provinceId,int districtId,int wardId) {
+		Address  newAddress = new Address();
+		newAddress.setCity(addressDao.getProvince(provinceId).getName());
+		newAddress.setDistrict(addressDao.getDistrict(districtId).getName());;
+		newAddress.setWard(addressDao.getWard(wardId).getName());
+		return newAddress;
+	}
+	
+	
 }

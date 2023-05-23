@@ -70,7 +70,7 @@ public class AddressDaoImp implements AddressDao {
 	@Override
 	public List<Ward> getWardsList(int id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Ward w WHERE w.distrit.id = :districtId";
+		String hql = "FROM Ward w WHERE w.district.id = :districtId";
 		Query query = session.createQuery(hql);
 		query.setParameter("districtId",id );
 		List<Ward> List =  query.list();
@@ -78,13 +78,42 @@ public class AddressDaoImp implements AddressDao {
 	}
 
 	@Override
-	public List<District> getDistricesList(int id) {
+	public List<District> getDistricesList(int provinceId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM District d WHERE d.province =:id";
+		String hql = "FROM District d WHERE d.province.id = :provinceId";
 		Query query = session.createQuery(hql);
-		query.setParameter("id",id);
+		query.setParameter("provinceId",provinceId);
 		List<District> list = query.list();
+		System.out.println("aaaa");
 		return list;
 	}
+
+	@Override
+	public Province getProvince(int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Province p WHERE p.id = :Id";
+		Query query = session.createQuery(hql);
+		query.setParameter("Id", id);
+		return (Province) query.uniqueResult();
+	}
+
+	@Override
+	public District getDistrict(int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM District p WHERE p.id = :Id";
+		Query query = session.createQuery(hql);
+		query.setParameter("Id", id);
+		return (District) query.uniqueResult();
+	}
+
+	@Override
+	public Ward getWard(int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Ward p WHERE p.id = :Id";
+		Query query = session.createQuery(hql);
+		query.setParameter("Id", id);
+		return (Ward) query.uniqueResult();
+	}
+
 	
 }
