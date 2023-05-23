@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | Edit Category</title>
+<title>Quản lý đơn hàng</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -31,88 +31,40 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách sản phẩm</h3>
-						<nav aria-label="breadcrumb">
-							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
-										chủ</a></li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">ECommrece</a>
-								</li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách sản phẩm</li>
-							</ul>
-						</nav>
-					</div>
-					<div>
-						<a href="${contextPath}/admin/product/category/new.htm">
-							<button class="btn--add">
-								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
-							</button>
-						</a>
+						<h3 class="heading">Danh sách đơn hàng đã đặt</h3>
 					</div>
 				</div>
 				<div class="paper-wrapper">
-					<form id="search-form">
-						<div class="search-container">
-							<!-- Input search -->
-							
-							<div class="select-container">
-								<select name="status" id="status" class="select"
-									aria-invalid="false">
-									<option value="null" selected="selected">Không</option>
-									<option value="In stock">Đang hoạt động</option>
-									<option value="Out of stock">Ngưng hoạt động</option>
-								</select> <label for="status">Trạng thái</label> <span
-									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
-							</div>
-							<div class="input-container">
-								<input type="text" id="search" name="search"
-									aria-labelledby="label-search" value="${search}"><span
-									class="highlight"></span><span class="bar"></span> <label
-									for="search">Tìm kiếm</label>
-								<button id="clear-search" type="button"
-									aria-label="Clear search text">
-									<i class="fa-solid fa-times"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 					<div class="table-container">
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>id</span></th>
 									<th class="th-header"><span>Tên sản phẩm</span></th>
-									<th class="th-header"><span>Giá</span></th>
-									<th class="th-header"><span>Trạng thái</span></th>
+									<th class="th-header"><span>Số lượng</span></th>
+									<th class="th-header"><span>Tổng tiền </span></th>
+									<th class="th-header"><span>Ngày đặt</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listProduct}" var="element">
+								<c:forEach items="${listOrdered}" var="element">
 									<tr>
-										<td class="td-body">${element.id}</td>
-										<td class="td-body">${element.getProduct().getName() }</td>
+										<td class="td-body">${element.getProductItemName()}</td>
+										<td class="td-body">${element.getQuantity()}</td>
 										<td class="td-body">${element.getPrice()}</td>
-										<td class="td-body">
-											<div class="mui-chip">
-												<span class="mui-chip-label">Hoạt động</span>
-											</div>
-										</td>
+										<td class="td-body">${element.getDateOrdered()}</td>
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
+													href="${contextPath}/admin/manage-ordered/list/confirmed/${element.getOrderId()}.htm">
 													<button class="btn--add">
-														<span>Chỉnh sửa</span>
+														<span>Xác nhận</span>
 													</button>
-												</a> <a
-													href="${contextPath}/e-commerce/list/delete/${element.id}.htm">
+												</a> 
+												<a
+													href="${contextPath}/admin/manage-ordered/list/cancel/${element.getOrderId()}.htm">
 													<button class="btn--delete">
-														<span>Xoá</span>
+														<span>Hủy</span>
 													</button>
 												</a>
 											</div>
@@ -136,7 +88,7 @@
 											${limit == 20 ? 'selected' : ''}>20</option>
 									</select>
 								</div>
-								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
+								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}
 									${limit}</p>
 								<div class="pagination-action">
 									<c:if test="${currentPage > 1}">
@@ -159,6 +111,8 @@
 					</div>
 				</div>
 			</div>
-			<script type="text/javascript"
-				src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+		</main>
+	</div>
+	<script type="text/javascript"
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>

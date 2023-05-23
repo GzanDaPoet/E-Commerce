@@ -67,10 +67,10 @@ public class AdminController {
 				return "redirect:/e-commerce/shop.htm";
 			} else if (user.getUserPermission().getValue().equals("ROLE_ADMIN")
 					|| user.getUserPermission().getValue().equals("ROLE_SUPER_ADMIN")) {
-				return "redirect:/e-commerce/list.htm";
+				return "redirect:/e-commerce/shop.htm";
 			}
 		}
-		return "redirect:/";
+		return "redirect:/e-commerce/shop.htm";
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)

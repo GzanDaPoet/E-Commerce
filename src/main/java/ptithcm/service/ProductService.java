@@ -13,6 +13,7 @@ import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
+import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shop.ShopOrder;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
@@ -106,6 +107,10 @@ public class ProductService {
 
 	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity) {
 		productDao.addToCart(shoppingCartItem, cartId, customerId, bonus, quantity);
+	}
+	
+	public List<ProductItem> getListPaginatedCategories(int firstResult, int maxResults, String search) {
+		return productDao.listPaginatedProductCategory(firstResult, maxResults, search);
 	}
 	
 }

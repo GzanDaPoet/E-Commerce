@@ -90,7 +90,7 @@ public class AddressController {
 		ShopOrder shopOrder = new ShopOrder();
 		shopOrder.setShippingMethod(paymentService.getShippingById(ShippingMethod));
 		shopOrder.setCustomerAddress(addressService.getAddressById(addressId));
-		shopOrder.setOrderStatus(addressService.getOrderStatusById(2));
+		shopOrder.setOrderStatus(addressService.getOrderStatusById(1));
 		shopOrder.setCustomerPaymentMethod(paymentService.getPaymentById(PaymentMethod));
 		shopOrder.setOrderDate(sqlDate);
 		shopOrder.setOrderTotal(sum);

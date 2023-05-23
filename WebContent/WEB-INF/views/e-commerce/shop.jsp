@@ -46,7 +46,7 @@
 									<span class="fa fa-star checked"></span> 
 									<span class="fa fa-star"></span>
 									<span class="fa fa-star"></span>
-									<p class="card-text">$70</p>
+									<p class="card-text">Giá: ${u.getPrice()} VND</p>
 								</div>
 							</div>
 						</div>

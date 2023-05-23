@@ -30,5 +30,4 @@ public class OrderStatusDaoImp implements OrderStatusDao {
 		query.setParameter("Id",Id);
 		return (OrderStatus) query.uniqueResult();
 	}
-	
 }

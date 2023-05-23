@@ -138,8 +138,4 @@ public class ShopOrder {
 	public void setOrderTotal(Long orderTotal) {
 		this.orderTotal = orderTotal;
 	}
-
-	
-	
-
 }

@@ -1,12 +1,15 @@
 package ptithcm.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sound.midi.Soundbank;
+import javax.swing.event.ListDataListener;
 import javax.transaction.Transactional;
 
-import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
+import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.promotion.Promotion;
+import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
-import ptithcm.model.user.User;
 import ptithcm.service.CustomerService;
 import ptithcm.service.ProductService;
 import ptithcm.service.ShoppingCartService;
@@ -49,16 +54,49 @@ public class ProductController {
 	@Autowired
 	PromotionService promotionService;
 	
-
 	@RequestMapping("shop")
 	public String shop(ModelMap model, HttpServletRequest request) {
+		Date curentDate = new Date();
+		List<Promotion> promotionList = promotionService.getAllPromotions();
+		List<ProductItem> listProductItemAdd = new ArrayList<>(); 
+		for (Promotion promotion: promotionList) {
+			int compare = curentDate.compareTo(promotion.getEndDate());
+			if (compare > 0) {
+				PromotionCategory promotionCategory = promotionService.getPromotionCategoryById(promotion.getId());
+				int categoryId = promotionCategory.getProductCategory().getId();
+				List<Product> listProductOutDatePromotionList = productService.getAllProductByCateId(categoryId);
+				for (Product product : listProductOutDatePromotionList) {
+					List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
+					listProductItemAdd.addAll(listProductItems);
+				}
+			}
+			
+			Session session = sessionFactory.openSession();
+			Transaction tx = null;
+			try {
+				tx = session.beginTransaction();
+				for (ProductItem productItem : listProductItemAdd) {
+					productItem.setStatus("");
+					session.merge(productItem);
+				}
+				tx.commit();
+				System.out.println("Thanh cong");
+			} catch (Exception e) {
+				if (tx != null) {
+					tx.rollback();
+					System.out.println("That bai: " + e.toString());
+				}
+			} finally {
+				if (session != null) {
+					session.close();
+				}
+			}
+		}
+		
 		List<ProductItem> list = productService.getListProducts();
 		model.addAttribute("listProduct", list);
 		return "e-commerce/shop";
 	}
-
-
-	
 	
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.GET)
 	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId) {
@@ -66,8 +104,13 @@ public class ProductController {
 		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		}
-		;
+		System.out.println("ID customer: " + id);
 		ProductItem product = productService.getProductById(productId);
+		System.out.println("Status: " + product.getStatus());
+		if (product.getStatus().equals("ON_SALE")) {
+			int salePrice = product.getPrice() * (100 - promotionService.getPriceDiscount(productId)) / 100;
+			model.addAttribute("salePrice" , salePrice);
+		}
 		int quantityOrdered = 0;
 		int cartId = 0;
 		if (id > 0) {
@@ -107,12 +150,6 @@ public class ProductController {
 		return "e-commerce/product";
 	}
 
-	@RequestMapping("list")
-	public String list(ModelMap model) {
-		List<ProductItem> list = productService.getListProducts();
-		model.addAttribute("listProduct", list);
-		return "e-commerce/list";
-	}
 
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addToCart")
 	public String addToCart(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request) {
@@ -184,33 +221,5 @@ public class ProductController {
 		productService.deleteProductItem(productId);
 		return "redirect:/e-commerce/list.htm";
 	}
-
-	/*
-	 * @RequestMapping(value = "list", method = RequestMethod.POST, params =
-	 * "searchText") public String searchProduct(ModelMap model, HttpServletRequest
-	 * request) { String searchText = request.getParameter("searchText").trim();
-	 * List<ProductItem> list = productService.searchProductItem(searchText);
-	 * model.addAttribute("listProduct", list); return "e-commerce/list"; }
-	 */
-
-	/*
-	 * @RequestMapping(value = "list", method = RequestMethod.GET, params =
-	 * "filter") public String processSelectedItem(ModelMap
-	 * model, @RequestParam("selectOption") String selectOption) { List<ProductItem>
-	 * listProductItems = productService.getListProducts(); if
-	 * (selectOption.equals("active")) { System.out.println("Chon active");
-	 * List<ProductItem> listActiveItems = new ArrayList<>(); for (ProductItem
-	 * productItem : listProductItems) { if
-	 * (productItem.getStatus().equals("In stock")) {
-	 * listActiveItems.add(productItem); } } model.addAttribute("listProduct",
-	 * listActiveItems); } else if (selectOption.equals("inactive")) {
-	 * System.out.println("Chon InActive"); List<ProductItem> listInActiveItems =
-	 * new ArrayList<>(); for (ProductItem productItem : listProductItems) { if
-	 * (productItem.getStatus().equals("Out of stock")) {
-	 * listInActiveItems.add(productItem); } } model.addAttribute("listProduct",
-	 * listInActiveItems); } else if (selectOption.equals("all")) {
-	 * model.addAttribute("listProduct", listProductItems); } return
-	 * "e-commerce/list"; }
-	 */
 
 }

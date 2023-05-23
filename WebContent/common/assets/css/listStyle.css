@@ -1129,6 +1129,19 @@ main {
 	outline: none;
 }
 
+.sort-button {
+  background-color: #4CAF50; /* Màu nền */
+  color: white; /* Màu chữ */
+  padding: 20px 40px; /* Kích thước padding gấp đôi */
+  border: none; /* Không viền */
+  cursor: pointer; /* Thay đổi hình con trỏ khi hover */
+  transform: scale(2); /* Tăng tỷ lệ của nút lên gấp đôi */
+}
+
+.sort-button:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+}
+
 .search-container #clear-search:hover {
 	color: #000;
 }
