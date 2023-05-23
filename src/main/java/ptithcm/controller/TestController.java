@@ -89,12 +89,12 @@ public class TestController {
 					newCA.setCustomer((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
 					newCA.setIsDefault(true);
 					Session session1 = sessionFactory.openSession();
-					org.hibernate.Transaction t1 = session.beginTransaction();
+					org.hibernate.Transaction t1 = session1.beginTransaction();
 					try {
-						session1.save(newAddress);
+						session1.save(newCA);
 						t1.commit();
 						model.addAttribute("message", "Thêm mới thành công! ");
-						System.out.println("done");
+						System.out.println("done11");
 					} catch (Exception e) {
 						t1.rollback();
 						model.addAttribute("message", "Thêm mới thất bại! ");
@@ -102,7 +102,8 @@ public class TestController {
 					} finally {
 						session1.close();
 					}
-					return "redirect: /e-commerce/address.htm";
+					System.out.println("Chưa direct lại");
+					return "customer/newAddress";
 				}
 				List<Province> listPros = addressService.listProvinces();
 				model.addAttribute("listPros", listPros);
