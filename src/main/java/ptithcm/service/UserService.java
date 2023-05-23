@@ -34,4 +34,13 @@ public class UserService {
 	public UserPermission getPermissionById(int id) {
 		return userDao.getPermissionbyId(id);
 	}
+	
+	public  List<User> getAllUser() {
+		List<User> permissionList = userDao.getAllUsers();
+		if (permissionList == null) {
+			return null;
+		}
+		return permissionList;
+	}
+	
 }

@@ -10,4 +10,5 @@ public interface UserDao {
 	public User getUserById(int id);
 	public List<UserPermission> getListPermissions();
 	public UserPermission getPermissionbyId(int id);
+	public List<User> getAllUsers();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ptithcm.dao.payment.PaymentDao;
 
 import ptithcm.model.pay.CustomerPaymentMethod;
+import ptithcm.model.pay.PaymentType;
 import ptithcm.model.ship.ShippingMethod;
 
 
@@ -40,6 +41,10 @@ public class PaymentService {
 	public CustomerPaymentMethod getPaymentById(int Id) {
 		CustomerPaymentMethod paymentMethod = paymentDao.getPaymentById(Id);
 		return paymentMethod;
+	}
+	
+	public PaymentType gePaymentTypeById(int id) {
+		return paymentDao.gePaymentTypeById(id);
 	}
 	
 }

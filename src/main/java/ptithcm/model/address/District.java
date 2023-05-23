@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Province")
+@Table(name="District")
 public class District{
 	@Id
 	@Column(name ="id")
@@ -28,7 +28,7 @@ public class District{
 	@ManyToOne()
 	@JoinColumn(name="province_id")
 	private Province province;
-	@OneToMany(mappedBy = "district")
+	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
 	private List<Ward> wards;
 	
 	

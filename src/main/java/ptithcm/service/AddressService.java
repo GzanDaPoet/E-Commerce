@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import ptithcm.dao.address.AddressDao;
 import ptithcm.dao.order.OrderStatusDao;
 import ptithcm.model.address.Address;
+import ptithcm.model.address.District;
+import ptithcm.model.address.Province;
+import ptithcm.model.address.Ward;
 import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.order.OrderStatus;
 
@@ -46,4 +49,39 @@ public class AddressService {
 		OrderStatus status = orderStatusDao.getOrderStatusById(Id);
 		return status;
 	}
+	
+	public List<Province> listProvinces(){
+		List<Province> listProvinces = addressDao.getProvincesList();
+		if (listProvinces == null) {
+			return null;
+		}
+		return listProvinces;
+	}
+	
+	public List<District> listDistricts(int id){
+		List<District> listDistricts = addressDao.getDistricesList(id);
+		if (listDistricts == null) {
+			return null;
+		}
+		return listDistricts;
+	}
+	
+	public List<Ward> listWards(int id){
+		List<Ward> listWards = addressDao.getWardsList(id);
+		if (listWards == null) {
+			return null;
+		}
+		return listWards;
+	}
+	
+	
+	public Address newAddressById(int provinceId,int districtId,int wardId) {
+		Address  newAddress = new Address();
+		newAddress.setCity(addressDao.getProvince(provinceId).getName());
+		newAddress.setDistrict(addressDao.getDistrict(districtId).getName());;
+		newAddress.setWard(addressDao.getWard(wardId).getName());
+		return newAddress;
+	}
+	
+	
 }
