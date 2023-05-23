@@ -72,7 +72,8 @@
 																method="post">
 																<input type="hidden" name="productId"
 																	value="${shoppingCart.get(i).getId()}">
-																<button class="btn btn-outline-primary" id="decrease">-</button>
+																<button class="btn btn-outline-primary" id="decrease"
+																	${shoppingCart.get(i).quantity == 1 ? 'disabled' : ''}>-</button>
 															</form>
 															<button disabled class="btn btn-outline-primary"
 																id="quantity">${shoppingCart.get(i).quantity}</button>
@@ -80,7 +81,8 @@
 																method="post">
 																<input type="hidden" name="productId"
 																	value="${shoppingCart.get(i).getId()}">
-																<button class="btn btn-outline-primary" id="increase">+</button>
+																<button class="btn btn-outline-primary" id="increase"
+																	${shoppingCart.get(i).quantity == shoppingCart.get(i).productItem.quantityInStock ? 'disabled' : ''}>+</button>
 															</form>
 														</div>
 													</div>
@@ -109,7 +111,9 @@
 						</div>
 						<div>
 							<div style="text-align: center;">
-								<button class="btn--add" name="back" onclick="window.location='${contextPath}/e-commerce/shop.htm'">Tiếp tục mua hàng</button>
+								<button class="btn--add" name="back"
+									onclick="window.location='${contextPath}/e-commerce/shop.htm'">&#171;
+									Tiếp tục mua hàng</button>
 							</div>
 						</div>
 					</div>
@@ -117,10 +121,10 @@
 				<div class="col-xl-4 mt-3 mb-3">
 					<div class="paper-wrapper"">
 						<div>
-							<h4 class="col-sm-12 title">Tổng tiền</h4>
-							<h5>Tổng tiền hàng: ${sum} VND</h5>
+							<h4 class="heading">Tổng tiền</h4>
+							<h5 class="titlemenu">Tổng tiền hàng: ${sum} VND</h5>
 							<hr>
-							<h4>Tổng cộng: ${sum} VND</h4>
+							<h4 class="heading">Tổng cộng: ${sum} VND</h4>
 						</div>
 						<div style="text-align: center;">
 							<form action="address.htm" method="post">

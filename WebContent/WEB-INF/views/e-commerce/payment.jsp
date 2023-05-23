@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>Cart</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://kit.fontawesome.com/dbd4881242.js"
-	crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Ecommerce | Thanh toán</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -23,98 +16,111 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<style>
-.success-message {
-	background-color: #4CAF50;
-	color: white;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-</style>
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/cart/payment.css' />">
+<link rel="stylesheet"
+	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 </head>
-
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
-			<div class="container-fluid">
-				<form action="checkout.htm" method="post">
-					<div class="row">
-						<div class="col-xl-8 col-md ml-3">
-							<div class="form-group">
-								<div>
-									<h3 class="col-xl-1 col-md title">Payment</h3>
-								</div>
-								<c:forEach var="i" items="${payment}">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="PaymentMethod" id="${i.id }"  value="${i.id }" >
-										<label class="form-check-label" for="${i.id }">
-											${i.paymentType.status } Ngày hết hạn: ${ i.expiry } VND</label>
-									</div>
-								</c:forEach>
-							</div>
-							<div class="form-group">
-
-								<div>
-									<h3 class="col-xl-1 col-md title">Shipping</h3>
-								</div>
-								<c:forEach var="q" items="${shipping}">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="ShippingMethod" id="${q.id}" value="${q.id }" onclick = "getprice('${q.price}')" >
-										<label class="form-check-label" for="${q.id }">
-											${q.name } ${ q.price } VND</label>
-									</div>
-								
-								</c:forEach>
-							</div>
-						</div>
-						<hr>
-						<div class="col-xl-4 col-md ml-3">
-							<div class="box2">
-								<div>
-									<h4 class="col-sm-12 title">Order Summary</h4>
-									<h5>Sub total: <span id="total-price">${sum} VND</span></h5>
-									<h5>Shipping: <span id="shipping-price"></span> VND</h5> 
-									<hr>
-									<h4>Total: <span id="total">VND</span></h4>
-								</div>
-								<div>
-									<button type="submit" class="btn btn-success btn-lg">Check
-										out</button>
-								</div>
-
-							</div>
-						</div>
+		<main class="content">
+			<div class="content-container">
+				<div class="list-header">
+					<div class="header-breadcrumb">
+						<h3 class="heading">Thanh toán</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">E-Commerce</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Thanh
+										Toán</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Thanh toán</li>
+							</ul>
+						</nav>
 					</div>
-					<div class="mt-3">
-						<button type="button" class="btn btn-outline-primary"
-							onclick="window.location='${contextPath}/e-commerce/address.htm'">&#171;
-							Back</button>
+				</div>
+				<form action="checkout.htm" method="post">
+					<div class="container">
+						<div class="radio-container">
+							<div class="paper-wrapper">
+								<div class="form-group">
+									<div>
+										<h4 class="heading">Payment</h4>
+									</div>
+									<c:forEach var="i" items="${payment}">
+										<div class="form-check">
+											<input class="form-check-input" type="radio"
+												name="PaymentMethod" id="${i.id }" value="${i.id }">
+											<label class="form-check-label" for="${i.id }">
+												${i.paymentType.status } Ngày hết hạn: ${ i.expiry } VND</label>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="paper-wrapper">
+								<div class="form-group">
+									<div>
+										<h4 class="heading">Shipping</h4>
+									</div>
+									<c:forEach var="q" items="${shipping}">
+										<div class="form-check">
+											<input class="form-check-input" type="radio"
+												name="ShippingMethod" id="${q.id}" value="${q.id }"
+												onclick="getprice('${q.price}')"> <label
+												class="form-check-label" for="${q.id }"> ${q.name }
+												${ q.price } VND</label>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<div class="paper-wrapper">
+							<div>
+								<h4 class="heading">Order Summary</h4>
+								<h5 class="titlemenu">
+									Sub total: <span id="total-price">${sum} VND</span>
+								</h5>
+								<h5 class="titlemenu">
+									Shipping: <span id="shipping-price"></span> VND
+								</h5>
+								<hr>
+								<h4 class="heading">
+									Total: <span id="total">${sum} VND</span>
+								</h4>
+							</div>
+							<div style="text-align: center;">
+								<button class="btn--add" type="submit"> Mua hàng</button>
+							</div>
+						</div>
 					</div>
 				</form>
+
+				<div style="text-align: center;" class="mt-5">
+					<button class="btn--add" name="back"
+						onclick="window.location='${contextPath}/e-commerce/address.htm'">&#171;
+						Quay lại</button>
+				</div>
 			</div>
-		</div>
+		</main>
 	</div>
 	<script type="text/javascript"
-		src="<c:url value='/common/assets/js/navbar.js'/>"></script>	
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script>
-	function getprice(price) {
-		  document.getElementById("shipping-price").innerHTML = price;
-		  var ship = parseInt(price);
-		  var currentTotal = parseInt(document.getElementById("total-price").textContent);
-	      // Hiển thị giá lên trang web
-	      document.getElementById("shipping-price").textContent = price;
-	      var newTotal = currentTotal + ship;
-	      document.getElementById("total").textContent = newTotal;}
-	 </script>
+		function getprice(price) {
+			document.getElementById("shipping-price").innerHTML = price;
+			var ship = parseInt(price);
+			var currentTotal = parseInt(document.getElementById("total-price").textContent);
+			// Hiển thị giá lên trang web
+			document.getElementById("shipping-price").textContent = price;
+			var newTotal = currentTotal + ship;
+			document.getElementById("total").textContent = newTotal;
+		}
+	</script>
 </body>
-
 </html>
-

@@ -35,10 +35,10 @@
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="">E_Commerce</a></li>
+									href="">E-Commerce</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="">Người dùng</a></li>
+									href="">Thanh toán</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Địa chỉ</li>
 							</ul>
