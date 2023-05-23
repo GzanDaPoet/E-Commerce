@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.model.customer.Customer;
+import ptithcm.model.pay.CustomerPaymentMethod;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.service.CustomerService;
+import ptithcm.service.PaymentService;
 import ptithcm.service.ProductCategoryService;
 import ptithcm.service.ProductService;
 import ptithcm.service.UserService;
@@ -42,16 +44,13 @@ public class CustomerController {
 	SessionFactory sessionFactory;
 
 	@Autowired
-	LoginService service;
-
-	@Autowired
-	UserService userService;
+	PaymentService paymentService;
+	
 
 	@Autowired
 	CustomerService customerService;
 
-	@Autowired
-	ProductService productService;
+
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showLogin() {
@@ -96,15 +95,33 @@ public class CustomerController {
 			System.out.println(newCustomer.getUserName());
 			System.out.println(newCustomer.getPassword());
 			System.out.println(newCustomer.getEmail());
-			Session session1 = sessionFactory.openSession();
-			org.hibernate.Transaction t = session1.beginTransaction();
+			Session session = sessionFactory.openSession();
+			org.hibernate.Transaction t = session.beginTransaction();
 			try {
-				session1.save(newCustomer);
+				session.save(newCustomer);
 				t.commit();
 				model.addAttribute("message", "Thêm mới thành công! ");
 				System.out.println("done");
 			} catch (Exception e) {
 				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+				System.out.println(e);
+			} finally {
+				session.close();
+			}
+			CustomerPaymentMethod newCPM = new CustomerPaymentMethod();
+			newCPM.setCustomer(newCustomer);
+			newCPM.setPaymentType(paymentService.gePaymentTypeById(1));
+			newCPM.setExpiry(Date.valueOf("2123-01-01"));
+			Session session1 = sessionFactory.openSession();
+			org.hibernate.Transaction tr = session1.beginTransaction();
+			try {
+				session1.save(newCPM);
+				tr.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+				System.out.println("done");
+			} catch (Exception e) {
+				tr.rollback();
 				model.addAttribute("message", "Thêm mới thất bại! ");
 				System.out.println(e);
 			} finally {

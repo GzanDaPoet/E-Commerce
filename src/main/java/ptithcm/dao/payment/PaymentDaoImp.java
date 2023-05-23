@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ptithcm.model.pay.CustomerPaymentMethod;
+import ptithcm.model.pay.PaymentType;
 import ptithcm.model.ship.ShippingMethod;
 
 
@@ -51,6 +52,15 @@ public class PaymentDaoImp implements PaymentDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID",ID);
 		return (CustomerPaymentMethod) query.uniqueResult();
+	}
+
+	@Override
+	public PaymentType gePaymentTypeById(int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM PaymentType p WHERE p.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id",id);
+		return (PaymentType) query.uniqueResult();
 	}
 	
 

@@ -43,7 +43,7 @@
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
 			<div class="container-fluid">
-				<form action="../checkout.htm" method="post">
+				<form action="checkout.htm" method="post">
 					<div class="row">
 						<div class="col-xl-8 col-md ml-3">
 							<div class="form-group">

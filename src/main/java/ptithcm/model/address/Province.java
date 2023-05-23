@@ -22,9 +22,9 @@ public class Province{
 	private String name;
 	@Column(name="code")
 	private String code;
-	@OneToMany(mappedBy = "province")
+	@OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     private List<Ward> wards;
-	@OneToMany(mappedBy = "province")
+	@OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     private List<District> districts;
 	
 	public Province() {
