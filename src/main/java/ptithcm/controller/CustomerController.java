@@ -1,135 +1,134 @@
 package ptithcm.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.lang.ProcessBuilder.Redirect;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
+import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
+
+import ptithcm.dao.address.AddressDao;
+import ptithcm.model.address.Address;
+import ptithcm.model.address.District;
+import ptithcm.model.address.Province;
+import ptithcm.model.address.Ward;
 import ptithcm.model.customer.Customer;
-import ptithcm.model.pay.CustomerPaymentMethod;
-import ptithcm.model.product.Product;
-import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.ProductItem;
-import ptithcm.model.promotion.Promotion;
-import ptithcm.model.promotion.PromotionCategory;
-import ptithcm.service.CustomerService;
-import ptithcm.service.PaymentService;
-import ptithcm.service.ProductCategoryService;
-import ptithcm.service.ProductService;
-import ptithcm.service.UserService;
-import ptithcm.service.admin.LoginService;
+import ptithcm.model.customer.CustomerAddress;
+import ptithcm.service.AddressService;
 import ptithcm.util.SessionUtil;
-import ptithcm.model.user.User;
 
 @Transactional
 @Controller
-@RequestMapping(value = "/e-commerce/")
+@RequestMapping(value = "/customer/")
 public class CustomerController {
 
 	@Autowired
 	SessionFactory sessionFactory;
-
 	@Autowired
-	PaymentService paymentService;
+	AddressService addressService;
 	
-
-	@Autowired
-	CustomerService customerService;
-
-
-
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String showLogin() {
-		return "e-commerce/login";
+	
+	@RequestMapping(value = "newAddress", method = RequestMethod.GET)
+	public String newAddress(ModelMap model) {
+		List<Province> listPros = addressService.listProvinces();
+		model.addAttribute("listPros", listPros);
+		return "customer/newAddress";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.GET)
-	public String showSignIn() {
-		return "e-commerce/signIn";
-	}
-
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password,
+	@RequestMapping(value = "newAddress", method = RequestMethod.POST)
+	public String showNewAddress1(ModelMap model,
+			@RequestParam("province") int provinceId, 
+			@RequestParam("district") int districtId,
+			@RequestParam("ward") int wardId,
+			@RequestParam("details") String details,
 			HttpServletRequest request) {
-		Customer customer = customerService.getCustomerByUsernamePassword(username, password);
-		if (customer != null) {
-			SessionUtil.getInstance().putValue(request, "CUSTOMER_MODEL", customer);
-			System.out.println(customer.getUserName());
-			return "redirect:/e-commerce/shop.htm";
-		}
-		return "redirect:/";
-	}
-
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String deleteProduct(@RequestParam Integer productId) {
-
-		return "redirect:/";
-
-	}
-
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
-	public String newCustomer(@RequestParam("username") String username, 
-			@RequestParam("email") String email,
-			@RequestParam("password") String password, 
-			@RequestParam("password1") String password1, ModelMap model) {
-		if (password.equals(password1)) {
-			Customer newCustomer = new Customer();
-			newCustomer.setUserName(username);
-			newCustomer.setPassword(password);
-			newCustomer.setEmail(email);
-			System.out.println(newCustomer.getUserName());
-			System.out.println(newCustomer.getPassword());
-			System.out.println(newCustomer.getEmail());
-			Session session = sessionFactory.openSession();
-			org.hibernate.Transaction t = session.beginTransaction();
-			try {
-				session.save(newCustomer);
-				t.commit();
-				model.addAttribute("message", "Thêm mới thành công! ");
-				System.out.println("done");
-			} catch (Exception e) {
-				t.rollback();
-				model.addAttribute("message", "Thêm mới thất bại! ");
-				System.out.println(e);
-			} finally {
-				session.close();
-			}
-			CustomerPaymentMethod newCPM = new CustomerPaymentMethod();
-			newCPM.setCustomer(newCustomer);
-			newCPM.setPaymentType(paymentService.gePaymentTypeById(1));
-			newCPM.setExpiry(Date.valueOf("2123-01-01"));
-			Session session1 = sessionFactory.openSession();
-			org.hibernate.Transaction tr = session1.beginTransaction();
-			try {
-				session1.save(newCPM);
-				tr.commit();
-				model.addAttribute("message", "Thêm mới thành công! ");
-				System.out.println("done");
-			} catch (Exception e) {
-				tr.rollback();
-				model.addAttribute("message", "Thêm mới thất bại! ");
-				System.out.println(e);
-			} finally {
-				session1.close();
-			}
+		System.out.println(provinceId);
+		System.out.println(districtId);
+		System.out.println(wardId);
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
 			return "redirect:/e-commerce/login.htm";
 		}
-		model.addAttribute("passwordError", "Mật khẩu không khớp");
-		return "e-commerce/signIn";
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		if(provinceId != 0) {
+			if(districtId != 0) {
+				if(wardId != 0) {
+					Address newAddress = addressService.newAddressById(provinceId, districtId, wardId);
+					newAddress.setDetailAddress(details);
+					Session session = sessionFactory.openSession();
+					org.hibernate.Transaction t = session.beginTransaction();
+					try {
+						session.save(newAddress);
+						t.commit();
+						model.addAttribute("message", "Thêm mới thành công! ");
+						System.out.println("done");
+					} catch (Exception e) {
+						t.rollback();
+						model.addAttribute("message", "Thêm mới thất bại! ");
+						System.out.println(e);
+					} finally {
+						session.close();
+					}
+					CustomerAddress newCA = new CustomerAddress();
+					newCA.setAddress(newAddress);
+					newCA.setCustomer((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+					newCA.setIsDefault(true);
+					Session session1 = sessionFactory.openSession();
+					org.hibernate.Transaction t1 = session1.beginTransaction();
+					try {
+						session1.save(newCA);
+						t1.commit();
+						model.addAttribute("message", "Thêm mới thành công! ");
+						System.out.println("done11");
+					} catch (Exception e) {
+						t1.rollback();
+						model.addAttribute("message", "Thêm mới thất bại! ");
+						System.out.println(e);
+					} finally {
+						session1.close();
+					}
+					System.out.println("Chưa direct lại");
+					return "customer/newAddress";
+				}
+				List<Province> listPros = addressService.listProvinces();
+				model.addAttribute("listPros", listPros);
+				List<District> listDicts = addressService.listDistricts(provinceId);
+				model.addAttribute("listDicts", listDicts);
+				List<Ward> listWards = addressService.listWards(districtId);
+				model.addAttribute("listWards",listWards);
+				model.addAttribute("selectedProvince", provinceId);
+				model.addAttribute("selectedDistrict", districtId);
+				return "customer/newAddress";
+			}
+			List<Province> listPros = addressService.listProvinces();
+			model.addAttribute("listPros", listPros);
+			List<District> listDicts = addressService.listDistricts(provinceId);
+			model.addAttribute("listDicts", listDicts);
+	        model.addAttribute("selectedProvince", provinceId);
+			return "customer/newAddress";
+		}
+		return "customer/newAddress";
+		}
+
+
+	@RequestMapping(value = "orderManage")
+	public String orderManage() {
+		return "customer/orderManage";
 	}
 
 }
