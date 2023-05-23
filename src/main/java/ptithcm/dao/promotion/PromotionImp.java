@@ -33,7 +33,7 @@ public class PromotionImp implements PromotionDao {
 	public List<Promotion> getListPromotion() {
 		Session session = sessionFactory.openSession();
 		try {
-			String hql = "FROM Promotion";
+			String hql = "FROM Promotion P where P.endDate > current_timestamp";
 			Query query = session.createQuery(hql);
 			List<Promotion> list = query.list();
 			System.out.println("Lay thanh cong danh sach khuyen mai");

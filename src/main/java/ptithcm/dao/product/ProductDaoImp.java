@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
+import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
@@ -34,7 +35,7 @@ public class ProductDaoImp implements ProductDao {
 	}
 
 	public ProductItem getProductById(int productId) {
-		Session session = factory.getCurrentSession();
+		Session session = factory.openSession();
 		String hql = "FROM ProductItem p WHERE p.id = :productId";
 		Query query = session.createQuery(hql);
 		query.setParameter("productId", productId);
@@ -52,23 +53,21 @@ public class ProductDaoImp implements ProductDao {
 		return result;
 	}
 
-//	public Integer getOrderID(int productId) {
-//		Session session = factory.getCurrentSession();
-//		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";
-//		Query query = session.createQuery(hql);
-//		query.setParameter("productId", productId);
-//		return (int) query.uniqueResult();
-//	}
-//
-//	public List<CustomerReview> getAllCommentsById(int productId) {
-//		Session session = factory.getCurrentSession();
-//		System.out.println("Cart ID: " + getOrderID(productId));
-//		String hql = "SELECT cr FROM CustomerReview cr, OrderLine ol WHERE ol.id = cr.orderLine.id AND ol.id = :orderId";
-//		Query query = session.createQuery(hql);
-//		query.setParameter("orderId", getOrderID(productId));
-//		List<CustomerReview> comments = query.list();
-//		return comments;
-//	}
+	@Override
+	public List<ProductItem> listPaginatedProductCategory(int firstResult, int maxResults, String search) {
+		firstResult = firstResult <= 0 ? 0 : firstResult;
+		maxResults = maxResults <= 5 ? 5 : maxResults;
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ProductItem proc WHERE proc.product.name LIKE :search ORDER BY proc.id";
+		Query query = session.createQuery(hql);
+		query.setParameter("search", "%" + search + "%");
+		query.setFirstResult(firstResult);
+		query.setMaxResults(maxResults);
+		List<ProductItem> list = query.list();
+		return list;
+	}
+	
+	@Override
 	public Integer getOrderID(int productId) {
 		Session session = factory.getCurrentSession();
 		String hql = "Select ol.id FROM ProductItem pi, OrderLine ol where pi.id = :productId and pi.id = ol.productItem.id";
@@ -77,6 +76,7 @@ public class ProductDaoImp implements ProductDao {
 		return (int) query.uniqueResult();
 	}
 
+	@Override
 	public List<CustomerReview> getAllCommentsById(int productId) {
 	    Session session = factory.getCurrentSession();
 	    String hql = "SELECT cr FROM CustomerReview cr JOIN cr.orderLine ol JOIN ol.productItem pi WHERE pi.id = :productId";
@@ -86,6 +86,7 @@ public class ProductDaoImp implements ProductDao {
 	    return comments;
 	}
 	
+	@Override
 	public Double getRatingAverageProduct(int productId) {
 		Session session = factory.getCurrentSession();
 		String hql = "Select AVG(cr.ratingValue) From CustomerReview cr JOIN cr.orderLine ol JOIN ol.productItem pi WHERE pi.id = :productId";
@@ -94,6 +95,7 @@ public class ProductDaoImp implements ProductDao {
 		return (Double) query.uniqueResult();
 	}
 	
+	@Override
 	public OrderLine getOrderLineById(int productId) {
 		Session session = factory.getCurrentSession();
 		String hql = "Select cr.orderLine From CustomerReview cr JOIN cr.orderLine ol JOIN ol.productItem pi WHERE pi.id = :productId";
@@ -102,6 +104,7 @@ public class ProductDaoImp implements ProductDao {
 		return (OrderLine) query.uniqueResult();
 	}
 	
+	@Override
 	public void deleteProductItem(int productId) {
 		try {
 			Session session = factory.getCurrentSession();
@@ -114,6 +117,7 @@ public class ProductDaoImp implements ProductDao {
 		}
 	}
 	
+	@Override
 	public List<ProductItem> searchProductItem(String name) {
 		try {
 			Session session = factory.getCurrentSession();
@@ -130,6 +134,7 @@ public class ProductDaoImp implements ProductDao {
 		
 	}
 	
+	@Override
 	public List<Product> getAllProductByCateId(int categoryId) {
 		try {
 			Session session = factory.openSession();

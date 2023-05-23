@@ -74,6 +74,23 @@
 								<span><i class="fa-solid fa-id-card-clip"></i></span>
 							</div>
 							<div class="label">
+								<span>Quản lý đơn hàng</span>
+							</div>
+							<div class="icon">
+								<span><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+					</span></li>
+					<ul class="submenu">
+						<li class="submenu-item"><a href="${contextPath}/admin/manage-ordered/list.htm">Danh sách đơn hàng đã đặt</a>
+						</li>
+					</ul>
+				</div>
+				<div class="cf-menu">
+					<li class="menu-item"><span class="menu-item-btn">
+							<div class="icon">
+								<span><i class="fa-solid fa-id-card-clip"></i></span>
+							</div>
+							<div class="label">
 								<span>Quản lý người dùng</span>
 							</div>
 							<div class="icon">

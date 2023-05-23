@@ -33,24 +33,25 @@
 			<div class="container-fluid">
 				<div class="header-product">
 					<div class="product-image">
-						<img
-							src="${product.getProductImage()}"
-							alt="Product Image" class="img-fluid" alt="Product Image"
-							class="img-fluid" />
+						<img src="${product.getProductImage()}" alt="Product Image"
+							class="img-fluid" alt="Product Image" class="img-fluid" />
 
 					</div>
 					<div class="info-product">
 						<h1 class="productName">${product.getProduct().getName()}</h1>
-						<p class="priceProduct" style="color: #FF0000; font-weight: bold;"></p>
+						<p class="priceProduct" style="color: #FF0000; font-weight: bold;">Price: ${product.getPrice()} VND</p>
+						<p class="salePrice" style="color: #FF0000; font-weight: bold;">Sale Price: ${salePrice} VND</p>
 						<script>
 							var money = $
 							{
 								product.getPrice()
 							};
-							document.querySelector('.priceProduct').textContent = ''
-									+ money.toLocaleString('vi-VN', {
+							var formattedPrice = money.toLocaleString('vi-VN',
+									{
 										maximumFractionDigits : 2
-									}) + " " + "VND";
+									});
+							document.querySelector('.priceProduct').textContent = formattedPrice
+									+ " VND";
 						</script>
 						<div class="mb-3">
 							<span class="mr-2">Rating:</span> <span
@@ -82,10 +83,10 @@
 				</div>
 
 				<div class="cart-icon">
-					<a href="${contextPath}/e-commerce/cart.htm">
-					 	<i class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
+					<a href="${contextPath}/e-commerce/cart.htm"> <i
+						class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
 					</a>
-				
+
 				</div>
 				<div class="container">
 					<div class="item">
@@ -156,7 +157,7 @@
 								</div>
 							</div>
 						</div>
-						<hr/>
+						<hr />
 					</c:forEach>
 
 				</div>

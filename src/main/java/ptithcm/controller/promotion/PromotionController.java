@@ -159,7 +159,7 @@ public class PromotionController {
 			System.out.println("Hãng đã bị chỉnh sửa: " + oldPromotionCategory.getProductCategory().getCategoryName());
 			promotionService.deleteOldPromotionCategory(oldPromotionCategory);
 		}
-		return "product/promotion/editPromotion";
+		return "redirect:/admin/product/promotion/list.htm";
 	}
 
 }

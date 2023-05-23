@@ -25,5 +25,5 @@ public interface ProductDao {
 	public List<ProductItem> searchProductItem(String name);
 	public List<Product> getAllProductByCateId(int categoryId);
 	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity);
-	
+	public List<ProductItem> listPaginatedProductCategory(int firstResult, int maxResults, String search);
 }
