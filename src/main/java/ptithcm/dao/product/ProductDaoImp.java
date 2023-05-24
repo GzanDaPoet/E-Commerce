@@ -8,12 +8,14 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HttpSessionMutexListener;
 
 import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.shop.ShopOrder;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.service.ShoppingCartService;
@@ -96,11 +98,10 @@ public class ProductDaoImp implements ProductDao {
 	}
 	
 	@Override
-	public OrderLine getOrderLineById(int productId) {
+	public OrderLine getOrderLineById(int customerId) {
 		Session session = factory.getCurrentSession();
-		String hql = "Select cr.orderLine From CustomerReview cr JOIN cr.orderLine ol JOIN ol.productItem pi WHERE pi.id = :productId";
+		String hql = "Select OL from OrderLine OL, Customer C";
 		Query query = session.createQuery(hql);
-		query.setParameter("productId", productId);
 		return (OrderLine) query.uniqueResult();
 	}
 	
@@ -167,4 +168,21 @@ public class ProductDaoImp implements ProductDao {
 	        session.save(shoppingCartItem);
 	    }
 	}
+	
+	@Override
+	public OrderLine isBoughtByCustomer(int customerId, int productItemId) {
+		Session session = factory.getCurrentSession();
+		String hql = "select SO from ShopOrder SO, OrderLine OL, CustomerAddress CA where SO.id = OL.shopOrder.id and SO.customerAddress.id = CA.id and SO.orderStatus.id = 2 and OL.productItem.id = :productItemId and CA.customer.id = :customerId";
+		Query query = session.createQuery(hql);
+		query.setParameter("productItemId", productItemId);
+		query.setParameter("customerId", customerId);
+		List<ShopOrder> shoppingOrderListId = query.list();
+		if (shoppingOrderListId.size() > 0) {
+			List<OrderLine> listOderLines = (List<OrderLine>) shoppingOrderListId.get(0).getOrderLines();
+			
+			return listOderLines.get(0);
+		}
+		return null;
+	}
+	
 }

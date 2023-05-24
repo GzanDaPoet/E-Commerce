@@ -36,7 +36,6 @@ public class PromotionImp implements PromotionDao {
 			String hql = "FROM Promotion P where P.endDate > current_timestamp";
 			Query query = session.createQuery(hql);
 			List<Promotion> list = query.list();
-			System.out.println("Lay thanh cong danh sach khuyen mai");
 			return list;
 		} catch (Exception e) {
 			System.out.println("error: " + e);

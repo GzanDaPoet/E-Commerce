@@ -39,8 +39,14 @@
 					</div>
 					<div class="info-product">
 						<h1 class="productName">${product.getProduct().getName()}</h1>
-						<p class="priceProduct" style="color: #FF0000; font-weight: bold;">Price: ${product.getPrice()} VND</p>
-						<p class="salePrice" style="color: #FF0000; font-weight: bold;">Sale Price: ${salePrice} VND</p>
+						<c:if test="${!onSale}">
+							<p class="priceProduct" style="color: #FF0000; font-weight: bold;">Giá: ${product.getPrice()} VND</p>
+						</c:if>
+						
+						<c:if test="${onSale}">
+							<p class="priceProduct-strike-through" style="font-weight: bold; text-decoration: line-through;text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px; ">Giá: ${product.getPrice()} VND</p>
+							<p class="salePrice" style="color: #FF0000; font-weight: bold; margin-top: 10px;">Giá: ${salePrice} VND</p>
+						</c:if>
 						<script>
 							var money = $
 							{
@@ -54,7 +60,7 @@
 									+ " VND";
 						</script>
 						<div class="mb-3">
-							<span class="mr-2">Rating:</span> <span
+							<span class="mr-2">Đánh giá</span> <span
 								class="fa fa-star checked"></span> <span
 								class="fa fa-star checked"></span> <span
 								class="fa fa-star checked"></span> <span class="fa fa-star"></span>
@@ -63,7 +69,7 @@
 						<form:form action="${product.getId()}.htm"
 							modelAttribute="shoppingCartItem">
 							<div class="mb-3">
-								<label for="quantityInput" class="mr-2">Quantity:</label> <input
+								<label for="quantityInput" class="mr-2">Số lượng</label> <input
 									type="number" id="quantityInput" name="quantityInput"
 									class="form-control col-4" value="1" min="1" max="10" />
 							</div>
@@ -73,9 +79,9 @@
 									value="${product.price}" /> <input type="hidden"
 									name="customer.id" value="1" />
 								<button type="submit" class="btnAddToCart" name="addToCart">
-									Add To Cart</button>
+									Thêm vào giỏ hàng</button>
 								<button type="submit" class="btnBuyNow" name="buyNow">
-									Buy Now</button>
+									Mua ngay</button>
 							</div>
 						</form:form>
 						<div></div>
@@ -126,17 +132,18 @@
 						đem lại trải nghiệm vượt quá kỳ vọng của bạn.</p>
 				</div>
 				<hr />
-				<form:form action="${product.getId()}.htm"
-					modelAttribute="CustomerReview">
-					<div class="title_comment">Bình luận</div>
-					<label for="comment-input">Nhập comment</label>
-					<textarea id="comment-input" name="commentInput" rows="5"> </textarea>
-					<div class="btn_submit_comment">
-						<button name="addComment" type="submit" class="btn_comment">
-							Submit</button>
-					</div>
-				</form:form>
-
+				<c:if test="${isBought}">
+					<form:form action="${product.getId()}.htm"
+						modelAttribute="CustomerReview">
+						<div class="title_comment">Bình luận</div>
+						<label for="comment-input">Nhập comment</label>
+						<textarea id="comment-input" name="commentInput" rows="5"> </textarea>
+						<div class="btn_submit_comment">
+							<button name="addComment" type="submit" class="btn_comment">
+								Bình luận</button>
+						</div>
+					</form:form>
+				</c:if>
 				<div class="box-comments">
 
 					<c:forEach var="c" items="${comments}">

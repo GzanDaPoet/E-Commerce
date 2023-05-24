@@ -2,7 +2,7 @@ package ptithcm.dto;
 
 public class CustomerOrderDTO {
 	private String id;
-	private Integer quantity;
+	private Long quantity;
 	private Long price;
 	private String dateOrdered;
 	private String productItemName;
@@ -13,10 +13,10 @@ public class CustomerOrderDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Integer getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
 	public Long getPrice() {
@@ -49,7 +49,7 @@ public class CustomerOrderDTO {
 	public CustomerOrderDTO() {
 		
 	}
-	public CustomerOrderDTO(String id, Integer quantity, Long price, String dateOrdered, String productItemName, Integer orderId) {
+	public CustomerOrderDTO(String id, Long quantity, Long price, String dateOrdered, String productItemName, int orderId) {
 		super();
 		this.id = id;
 		this.quantity = quantity;

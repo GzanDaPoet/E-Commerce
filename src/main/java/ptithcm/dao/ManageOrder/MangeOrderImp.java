@@ -19,13 +19,23 @@ public class MangeOrderImp implements ManageOrderDao{
 	SessionFactory sessionFactory;
 	
 	@Override
-	public List<OrderLine> getListOrderLineByStatus() {
+	public List<ShopOrder> getListShopOrderByStatus() {
 		Session session = sessionFactory.openSession();
-		String hql = "select OL from OrderLine OL, ShopOrder SO where OL.shopOrder.id = SO.id and SO.orderStatus.id = 1";
+		String hql = "select distinct SO from OrderLine OL, ShopOrder SO where OL.shopOrder.id = SO.id and SO.orderStatus.id = 1";
 		Query query = session.createQuery(hql);
-		List<OrderLine> orderLineList = query.list();
-		return orderLineList;
+		List<ShopOrder> shopOrderList = query.list();
+		return shopOrderList;
 	}
+	
+	@Override
+	public Long getQuantityOfOrder(int orderId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "SELECT SUM(OL.quantity) AS total_quantity FROM OrderLine OL, ShopOrder SO where OL.shopOrder.id = SO.id and SO.id = :orderId group by OL.shopOrder.id";
+		Query query = session.createQuery(hql);
+		query.setParameter("orderId", orderId);
+		return (Long) query.uniqueResult();
+	}
+	
 	
 	@Override
 	public ShopOrder getShopOrderById(int orderId) {
@@ -34,5 +44,6 @@ public class MangeOrderImp implements ManageOrderDao{
 		Query query = session.createQuery(hql);
 		query.setParameter("orderId", orderId);
 		return (ShopOrder) query.uniqueResult();
-	} 
+	}
+	
 }

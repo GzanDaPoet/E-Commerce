@@ -8,6 +8,8 @@ import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ptithcm.dao.ManageOrder.ManageOrderDao;
+import ptithcm.dao.ManageOrder.MangeOrderImp;
 import ptithcm.dao.product.ProductDao;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
@@ -22,8 +24,6 @@ import ptithcm.model.shoppingCart.ShoppingCartItem;
 public class ProductService {
 	@Autowired 
 	private ProductDao productDao;
-	
-	
 	
 	public List<ProductItem> getListProducts() {
 		return productDao.getAllProducts();
@@ -61,14 +61,6 @@ public class ProductService {
 		Double value = productDao.getRatingAverageProduct(id);
 		if (value != null) {
 			return value;
-		}
-		return null;
-	}
-	
-	public OrderLine getOrderLinebyId(int id) {
-		OrderLine orderLine = productDao.getOrderLineById(id);
-		if (orderLine != null) {
-			return orderLine;
 		}
 		return null;
 	}
@@ -112,5 +104,11 @@ public class ProductService {
 	public List<ProductItem> getListPaginatedCategories(int firstResult, int maxResults, String search) {
 		return productDao.listPaginatedProductCategory(firstResult, maxResults, search);
 	}
+	
+	public OrderLine isBoughtThisProduct(int customerId, int productItemId) {
+		return productDao.isBoughtByCustomer(customerId, productItemId);
+	}
+	
+
 	
 }

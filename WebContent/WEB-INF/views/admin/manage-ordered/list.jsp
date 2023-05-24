@@ -39,7 +39,7 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Tên sản phẩm</span></th>
+									<th class="th-header"><span>Mã đơn hàng</span></th>
 									<th class="th-header"><span>Số lượng</span></th>
 									<th class="th-header"><span>Tổng tiền </span></th>
 									<th class="th-header"><span>Ngày đặt</span></th>
@@ -49,7 +49,7 @@
 							<tbody>
 								<c:forEach items="${listOrdered}" var="element">
 									<tr>
-										<td class="td-body">${element.getProductItemName()}</td>
+										<td class="td-body">${element.getOrderId()}</td>
 										<td class="td-body">${element.getQuantity()}</td>
 										<td class="td-body">${element.getPrice()}</td>
 										<td class="td-body">${element.getDateOrdered()}</td>
