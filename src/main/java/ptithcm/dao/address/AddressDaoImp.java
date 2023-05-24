@@ -84,7 +84,6 @@ public class AddressDaoImp implements AddressDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("provinceId",provinceId);
 		List<District> list = query.list();
-		System.out.println("aaaa");
 		return list;
 	}
 

@@ -29,7 +29,10 @@ import ptithcm.model.address.Province;
 import ptithcm.model.address.Ward;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
+import ptithcm.model.order.OrderLine;
+import ptithcm.model.shop.ShopOrder;
 import ptithcm.service.AddressService;
+import ptithcm.service.CustomerService;
 import ptithcm.util.SessionUtil;
 
 @Transactional
@@ -41,6 +44,9 @@ public class CustomerController {
 	SessionFactory sessionFactory;
 	@Autowired
 	AddressService addressService;
+	@Autowired
+	CustomerService customerService;
+	
 	
 	
 	@RequestMapping(value = "newAddress", method = RequestMethod.GET)
@@ -127,7 +133,14 @@ public class CustomerController {
 
 
 	@RequestMapping(value = "orderManage")
-	public String orderManage() {
+	public String orderManage(HttpServletRequest request, ModelMap model) {
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
+			return "redirect:/e-commerce/login.htm";
+		}
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		List<ShopOrder> listOrders = customerService.getShopOrdersById(id);
+		model.addAttribute("listOrders",listOrders);
 		return "customer/orderManage";
 	}
 
