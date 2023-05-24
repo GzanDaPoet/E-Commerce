@@ -31,7 +31,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách nhãn</h3>
+						<h3 class="heading">Danh sách sản phẩm</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -39,10 +39,10 @@
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Sản phẩm</a>
 								</li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách nhãn</li>
+								<li class="breadcrumb__item">Danh sách sản phẩm</li>
 							</ul>
 						</nav>
 					</div>
@@ -85,7 +85,6 @@
 									<th class="th-header"><span>Tên sản phẩm</span></th>
 									<th class="th-header"><span>Thumbnail</span></th>
 									<th class="th-header"><span>Nhãn</span></th>
-									<th class="th-header"><span>Trạng thái</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
@@ -100,9 +99,6 @@
 											</div>
 										</td>
 										<td class="td-body">${element.productCategoryName }</td>
-										<td class="td-body">
-											<div class="mui-chip">${element.status }</div>
-										</td>
 										<td class="td-body">
 											<div class="group-btn">
 												<a

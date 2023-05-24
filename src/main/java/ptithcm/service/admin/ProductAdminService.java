@@ -53,4 +53,8 @@ public class ProductAdminService {
 	public ProductItem getProductItemById(int productItemId) {
 		return productDao.getProductItemById(productItemId);
 	}
+	
+	public void deleteProductItemById(int productItemId) {
+		productDao.deleteProductItemById(productItemId);
+	}
 }

@@ -10,7 +10,6 @@ public class ProductDTO {
 	private String description;
 	private String productImage;
 	private String productCategoryName;
-	private String status;
 
 	public ProductDTO(Product product) {
 		this.id = product.getId();
@@ -19,16 +18,6 @@ public class ProductDTO {
 		this.productImage = product.getProductImage();
 		this.productCategoryId = product.getProductCategory().getId();
 		this.productCategoryName = product.getProductCategory().getCategoryName();
-		this.status = determineStatus(product);
-	}
-
-	private String determineStatus(Product product) {
-		for (ProductItem item : product.getProductItems()) {
-			if (item.getProduct().getId().equals(product.getId())) {
-				return item.getStatus();
-			}
-		}
-		return null;
 	}
 
 	public Integer getId() {
@@ -77,13 +66,5 @@ public class ProductDTO {
 
 	public void setProductCategoryName(String productCategoryName) {
 		this.productCategoryName = productCategoryName;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 }

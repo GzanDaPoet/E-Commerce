@@ -25,4 +25,6 @@ public interface ProductAdminDao {
 	public void deleteProduct(Product product);
 
 	public List<Product> listPaginatedProduct(int firstResult, int maxResults, String search);
+	
+	public void deleteProductItemById(int productItemId);
 }
