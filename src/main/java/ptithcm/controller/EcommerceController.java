@@ -57,7 +57,7 @@ public class EcommerceController {
 		return "e-commerce/login";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.GET)
+	@RequestMapping(value = "signIn", method = RequestMethod.GET)
 	public String showSignIn() {
 		return "e-commerce/signIn";
 	}
@@ -81,7 +81,7 @@ public class EcommerceController {
 
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	@RequestMapping(value = "signIn", method = RequestMethod.POST)
 	public String newCustomer(@RequestParam("username") String username, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 

@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
+import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
+import ptithcm.model.shop.ShopOrder;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.service.CustomerService;
@@ -107,10 +109,14 @@ public class ProductController {
 		System.out.println("ID customer: " + id);
 		ProductItem product = productService.getProductById(productId);
 		System.out.println("Status: " + product.getStatus());
+		Boolean onSale = false;
 		if (product.getStatus().equals("ON_SALE")) {
 			int salePrice = product.getPrice() * (100 - promotionService.getPriceDiscount(productId)) / 100;
 			model.addAttribute("salePrice" , salePrice);
+			onSale = true;
 		}
+		model.addAttribute("onSale", onSale);
+		
 		int quantityOrdered = 0;
 		int cartId = 0;
 		if (id > 0) {
@@ -140,6 +146,17 @@ public class ProductController {
 				model.addAttribute("quantityOrdered", quantityOrdered);
 			}
 		}
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
+		boolean isBought;
+		if (orderLine == null) {
+			isBought = false;
+		}
+		else {
+			isBought = true;
+		}
+		model.addAttribute("isBought", isBought);
+		System.out.println("is bought: " + isBought);
+		
 		List<CustomerReview> comments = productService.getAllCommentsById(productId);
 		if (comments != null) {
 			Collections.reverse(comments);
@@ -188,12 +205,13 @@ public class ProductController {
 		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		}
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
 		if (id > 0) {
 			Customer customer = customerService.getCustomerById(id);
 			customerReview.setCustomer(customer);
 			String comment = request.getParameter("commentInput").trim();
 			customerReview.setComment(comment);
-			customerReview.setOrderLine(productService.getOrderLinebyId(productId));
+			customerReview.setOrderLine(orderLine);
 			customerReview.setRatingValue(5);
 			Session session = sessionFactory.openSession();
 			Transaction t = session.beginTransaction();
