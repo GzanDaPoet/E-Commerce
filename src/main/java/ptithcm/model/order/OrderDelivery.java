@@ -1,0 +1,99 @@
+package ptithcm.model.order;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.security.core.userdetails.User;
+
+import ptithcm.model.shop.ShopOrder;
+
+@Entity
+@Table(name = "OrderDelivery")
+public class OrderDelivery {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
+
+	@ManyToOne()
+	@JoinColumn(name = "orderId")
+	private ShopOrder shopOrder;
+
+	@ManyToOne()
+	@JoinColumn(name = "userId")
+	private User user;
+
+	private Date createdAt;
+	private Date deliveryDate;
+	private Date receivedDate;
+
+	public OrderDelivery() {
+		super();
+	}
+
+	public OrderDelivery(ShopOrder shopOrder, User user, Date createdAt, Date deliveryDate, Date receivedDate) {
+		super();
+		this.shopOrder = shopOrder;
+		this.user = user;
+		this.createdAt = createdAt;
+		this.deliveryDate = deliveryDate;
+		this.receivedDate = receivedDate;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public ShopOrder getShopOrder() {
+		return shopOrder;
+	}
+
+	public void setShopOrder(ShopOrder shopOrder) {
+		this.shopOrder = shopOrder;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public Date getReceivedDate() {
+		return receivedDate;
+	}
+
+	public void setReceivedDate(Date receivedDate) {
+		this.receivedDate = receivedDate;
+	}
+
+}

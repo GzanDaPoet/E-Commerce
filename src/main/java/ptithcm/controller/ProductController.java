@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.midi.Soundbank;
-import javax.swing.event.ListDataListener;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -28,7 +26,6 @@ import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
-import ptithcm.model.shop.ShopOrder;
 import ptithcm.model.shoppingCart.ShoppingCart;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 import ptithcm.service.CustomerService;
