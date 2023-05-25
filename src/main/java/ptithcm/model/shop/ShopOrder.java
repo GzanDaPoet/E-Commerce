@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ptithcm.model.customer.CustomerAddress;
+import ptithcm.model.order.OrderDelivery;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.order.OrderStatus;
 import ptithcm.model.pay.CustomerPaymentMethod;
@@ -48,6 +49,9 @@ public class ShopOrder {
 	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
 
+	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.LAZY)
+	private Collection<OrderDelivery> orderDeliveries;
+	
 	@Column(name = "order_date")
 	private Date orderDate;
 	@Column(name = "order_total")

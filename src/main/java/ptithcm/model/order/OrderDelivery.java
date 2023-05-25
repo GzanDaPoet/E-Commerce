@@ -11,12 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.core.userdetails.User;
+
 
 import ptithcm.model.shop.ShopOrder;
+import ptithcm.model.user.User;
 
 @Entity
-@Table(name = "OrderDelivery")
+@Table(name = "Order_Delivery")
 public class OrderDelivery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +25,18 @@ public class OrderDelivery {
 	private Integer id;
 
 	@ManyToOne()
-	@JoinColumn(name = "orderId")
+	@JoinColumn(name = "order_id")
 	private ShopOrder shopOrder;
 
 	@ManyToOne()
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private User user;
 
+	@Column(name = "created_at")
 	private Date createdAt;
+	@Column(name = "delivery_date")
 	private Date deliveryDate;
+	@Column(name = "received_date")
 	private Date receivedDate;
 
 	public OrderDelivery() {
