@@ -1,6 +1,9 @@
 package ptithcm.dao.ManageOrder;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ptithcm.model.order.OrderDelivery;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.shop.ShopOrder;
 
@@ -44,6 +48,24 @@ public class MangeOrderImp implements ManageOrderDao{
 		Query query = session.createQuery(hql);
 		query.setParameter("orderId", orderId);
 		return (ShopOrder) query.uniqueResult();
+	}
+	
+	@Override
+	public List<OrderDelivery> getListOfOrderShipping() {
+		   Session session = sessionFactory.openSession();
+		    
+		    // Tạo đối tượng Timestamp từ LocalDateTime hiện tại
+		    LocalDateTime now = LocalDateTime.now();
+		    Timestamp startOfDay = Timestamp.valueOf(now.with(LocalTime.MIN));
+		    Timestamp endOfDay = Timestamp.valueOf(now.with(LocalTime.MAX));
+		    
+		    String hql = "SELECT OD FROM OrderDelivery OD WHERE OD.deliveryDate >= :startOfDay AND OD.deliveryDate <= :endOfDay";
+		    Query query = session.createQuery(hql);
+		    query.setParameter("startOfDay", startOfDay);
+		    query.setParameter("endOfDay", endOfDay);
+		    
+		    List<OrderDelivery> shopOrderList = query.list();
+		    return shopOrderList;
 	}
 	
 }
