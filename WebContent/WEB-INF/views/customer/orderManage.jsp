@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | List Category</title>
+<title>Customer | Order Manage</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -41,7 +41,7 @@
 									href="">Đơn hàng</a>
 								</li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Quản lý đơn hàng</li>
+								<li class="breadcrumb__item">Đơn hàng đã mua</li>
 							</ul>
 						</nav>
 					</div>
@@ -73,38 +73,32 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Mã</span></th>
-									<th class="th-header"><span>Tên nhãn</span></th>
-									<th class="th-header"><span>Nhãn cha</span></th>
+									<th class="th-header"><span>Mã đơn hàng</span></th>
+									<th class="th-header"><span>Ngày đặt hàng</span></th>
+									<th class="th-header"><span>Tổng giá trị</span></th>
 									<th class="th-header"><span>Trạng thái</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listCategory}" var="element">
+								<c:forEach items="${listOrders}" var="element">
 									<tr>
 										<td class="td-body">${element.id}</td>
-										<td class="td-body">${element.categoryName }</td>
-										<td class="td-body">${element.parentCategoryName}</td>
+										<td class="td-body">${element.orderDate }</td>
+										<td class="td-body">${element.orderTotal}</td>
 										<td class="td-body">
 											<div class="mui-chip">
-												<span class="mui-chip-label">Hoạt động</span>
+												<span class="mui-chip-label">${element.orderStatus.status}</span>
 											</div>
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
-
+													href="${contextPath}/customer/orderManage/${element.id}.htm">
 													<button class="btn--add">
-														<span>Chỉnh sửa</span>
+														<span>Chi tiết</span>
 													</button>
-												</a> <a
-													href="${contextPath}/admin/product/category/delete/${element.id}.htm">
-													<button class="btn--delete">
-														<span>Xoá</span>
-													</button>
-												</a>
+												</a> 
 											</div>
 										</td>
 									</tr>

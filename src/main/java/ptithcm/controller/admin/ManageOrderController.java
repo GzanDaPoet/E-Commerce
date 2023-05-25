@@ -35,8 +35,6 @@ public class ManageOrderController {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-
-	
 	@Autowired
 	ManageOrderService manageOrderService;
 	

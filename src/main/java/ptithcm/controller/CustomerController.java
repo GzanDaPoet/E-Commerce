@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,11 @@ import ptithcm.model.address.Province;
 import ptithcm.model.address.Ward;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
+import ptithcm.model.order.OrderLine;
+import ptithcm.model.order.OrderStatus;
+import ptithcm.model.shop.ShopOrder;
 import ptithcm.service.AddressService;
+import ptithcm.service.CustomerService;
 import ptithcm.util.SessionUtil;
 
 @Transactional
@@ -41,6 +46,9 @@ public class CustomerController {
 	SessionFactory sessionFactory;
 	@Autowired
 	AddressService addressService;
+	@Autowired
+	CustomerService customerService;
+	
 	
 	
 	@RequestMapping(value = "newAddress", method = RequestMethod.GET)
@@ -57,9 +65,6 @@ public class CustomerController {
 			@RequestParam("ward") int wardId,
 			@RequestParam("details") String details,
 			HttpServletRequest request) {
-		System.out.println(provinceId);
-		System.out.println(districtId);
-		System.out.println(wardId);
 		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
 		{
 			return "redirect:/e-commerce/login.htm";
@@ -127,8 +132,60 @@ public class CustomerController {
 
 
 	@RequestMapping(value = "orderManage")
-	public String orderManage() {
+	public String orderManage(HttpServletRequest request, ModelMap model) {
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
+			return "redirect:/e-commerce/login.htm";
+		}
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		List<ShopOrder> listOrders = customerService.getShopOrdersById(id);
+		model.addAttribute("listOrders",listOrders);
 		return "customer/orderManage";
 	}
 
+	@RequestMapping(value = "orderManage/{id}")
+	public String orderDetails(HttpServletRequest request, ModelMap model,@PathVariable int id){
+		List<OrderLine> listLines = customerService.getLines(id);
+		model.addAttribute("listLines",listLines);
+		ShopOrder shopOrder = customerService.getShopOrderById(id);
+		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getWard() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getDistrict() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getCity();
+		model.addAttribute("address",address);
+		System.out.println(shopOrder.getOrderStatus().getStatus());
+		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
+			model.addAttribute("test", true);
+		}
+		else {
+			model.addAttribute("test", false);
+		}
+		model.addAttribute("sum", shopOrder.getOrderTotal());
+		model.addAttribute("id",id );
+		return "customer/orderDetails";
+	}
+
+	@RequestMapping(value="orderManage/cancel/{orderId}")
+	public String cancelOrder(@PathVariable int orderId) {
+		ShopOrder shopOrder = customerService.getShopOrderById(orderId);
+		OrderStatus orderStatus = new OrderStatus();
+		orderStatus.setId(4);
+		shopOrder.setOrderStatus(orderStatus);
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		if (shopOrder != null) {
+			try {
+				session.merge(shopOrder);
+				t.commit();
+				System.out.println("Cap nhat don hang thanh cong");
+			} catch (Exception e) {
+				System.out.println("Error: " + e.toString());
+				t.rollback();
+			} finally {
+				session.close();
+			}
+		}
+		return "redirect:/customer/orderManage.htm";
+	}
+	
 }
