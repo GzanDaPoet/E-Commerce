@@ -26,11 +26,8 @@ public class ManageOrderController {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-
-	
 	@Autowired
 	ManageOrderService manageOrderService;
-	
 	
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)

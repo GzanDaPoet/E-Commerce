@@ -47,4 +47,8 @@ public class CustomerService {
 		return null;
 	}
 	
+	public ShopOrder getShopOrderById(int orderId) {
+		return customerDao.getShopOrderById(orderId);
+	}
+	
 }

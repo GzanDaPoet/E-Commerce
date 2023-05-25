@@ -11,4 +11,5 @@ public interface CustomerDao {
 	public Customer getCustomerByUsernamePassword(String userName, String password);
 	public List<ShopOrder> getOrderListById(int customerId);
 	public List<OrderLine> getLinesById(int shopOrderId);
+	ShopOrder getShopOrderById(int orderId);
 }

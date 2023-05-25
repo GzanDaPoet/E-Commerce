@@ -57,12 +57,20 @@ public class CustomerDaoImp implements CustomerDao {
 	@Override
 	public List<OrderLine> getLinesById( int shopOrderId){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Orderline s where s.shopOrder.id = :shopOrderId";
+		String hql = "from OrderLine s where s.shopOrder.id = :shopOrderId";
 		Query query = session.createQuery(hql);
 		query.setParameter("shopOrderId", shopOrderId);
 		List<OrderLine> list = query.list();
 		return list;
 	}
 	
+	@Override
+	public ShopOrder getShopOrderById(int orderId) {
+		Session session = sessionFactory.openSession();
+		String hql = "select SO from ShopOrder SO where SO.id = :orderId";
+		Query query = session.createQuery(hql);
+		query.setParameter("orderId", orderId);
+		return (ShopOrder) query.uniqueResult();
+	}
 
 }

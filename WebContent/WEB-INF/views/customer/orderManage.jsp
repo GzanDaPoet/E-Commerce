@@ -94,8 +94,7 @@
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
-
+													href="${contextPath}/customer/orderManage/${element.id}.htm">
 													<button class="btn--add">
 														<span>Chi tiết</span>
 													</button>
