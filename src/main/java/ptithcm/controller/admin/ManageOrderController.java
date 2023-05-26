@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ptithcm.dto.CustomerOrderDTO;
 import ptithcm.dto.OrderDeliveryDTO;
-import ptithcm.model.customer.Customer;
 import ptithcm.model.order.OrderDelivery;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.order.OrderStatus;
@@ -48,7 +48,6 @@ public class ManageOrderController {
 		List<CustomerOrderDTO> customerOrderList = manageOrderService.getOderCustomerDTOList();
 		System.out.println("Size of list orderd: " + customerOrderList.size());
 		model.addAttribute("listOrdered", customerOrderList);
-		System.out.println("Danh sach don hang sap chuyen di: " + orderDeliveryService.orderDeliveryDTOList().size());
 		return "admin/manage-ordered/list";
 	}
 	
@@ -71,11 +70,20 @@ public class ManageOrderController {
 		OrderStatus orderStatus = new OrderStatus();
 		orderStatus.setId(2);
 		shopOrder.setOrderStatus(orderStatus);
+		boolean ok = false;
+		if (shopOrder.getAddressDelivery() == null) {
+			ok = true;
+		}
+		shopOrder.setAddressDelivery("Co dia chi");
 		Session session = sessionFactory.openSession();
+		
 		Transaction t = session.beginTransaction();
 		if (shopOrder != null) {
 			try {
-				session.save(orderDelivery);
+				if (ok) {
+					System.out.println("Luu order delivery");
+					session.saveOrUpdate(orderDelivery);
+				}
 				session.merge(shopOrder);
 				t.commit();
 			} catch (Exception e) {
@@ -85,7 +93,6 @@ public class ManageOrderController {
 				session.close();
 			}
 		}
-		
 		return "redirect:/admin/manage-ordered/list.htm";
 	}
 	

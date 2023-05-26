@@ -8,25 +8,31 @@ import ptithcm.model.order.OrderLine;
 public class OrderDeliveryDTO {
 	private Integer id;
 	private Integer orderId;
-	private String status;
 	private Date deliveryDate;
 	private Date deliveryReceived;
 	private Integer userId;
+	private String customerName;
+	private String phoneNumber;
 	private List<OrderLine> listOrderDelivery;
+	private String customerAddress;
+	private Long totolMoney;
 
 	public OrderDeliveryDTO() {
 		super();
 	}
 
 	public OrderDeliveryDTO(Integer orderId, String status, Date deliveryDate, Date deliveryReceived, Integer userId,
-			List<OrderLine> listOrderDelivery) {
+			List<OrderLine> listOrderDelivery, String customerName, String phoneNumber, String customerAddress, Long totalMoney) {
 		super();
 		this.orderId = orderId;
-		this.status = status;
 		this.deliveryDate = deliveryDate;
 		this.deliveryReceived = deliveryReceived;
 		this.userId = userId;
 		this.listOrderDelivery = listOrderDelivery;
+		this.customerName = customerName;
+		this.phoneNumber = phoneNumber;
+		this.customerAddress = customerAddress;
+		this.totolMoney = totalMoney;
 	}
 
 	public Integer getId() {
@@ -43,14 +49,6 @@ public class OrderDeliveryDTO {
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public Date getDeliveryDate() {
@@ -84,5 +82,38 @@ public class OrderDeliveryDTO {
 	public void setListOrderDelivery(List<OrderLine> listOrderDelivery) {
 		this.listOrderDelivery = listOrderDelivery;
 	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+	
+	public void setCustomerAddress(String address) {
+		this.customerAddress = address;
+	}
+	
+	public Long getTotalMoney() {
+		return totolMoney;
+	}
+	
+	public void setTotalMoney(Long totalMoney) {
+		this.totolMoney = totalMoney;
+	}
+	
 
 }
