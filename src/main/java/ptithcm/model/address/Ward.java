@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ptithcm.model.customer.CustomerAddress;
+import ptithcm.model.user.UserProfile;
+
 @Entity
 @Table(name="Ward")
 public class Ward{
@@ -31,6 +34,10 @@ public class Ward{
 	@JoinColumn(name="district_id")
 	private District district;
 	
+	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
+	private Collection<UserProfile> userProfiles;
+	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
+	private Collection<Address> addresses;
 	
 	public Ward() {
 		super();
@@ -41,8 +48,8 @@ public class Ward{
 		this.id = id;
 		this.name = name;
 		this.prefix=prefix;
-//		this.province=province;
-//		this.district=district;
+		this.province=province;
+		this.district=district;
 	}
 
 	public Integer getId() {
@@ -69,21 +76,21 @@ public class Ward{
 		this.prefix = prefix;
 	}
 
-//	public Province getProvince() {
-//		return province;
-//	}
-//
-//	public void setProvince(Province province) {
-//		this.province = province;
-//	}
-//
-//	public District getDistrict() {
-//		return district;
-//	}
-//
-//	public void setDistrict(District district) {
-//		this.district = district;
-//	}
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
 	
 	
 	

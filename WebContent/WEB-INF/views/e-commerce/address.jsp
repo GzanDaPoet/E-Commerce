@@ -69,18 +69,24 @@
 								<c:forEach items="${customerAddress}" var="element">
 									<tr>
 										<td class="td-body">${element.address.detailAddress}</td>
-										<td class="td-body">${element.address.ward }</td>
-										<td class="td-body">${element.address.district}</td>
-										<td class="td-body">${element.address.city}</td>
+										<td class="td-body">${element.address.ward.name }</td>
+										<td class="td-body">${element.address.district.name}</td>
+										<td class="td-body">${element.address.province.name}</td>
 										<td class="td-body">
 											<div class="group-btn">
+												<form action="../customer/editAddress.htm"
+																method="get">
+																<input type="hidden" name="id"
+																	value="${element.id }">
+																<button class="btn--add">Chỉnh sửa</button>
+												</form>
 												<a
 													href="${contextPath}/e-commerce/address/delete/${element.id}.htm">
-
 													<button class="btn--delete">
 														<span>Xoá</span>
 													</button>
-												</a> <a
+												</a>
+												<a
 													href="${contextPath}/e-commerce/address/deliver/${element.id}.htm">
 													<button class="btn--add">
 														<span>Chuyển đến địa chỉ này</span>

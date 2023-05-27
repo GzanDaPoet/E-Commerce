@@ -1,5 +1,7 @@
 package ptithcm.model.customer;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,20 +26,20 @@ public class CustomerProfile {
 	@Column(name = "name")
 	private String name;
 	@Column(name = "address")
-	private String address;
+	private int address;
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
 	@Column(name = "create_at")
-	private String createAt;
+	private Date createAt;
 	@Column(name = "modified_at")
-	private String modifiedAt;
+	private Date modifiedAt;
 
 	public CustomerProfile() {
 		super();
 	}
 
-	public CustomerProfile(Integer id, Customer customer, String name, String address, String phoneNumber,
-			String createAt, String modifiedAt) {
+	public CustomerProfile(Integer id, Customer customer, String name, int address, String phoneNumber,
+			Date createAt, Date modifiedAt) {
 		super();
 		this.id = id;
 		this.customer = customer;
@@ -72,11 +74,11 @@ public class CustomerProfile {
 		this.name = name;
 	}
 
-	public String getAddress() {
+	public int getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(int address) {
 		this.address = address;
 	}
 
@@ -88,19 +90,19 @@ public class CustomerProfile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getCreateAt() {
+	public Date getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(String createAt) {
+	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 
-	public String getModifiedAt() {
+	public Date getModifiedAt() {
 		return modifiedAt;
 	}
 
-	public void setModifiedAt(String modifiedAt) {
+	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 

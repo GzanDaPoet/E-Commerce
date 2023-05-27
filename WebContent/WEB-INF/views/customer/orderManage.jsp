@@ -47,28 +47,6 @@
 					</div>
 				</div>
 				<div class="paper-wrapper">
-					<form id="search-form">
-						<div class="search-container">
-							<!-- Input search -->
-							<div class="select-container">
-								<select name="status" id="status" class="select"
-									aria-invalid="false">
-									<option value="null" selected="selected">Không</option>
-								</select> <label for="status">Trạng thái</label> <span
-									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
-							</div>
-							<div class="input-container">
-								<input type="text" id="search" name="search"
-									aria-labelledby="label-search" value="${search}"><span
-									class="highlight"></span><span class="bar"></span> <label
-									for="search">Tìm kiếm</label>
-								<button id="clear-search" type="button"
-									aria-label="Clear search text">
-									<i class="fa-solid fa-times"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 					<div class="table-container">
 						<table>
 							<thead>
@@ -105,41 +83,6 @@
 								</c:forEach>
 							</tbody>
 						</table>
-					</div>
-					<div class="pagination">
-						<div class="table-pagination">
-							<div class="tool-bar">
-								<p class="text" id=":r2:">Số hàng mỗi trang:</p>
-								<div class="select">
-									<select onchange="location = this.value;">
-										<option value="?page=1&limit=5"
-											${limit == 5 ? 'selected' : ''}>5</option>
-										<option value="?page=1&limit=10"
-											${limit == 10 ? 'selected' : ''}>10</option>
-										<option value="?page=1&limit=20"
-											${limit == 20 ? 'selected' : ''}>20</option>
-									</select>
-								</div>
-								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
-									${limit}</p>
-								<div class="pagination-action">
-									<c:if test="${currentPage > 1}">
-										<a href="?page=${currentPage - 1}&limit=${limit}"> <i
-											class="fa-solid fa-angle-left"></i>
-										</a>
-									</c:if>
-									<c:if test="${currentPage <= 1}">
-										<a href="#"> <i class="fa-solid fa-angle-left"></i>
-										</a>
-									</c:if>
-									<c:if test="${currentPage >= 1}">
-										<a href="?page=${currentPage + 1}&limit=${limit}"> <i
-											class="fa-solid fa-angle-right"></i>
-										</a>
-									</c:if>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

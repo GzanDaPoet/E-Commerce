@@ -50,12 +50,21 @@ public class Customer {
 		super();
 	}
 
-	public Customer(Integer id, String userName, String email, String password) {
+	public Customer(Integer id, String userName, String email, String password,CustomerProfile customerProfile) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
+		this.customerProfile = customerProfile;
+	}
+
+	public CustomerProfile getCustomerProfile() {
+		return customerProfile;
+	}
+
+	public void setCustomerProfile(CustomerProfile customerProfile) {
+		this.customerProfile = customerProfile;
 	}
 
 	public Integer getId() {

@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +70,8 @@
 								<c:forEach items="${listLines}" var="element">
 									<tr>
 
-										<td class="td-body">${element.productItem.product.name }</td>
+										<td class="td-body"><a
+											href="${contextPath}/e-commerce/product/${element.productItem.id}.htm">${element.productItem.product.name }</a></td>
 										<td class="td-body">
 											<div class="table-image">
 												<img src="${element.productItem.productImage}" alt="">
@@ -91,7 +91,7 @@
 						<h3 class="heading">Địa chỉ</h3>
 						<h4 class="titlemenu">${address }</h4>
 						<div style="text-align: center;">
-							
+
 							<c:if test="${test}">
 								<a href="${contextPath}/customer/editAddress.htm">
 									<button class="btn--add">
