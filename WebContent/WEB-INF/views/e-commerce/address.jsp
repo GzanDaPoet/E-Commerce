@@ -18,7 +18,7 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/listStyle.css' />">
+	href="<c:url value ='/common/assets/css/cart/address.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
@@ -72,24 +72,23 @@
 										<td class="td-body">${element.address.ward.name }</td>
 										<td class="td-body">${element.address.district.name}</td>
 										<td class="td-body">${element.address.province.name}</td>
+										<td class="td-body"><form
+												action="../customer/editAddress.htm" method="get">
+												<input type="hidden" name="id" value="${element.id }">
+												<button class="btn--add">Chỉnh sửa</button>
+											</form></td>
 										<td class="td-body">
 											<div class="group-btn">
-												<form action="../customer/editAddress.htm"
-																method="get">
-																<input type="hidden" name="id"
-																	value="${element.id }">
-																<button class="btn--add">Chỉnh sửa</button>
-												</form>
+
 												<a
 													href="${contextPath}/e-commerce/address/delete/${element.id}.htm">
 													<button class="btn--delete">
 														<span>Xoá</span>
 													</button>
-												</a>
-												<a
+												</a> <a
 													href="${contextPath}/e-commerce/address/deliver/${element.id}.htm">
 													<button class="btn--add">
-														<span>Chuyển đến địa chỉ này</span>
+														<span>Chuyển đến đây</span>
 													</button>
 												</a>
 											</div>

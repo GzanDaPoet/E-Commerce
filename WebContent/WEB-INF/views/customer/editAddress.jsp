@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer | New Address</title>
+<title>Customer | Edit Address</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -17,7 +17,7 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/product/category.css' />">
+	href="<c:url value ='/common/assets/css/profile.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
@@ -30,7 +30,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Địa chỉ mới</h3>
+						<h3 class="heading">Sửa địa chỉ</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -39,7 +39,7 @@
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
 									href="">Người dùng</a></li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Tạo địa chỉ mới</li>
+								<li class="breadcrumb__item">Sửa địa chỉ</li>
 							</ul>
 						</nav>
 					</div>

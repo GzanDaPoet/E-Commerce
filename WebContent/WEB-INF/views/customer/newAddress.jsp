@@ -17,7 +17,7 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/product/category.css' />">
+	href="<c:url value ='/common/assets/css/profile.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
