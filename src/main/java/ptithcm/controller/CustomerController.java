@@ -1,6 +1,7 @@
 package ptithcm.controller;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.sql.Date;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.tags.EditorAwareTag;
 
 import com.google.gson.Gson;
 
@@ -30,9 +32,12 @@ import ptithcm.model.address.Province;
 import ptithcm.model.address.Ward;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
+import ptithcm.model.customer.CustomerProfile;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.order.OrderStatus;
 import ptithcm.model.shop.ShopOrder;
+import ptithcm.model.user.User;
+import ptithcm.model.user.UserProfile;
 import ptithcm.service.AddressService;
 import ptithcm.service.CustomerService;
 import ptithcm.util.SessionUtil;
@@ -70,11 +75,15 @@ public class CustomerController {
 			return "redirect:/e-commerce/login.htm";
 		}
 		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		model.addAttribute("details", details);
 		if(provinceId != 0) {
 			if(districtId != 0) {
 				if(wardId != 0) {
-					Address newAddress = addressService.newAddressById(provinceId, districtId, wardId);
+					Address newAddress = new Address();
 					newAddress.setDetailAddress(details);
+					newAddress.setWard(addressService.getWard(wardId));
+					newAddress.setDistrict(addressService.getDistrict(districtId));
+					newAddress.setProvince(addressService.getProvince(provinceId));
 					Session session = sessionFactory.openSession();
 					org.hibernate.Transaction t = session.beginTransaction();
 					try {
@@ -107,8 +116,7 @@ public class CustomerController {
 					} finally {
 						session1.close();
 					}
-					System.out.println("Chưa direct lại");
-					return "customer/newAddress";
+					return "redirect:/e-commerce/address.htm";
 				}
 				List<Province> listPros = addressService.listProvinces();
 				model.addAttribute("listPros", listPros);
@@ -129,8 +137,7 @@ public class CustomerController {
 		}
 		return "customer/newAddress";
 		}
-
-
+	
 	@RequestMapping(value = "orderManage")
 	public String orderManage(HttpServletRequest request, ModelMap model) {
 		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
@@ -149,9 +156,9 @@ public class CustomerController {
 		model.addAttribute("listLines",listLines);
 		ShopOrder shopOrder = customerService.getShopOrderById(id);
 		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getWard() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getDistrict() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getCity();
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
 		model.addAttribute("address",address);
 		System.out.println(shopOrder.getOrderStatus().getStatus());
 		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
@@ -187,5 +194,207 @@ public class CustomerController {
 		}
 		return "redirect:/customer/orderManage.htm";
 	}
+	
+	@RequestMapping(value="editAddress", method = RequestMethod.GET)
+	public String editAddress(@RequestParam("id") int id, ModelMap model,
+			HttpServletRequest request ) {
+		int provinceId = addressService.getAddressById(id).getAddress().getProvince().getId();
+		int districtId = addressService.getAddressById(id).getAddress().getDistrict().getId();
+		int wardId = addressService.getAddressById(id).getAddress().getWard().getId();
+		String details = addressService.getAddressById(id).getAddress().getDetailAddress();
+		List<Province> listPros = addressService.listProvinces();
+		model.addAttribute("listPros", listPros);
+		model.addAttribute("selectedProvince", provinceId);
+		List<District> listDicts = addressService.listDistricts(provinceId);
+		model.addAttribute("listDicts", listDicts);
+		model.addAttribute("selectedDistrict", districtId);
+		List<Ward> listWards = addressService.listWards(districtId);
+		model.addAttribute("listWards",listWards);
+		model.addAttribute("selectedWard", wardId);
+		model.addAttribute("details", details);
+		model.addAttribute("id",id);
+		return "customer/editAddress";
+	}
+	
+	@RequestMapping(value = "editAddress/done", method = RequestMethod.POST)
+	public String doneEdit(@RequestParam("province") int provinceId, 
+			@RequestParam("district") int districtId,
+			@RequestParam("ward") int wardId,
+			@RequestParam("details") String details,
+			@RequestParam("id") int id,
+			ModelMap model) {
+		Address editAddress = addressService.getAddressById(id).getAddress();
+		editAddress.setDetailAddress(details);
+		editAddress.setDistrict(addressService.getDistrict(districtId));
+		editAddress.setWard(addressService.getWard(wardId));
+		editAddress.setProvince(addressService.getProvince(provinceId));
+		Session session = sessionFactory.openSession();
+		org.hibernate.Transaction t = session.beginTransaction();
+		try {
+			session.merge(editAddress);
+			t.commit();
+			model.addAttribute("message", "Thêm mới thành công! ");
+			System.out.println("done");
+		} catch (Exception e) {
+			t.rollback();
+			model.addAttribute("message", "Thêm mới thất bại! ");
+			System.out.println(e);
+		} finally {
+			session.close();
+		}
+		return "redirect:/e-commerce/address.htm";
+	}
+	
+	@RequestMapping(value="editAddress", method = RequestMethod.POST)	
+	public String editAddress(ModelMap model,
+			@RequestParam("province") int provinceId, 
+			@RequestParam("district") int districtId,
+			@RequestParam("ward") int wardId,
+			@RequestParam("details") String details,
+			@RequestParam("id") int id,
+			HttpServletRequest request) {
+		model.addAttribute("details", details);
+		model.addAttribute("id",id);
+		if(provinceId != 0) {
+			if(districtId != 0) {
+				List<Province> listPros = addressService.listProvinces();
+				model.addAttribute("listPros", listPros);
+				List<District> listDicts = addressService.listDistricts(provinceId);
+				model.addAttribute("listDicts", listDicts);
+				List<Ward> listWards = addressService.listWards(districtId);
+				model.addAttribute("listWards",listWards);
+				model.addAttribute("selectedProvince", provinceId);
+				model.addAttribute("selectedDistrict", districtId);
+				return "customer/editAddress";
+			}
+			List<Province> listPros = addressService.listProvinces();
+			model.addAttribute("listPros", listPros);
+			List<District> listDicts = addressService.listDistricts(provinceId);
+			model.addAttribute("listDicts", listDicts);
+	        model.addAttribute("selectedProvince", provinceId);
+			return "customer/editAddress";
+		}
+		return "customer/editAddress";
+		}
+	
+	@RequestMapping(value = "profile", method = RequestMethod.GET)
+	public String userProfile(ModelMap model, HttpServletRequest request) {
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
+			return "redirect:/e-commerce/login.htm";
+		}
+		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+		if (customer.getCustomerProfile() != null) {
+			model.addAttribute("name", customer.getCustomerProfile().getName());
+			model.addAttribute("phone", customer.getCustomerProfile().getPhoneNumber());
+			model.addAttribute("email", customer.getEmail());
+			model.addAttribute("selectedWard", addressService.getWard(customer.getCustomerProfile().getAddress()).getId());
+			model.addAttribute("selectedDistrict", addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
+			model.addAttribute("selectedProvince", addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
+			List<Province> listPros = addressService.listProvinces();
+			model.addAttribute("listPros", listPros);
+			List<District> listDicts = addressService.listDistricts(addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
+			model.addAttribute("listDicts", listDicts);
+			List<Ward> listWards = addressService.listWards(addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
+			model.addAttribute("listWards", listWards);
+			return "customer/profile";
+		} else {
+			model.addAttribute("email", customer.getEmail());
+			List<Province> listPros = addressService.listProvinces();
+			model.addAttribute("listPros", listPros);
+			return "customer/profile";
+		}
+	}
+
+	@RequestMapping(value = "profile", method = RequestMethod.POST)
+	public String userProfile1(ModelMap model, HttpServletRequest request, @RequestParam("province") int provinceId,
+			@RequestParam("district") int districtId, @RequestParam("ward") int wardId,
+			@RequestParam("name") String name, @RequestParam("phone") String phone,
+			@RequestParam("email") String email) {
+		model.addAttribute("name", name);
+		model.addAttribute("phone", phone);
+		model.addAttribute("email", email);
+		if (provinceId != 0) {
+			if (districtId != 0) {
+				List<Province> listPros = addressService.listProvinces();
+				model.addAttribute("listPros", listPros);
+				List<District> listDicts = addressService.listDistricts(provinceId);
+				model.addAttribute("listDicts", listDicts);
+				List<Ward> listWards = addressService.listWards(districtId);
+				model.addAttribute("listWards", listWards);
+				model.addAttribute("selectedProvince", provinceId);
+				model.addAttribute("selectedDistrict", districtId);
+				return "customer/profile";
+			}
+			List<Province> listPros = addressService.listProvinces();
+			model.addAttribute("listPros", listPros);
+			List<District> listDicts = addressService.listDistricts(provinceId);
+			model.addAttribute("listDicts", listDicts);
+			model.addAttribute("selectedProvince", provinceId);
+			return "customer/profile";
+		}
+		return "customer/profile";
+	}
+
+	@RequestMapping(value = "profile/done.htm", method = RequestMethod.POST)
+	public String addProfile(ModelMap model, HttpServletRequest request, @RequestParam("ward") int wardId,
+			@RequestParam("name") String name, @RequestParam("phone") String phone,
+			@RequestParam("email") String email) {
+		Date sqlDate = new Date(System.currentTimeMillis());
+		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
+		{
+			return "redirect:/e-commerce/login.htm";
+		}
+		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+		if (customer.getCustomerProfile() != null) {
+			CustomerProfile editProfile = customer.getCustomerProfile();
+			editProfile.setName(name);
+			editProfile.setPhoneNumber(phone);
+			editProfile.setAddress(wardId);
+			editProfile.setModifiedAt(sqlDate);
+			customer.setEmail(email);
+			Session session = sessionFactory.openSession();
+			org.hibernate.Transaction t = session.beginTransaction();
+			try {
+				session.merge(editProfile);
+				session.merge(customer);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+				System.out.println("done");
+			} catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+				System.out.println(e);
+			} finally {
+				session.close();
+			}
+			
+		} else {
+			CustomerProfile newCtmProfile = new CustomerProfile();
+			newCtmProfile.setCustomer(customer);
+			newCtmProfile.setName(name);
+			newCtmProfile.setPhoneNumber(phone);
+			newCtmProfile.setAddress(wardId);
+			newCtmProfile.setCreateAt(sqlDate);
+			customer.setEmail(email);
+			Session session = sessionFactory.openSession();
+			org.hibernate.Transaction t = session.beginTransaction();
+			try {
+				session.merge(newCtmProfile);
+				session.merge(customer);
+				t.commit();
+				model.addAttribute("message", "Thêm mới thành công! ");
+				System.out.println("done");
+			} catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm mới thất bại! ");
+				System.out.println(e);
+			} finally {
+				session.close();
+			}
+		}
+		return "redirect:/customer/profile.htm";
+	}
+	
 	
 }

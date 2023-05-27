@@ -51,14 +51,14 @@
 							<div class="paper-wrapper">
 								<div class="form-group">
 									<div>
-										<h4 class="heading">Payment</h4>
+										<h4 class="heading">Phương thức thanh toán</h4>
 									</div>
 									<c:forEach var="i" items="${payment}">
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="PaymentMethod" id="${i.id }" value="${i.id }">
+												name="PaymentMethod" id="${i.id }" value="${i.id }" checked>
 											<label class="form-check-label" for="${i.id }">
-												${i.paymentType.status } Ngày hết hạn: ${ i.expiry } VND</label>
+												${i.paymentType.status } Ngày hết hạn: ${ i.expiry } </label>
 										</div>
 									</c:forEach>
 								</div>
@@ -66,7 +66,7 @@
 							<div class="paper-wrapper">
 								<div class="form-group">
 									<div>
-										<h4 class="heading">Shipping</h4>
+										<h4 class="heading">Phương thức vận chuyển</h4>
 									</div>
 									<c:forEach var="q" items="${shipping}">
 										<div class="form-check">
@@ -82,16 +82,16 @@
 						</div>
 						<div class="paper-wrapper">
 							<div>
-								<h4 class="heading">Order Summary</h4>
+								<h4 class="heading">Tổng tiền</h4>
 								<h5 class="titlemenu">
-									Sub total: <span id="total-price">${sum} VND</span>
+									Tiền hàng: <span id="total-price">${sum} VND</span>
 								</h5>
 								<h5 class="titlemenu">
-									Shipping: <span id="shipping-price"></span> VND
+									Tiền vận chuyển: <span id="shipping-price"></span> VND
 								</h5>
 								<hr>
 								<h4 class="heading">
-									Total: <span id="total">${sum} VND</span>
+									Tổng cộng: <span id="total">${sum} VND</span>
 								</h4>
 							</div>
 							<div style="text-align: center;">

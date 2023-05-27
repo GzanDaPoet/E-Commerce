@@ -74,14 +74,15 @@ public class AddressService {
 		return listWards;
 	}
 	
-	
-	public Address newAddressById(int provinceId,int districtId,int wardId) {
-		Address  newAddress = new Address();
-		newAddress.setCity(addressDao.getProvince(provinceId).getName());
-		newAddress.setDistrict(addressDao.getDistrict(districtId).getName());;
-		newAddress.setWard(addressDao.getWard(wardId).getName());
-		return newAddress;
+	public Province getProvince(int id) {
+		return addressDao.getProvince(id);
 	}
 	
+	public District getDistrict(int id) {
+		return addressDao.getDistrict(id);
+	}
 	
+	public Ward getWard(int id) {
+		return addressDao.getWard(id);
+	}
 }

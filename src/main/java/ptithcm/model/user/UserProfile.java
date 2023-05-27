@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import ptithcm.model.address.Ward;
 
 @Entity
 @Table(name="User_Profile")
@@ -24,14 +27,16 @@ public class UserProfile {
 	private User user;
 	@Column(name="name")
 	private String name;
-	@Column(name="address")
-	private String address;
+	@ManyToOne
+	@JoinColumn(name="address")
+	private Ward ward;
 	@Column(name="phoneNumber")
 	private String phoneNumber;
 	@Column(name="create_at")
 	private Date createAt;
 	@Column(name="modified_at")
 	private Date modifiedAt;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,11 +55,12 @@ public class UserProfile {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
-		return address;
+	
+	public Ward getWard() {
+		return ward;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setWard(Ward ward) {
+		this.ward = ward;
 	}
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -74,13 +80,13 @@ public class UserProfile {
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
-	public UserProfile(Integer id, User user, String name, String address, String phoneNumber, Date createAt,
+	public UserProfile(Integer id, User user, String name, Ward ward, String phoneNumber, Date createAt,
 			Date modifiedAt) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.name = name;
-		this.address = address;
+		this.ward = ward;
 		this.phoneNumber = phoneNumber;
 		this.createAt = createAt;
 		this.modifiedAt = modifiedAt;

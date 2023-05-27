@@ -56,6 +56,25 @@
 							href="${contextPath}/e-commerce/cart.htm">Thanh toán</a></li>
 					</ul>
 				</div>
+				<div class="cf-menu">
+					<li class="menu-item"><span class="menu-item-btn">
+							<div class="icon">
+								<span><i class="fa-solid fa-id-card-clip"></i></span>
+							</div>
+							<div class="label">
+								<span>Người dùng</span>
+							</div>
+							<div class="icon">
+								<span><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+					</span></li>
+					<ul class="submenu">
+						<li class="submenu-item"><a
+							href="${contextPath}/customer/profile.htm">Trang cá nhân</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/customer/orderManage.htm">Quản lý đơn hàng</a></li>
+					</ul>
+				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">
 						<div class="icon">
 							<span><i class="fa-solid fa-chart-line"></i></span>

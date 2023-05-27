@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,15 +22,17 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	@Column(name = "city")
-	private String city;
-	@Column(name = "ward")
-	private String ward;
-	@Column(name = "district")
-	private String district;
+	@ManyToOne
+	@JoinColumn(name = "province")
+	private Province province;
+	@ManyToOne
+	@JoinColumn(name = "ward")
+	private Ward ward;
+	@ManyToOne
+	@JoinColumn(name = "district")
+	private District district;
 	@Column(name="detail_address")
 	private String detailAddress;
-	
 	
 	@OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddress;
@@ -37,10 +41,10 @@ public class Address {
 		super();
 	}
 	
-	public Address(int id, String city, String ward, String district, String detailAddress) {
+	public Address(int id, Province province, Ward ward, District district, String detailAddress) {
 		super();
 		this.id = id;
-		this.city = city;
+		this.province = province;
 		this.ward = ward;
 		this.district = district;
 		this.detailAddress = detailAddress;
@@ -54,24 +58,35 @@ public class Address {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getCity() {
-		return city;
+	
+	public Province getProvince() {
+		return province;
 	}
-	public void setCity(String city) {
-		this.city = city;
+
+	public void setProvince(Province province) {
+		this.province = province;
 	}
-	public String getWard() {
+
+	public Ward getWard() {
 		return ward;
 	}
-	public void setWard(String ward) {
+
+	public void setWard(Ward ward) {
 		this.ward = ward;
 	}
-	public String getDistrict() {
+
+	public District getDistrict() {
 		return district;
 	}
-	public void setDistrict(String district) {
+
+	public void setDistrict(District district) {
 		this.district = district;
 	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getDetailAddress() {
 		return detailAddress;
 	}
