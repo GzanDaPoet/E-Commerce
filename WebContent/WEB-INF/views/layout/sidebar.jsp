@@ -86,6 +86,10 @@
 							href="${contextPath}/admin/manage-ordered/list.htm">Danh sách
 								đơn hàng đã đặt</a></li>
 					</ul>
+					<ul class="submenu">
+						<li class="submenu-item"><a href="${contextPath}/delivery/listDeliveryOrder.htm">Đang vận chuyển</a>
+						</li>
+					</ul>
 				</div>
 				<div class="cf-menu">
 					<li class="menu-item"><span class="menu-item-btn">

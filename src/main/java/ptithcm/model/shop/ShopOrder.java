@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,21 +50,22 @@ public class ShopOrder {
 
 	@OneToMany(mappedBy = "shopOrder", fetch = FetchType.LAZY)
 	private Collection<OrderDelivery> orderDeliveries;
-	
+
 	@Column(name = "order_date")
 	private Date orderDate;
 	@Column(name = "order_total")
 	private Long orderTotal;
 
+	@Column(name = "address_delivery")
+	private String addressDelivery;
+
 	public ShopOrder() {
 		super();
 	}
 
-	
-
 	public ShopOrder(Integer id, ShippingMethod shippingMethod, CustomerAddress customerAddress,
 			OrderStatus orderStatus, CustomerPaymentMethod customerPaymentMethod, Collection<OrderLine> orderLines,
-			Date orderDate, Long orderTotal) {
+			Date orderDate, Long orderTotal, String addressDelivery) {
 		super();
 		this.id = id;
 		this.shippingMethod = shippingMethod;
@@ -75,9 +75,8 @@ public class ShopOrder {
 		this.orderLines = orderLines;
 		this.orderDate = orderDate;
 		this.orderTotal = orderTotal;
+		this.addressDelivery = addressDelivery;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -142,4 +141,13 @@ public class ShopOrder {
 	public void setOrderTotal(Long orderTotal) {
 		this.orderTotal = orderTotal;
 	}
+
+	public String getAddressDelivery() {
+		return addressDelivery;
+	}
+
+	public void setAddressDelivery(String addressDelivery) {
+		this.addressDelivery = addressDelivery;
+	}
+
 }

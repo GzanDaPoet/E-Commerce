@@ -39,17 +39,22 @@ public class OrderDelivery {
 	@Column(name = "received_date")
 	private Date receivedDate;
 
+	@ManyToOne()
+	@JoinColumn(name = "delivery_status_id")
+	private DeliveryStatus deliveryStatus;
+	
 	public OrderDelivery() {
 		super();
 	}
 
-	public OrderDelivery(ShopOrder shopOrder, User user, Date createdAt, Date deliveryDate, Date receivedDate) {
+	public OrderDelivery(ShopOrder shopOrder, User user, Date createdAt, Date deliveryDate, Date receivedDate, DeliveryStatus deliveryStatus) {
 		super();
 		this.shopOrder = shopOrder;
 		this.user = user;
 		this.createdAt = createdAt;
 		this.deliveryDate = deliveryDate;
 		this.receivedDate = receivedDate;
+		this.deliveryStatus = deliveryStatus;
 	}
 
 	public Integer getId() {
@@ -100,4 +105,14 @@ public class OrderDelivery {
 		this.receivedDate = receivedDate;
 	}
 
+	public DeliveryStatus getDeliveryStatus() {
+		return deliveryStatus;
+	}
+
+	public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+		this.deliveryStatus = deliveryStatus;
+	}
+
+	
+	
 }
