@@ -44,6 +44,7 @@
 									<th class="th-header"><span>Tổng tiền </span></th>
 									<th class="th-header"><span>Ngày đặt</span></th>
 									<th class="th-header"><span></span></th>
+									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -54,17 +55,23 @@
 										<td class="td-body">${element.getPrice()}</td>
 										<td class="td-body">${element.getDateOrdered()}</td>
 										<td class="td-body">
+										<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
+											<div class="select-container">
+												<select name="userId" id="userId" class="select"
+													aria-invalid="false" onchange="submitForm()">
+													<option value="">Giao hàng cho</option>
+													<c:forEach items="${shipperList}" var="element">
+														<option value="${element.getId()}"> ${element.getUserProfile().getName()}</option>
+													</c:forEach>
+												</select>
+											</div>
+										</form>
+										</td>
+										<td class="td-body">
 											<div class="group-btn">
-												<a
-													href="${contextPath}/admin/manage-ordered/list/confirmed/${element.getOrderId()}.htm">
+												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
 													<button class="btn--add">
-														<span>Xác nhận</span>
-													</button>
-												</a> 
-												<a
-													href="${contextPath}/admin/manage-ordered/list/cancel/${element.getOrderId()}.htm">
-													<button class="btn--delete">
-														<span>Hủy</span>
+														<span>Chi tiết</span>
 													</button>
 												</a>
 											</div>
@@ -115,4 +122,9 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script>
+		function submitForm() {
+			document.querySelector('form').submit();
+		}
+	</script>
 </body>

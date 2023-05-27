@@ -100,7 +100,7 @@
 												</div>
 											</form>
 											<div class="group-btn">
-												<a href="${contextPath}/delivery/detail/${element.id}.htm">
+												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
 													<button class="btn--add">
 														<span>Chi tiết</span>
 													</button>

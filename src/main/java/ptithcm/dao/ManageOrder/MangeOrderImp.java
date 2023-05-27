@@ -59,7 +59,7 @@ public class MangeOrderImp implements ManageOrderDao{
 		    Timestamp startOfDay = Timestamp.valueOf(now.with(LocalTime.MIN));
 		    Timestamp endOfDay = Timestamp.valueOf(now.with(LocalTime.MAX));
 		    
-		    String hql = "SELECT OD FROM OrderDelivery OD, ShopOrder SO WHERE OD.deliveryDate >= :startOfDay AND OD.deliveryDate <= :endOfDay and OD.shopOrder.id = SO.id and SO.orderStatus.id = 2";
+		    String hql = "SELECT OD FROM OrderDelivery OD, ShopOrder SO WHERE OD.deliveryDate >= :startOfDay AND OD.deliveryDate <= :endOfDay and OD.shopOrder.id = SO.id and SO.orderStatus.id = 2 and OD.deliveryStatus = 1";
 		    Query query = session.createQuery(hql);
 		    query.setParameter("startOfDay", startOfDay);
 		    query.setParameter("endOfDay", endOfDay);

@@ -9,9 +9,11 @@ import ptithcm.model.shop.ShopOrder;
 
 public interface ManageOrderDao {
 	List<ShopOrder> getListShopOrderByStatus();
-	Long getQuantityOfOrder(int orderId);
-	ShopOrder getShopOrderById(int orderId);
-	List<OrderDelivery> getListOfOrderShipping();
-	
 
-} 
+	Long getQuantityOfOrder(int orderId);
+
+	ShopOrder getShopOrderById(int orderId);
+
+	List<OrderDelivery> getListOfOrderShipping();
+
+}
