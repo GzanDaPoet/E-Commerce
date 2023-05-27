@@ -40,7 +40,6 @@ public class ManageOrderController {
 	
 	@Autowired
 	UserService userService;
-	
 	@Autowired
 	ManageOrderService manageOrderService;
 	
