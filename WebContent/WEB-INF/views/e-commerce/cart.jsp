@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,8 @@
 								<tbody>
 									<c:forEach var="i" begin="0" end="${shoppingCart.size() -1}">
 										<tr>
-											<td class="td-body">${shoppingCart.get(i).productItem.product.getName()}</td>
+											<td class="td-body"><a
+												href="${contextPath}/e-commerce/product/${shoppingCart.get(i).productItem.id}.htm">${shoppingCart.get(i).productItem.product.getName()}</a></td>
 											<td class="td-body"><div class="col">
 													<div class="col-6">
 														<div class="btn-group btn-group-justified">

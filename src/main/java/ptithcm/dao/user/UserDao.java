@@ -11,4 +11,6 @@ public interface UserDao {
 	public List<UserPermission> getListPermissions();
 	public UserPermission getPermissionbyId(int id);
 	public List<User> getAllUsers();
+	public List<User> getAllShipper();
+	
 }

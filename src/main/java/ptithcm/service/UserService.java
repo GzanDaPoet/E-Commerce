@@ -43,4 +43,23 @@ public class UserService {
 		return permissionList;
 	}
 	
+	public List<User> getAllShipperList() {
+		List<User> shipperList = userDao.getAllShipper();
+		if (shipperList != null) {
+			return shipperList;
+		}
+		return null;
+	}
+	
+	public User findUserById(int userId) {
+		List<User> shipperList = userDao.getAllShipper();
+		
+		for (User user: shipperList) {
+			if (user.getId() == userId) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 }

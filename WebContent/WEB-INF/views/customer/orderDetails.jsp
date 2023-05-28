@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Commerce | Address</title>
+<title>Customer | Order Details</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -18,7 +18,7 @@
 	href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;400;500;600;700;800&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<c:url value ='/common/assets/css/cart/address.css' />">
+	href="<c:url value ='/common/assets/css/customer/orderManage.css' />">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
@@ -31,23 +31,24 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Address</h3>
+						<h3 class="heading">Chi tiết đơn hàng</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="">E-Commerce</a></li>
+									href="${contextPath}/e-commerce/shop.htm">E-Commerce</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="">Thanh toán</a></li>
+									href="${contextPath}/customer/orderManage.htm">Quản lý đơn
+										hàng</a></li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Địa chỉ</li>
+								<li class="breadcrumb__item">Chi tiết đơn hàng</li>
 							</ul>
 						</nav>
 					</div>
 					<div>
-						<a href="${contextPath}/customer/newAddress.htm">
+						<a href="${contextPath}/customer/orderManage.htm">
 							<button class="btn--add">
-								<i class="fa-solid fa-plus"></i><span>Thêm địa chỉ mới</span>
+								<span>Quay lại</span>
 							</button>
 						</a>
 					</div>
@@ -57,48 +58,60 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Địa chỉ</span></th>
-									<th class="th-header"><span>Xã</span></th>
-									<th class="th-header"><span>Huyện</span></th>
-									<th class="th-header"><span>Tỉnh</span></th>
-									<th class="th-header"><span></span></th>
-									<th class="th-header"><span></span></th>
+
+									<th class="th-header"><span>Tên sản phẩm</span></th>
+									<th class="th-header"><span>Thumbnail</span></th>
+									<th class="th-header"><span>Đơn giá</span></th>
+									<th class="th-header"><span>Số lượng</span></th>
+									<th class="th-header"><span>Thành tiền</span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${customerAddress}" var="element">
+								<c:forEach items="${listLines}" var="element">
 									<tr>
-										<td class="td-body">${element.address.detailAddress}</td>
-										<td class="td-body">${element.address.ward.name }</td>
-										<td class="td-body">${element.address.district.name}</td>
-										<td class="td-body">${element.address.province.name}</td>
-										<td class="td-body"><form
-												action="../customer/editAddress.htm" method="get">
-												<input type="hidden" name="id" value="${element.id }">
-												<button class="btn--add">Chỉnh sửa</button>
-											</form></td>
-										<td class="td-body">
-											<div class="group-btn">
 
-												<a
-													href="${contextPath}/e-commerce/address/delete/${element.id}.htm">
-													<button class="btn--delete">
-														<span>Xoá</span>
-													</button>
-												</a> <a
-													href="${contextPath}/e-commerce/address/deliver/${element.id}.htm">
-													<button class="btn--add">
-														<span>Chuyển đến đây</span>
-													</button>
-												</a>
+										<td class="td-body"><a
+											href="${contextPath}/e-commerce/product/${element.productItem.id}.htm">${element.productItem.product.name }</a></td>
+										<td class="td-body">
+											<div class="table-image">
+												<img src="${element.productItem.productImage}" alt="">
 											</div>
 										</td>
+										<td class="td-body">${element.price }</td>
+										<td class="td-body">${element.quantity }</td>
+										<td class="td-body">${element.price * element.quantity}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
+				</div>
+				<div class="container">
+					<div class="paper-wrapper">
+						<h3 class="heading">Địa chỉ</h3>
+						<h4 class="titlemenu">${address }</h4>
+						<div style="text-align: center;">
 
+							<c:if test="${test}">
+								<a href="${contextPath}/customer/editAddress.htm">
+									<button class="btn--add">
+										<span> Chỉnh sửa</span>
+									</button>
+								</a>
+							</c:if>
+						</div>
+					</div>
+					<div class="paper-wrapper">
+						<h3 class="heading">Tổng tiền</h3>
+						<h4 class="titlemenu">${sum}</h4>
+						<c:if test="${test}">
+							<a href="${contextPath}/customer/orderManage/cancel/${id}.htm">
+								<button class="btn--delete">
+									<span> Hủy </span>
+								</button>
+							</a>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</main>

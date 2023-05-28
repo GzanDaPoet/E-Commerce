@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ptithcm.model.inventory.InventoryReceiving;
+import ptithcm.model.order.OrderDelivery;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.updation.UpdatePriceProductItem;
 import javax.persistence.CascadeType;
@@ -45,7 +46,10 @@ public class User {
 	private Collection<UpdatePriceProductItem> updatePriceProductItems;
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<Promotion> promotions;
-
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Collection<OrderDelivery> orderDeliveries;
+	
+	
 	public User() {
 		super();
 	}

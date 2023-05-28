@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản lý đơn hàng</title>
+<title>Chi tiết đơn hàng vận chuyển</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -31,7 +31,20 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách đơn hàng đã đặt</h3>
+						<h3 class="heading">Chi tiết đơn hàng vận chuyển</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
+										chủ</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
+								</li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Danh sách nhãn</li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 				<div class="paper-wrapper">
@@ -39,43 +52,26 @@
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Mã đơn hàng</span></th>
+									<th class="th-header"><span>Mã sản phẩm</span></th>
+									<th class="th-header"><span>Tên sản phẩm</span></th>
+									<th class="th-header"><span>Thumbnail</span></th>
 									<th class="th-header"><span>Số lượng</span></th>
-									<th class="th-header"><span>Tổng tiền </span></th>
-									<th class="th-header"><span>Ngày đặt</span></th>
-									<th class="th-header"><span></span></th>
+									<th class="th-header"><span>Đơn giá</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listOrdered}" var="element">
+								<c:forEach items="${listItemOrder}" var="element">
 									<tr>
-										<td class="td-body">${element.getOrderId()}</td>
+										<td class="td-body">${element.getId()}</td>
+										<td class="td-body">${element.getProductItem().getProduct().getName()}</td>
+										<td class="td-body">
+											<div class="table-image">
+												<img src="${element.getProductItem().getProductImage()}" alt="">
+											</div>
+										</td>
 										<td class="td-body">${element.getQuantity()}</td>
 										<td class="td-body">${element.getPrice()}</td>
-										<td class="td-body">${element.getDateOrdered()}</td>
-										<td class="td-body">
-										<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
-											<div class="select-container">
-												<select name="userId" id="userId" class="select"
-													aria-invalid="false" onchange="submitForm()">
-													<option value="">Giao hàng cho</option>
-													<c:forEach items="${shipperList}" var="element">
-														<option value="${element.getId()}"> ${element.getUserProfile().getName()}</option>
-													</c:forEach>
-												</select>
-											</div>
-										</form>
-										</td>
-										<td class="td-body">
-											<div class="group-btn">
-												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
-													<button class="btn--add">
-														<span>Chi tiết</span>
-													</button>
-												</a>
-											</div>
-										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -95,7 +91,7 @@
 											${limit == 20 ? 'selected' : ''}>20</option>
 									</select>
 								</div>
-								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}
+								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
 									${limit}</p>
 								<div class="pagination-action">
 									<c:if test="${currentPage > 1}">
@@ -122,9 +118,5 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
-	<script>
-		function submitForm() {
-			document.querySelector('form').submit();
-		}
-	</script>
 </body>
+</html>

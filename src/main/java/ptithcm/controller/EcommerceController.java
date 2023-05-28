@@ -46,11 +46,8 @@ public class EcommerceController {
 	@Autowired
 	PaymentService paymentService;
 	
-
 	@Autowired
 	CustomerService customerService;
-
-
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String showLogin() {
@@ -76,9 +73,7 @@ public class EcommerceController {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String deleteProduct(@RequestParam Integer productId) {
-
 		return "redirect:/";
-
 	}
 
 	@RequestMapping(value = "signIn", method = RequestMethod.POST)

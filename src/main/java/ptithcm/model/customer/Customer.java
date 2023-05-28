@@ -29,33 +29,41 @@ public class Customer {
 	private String email;
 	@Column(name = "password")
 	private String password;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddresses;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<ShoppingCart> shoppingCarts;
-	
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private CustomerProfile customerProfile;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerReview> customerReivews;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerPaymentMethod> customerPaymentMethods;
-	
-	
+
 	public Customer() {
 		super();
 	}
 
-	public Customer(Integer id, String userName, String email, String password) {
+	public Customer(Integer id, String userName, String email, String password,CustomerProfile customerProfile) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
+		this.customerProfile = customerProfile;
+	}
+
+	public CustomerProfile getCustomerProfile() {
+		return customerProfile;
+	}
+
+	public void setCustomerProfile(CustomerProfile customerProfile) {
+		this.customerProfile = customerProfile;
 	}
 
 	public Integer getId() {
@@ -88,6 +96,30 @@ public class Customer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Collection<CustomerAddress> getCustomerAddresses() {
+		return customerAddresses;
+	}
+
+	public void setCustomerAddresses(Collection<CustomerAddress> customerAddresses) {
+		this.customerAddresses = customerAddresses;
+	}
+
+	public CustomerProfile getCustomerProfile() {
+		return customerProfile;
+	}
+
+	public void setCustomerProfile(CustomerProfile customerProfile) {
+		this.customerProfile = customerProfile;
+	}
+
+	public Collection<CustomerPaymentMethod> getCustomerPaymentMethods() {
+		return customerPaymentMethods;
+	}
+
+	public void setCustomerPaymentMethods(Collection<CustomerPaymentMethod> customerPaymentMethods) {
+		this.customerPaymentMethods = customerPaymentMethods;
 	}
 
 }

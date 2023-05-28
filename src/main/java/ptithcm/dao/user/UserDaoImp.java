@@ -39,6 +39,8 @@ public class UserDaoImp implements UserDao {
 		
 	}
 
+	
+	
 	@Override
 	public List<UserPermission> getListPermissions() {
 		Session session = sessionFactory.getCurrentSession();
@@ -62,6 +64,15 @@ public class UserDaoImp implements UserDao {
 	public List<User> getAllUsers() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM User";
+		Query query = session.createQuery(hql);
+		List<User> list = query.list();
+		return list;
+	}
+	
+	@Override
+	public List<User> getAllShipper() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User U where U.userPermission.id = 10";
 		Query query = session.createQuery(hql);
 		List<User> list = query.list();
 		return list;

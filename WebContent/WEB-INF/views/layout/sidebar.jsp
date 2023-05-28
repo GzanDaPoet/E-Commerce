@@ -26,7 +26,8 @@
 		<div class="menu">
 			<h4>Chung</h4>
 			<ul class="menu">
-				<li class="menu-item"><a href="#" class="menu-item-btn-s">
+				<li class="menu-item"><a
+					href="${contextPath}/e-commerce/shop.htm" class="menu-item-btn-s">
 						<div class="icon">
 							<span><i class="fa-solid fa-gauge-high"></i></span>
 						</div>
@@ -53,6 +54,25 @@
 							href="${contextPath}/e-commerce/list.htm">Danh sách sản phẩm</a></li>
 						<li class="submenu-item"><a
 							href="${contextPath}/e-commerce/cart.htm">Thanh toán</a></li>
+					</ul>
+				</div>
+				<div class="cf-menu">
+					<li class="menu-item"><span class="menu-item-btn">
+							<div class="icon">
+								<span><i class="fa-solid fa-id-card-clip"></i></span>
+							</div>
+							<div class="label">
+								<span>Người dùng</span>
+							</div>
+							<div class="icon">
+								<span><i class="fa-solid fa-angle-down"></i></span>
+							</div>
+					</span></li>
+					<ul class="submenu">
+						<li class="submenu-item"><a
+							href="${contextPath}/customer/profile.htm">Trang cá nhân</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/customer/orderManage.htm">Quản lý đơn hàng</a></li>
 					</ul>
 				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">
@@ -85,6 +105,10 @@
 							href="${contextPath}/admin/manage-ordered/list.htm">Danh sách
 								đơn hàng đã đặt</a></li>
 					</ul>
+					<ul class="submenu">
+						<li class="submenu-item"><a href="${contextPath}/delivery/listDeliveryOrder.htm">Đang vận chuyển</a>
+						</li>
+					</ul>
 				</div>
 				<div class="cf-menu">
 					<li class="menu-item"><span class="menu-item-btn">
@@ -99,7 +123,8 @@
 							</div>
 					</span></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="">Thông tin cá nhân</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/user/profile.htm">Thông tin cá nhân</a></li>
 						<li class="submenu-item"><a
 							href="${contextPath}/user/list.htm">Danh sách nhân viên</a></li>
 						<li class="submenu-item"><a
@@ -121,7 +146,7 @@
 					<ul class="submenu">
 						<li class="submenu-item"><a href="#">Danh sách khách hàng</a>
 						</li>
-						<li class="submenu-item"><a href="#">Thêm khách hàng</a></li>
+
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -184,6 +209,7 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/admin/product/product-config/list.htm">Cấu
 								hình sản phẩm</a></li>
+							href="${contextPath}/admin/product/new.htm">Nhập sản phẩm</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | List Category</title>
+<title>Customer | Order Manage</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -41,111 +41,48 @@
 									href="">Đơn hàng</a>
 								</li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Quản lý đơn hàng</li>
+								<li class="breadcrumb__item">Đơn hàng đã mua</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
 				<div class="paper-wrapper">
-					<form id="search-form">
-						<div class="search-container">
-							<!-- Input search -->
-							<div class="select-container">
-								<select name="status" id="status" class="select"
-									aria-invalid="false">
-									<option value="null" selected="selected">Không</option>
-								</select> <label for="status">Trạng thái</label> <span
-									class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
-							</div>
-							<div class="input-container">
-								<input type="text" id="search" name="search"
-									aria-labelledby="label-search" value="${search}"><span
-									class="highlight"></span><span class="bar"></span> <label
-									for="search">Tìm kiếm</label>
-								<button id="clear-search" type="button"
-									aria-label="Clear search text">
-									<i class="fa-solid fa-times"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 					<div class="table-container">
 						<table>
 							<thead>
 								<tr>
-									<th class="th-header"><span>Mã</span></th>
-									<th class="th-header"><span>Tên nhãn</span></th>
-									<th class="th-header"><span>Nhãn cha</span></th>
+									<th class="th-header"><span>Mã đơn hàng</span></th>
+									<th class="th-header"><span>Ngày đặt hàng</span></th>
+									<th class="th-header"><span>Tổng giá trị</span></th>
 									<th class="th-header"><span>Trạng thái</span></th>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${listCategory}" var="element">
+								<c:forEach items="${listOrders}" var="element">
 									<tr>
 										<td class="td-body">${element.id}</td>
-										<td class="td-body">${element.categoryName }</td>
-										<td class="td-body">${element.parentCategoryName}</td>
+										<td class="td-body">${element.orderDate }</td>
+										<td class="td-body">${element.orderTotal}</td>
 										<td class="td-body">
 											<div class="mui-chip">
-												<span class="mui-chip-label">Hoạt động</span>
+												<span class="mui-chip-label">${element.orderStatus.status}</span>
 											</div>
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
 												<a
-													href="${contextPath}/admin/product/category/edit/${element.id}.htm">
-
+													href="${contextPath}/customer/orderManage/${element.id}.htm">
 													<button class="btn--add">
-														<span>Chỉnh sửa</span>
+														<span>Chi tiết</span>
 													</button>
-												</a> <a
-													href="${contextPath}/admin/product/category/delete/${element.id}.htm">
-													<button class="btn--delete">
-														<span>Xoá</span>
-													</button>
-												</a>
+												</a> 
 											</div>
 										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-					</div>
-					<div class="pagination">
-						<div class="table-pagination">
-							<div class="tool-bar">
-								<p class="text" id=":r2:">Số hàng mỗi trang:</p>
-								<div class="select">
-									<select onchange="location = this.value;">
-										<option value="?page=1&limit=5"
-											${limit == 5 ? 'selected' : ''}>5</option>
-										<option value="?page=1&limit=10"
-											${limit == 10 ? 'selected' : ''}>10</option>
-										<option value="?page=1&limit=20"
-											${limit == 20 ? 'selected' : ''}>20</option>
-									</select>
-								</div>
-								<p class="text">${limit  *(currentPage - 1)  + 1}–${currentPage * limit}trong
-									${limit}</p>
-								<div class="pagination-action">
-									<c:if test="${currentPage > 1}">
-										<a href="?page=${currentPage - 1}&limit=${limit}"> <i
-											class="fa-solid fa-angle-left"></i>
-										</a>
-									</c:if>
-									<c:if test="${currentPage <= 1}">
-										<a href="#"> <i class="fa-solid fa-angle-left"></i>
-										</a>
-									</c:if>
-									<c:if test="${currentPage >= 1}">
-										<a href="?page=${currentPage + 1}&limit=${limit}"> <i
-											class="fa-solid fa-angle-right"></i>
-										</a>
-									</c:if>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
