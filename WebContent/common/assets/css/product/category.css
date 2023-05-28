@@ -235,7 +235,7 @@ main {
 }
 
 .content .input-group .select-container .select:focus ~ label, .content .input-group .select-container .select:valid 
-	~ label {
+	 ~ label {
 	top: -12px;
 	font-size: 12px;
 	color: #000;
@@ -246,17 +246,29 @@ main {
 	overflow: visible !important;
 }
 
-.content .input-group .input-container {
+.input-container {
 	position: relative;
 }
 
-.content .input-group .input-container textarea {
+.input-container input[disabled], .input-container input[readonly] {
+	background-color: #f2f2f2;
+	cursor: not-allowed;
+	color: #999;
+}
+
+.input-container input[disabled] ~ label, .input-container input[readonly] 
+	~ label {
+	top: -10px;
+	font-size: 12px;
+	color: #000;
+}
+
+.input-container textarea {
 	resize: none;
 	position: relative;
 }
 
-.content .input-group .input-container input, .content .input-group .input-container textarea
-	{
+.input-container input, .input-container textarea {
 	height: 48px;
 	width: 100%;
 	border: 1px solid #c0c0c0;
@@ -268,34 +280,32 @@ main {
 	color: #000;
 	font-size: 18px;
 	display: block;
-	border: 1px solid;
 	border-color: rgba(145, 158, 171, 0.32);
 }
 
-.content .input-group .input-container input:focus, .content .input-group .input-container textarea:focus
-	{
+.input-container input:focus, .input-container textarea:focus {
 	outline: none;
 	border: 2px solid #00ab55;
 }
 
-.content .input-group .input-container input:focus ~ label, .content .input-group .input-container input:valid 
-	~ label, .content .input-group .input-container textarea:focus ~ label,
-	.content .input-group .input-container textarea:valid ~ label {
+.input-container input:focus ~ label, .input-container input:valid ~
+	label, .input-container textarea:focus ~ label, .input-container textarea:valid 
+	~ label {
 	top: -10px;
 	font-size: 12px;
 	color: #000;
 }
 
-.content .input-group .input-container input:focus ~ .bar:before,
-	.content .input-group .input-container textarea:focus ~ .bar:before {
+.input-container input:focus ~ .bar:before, .input-container textarea:focus 
+	~ .bar:before {
 	width: 280px;
 }
 
-.content .input-group .input-container input[type="password"] {
+.input-container input[type="password"] {
 	letter-spacing: 0.3em;
 }
 
-.content .input-group .input-container label {
+.input-container label {
 	background-color: #fff;
 	color: #000;
 	font-size: 16px;

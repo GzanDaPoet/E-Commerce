@@ -117,9 +117,12 @@
 								<div class="wrapper">
 									<div class="wrapper-delete-item">
 										<h6>Biến thể sản phẩm</h6>
-										<button class="btn--delete remove-item-btn" type="button">
-											<span>Xoá</span>
-										</button>
+										<a
+											href="${contextPath}/admin/product/${product.id}/delete/product-item/${element.id}.htm">
+											<button class="btn--delete remove-item-btn" type="button">
+												<span>Xoá</span>
+											</button>
+										</a>
 									</div>
 									<div class="input-container">
 										<input type="number" required="required" id="productItemId"

@@ -84,4 +84,14 @@ public class VariationDaoImpl implements VariationDao {
 		session.update(variation);
 
 	}
+
+	@Override
+	public List<Variation> getListVariationByCategoryId(int categoryId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Variation v WHERE v.productCategory.id = :categoryId";
+		Query query = session.createQuery(hql);
+		query.setParameter("categoryId", categoryId);
+		List<Variation> list = query.list();
+		return list;
+	}
 }

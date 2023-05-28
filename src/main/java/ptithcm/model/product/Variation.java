@@ -1,17 +1,12 @@
 package ptithcm.model.product;
 
-import java.util.Collection;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,19 +22,15 @@ public class Variation {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "variation", fetch = FetchType.LAZY)
-	private Collection<VariationOption> variationOptions;
-
 	public Variation() {
 		super();
 	}
 
-	public Variation(Integer id, ProductCategory category, String name, Collection<VariationOption> variationOptions) {
+	public Variation(Integer id, ProductCategory category, String name) {
 		super();
 		this.id = id;
 		this.productCategory = category;
 		this.name = name;
-		this.variationOptions = variationOptions;
 	}
 
 	public Integer getId() {
@@ -64,14 +55,6 @@ public class Variation {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Collection<VariationOption> getVariationOptions() {
-		return variationOptions;
-	}
-
-	public void setVariationOptions(Collection<VariationOption> variationOptions) {
-		this.variationOptions = variationOptions;
 	}
 
 }

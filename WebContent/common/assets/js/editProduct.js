@@ -61,8 +61,8 @@ function addDynamicField(e) {
 	</div>`;
 	categoryList.appendChild(div);
 	// add event listener to the newly added remove button
-	const removeItem = div.querySelector(".remove-item-btn");
-	removeItem.addEventListener("click", removeDynamicItem);
+	//const removeItem = div.querySelector(".remove-item-btn");
+	//removeItem.addEventListener("click", removeDynamicItem);
 
 	// initialize file input and image preview
 	const fileInput = div.querySelector("input[type='file']");
@@ -106,10 +106,10 @@ function removeDynamicItem(e) {
 addBtn.addEventListener("click", addDynamicField);
 
 // add event listener to existing remove buttons
-const removeItems = document.querySelectorAll(".remove-item-btn");
-removeItems.forEach((item) =>
-	item.addEventListener("click", removeDynamicItem)
-);
+//const removeItems = document.querySelectorAll(".remove-item-btn");
+//removeItems.forEach((item) =>
+//	item.addEventListener("click", removeDynamicItem)
+//);
 
 const form = document.querySelector(".form-create-product");
 
