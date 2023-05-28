@@ -81,8 +81,9 @@
 							</div>
 					</span></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="${contextPath}/admin/manage-ordered/list.htm">Danh sách đơn hàng đã đặt</a>
-						</li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/manage-ordered/list.htm">Danh sách
+								đơn hàng đã đặt</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -98,8 +99,7 @@
 							</div>
 					</span></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a
-							href="">Thông tin cá nhân</a></li>
+						<li class="submenu-item"><a href="">Thông tin cá nhân</a></li>
 						<li class="submenu-item"><a
 							href="${contextPath}/user/list.htm">Danh sách nhân viên</a></li>
 						<li class="submenu-item"><a
@@ -181,6 +181,9 @@
 								phẩm</a></li>
 						<li class="submenu-item"><a
 							href="${contextPath}/admin/product/new.htm">Tạo mới sản phẩm</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/product-config/list.htm">Cấu
+								hình sản phẩm</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -226,7 +229,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a  class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-table-list"></i></span>
 							</div>
@@ -247,7 +250,7 @@
 					</ul>
 				</div>
 				<div class="cf-menu">
-					<li class="menu-item"><a  class="menu-item-btn">
+					<li class="menu-item"><a class="menu-item-btn">
 							<div class="icon">
 								<span><i class="fa-solid fa-percent"></i></span>
 							</div>
@@ -259,9 +262,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="${contextPath}/admin/product/promotion/list.htm">Danh sách khuyến mãi</a>
-						</li>
-						<li class="submenu-item"><a href="${contextPath}/admin/product/promotion/create.htm">Tạo mới khuyến mãi</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/promotion/list.htm">Danh
+								sách khuyến mãi</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/promotion/create.htm">Tạo
+								mới khuyến mãi</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -277,8 +283,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách bảo hành</a></li>
-						<li class="submenu-item"><a href="#">Tạo mới bảo hành</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/warranty/list.htm">Danh
+								sách bảo hành</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/warranty/new.htm">Tạo mới
+								bảo hành</a></li>
 					</ul>
 				</div>
 			</ul>

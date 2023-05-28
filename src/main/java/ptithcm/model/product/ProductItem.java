@@ -46,8 +46,7 @@ public class ProductItem {
 	private Collection<OrderLine> orderLines;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<ShoppingCartItem> cartItems;
-	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
-	private Collection<ProductConfigruation> productConfigruations;
+
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
 	private Collection<WarrantyDetail> warrantyDetails;
 	@OneToMany(mappedBy = "productItem", fetch = FetchType.LAZY)
@@ -72,8 +71,7 @@ public class ProductItem {
 
 	public ProductItem(int id, Product product, String SKU, int quantityInStock, String productImage, Integer price,
 			int warrantyTime, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
-			Collection<ProductConfigruation> productConfigruations, Collection<WarrantyDetail> warrantyDetails,
-			Collection<UpdatePriceProductItem> updatePriceProductItems,
+			Collection<WarrantyDetail> warrantyDetails, Collection<UpdatePriceProductItem> updatePriceProductItems,
 			Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
 		super();
 		this.product = product;
@@ -85,7 +83,6 @@ public class ProductItem {
 		this.warrantyTime = warrantyTime;
 		this.orderLines = orderLines;
 		this.cartItems = cartItems;
-		this.productConfigruations = productConfigruations;
 		this.warrantyDetails = warrantyDetails;
 		this.updatePriceProductItems = updatePriceProductItems;
 		this.inventoryReceivingDetails = inventoryReceivingDetails;
@@ -177,14 +174,6 @@ public class ProductItem {
 
 	public void setCartItems(Collection<ShoppingCartItem> cartItems) {
 		this.cartItems = cartItems;
-	}
-
-	public Collection<ProductConfigruation> getProductConfigruations() {
-		return productConfigruations;
-	}
-
-	public void setProductConfigruations(Collection<ProductConfigruation> productConfigruations) {
-		this.productConfigruations = productConfigruations;
 	}
 
 	public Collection<WarrantyDetail> getWarrantyDetails() {

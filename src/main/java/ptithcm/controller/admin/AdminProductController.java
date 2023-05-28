@@ -25,7 +25,9 @@ import ptithcm.dto.ProductDTO;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.product.Variation;
 import ptithcm.service.CategoryService;
+import ptithcm.service.VariationService;
 import ptithcm.service.admin.ProductAdminService;
 
 @Controller
@@ -44,6 +46,9 @@ public class AdminProductController {
 
 	@Autowired
 	ServletContext context;
+
+	@Autowired
+	VariationService variationService;
 
 	@RequestMapping(value = "new", method = RequestMethod.GET)
 	public String showFormCreateNewProduct(ModelMap modelMap) {
@@ -256,4 +261,5 @@ public class AdminProductController {
 		productService.deleteProductItemById(id);
 		return "redirect:/admin/product/edit/" + productId + ".htm";
 	}
+
 }

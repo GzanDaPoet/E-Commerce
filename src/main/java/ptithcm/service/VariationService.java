@@ -37,7 +37,12 @@ public class VariationService {
 	}
 
 	public void updateVariation(Variation variation) {
-		variationDao.updateById(variation);
+		Variation existingVariation = variationDao.getVariationById(variation.getId());
+		if (existingVariation != null) {
+			existingVariation.setCategory(variation.getCategory());
+			existingVariation.setName(variation.getName());
+			variationDao.updateById(existingVariation);
+		}
 	}
 
 	public boolean checkVariationExist(int variationId) {
@@ -48,5 +53,9 @@ public class VariationService {
 			}
 		}
 		return false;
+	}
+
+	public List<Variation> getListVariationByCategoryId(int categoryId) {
+		return variationDao.getListVariationByCategoryId(categoryId);
 	}
 }
