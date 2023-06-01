@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.model.customer.Customer;
+import ptithcm.model.customer.CustomerProfile;
 import ptithcm.model.pay.CustomerPaymentMethod;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
@@ -68,7 +69,7 @@ public class EcommerceController {
 			System.out.println(customer.getUserName());
 			return "redirect:/e-commerce/shop.htm";
 		}
-		return "redirect:/";
+		return "redirect:/e-commerce/login.htm";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
@@ -89,6 +90,7 @@ public class EcommerceController {
 			System.out.println(newCustomer.getUserName());
 			System.out.println(newCustomer.getPassword());
 			System.out.println(newCustomer.getEmail());
+			
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction t = session.beginTransaction();
 			try {
@@ -111,6 +113,7 @@ public class EcommerceController {
 			org.hibernate.Transaction tr = session1.beginTransaction();
 			try {
 				session1.save(newCPM);
+				//session1.save(newCTMProfile);
 				tr.commit();
 				model.addAttribute("message", "Thêm mới thành công! ");
 				System.out.println("done");

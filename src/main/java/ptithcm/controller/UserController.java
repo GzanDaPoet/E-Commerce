@@ -103,8 +103,7 @@ public class UserController {
 			model.addAttribute("selectedProvince", user.getUserProfile().getWard().getProvince().getId());
 			List<Province> listPros = addressService.listProvinces();
 			model.addAttribute("listPros", listPros);
-			List<District> listDicts = addressService
-					.listDistricts(user.getUserProfile().getWard().getProvince().getId());
+			List<District> listDicts = addressService.listDistricts(user.getUserProfile().getWard().getProvince().getId());
 			model.addAttribute("listDicts", listDicts);
 			List<Ward> listWards = addressService.listWards(user.getUserProfile().getWard().getDistrict().getId());
 			model.addAttribute("listWards", listWards);
@@ -187,6 +186,7 @@ public class UserController {
 			newUserProfile.setWard(addressService.getWard(wardId));
 			newUserProfile.setCreateAt(sqlDate);
 			user.setEmail(email);
+			user.setUserProfile(newUserProfile);
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction t = session.beginTransaction();
 			try {
