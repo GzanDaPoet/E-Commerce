@@ -14,6 +14,6 @@ public interface ManageOrderDao {
 
 	ShopOrder getShopOrderById(int orderId);
 
-	List<OrderDelivery> getListOfOrderShipping();
+	List<OrderDelivery> getListOfOrderShipping(int userId);
 
 }

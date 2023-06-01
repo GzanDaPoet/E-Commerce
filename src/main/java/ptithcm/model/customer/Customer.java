@@ -58,13 +58,6 @@ public class Customer {
 		this.customerProfile = customerProfile;
 	}
 
-	public CustomerProfile getCustomerProfile() {
-		return customerProfile;
-	}
-
-	public void setCustomerProfile(CustomerProfile customerProfile) {
-		this.customerProfile = customerProfile;
-	}
 
 	public Integer getId() {
 		return id;

@@ -14,4 +14,5 @@ public interface ShoppingCartDao {
 	public int deleteCartItem(int idCartItem);
 	public int increaseQty( int shoppingCartItemId); 
 	public int decreaseQty( int shoppingCartItemId);	
+	public Integer checkExistCart(int ctmId);
 }
