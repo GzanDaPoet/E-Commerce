@@ -21,6 +21,8 @@
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
+	href="<c:url value='/common/assets/css/ecommerce/product/shop.css'/>">
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -41,11 +43,6 @@
 										<a href="product/${u.getId()}.htm">
 											${u.getProduct().getName()}</a>
 									</h4>
-									<span class="fa fa-star checked"></span> 
-									<span class="fa fa-star checked"> </span> 
-									<span class="fa fa-star checked"></span> 
-									<span class="fa fa-star"></span>
-									<span class="fa fa-star"></span>
 									<p class="card-text">Giá: ${u.getPrice()} VND</p>
 								</div>
 							</div>

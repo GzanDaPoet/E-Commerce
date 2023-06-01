@@ -34,7 +34,7 @@
 		<main class="content">
 			<div class="list-header">
 				<div class="header-breadcrumb">
-					<h3 class="heading">Chi tết sản phẩm</h3>
+					<h3 class="heading">Chi tiết sản phẩm</h3>
 					<nav aria-label="breadcrumb">
 						<ul class="breadcrumb">
 							<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -84,13 +84,6 @@
 							document.querySelector('.priceProduct').textContent = formattedPrice
 									+ " VND";
 						</script>
-						<div class="mb-3">
-							<span class="mr-2">Đánh giá</span> <span
-								class="fa fa-star checked"></span> <span
-								class="fa fa-star checked"></span> <span
-								class="fa fa-star checked"></span> <span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
-						</div>
 						<form:form action="${product.getId()}.htm"
 							modelAttribute="shoppingCartItem">
 							<div class="mb-3">
@@ -218,15 +211,15 @@
 				      <div class="right-col">
 				        <div class="mb-3">
 				        	<div class="stars">
-										<c:forEach var="i" begin="1" end="5">
-											<c:if test="${i <= comment.ratingValue}">
-												<i class="fas fa-star active"></i>
-											</c:if>
-											<c:if test="${i > comment.ratingValue}">
-												<i class="fas fa-star"></i>
-											</c:if>
-										</c:forEach>
-									</div>
+								<c:forEach var="i" begin="1" end="5">
+									<c:if test="${i <= comment.ratingValue}">
+										<i class="fas fa-star active"></i>
+									</c:if>
+									<c:if test="${i > comment.ratingValue}">
+										<i class="fas fa-star"></i>
+									</c:if>
+								</c:forEach>
+							</div>
 				          <p class="comment-text">${comment.getComment()}</p>
 				        </div>
 				      </div>

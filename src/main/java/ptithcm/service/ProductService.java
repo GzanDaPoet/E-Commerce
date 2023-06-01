@@ -60,6 +60,7 @@ public class ProductService {
 	public Double getRatingAverageProduct(int id) {
 		Double value = productDao.getRatingAverageProduct(id);
 		if (value != null) {
+			System.out.println("Value: " + value);
 			return value;
 		}
 		return null;

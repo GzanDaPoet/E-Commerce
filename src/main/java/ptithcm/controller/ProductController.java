@@ -103,6 +103,13 @@ public class ProductController {
 		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		}
+		
+//		double averageRating = 0; 
+//		if (productService.getRatingAverageProduct(productId) == null) {
+//			averageRating = productService.getRatingAverageProduct(productId);
+//			model.addAttribute("averageRating", averageRating);
+//		};
+		
 		ProductItem product = productService.getProductById(productId);
 		Boolean onSale = false;
 		if (product.getStatus().equals("ON_SALE")) {
