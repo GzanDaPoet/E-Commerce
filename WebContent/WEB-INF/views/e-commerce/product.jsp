@@ -217,15 +217,16 @@
 				      </div>
 				      <div class="right-col">
 				        <div class="mb-3">
-				        <% int value = comment.ratingValue %>
-				          <%
-				            for (int i = 1; i <= comment.getRatingValue(); i++) {
-				              %><span class="fa fa-star"></span><%
-				            }
-				            for (int i = comment.getRatingValue() + 1; i <= 5; i++) {
-				              %><span class="fa fa-star" style="color:gray;"></span><%
-				            }
-				          %>
+				        	<div class="stars">
+										<c:forEach var="i" begin="1" end="5">
+											<c:if test="${i <= comment.ratingValue}">
+												<i class="fas fa-star active"></i>
+											</c:if>
+											<c:if test="${i > comment.ratingValue}">
+												<i class="fas fa-star"></i>
+											</c:if>
+										</c:forEach>
+									</div>
 				          <p class="comment-text">${comment.getComment()}</p>
 				        </div>
 				      </div>
