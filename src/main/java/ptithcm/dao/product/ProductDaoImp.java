@@ -172,7 +172,7 @@ public class ProductDaoImp implements ProductDao {
 	@Override
 	public OrderLine isBoughtByCustomer(int customerId, int productItemId) {
 		Session session = factory.getCurrentSession();
-		String hql = "select SO from ShopOrder SO, OrderLine OL, CustomerAddress CA where SO.id = OL.shopOrder.id and SO.customerAddress.id = CA.id and SO.orderStatus.id = 2 and OL.productItem.id = :productItemId and CA.customer.id = :customerId";
+		String hql = "select SO from ShopOrder SO, OrderLine OL, CustomerAddress CA where SO.id = OL.shopOrder.id and SO.customerAddress.id = CA.id and SO.orderStatus.id = 3 and OL.productItem.id = :productItemId and CA.customer.id = :customerId";
 		Query query = session.createQuery(hql);
 		query.setParameter("productItemId", productItemId);
 		query.setParameter("customerId", customerId);

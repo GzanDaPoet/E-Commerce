@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
@@ -29,7 +31,24 @@
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
+		<main class="content">
+			<div class="list-header">
+				<div class="header-breadcrumb">
+					<h3 class="heading">Chi tết sản phẩm</h3>
+					<nav aria-label="breadcrumb">
+						<ul class="breadcrumb">
+							<li class="breadcrumb-item"><a class="breadcrumb__link"
+								href="#">E-Commerce</a></li>
+							<li class="breadcrumb__divider"></li>
+							<li class="breadcrumb__item"><a class="breadcrumb__link"
+								href="${contextPath}/e-commerce/shop.htm">Shop
+									</a></li>
+							<li class="breadcrumb__divider"></li>
+							<li class="breadcrumb__item">Chi tiết sản phẩm</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
 			<div class="container-fluid">
 				<div class="header-product">
 					<div class="product-image">
@@ -40,12 +59,18 @@
 					<div class="info-product">
 						<h1 class="productName">${product.getProduct().getName()}</h1>
 						<c:if test="${!onSale}">
-							<p class="priceProduct" style="color: #FF0000; font-weight: bold;">Giá: ${product.getPrice()} VND</p>
+							<p class="priceProduct"
+								style="color: #FF0000; font-weight: bold;">Giá:
+								${product.getPrice()} VND</p>
 						</c:if>
-						
+
 						<c:if test="${onSale}">
-							<p class="priceProduct-strike-through" style="font-weight: bold; text-decoration: line-through;text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px; ">Giá: ${product.getPrice()} VND</p>
-							<p class="salePrice" style="color: #FF0000; font-weight: bold; margin-top: 10px;">Giá: ${salePrice} VND</p>
+							<p class="priceProduct-strike-through"
+								style="font-weight: bold; text-decoration: line-through; text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px;">Giá:
+								${product.getPrice()} VND</p>
+							<p class="salePrice"
+								style="color: #FF0000; font-weight: bold; margin-top: 10px;">Giá:
+								${salePrice} VND</p>
 						</c:if>
 						<script>
 							var money = $
@@ -132,20 +157,61 @@
 						đem lại trải nghiệm vượt quá kỳ vọng của bạn.</p>
 				</div>
 				<hr />
+				<form:form action="${product.getId()}.htm">
+					<label> Đánh giá sản phẩm    </label>
+				
+					<button name="ratingProduct" type="submit" style="border: none">
+						
+					</button>
+				 </form:form>
+
 				<c:if test="${isBought}">
 					<form:form action="${product.getId()}.htm"
 						modelAttribute="CustomerReview">
-						<div class="title_comment">Bình luận</div>
-						<label for="comment-input">Nhập comment</label>
+						<div>
+						  <input type="hidden" name="ratingValue" id="ratingValue" value=""/>
+						  <div class="div_start">
+						    <div class="stars">
+						      <i class="fas fa-star"></i>
+						      <i class="fas fa-star"></i>
+						      <i class="fas fa-star"></i>
+						      <i class="fas fa-star"></i>
+						      <i class="fas fa-star"></i>
+						    </div>
+						  </div>
+						</div>
+
+						<script>
+						  const ratingInput = document.getElementById('ratingValue');
+						  const stars = document.querySelectorAll('.stars i');
+						
+						  stars.forEach((star, index) => {
+						    star.addEventListener('click', () => {
+						      stars.forEach((star, i) => {
+						        if (i <= index) {
+						          star.classList.add('active');
+						        } else {
+						          star.classList.remove('active');
+						        }
+						      });
+						      const rating = index + 1;
+						      ratingInput.value = rating; // Gán giá trị rating vào trường ẩn
+						    });
+						  });
+						</script>
 						<textarea id="comment-input" name="commentInput" rows="5"> </textarea>
+						
 						<div class="btn_submit_comment">
 							<button name="addComment" type="submit" class="btn_comment">
 								Bình luận</button>
 						</div>
+						
 					</form:form>
+					
+		
+					
 				</c:if>
 				<div class="box-comments">
-
 					<c:forEach var="c" items="${comments}">
 						<div class="comment-container">
 							<div class="left-col">
@@ -169,7 +235,7 @@
 
 				</div>
 			</div>
-		</div>
+		</main>
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>

@@ -68,6 +68,7 @@
 							<thead>
 								<tr>
 									<th class="th-header"><span>Mã</span></th>
+									<th class="th-header"><span>Tên người nhận</span></th>
 									<th class="th-header"><span>Địa chỉ</span></th>
 									<th class="th-header"><span>Số điện thoại</span></th>
 									<th class="th-header"><span>Tổng tiền</span></th>
@@ -78,6 +79,7 @@
 								<c:forEach items="${orderDeliveryDTOList}" var="element">
 									<tr>
 										<td class="td-body">${element.getId()}</td>
+										<td class="td-body">${element.getCustomerName()}</td>
 										<td class="td-body">${element.getCustomerAddress()}</td>
 										<td class="td-body">${element.getPhoneNumber()}</td>
 										<td class="td-body">${element.getTotalMoney()}</td>

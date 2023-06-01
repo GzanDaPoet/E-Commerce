@@ -26,16 +26,8 @@ public class ShoppingCartService {
 	}
 	
 	
-	public int isHaveCart(int customerId) {
-		if (getAllShoppingCart().size() != 0)
-		{
-			for (ShoppingCart s: getAllShoppingCart()) {
-				if (s.getCustomer().getId() == customerId) {
-					return s.getId();
-				}
-			}
-		}
-		return 0;
+	public int checkExistCartId(int customerId) {
+		return shoppingCartDao.checkExistCart(customerId);
 	}
 	
 	public ShoppingCart getShoppingCart(int cartId, int customerId) {

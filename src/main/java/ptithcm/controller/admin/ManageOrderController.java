@@ -26,6 +26,7 @@ import ptithcm.model.order.OrderLine;
 import ptithcm.model.order.OrderStatus;
 import ptithcm.model.shop.ShopOrder;
 import ptithcm.model.user.User;
+import ptithcm.service.CustomerService;
 import ptithcm.service.ManageOrderService;
 import ptithcm.service.OrderDeliveryService;
 import ptithcm.service.UserService;
@@ -46,6 +47,9 @@ public class ManageOrderController {
 	@Autowired
 	OrderDeliveryService orderDeliveryService;
 	
+	@Autowired
+	CustomerService customerService;
+	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String showOrderedList(ModelMap model) {
 		List<CustomerOrderDTO> customerOrderList = manageOrderService.getOderCustomerDTOList();
@@ -53,6 +57,29 @@ public class ManageOrderController {
 		model.addAttribute("shipperList", shipperList);
 		model.addAttribute("listOrdered", customerOrderList);
 		return "admin/manage-ordered/list";
+	}
+	
+	
+	@RequestMapping(value = "list/{id}", method = RequestMethod.GET) 
+	public String orderDetail(ModelMap model, @PathVariable Integer id) {
+		List<OrderLine> listLines = customerService.getLines(id);
+		model.addAttribute("listLines",listLines);
+		ShopOrder shopOrder = customerService.getShopOrderById(id);
+		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+		model.addAttribute("address",address);
+		System.out.println(shopOrder.getOrderStatus().getStatus());
+		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
+			model.addAttribute("test", true);
+		}
+		else {
+			model.addAttribute("test", false);
+		}
+		model.addAttribute("sum", shopOrder.getOrderTotal());
+		model.addAttribute("id",id );
+		return "admin/manage-ordered/detail";
 	}
 	
 	@RequestMapping(value="list/confirmed/{orderId}")
@@ -79,13 +106,16 @@ public class ManageOrderController {
 		OrderStatus orderStatus = new OrderStatus();
 		orderStatus.setId(2);
 		shopOrder.setOrderStatus(orderStatus);
-		boolean ok = false;
+		String address = "";
 		if (shopOrder.getAddressDelivery() == null) {
-			ok = true;
+			address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
+					+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
+					+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
+					+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+			shopOrder.setAddressDelivery(address);
 		}
-		shopOrder.setAddressDelivery("Co dia chi");
+		else shopOrder.setAddressDelivery(shopOrder.getAddressDelivery());
 		Session session = sessionFactory.openSession();
-		
 		Transaction t = session.beginTransaction();
 		if (shopOrder != null) {
 			try {

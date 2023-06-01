@@ -45,6 +45,7 @@
 									<th class="th-header"><span>Ngày đặt</span></th>
 									<th class="th-header"><span></span></th>
 									<th class="th-header"><span></span></th>
+									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -60,8 +61,8 @@
 												<select name="userId" id="userId" class="select"
 													aria-invalid="false" onchange="submitForm()">
 													<option value="">Giao hàng cho</option>
-													<c:forEach items="${shipperList}" var="element">
-														<option value="${element.getId()}"> ${element.getUserProfile().getName()}</option>
+													<c:forEach items="${shipperList}" var="shipper">
+														<option value="${shipper.getId()}"> ${shipper.getUserProfile().getName()}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -69,7 +70,17 @@
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
-												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
+												<form action="list/cancel/${element.getOrderId()}.htm " method="post">
+													<input type="hidden" name="productId"
+														value="${shoppingCart.get(i).getId()}">
+													<button type="submit" class="btn--delete">Hủy đơn</button>
+												</form>
+											</div>
+
+										</td>
+										<td class="td-body">
+											<div class="group-btn">
+												<a href="${contextPath}/admin/manage-ordered/list/${element.getOrderId()}.htm">
 													<button class="btn--add">
 														<span>Chi tiết</span>
 													</button>

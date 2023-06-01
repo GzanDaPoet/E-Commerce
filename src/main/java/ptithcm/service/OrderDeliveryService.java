@@ -21,9 +21,8 @@ public class OrderDeliveryService {
 	
 	
 	
-	public List<OrderDeliveryDTO> orderDeliveryDTOList() {
-		
-		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping();
+	public List<OrderDeliveryDTO> orderDeliveryDTOList(int userId) {
+		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping(userId);
 		System.out.println("List shipping: " + listOrderForShipping.size());
 		List<OrderDeliveryDTO> orderDeliveryList = new ArrayList<>();
 		if (listOrderForShipping.size() > 0) {
@@ -37,11 +36,18 @@ public class OrderDeliveryService {
 				orderDeliveryDTO.setListOrderDelivery(orderItemList);
 				orderDeliveryDTO.setOrderId(orderDelivery.getShopOrder().getId());
 				ShopOrder shopOrder = orderDelivery.getShopOrder();
-				String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
-						+ shopOrder.getCustomerAddress().getAddress().getWard() + ", "
-						+ shopOrder.getCustomerAddress().getAddress().getDistrict() + ", "
-						+ shopOrder.getCustomerAddress().getAddress().getCity();
-				orderDeliveryDTO.setCustomerAddress(address); 
+				String address = "";
+				if (shopOrder.getAddressDelivery() == null) {
+					address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
+							+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
+							+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
+							+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+					orderDeliveryDTO.setCustomerAddress(address); 
+				}
+				else {
+					orderDeliveryDTO.setCustomerAddress(shopOrder.getAddressDelivery());
+				}
+				
 				String customerName = shopOrder.getCustomerAddress().getCustomer().getCustomerProfile().getName();
 				String phoneNumber = shopOrder.getCustomerAddress().getCustomer().getCustomerProfile().getPhoneNumber();
 				orderDeliveryDTO.setCustomerName(customerName);
@@ -55,8 +61,8 @@ public class OrderDeliveryService {
 		return null;
 	}
 	
-	public OrderDeliveryDTO getOrderDeliveryDTOById(int id) {
-		for (OrderDeliveryDTO orderDeliveryDTO: orderDeliveryDTOList()) {
+	public OrderDeliveryDTO getOrderDeliveryDTOById(int id, int userId) {
+		for (OrderDeliveryDTO orderDeliveryDTO: orderDeliveryDTOList(userId)) {
 			if (orderDeliveryDTO.getId() == id) {
 				return orderDeliveryDTO;
 			}
@@ -64,8 +70,8 @@ public class OrderDeliveryService {
 		return null;
 	}
 	
-	public OrderDelivery getOrderDeliveryById(int orderId) {
-		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping();
+	public OrderDelivery getOrderDeliveryById(int orderId, int userId) {
+		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping(userId);
 		for (OrderDelivery orderDelivery: listOrderForShipping) {
 			if (orderDelivery.getId() == orderId) {
 				return orderDelivery;

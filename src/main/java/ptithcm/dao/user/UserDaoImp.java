@@ -72,7 +72,7 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public List<User> getAllShipper() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM User U where U.userPermission.id = 10";
+		String hql = "FROM User U where U.userPermission.id = 6";
 		Query query = session.createQuery(hql);
 		List<User> list = query.list();
 		return list;
