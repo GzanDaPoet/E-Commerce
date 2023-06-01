@@ -1,3 +1,4 @@
+<%@page import="javax.xml.stream.events.Comment"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -41,8 +42,7 @@
 								href="#">E-Commerce</a></li>
 							<li class="breadcrumb__divider"></li>
 							<li class="breadcrumb__item"><a class="breadcrumb__link"
-								href="${contextPath}/e-commerce/shop.htm">Shop
-									</a></li>
+								href="${contextPath}/e-commerce/shop.htm">Shop </a></li>
 							<li class="breadcrumb__divider"></li>
 							<li class="breadcrumb__item">Chi tiết sản phẩm</li>
 						</ul>
@@ -158,27 +158,25 @@
 				</div>
 				<hr />
 				<form:form action="${product.getId()}.htm">
-					<label> Đánh giá sản phẩm    </label>
-				
+					<label> Đánh giá sản phẩm </label>
+
 					<button name="ratingProduct" type="submit" style="border: none">
-						
+
 					</button>
-				 </form:form>
+				</form:form>
 
 				<c:if test="${isBought}">
 					<form:form action="${product.getId()}.htm"
 						modelAttribute="CustomerReview">
 						<div>
-						  <input type="hidden" name="ratingValue" id="ratingValue" value=""/>
-						  <div class="div_start">
-						    <div class="stars">
-						      <i class="fas fa-star"></i>
-						      <i class="fas fa-star"></i>
-						      <i class="fas fa-star"></i>
-						      <i class="fas fa-star"></i>
-						      <i class="fas fa-star"></i>
-						    </div>
-						  </div>
+							<input type="hidden" name="ratingValue" id="ratingValue" value="" />
+							<div class="div_start">
+								<div class="stars">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
 						</div>
 
 						<script>
@@ -200,7 +198,7 @@
 						  });
 						</script>
 						<textarea id="comment-input" name="commentInput" rows="5"> </textarea>
-						
+
 						<div class="btn_submit_comment">
 							<button name="addComment" type="submit" class="btn_comment">
 								Bình luận</button>
@@ -209,29 +207,32 @@
 				</c:if>
 				<c:set var="commentList" value="${comments}" />
 				<div class="box-comments">
-				  <c:forEach var="comment" items="${commentList}">
-				    <div class="comment-container">
-				      <div class="left-col">
-				        <img src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg" alt="Avatar" class="avatar">
-				        <h4 class="username">${comment.getCustomer().getUserName()}</h4>
-				      </div>
-				      <div class="right-col">
-				        <div class="mb-3">
-				        <% int value = comment.ratingValue %>
-				          <%
-				            for (int i = 1; i <= comment.getRatingValue(); i++) {
-				              %><span class="fa fa-star"></span><%
-				            }
-				            for (int i = comment.getRatingValue() + 1; i <= 5; i++) {
-				              %><span class="fa fa-star" style="color:gray;"></span><%
-				            }
-				          %>
-				          <p class="comment-text">${comment.getComment()}</p>
-				        </div>
-				      </div>
-				    </div>
-				    <hr />
-				  </c:forEach>
+					<c:forEach var="comment" items="${commentList}">
+						<div class="comment-container">
+							<div class="left-col">
+								<img
+									src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
+									alt="Avatar" class="avatar">
+								<h4 class="username">${comment.getCustomer().getUserName()}</h4>
+							</div>
+							<div class="right-col">
+								<div class="mb-3">
+									<div class="stars">
+										<c:forEach var="i" begin="1" end="5">
+											<c:if test="${i <= comment.ratingValue}">
+												<i class="fas fa-star active"></i>
+											</c:if>
+											<c:if test="${i > comment.ratingValue}">
+												<i class="fas fa-star"></i>
+											</c:if>
+										</c:forEach>
+									</div>
+									<p class="comment-text">${comment.getComment()}</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+					</c:forEach>
 				</div>
 
 			</div>
