@@ -29,24 +29,22 @@
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
 		<div class="content">
-			<div class="container mt-4">
+			<div class="content-container">
 				<div class="row">
 					<c:forEach var="u" items="${listProduct}">
 						<div class="col-sm-3">
 							<div class="card">
-								<img class="card-img-top" src="${u.getProductImage()}"
-									alt="Shoe">
+								<img class="card-img-top" src="${u.productImage}" alt="Shoe">
 								<div class="card-body">
 									<h4 class="card-title">
-										<a href="product/${u.getId()}.htm">
-											${u.getProduct().getName()}</a>
+										<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">
+											${u.name}</a>
 									</h4>
-									<span class="fa fa-star checked"></span> 
-									<span class="fa fa-star checked"> </span> 
-									<span class="fa fa-star checked"></span> 
+									<span class="fa fa-star checked"></span> <span
+										class="fa fa-star checked"> </span> <span
+										class="fa fa-star checked"></span> <span class="fa fa-star"></span>
 									<span class="fa fa-star"></span>
-									<span class="fa fa-star"></span>
-									<p class="card-text">Giá: ${u.getPrice()} VND</p>
+									<p class="card-text">Giá: ${u.defaultPrice}VND</p>
 								</div>
 							</div>
 						</div>
