@@ -99,4 +99,25 @@ public class Customer {
 		this.password = password;
 	}
 
+<<<<<<< Updated upstream
+=======
+	public Collection<CustomerAddress> getCustomerAddresses() {
+		return customerAddresses;
+	}
+
+	public void setCustomerAddresses(Collection<CustomerAddress> customerAddresses) {
+		this.customerAddresses = customerAddresses;
+	}
+
+
+
+	public Collection<CustomerPaymentMethod> getCustomerPaymentMethods() {
+		return customerPaymentMethods;
+	}
+
+	public void setCustomerPaymentMethods(Collection<CustomerPaymentMethod> customerPaymentMethods) {
+		this.customerPaymentMethods = customerPaymentMethods;
+	}
+
+>>>>>>> Stashed changes
 }

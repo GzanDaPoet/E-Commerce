@@ -112,7 +112,7 @@
 								<span><i class="fa-solid fa-id-card-clip"></i></span>
 							</div>
 							<div class="label">
-								<span>Quản lý người dùng</span>
+								<span>Quản lý Nhân viên</span>
 							</div>
 							<div class="icon">
 								<span><i class="fa-solid fa-angle-down"></i></span>
