@@ -152,8 +152,12 @@ public class ProductController {
 		}
 		System.out.println("is bought: " + isBought);
 		List<CustomerReview> comments = productService.getAllCommentsById(productId);
+		
 		if (comments != null) {
 			Collections.reverse(comments);
+			for (CustomerReview customerReview: comments) {
+				model.addAttribute("ratingValue", customerReview.getRatingValue());
+			}
 			model.addAttribute("comments", comments);
 		}
 		model.addAttribute("isBought", isBought);

@@ -205,35 +205,35 @@
 							<button name="addComment" type="submit" class="btn_comment">
 								Bình luận</button>
 						</div>
-						
 					</form:form>
-					
-		
-					
 				</c:if>
+				<c:set var="commentList" value="${comments}" />
 				<div class="box-comments">
-					<c:forEach var="c" items="${comments}">
-						<div class="comment-container">
-							<div class="left-col">
-								<img
-									src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
-									alt="Avatar" class="avatar">
-								<h4 class="username">${c.getCustomer().getUserName()}</h4>
-							</div>
-							<div class="right-col">
-								<div class="mb-3">
-									<span class="fa fa-star checked"></span> <span
-										class="fa fa-star checked"></span> <span
-										class="fa fa-star checked"></span> <span class="fa fa-star">
-									</span> <span class="fa fa-star"></span>
-									<p class="comment-text">${c.getComment()}</p>
-								</div>
-							</div>
-						</div>
-						<hr />
-					</c:forEach>
-
+				  <c:forEach var="comment" items="${commentList}">
+				    <div class="comment-container">
+				      <div class="left-col">
+				        <img src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg" alt="Avatar" class="avatar">
+				        <h4 class="username">${comment.getCustomer().getUserName()}</h4>
+				      </div>
+				      <div class="right-col">
+				        <div class="mb-3">
+				        <% int value = comment.ratingValue %>
+				          <%
+				            for (int i = 1; i <= comment.getRatingValue(); i++) {
+				              %><span class="fa fa-star"></span><%
+				            }
+				            for (int i = comment.getRatingValue() + 1; i <= 5; i++) {
+				              %><span class="fa fa-star" style="color:gray;"></span><%
+				            }
+				          %>
+				          <p class="comment-text">${comment.getComment()}</p>
+				        </div>
+				      </div>
+				    </div>
+				    <hr />
+				  </c:forEach>
 				</div>
+
 			</div>
 		</main>
 	</div>

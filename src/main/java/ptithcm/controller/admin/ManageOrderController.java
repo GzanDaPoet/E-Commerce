@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
-import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.dto.CustomerOrderDTO;
-import ptithcm.dto.OrderDeliveryDTO;
 import ptithcm.model.order.DeliveryStatus;
 import ptithcm.model.order.OrderDelivery;
 import ptithcm.model.order.OrderLine;
@@ -30,7 +28,6 @@ import ptithcm.service.CustomerService;
 import ptithcm.service.ManageOrderService;
 import ptithcm.service.OrderDeliveryService;
 import ptithcm.service.UserService;
-import ptithcm.util.SessionUtil;
 
 @Transactional
 @Controller
