@@ -16,29 +16,29 @@ import ptithcm.model.promotion.PromotionCategory;
 @Entity
 @Table(name = "Product_Category")
 public class ProductCategory {
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Integer id;
+
 	@Column(name = "parent_category_id")
 	private Integer parentCategoryId;
+
 	@Column(name = "category_name")
 	private String categoryName;
-	
-	@OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<Product> products;
 
-	@OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<PromotionCategory> promotionCategories;
-	
-	@OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
+
+	@OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
 	private Collection<Variation> variations;
-	
-	
+
 	public ProductCategory() {
 		super();
 	}
-
 
 	public ProductCategory(Integer id, Integer parentCategoryId, String categoryName, Collection<Product> products,
 			Collection<PromotionCategory> promotionCategories, Collection<Variation> variations) {
@@ -51,65 +51,52 @@ public class ProductCategory {
 		this.variations = variations;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
 	public Integer getParentCategoryId() {
 		return parentCategoryId;
 	}
-
 
 	public void setParentCategoryId(Integer parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
 
-
 	public String getCategoryName() {
 		return categoryName;
 	}
-
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 
-
 	public Collection<Product> getProducts() {
 		return products;
 	}
-
 
 	public void setProducts(Collection<Product> products) {
 		this.products = products;
 	}
 
-
 	public Collection<PromotionCategory> getPromotionCategories() {
 		return promotionCategories;
 	}
-
 
 	public void setPromotionCategories(Collection<PromotionCategory> promotionCategories) {
 		this.promotionCategories = promotionCategories;
 	}
 
-
 	public Collection<Variation> getVariations() {
 		return variations;
 	}
-
 
 	public void setVariations(Collection<Variation> variations) {
 		this.variations = variations;
 	}
 
-	
 }

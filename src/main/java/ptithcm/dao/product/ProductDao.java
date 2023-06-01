@@ -12,7 +12,8 @@ public interface ProductDao {
 	public List<ProductItem> getAllProducts();
 
 	public ProductItem getProductById(int id);
-	public int updateQty(int Id, int qty); 
+
+	public int updateQty(int Id, int qty);
 
 	public Integer getOrderID(int id);
 
@@ -21,9 +22,17 @@ public interface ProductDao {
 	public Double getRatingAverageProduct(int productId);
 
 	public OrderLine getOrderLineById(int id);
+
 	public void deleteProductItem(int id);
+
 	public List<ProductItem> searchProductItem(String name);
+
 	public List<Product> getAllProductByCateId(int categoryId);
+
 	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity);
+
 	public List<ProductItem> listPaginatedProductCategory(int firstResult, int maxResults, String search);
+	
+	public OrderLine isBoughtByCustomer(int customerId, int productItemId);
+	
 }

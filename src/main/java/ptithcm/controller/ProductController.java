@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.midi.Soundbank;
-import javax.swing.event.ListDataListener;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerReview;
+import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
@@ -104,19 +103,22 @@ public class ProductController {
 		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		}
-		System.out.println("ID customer: " + id);
 		ProductItem product = productService.getProductById(productId);
-		System.out.println("Status: " + product.getStatus());
+		Boolean onSale = false;
 		if (product.getStatus().equals("ON_SALE")) {
 			int salePrice = product.getPrice() * (100 - promotionService.getPriceDiscount(productId)) / 100;
 			model.addAttribute("salePrice" , salePrice);
+			onSale = true;
 		}
+		model.addAttribute("onSale", onSale);
+		
 		int quantityOrdered = 0;
 		int cartId = 0;
 		if (id > 0) {
 			Customer customer = customerService.getCustomerById(id);
-			if (shoppingCartService.getAllCartItemsById(id).size() == 0) {
+			if (shoppingCartService.checkExistCartId(id)  == 0) {
 				System.out.println("Them gio hang cho khach hang");
+				System.out.println("Customer id: " + id);
 				ShoppingCart shoppingCart = new ShoppingCart();
 				shoppingCart.setCustomer(customer);
 				Session session = sessionFactory.openSession();
@@ -133,18 +135,28 @@ public class ProductController {
 				}
 
 			} else {
-				cartId = shoppingCartService.getAllCartItemsById(id).size();
+				cartId = shoppingCartService.checkExistCartId(id);
 			}
 			if (cartId > 0) {
 				quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
 				model.addAttribute("quantityOrdered", quantityOrdered);
 			}
 		}
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
+		boolean isBought;
+		if (orderLine == null) {
+			isBought = false;
+		}
+		else {
+			isBought = true;
+		}
+		System.out.println("is bought: " + isBought);
 		List<CustomerReview> comments = productService.getAllCommentsById(productId);
 		if (comments != null) {
 			Collections.reverse(comments);
 			model.addAttribute("comments", comments);
 		}
+		model.addAttribute("isBought", isBought);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		model.addAttribute("product", product);
 		return "e-commerce/product";
@@ -162,7 +174,7 @@ public class ProductController {
 			ProductItem product = productService.getProductById(productId);
 			model.addAttribute("product", product);
 			Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
-			int cartId = shoppingCartService.isHaveCart(id);
+			int cartId = shoppingCartService.checkExistCartId(id);
 			int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
 			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
 			shoppingCartItem.setProductItem(product);
@@ -181,6 +193,37 @@ public class ProductController {
 		return "e-commerce/product";
 	}
 
+	
+	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "buyNow")
+	public String buyNow(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request) {
+		int id = 0;
+		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
+			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		}
+		int quantityOrdered = 0;
+		if (id > 0) {
+			ProductItem product = productService.getProductById(productId);
+			model.addAttribute("product", product);
+			Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
+			int cartId = shoppingCartService.checkExistCartId(id);
+			int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
+			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+			shoppingCartItem.setProductItem(product);
+			productService.addToCart(shoppingCartItem, cartId, id, bonusQuantity, quantity);
+			quantityOrdered = shoppingCartService.getTotalQuantityOrdered(id);
+			model.addAttribute("quantityOrdered", quantityOrdered);
+		}
+		else {
+			return "redirect:/e-commerce/login.htm";
+		}
+		List<CustomerReview> comments = productService.getAllCommentsById(productId);
+		if (comments != null) {
+			model.addAttribute("comments", comments);
+		}
+		
+		return "redirect:/e-commerce/cart.htm";
+	}
+	
 	@RequestMapping(value = "product/{productId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
@@ -188,22 +231,27 @@ public class ProductController {
 		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
 		}
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
 		if (id > 0) {
+			System.out.println("Come here");
 			Customer customer = customerService.getCustomerById(id);
 			customerReview.setCustomer(customer);
 			String comment = request.getParameter("commentInput").trim();
 			customerReview.setComment(comment);
-			customerReview.setOrderLine(productService.getOrderLinebyId(productId));
-			customerReview.setRatingValue(5);
+			customerReview.setOrderLine(orderLine);
+			String ratingValueString = request.getParameter("ratingValue");
+			customerReview.setRatingValue(Integer.valueOf(Integer.valueOf(ratingValueString)));
 			Session session = sessionFactory.openSession();
 			Transaction t = session.beginTransaction();
 			if (customerReview.getComment() != "") {
 				try {
 					session.save(customerReview);
 					t.commit();
+					System.out.println("Binh luan thanh cong");
 					model.addAttribute("message", "Success");
 				} catch (Exception e) {
 					t.rollback();
+					System.out.println("Binh luan that bai: " + e.toString());
 					model.addAttribute("message", "Fail");
 				} finally {
 					session.close();
@@ -216,6 +264,8 @@ public class ProductController {
 		return product(request, model, productId);
 	}
 
+	
+	
 	@RequestMapping(value = "list/delete/{productId}")
 	public String deleteProduct(@PathVariable int productId) {
 		productService.deleteProductItem(productId);

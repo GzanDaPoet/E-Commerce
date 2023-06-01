@@ -197,6 +197,21 @@ public class ProductAdminDaoImpl implements ProductAdminDao {
 	}
 
 	@Override
+	public void deleteProductItemById(int productItemId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "DELETE FROM ProductItem WHERE id = :itemId";
+		Query query = session.createQuery(hql);
+		query.setParameter("itemId", productItemId);
+		int deletedCount = query.executeUpdate();
+		if (deletedCount > 0) {
+			System.out.println("Product item deletion successful!");
+		} else {
+			System.out.println("Product item not found!");
+		}
+
+	}
+
+	@Override
 	public ProductItem getProductItemById(int productItemId) {
 		Session session = sessionFactory.getCurrentSession();
 		return (ProductItem) session.get(ProductItem.class, productItemId);

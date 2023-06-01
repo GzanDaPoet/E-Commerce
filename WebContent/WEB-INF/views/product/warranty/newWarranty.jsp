@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin | Edit Variation Option</title>
+<title>Admin | New Warranty</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -30,7 +30,7 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Chỉnh sửa giá trị thuộc tính</h3>
+						<h3 class="heading">Tạo thuộc tính mới</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
@@ -38,47 +38,40 @@
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Giá
-										trị thuộc tính</a></li>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Bảo
+										hành </a></li>
 								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Chỉnh sửa</li>
+								<li class="breadcrumb__item">Tạo mới</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
-				<form action="${currentVariationOption.id }.htm" method="POST">
+				<form action="new.htm" method="POST">
 					<div class="input-group">
-						<input type="text" required="required" id="variationOptionId"
-							value="${currentVariationOption.id}" name="variationOptionId"
-							aria-labelledby="variationOptionId" style="display: none;"}>
 						<div class="input-container">
-							<input type="text" required="required" id="variationOptionName"
-								value="${currentVariationOption.variationOptionValue}"
-								name="variationOptionName" aria-labelledby="variationOptionName"><span
+							<input type="text" required="required" id="shopOrderId"
+								name="shopOrderId" aria-labelledby="shopOrderId"><span
 								class="highlight"></span><span class="bar"></span> <label
-								for="variationOptionName">Tên thuộc tính</label>
+								for="shopOrderId">Mã đơn hàng bảo hành</label>
 						</div>
 						<div class="select-container">
-							<select name="variationId" id="variationId" class="select"
+							<select name="productItemId" id="productItemId" class="select"
 								aria-invalid="false">
-								<c:forEach items="${listVariation}" var="element">
-									<option value="${element.id}"
-										<c:if test="${element.id == currentVariationOption.id}">
-										selected
-									</c:if>>${element.name }</option>
+								<c:forEach items="${listProductItem}" var="element">
+									<option value="${element.id}">${element}</option>
 								</c:forEach>
-							</select> <label for="variationId">Thuộc tính</label> <span
+							</select> <label for="categoryId">Sản phẩm bảo hành</label> <span
 								class="select-icon"><i class="fa-solid fa-angle-down"></i></span>
 						</div>
 					</div>
 					<div class="button-group">
 						<button class="button button-submit" type="submit">
 							<span> <i class="fa-solid fa-plus"></i>
-							</span> <span> Chỉnh sửa </span>
+							</span> <span> Thêm mới </span>
 						</button>
 						<button class="button button-cancel" type="button">
 							<span> <i class="fa-regular fa-circle-xmark"></i>
-							</span> <span> Huỷ </span>
+							</span> <span>Huỷ</span>
 						</button>
 					</div>
 				</form>

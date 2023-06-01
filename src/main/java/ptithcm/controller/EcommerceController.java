@@ -76,7 +76,7 @@ public class EcommerceController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	@RequestMapping(value = "signIn", method = RequestMethod.POST)
 	public String newCustomer(@RequestParam("username") String username, 
 			@RequestParam("email") String email,
 			@RequestParam("password") String password, 

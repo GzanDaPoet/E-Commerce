@@ -22,8 +22,8 @@ public class ManageOrderService {
 	@Autowired 
 	ProductService productService;
 	
-	public List<OrderLine> orderLineList() {
-		return manageOrderDao.getListOrderLineByStatus();
+	public List<ShopOrder> shopOrderList() {
+		return manageOrderDao.getListShopOrderByStatus();
 	}
 	
 	public ProductItem getProductItemById(int productId) {
@@ -35,24 +35,20 @@ public class ManageOrderService {
 	}
 	
 	public List<CustomerOrderDTO> getOderCustomerDTOList() {
-		List<OrderLine> orderLineList = orderLineList();
+		List<ShopOrder> orderLineList = shopOrderList();
 		List<CustomerOrderDTO> customerOrderDTOList = new ArrayList<CustomerOrderDTO>();
 	
 		if (orderLineList.size() > 0) {
-			for (OrderLine orderLine: orderLineList) {
+			for (ShopOrder so: orderLineList) {
 				CustomerOrderDTO customerOrderDTO = new CustomerOrderDTO();
-				customerOrderDTO.setId(orderLine.getId().toString());
-				ShopOrder shopOrder = getShopOrderById(orderLine.getShopOrder().getId());
-				customerOrderDTO.setPrice(shopOrder.getOrderTotal());
-				ProductItem productItem = new ProductItem();
-				Date orderDate = shopOrder.getOrderDate();
+				customerOrderDTO.setOrderId(so.getId());
+				customerOrderDTO.setId(so.getId().toString());
+				customerOrderDTO.setPrice(so.getOrderTotal());
+				Date orderDate = so.getOrderDate();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				productItem = getProductItemById(orderLine.getProductItem().getId());
-				customerOrderDTO.setOrderId(shopOrder.getId());
-				customerOrderDTO.setQuantity(orderLine.getQuantity());
+				customerOrderDTO.setQuantity(manageOrderDao.getQuantityOfOrder(so.getId()));
 				String dateString = dateFormat.format(orderDate);
 				customerOrderDTO.setDateOrdered(dateString);
-				customerOrderDTO.setProductItemName(productItem.getProduct().getName());
 				customerOrderDTOList.add(customerOrderDTO);
 			}
 		}

@@ -20,7 +20,7 @@ public class CustomerProfile {
 	@Column(name = "id")
 	private Integer id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	@Column(name = "name")

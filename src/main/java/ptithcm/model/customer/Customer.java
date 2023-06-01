@@ -29,23 +29,22 @@ public class Customer {
 	private String email;
 	@Column(name = "password")
 	private String password;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddresses;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<ShoppingCart> shoppingCarts;
-	
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private CustomerProfile customerProfile;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerReview> customerReivews;
-	
+
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private Collection<CustomerPaymentMethod> customerPaymentMethods;
-	
-	
+
 	public Customer() {
 		super();
 	}
@@ -59,13 +58,6 @@ public class Customer {
 		this.customerProfile = customerProfile;
 	}
 
-	public CustomerProfile getCustomerProfile() {
-		return customerProfile;
-	}
-
-	public void setCustomerProfile(CustomerProfile customerProfile) {
-		this.customerProfile = customerProfile;
-	}
 
 	public Integer getId() {
 		return id;
@@ -99,8 +91,6 @@ public class Customer {
 		this.password = password;
 	}
 
-<<<<<<< Updated upstream
-=======
 	public Collection<CustomerAddress> getCustomerAddresses() {
 		return customerAddresses;
 	}
@@ -110,6 +100,13 @@ public class Customer {
 	}
 
 
+	public CustomerProfile getCustomerProfile() {
+		return customerProfile;
+	}
+
+	public void setCustomerProfile(CustomerProfile customerProfile) {
+		this.customerProfile = customerProfile;
+	}
 
 	public Collection<CustomerPaymentMethod> getCustomerPaymentMethods() {
 		return customerPaymentMethods;
@@ -119,5 +116,4 @@ public class Customer {
 		this.customerPaymentMethods = customerPaymentMethods;
 	}
 
->>>>>>> Stashed changes
 }

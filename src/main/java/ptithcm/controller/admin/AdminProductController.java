@@ -25,7 +25,9 @@ import ptithcm.dto.ProductDTO;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.product.Variation;
 import ptithcm.service.CategoryService;
+import ptithcm.service.VariationService;
 import ptithcm.service.admin.ProductAdminService;
 
 @Controller
@@ -44,6 +46,9 @@ public class AdminProductController {
 
 	@Autowired
 	ServletContext context;
+
+	@Autowired
+	VariationService variationService;
 
 	@RequestMapping(value = "new", method = RequestMethod.GET)
 	public String showFormCreateNewProduct(ModelMap modelMap) {
@@ -236,11 +241,25 @@ public class AdminProductController {
 
 	}
 
+	@RequestMapping(value = "delete/{id}")
+	public String deleteProduct(@PathVariable int id) {
+		Product product = productService.getProductById(id);
+		productService.deleteProduct(product);
+		return "redirect:/admin/product/list.htm";
+	}
+
 	private String generateUniqueFileName(String originalFilename) {
 		String baseName = FilenameUtils.getBaseName(originalFilename);
 		String extension = FilenameUtils.getExtension(originalFilename);
 		String uniqueFileName = baseName + "_" + System.currentTimeMillis() + "." + extension;
 		return uniqueFileName;
+	}
+
+	@RequestMapping(value = "{productId}/delete/product-item/{id}")
+	public String deleteProductItem(@PathVariable int id, @PathVariable int productId) {
+		System.out.print(id);
+		productService.deleteProductItemById(id);
+		return "redirect:/admin/product/edit/" + productId + ".htm";
 	}
 
 }

@@ -105,6 +105,10 @@
 							href="${contextPath}/admin/manage-ordered/list.htm">Danh sách
 								đơn hàng đã đặt</a></li>
 					</ul>
+					<ul class="submenu">
+						<li class="submenu-item"><a href="${contextPath}/delivery/listDeliveryOrder.htm">Đang vận chuyển</a>
+						</li>
+					</ul>
 				</div>
 				<div class="cf-menu">
 					<li class="menu-item"><span class="menu-item-btn">
@@ -203,6 +207,8 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/admin/product/new.htm">Tạo mới sản phẩm</a></li>
 						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/product-config/list.htm">Cấu
+								hình sản phẩm</a></li>
 							href="${contextPath}/admin/product/new.htm">Nhập sản phẩm</a></li>
 					</ul>
 				</div>
@@ -303,8 +309,12 @@
 							</div>
 					</a></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách bảo hành</a></li>
-						<li class="submenu-item"><a href="#">Tạo mới bảo hành</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/warranty/list.htm">Danh
+								sách bảo hành</a></li>
+						<li class="submenu-item"><a
+							href="${contextPath}/admin/product/warranty/new.htm">Tạo mới
+								bảo hành</a></li>
 					</ul>
 				</div>
 			</ul>

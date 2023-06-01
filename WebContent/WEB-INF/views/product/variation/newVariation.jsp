@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +24,7 @@
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css' />">
 </head>
+
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
@@ -34,11 +36,10 @@
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
-										chủ</a></li>
+									href="${contextPath}/admin/product/list.htm">Trang chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">thuộc
+									href="${contextPath}/admin/product/variation/list.htm">thuộc
 										tính</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Tạo mới</li>
@@ -81,4 +82,5 @@
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 </body>
+
 </html>
