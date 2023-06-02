@@ -144,7 +144,7 @@
 							</div>
 					</span></li>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="#">Danh sách khách hàng</a>
+						<li class="submenu-item"><a href="${contextPath}/admin/customer/list.htm">Danh sách khách hàng</a>
 						</li>
 
 					</ul>
@@ -164,6 +164,7 @@
 					<ul class="submenu">
 						<li class="submenu-item"><a href="${contextPath}/admin/agency/list.htm">Danh sách đại lý</a></li>
 						<li class="submenu-item"><a href="${contextPath}/admin/agency/create.htm">Thêm đại lý</a></li>
+						<li class="submenu-item"><a href="${contextPath}/admin/inventory.htm">Nhập hàng</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
