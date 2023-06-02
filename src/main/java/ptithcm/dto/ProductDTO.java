@@ -1,5 +1,7 @@
 package ptithcm.dto;
 
+import java.util.List;
+
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
 
@@ -10,6 +12,8 @@ public class ProductDTO {
 	private String description;
 	private String productImage;
 	private String productCategoryName;
+	private int defaultProductItem = 0;
+	private int defaultPrice = 0;
 
 	public ProductDTO(Product product) {
 		this.id = product.getId();
@@ -18,6 +22,11 @@ public class ProductDTO {
 		this.productImage = product.getProductImage();
 		this.productCategoryId = product.getProductCategory().getId();
 		this.productCategoryName = product.getProductCategory().getCategoryName();
+		List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
+		if (listProductItems.size() >= 1) {
+			defaultProductItem = listProductItems.get(0).getId();
+			defaultPrice = listProductItems.get(0).getPrice();
+		}
 	}
 
 	public Integer getId() {
@@ -67,4 +76,21 @@ public class ProductDTO {
 	public void setProductCategoryName(String productCategoryName) {
 		this.productCategoryName = productCategoryName;
 	}
+
+	public int getDefaultProductItem() {
+		return defaultProductItem;
+	}
+
+	public void setDefaultProductItem(int defaultProductItem) {
+		this.defaultProductItem = defaultProductItem;
+	}
+
+	public int getDefaultPrice() {
+		return defaultPrice;
+	}
+
+	public void setDefaultPrice(int defaultPrice) {
+		this.defaultPrice = defaultPrice;
+	}
+
 }

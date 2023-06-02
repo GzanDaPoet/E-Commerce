@@ -9,9 +9,9 @@ import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
 
 public interface ProductDao {
-	public List<ProductItem> getAllProducts();
+	public List<Product> getAllProducts();
 
-	public ProductItem getProductById(int id);
+	public Product getProductById(int id);
 
 	public int updateQty(int Id, int qty);
 
@@ -32,7 +32,11 @@ public interface ProductDao {
 	public void addToCart(ShoppingCartItem shoppingCartItem, int cartId, int customerId, int bonus, int quantity);
 
 	public List<ProductItem> listPaginatedProductCategory(int firstResult, int maxResults, String search);
-	
+
 	public OrderLine isBoughtByCustomer(int customerId, int productItemId);
+
+	public List<ProductItem> getProductItemByProductId(int productId);
 	
+	public ProductItem getProductItemById(int productItemId);
+
 }

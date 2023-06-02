@@ -72,7 +72,8 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/customer/profile.htm">Trang cá nhân</a></li>
 						<li class="submenu-item"><a
-							href="${contextPath}/customer/orderManage.htm">Quản lý đơn hàng</a></li>
+							href="${contextPath}/customer/orderManage.htm">Quản lý đơn
+								hàng</a></li>
 					</ul>
 				</div>
 				<li class="menu-item"><a href="#" class="menu-item-btn-s">
@@ -106,8 +107,9 @@
 								đơn hàng đã đặt</a></li>
 					</ul>
 					<ul class="submenu">
-						<li class="submenu-item"><a href="${contextPath}/delivery/listDeliveryOrder.htm">Đang vận chuyển</a>
-						</li>
+						<li class="submenu-item"><a
+							href="${contextPath}/delivery/listDeliveryOrder.htm">Đang vận
+								chuyển</a></li>
 					</ul>
 				</div>
 				<div class="cf-menu">
@@ -209,6 +211,7 @@
 						<li class="submenu-item"><a
 							href="${contextPath}/admin/product/product-config/list.htm">Cấu
 								hình sản phẩm</a></li>
+						<li class="submenu-item"><a
 							href="${contextPath}/admin/product/new.htm">Nhập sản phẩm</a></li>
 					</ul>
 				</div>

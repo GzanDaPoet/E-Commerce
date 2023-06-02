@@ -18,28 +18,28 @@ import ptithcm.model.shop.ShopOrder;
 public class ManageOrderService {
 	@Autowired
 	ManageOrderDao manageOrderDao;
-	
-	@Autowired 
+
+	@Autowired
 	ProductService productService;
-	
+
 	public List<ShopOrder> shopOrderList() {
 		return manageOrderDao.getListShopOrderByStatus();
 	}
-	
-	public ProductItem getProductItemById(int productId) {
-		return productService.getProductById(productId);
+
+	public ProductItem getProductItemById(int productItemId) {
+		return productService.getProductItemById(productItemId);
 	}
-	
+
 	public ShopOrder getShopOrderById(int orderId) {
 		return manageOrderDao.getShopOrderById(orderId);
 	}
-	
+
 	public List<CustomerOrderDTO> getOderCustomerDTOList() {
 		List<ShopOrder> orderLineList = shopOrderList();
 		List<CustomerOrderDTO> customerOrderDTOList = new ArrayList<CustomerOrderDTO>();
-	
+
 		if (orderLineList.size() > 0) {
-			for (ShopOrder so: orderLineList) {
+			for (ShopOrder so : orderLineList) {
 				CustomerOrderDTO customerOrderDTO = new CustomerOrderDTO();
 				customerOrderDTO.setOrderId(so.getId());
 				customerOrderDTO.setId(so.getId().toString());
@@ -54,5 +54,5 @@ public class ManageOrderService {
 		}
 		return customerOrderDTOList;
 	}
-	
+
 }

@@ -213,7 +213,10 @@ public class ProductAdminDaoImpl implements ProductAdminDao {
 
 	@Override
 	public ProductItem getProductItemById(int productItemId) {
-		Session session = sessionFactory.getCurrentSession();
-		return (ProductItem) session.get(ProductItem.class, productItemId);
+		Session session = sessionFactory.openSession();
+		String hql = "FROM ProductItem p WHERE p.id = :productId";
+		Query query = session.createQuery(hql);
+		query.setParameter("productId", productItemId);
+		return (ProductItem) query.uniqueResult();
 	}
 }
