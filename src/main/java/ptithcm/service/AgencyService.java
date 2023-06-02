@@ -43,4 +43,8 @@ public class AgencyService {
 		return null;
 	}
 	
+	public int deleteAgencyById(int id) {
+		return agencyDao.deleteAgencyById(id);
+	}
+	
 }

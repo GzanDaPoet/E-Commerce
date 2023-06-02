@@ -9,4 +9,5 @@ public interface AgencyDao {
 	public Agency getAgencyById (int id);
 	public List<Agency> getListAgencies();
 	public StatusReceiving getStatusReceivingById(int Id);
+	public int deleteAgencyById(int id);	
 }

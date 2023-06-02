@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ptithcm.model.agency.Agency;
-import ptithcm.model.customer.Customer;
 import ptithcm.model.inventory.StatusReceiving;
-import ptithcm.model.shoppingCart.ShoppingCartItem;
 
 @Service
 public class AgencyDaoImp implements AgencyDao {
@@ -29,7 +27,7 @@ public class AgencyDaoImp implements AgencyDao {
 
 	@Override
 	public List<Agency> getListAgencies() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		String hql = "From Agency";
 		Query query = session.createQuery(hql);
 		List<Agency> list = query.list();
@@ -44,5 +42,15 @@ public class AgencyDaoImp implements AgencyDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		return (StatusReceiving) query.uniqueResult();
+	}
+	
+	@Override
+	public int deleteAgencyById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "DELETE FROM Agency A WHERE A.id = :id ";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
+		return result;
 	}
 }
