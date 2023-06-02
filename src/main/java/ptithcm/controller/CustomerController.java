@@ -291,6 +291,10 @@ public class CustomerController {
 			model.addAttribute("selectedWard", addressService.getWard(customer.getCustomerProfile().getAddress()).getId());
 			model.addAttribute("selectedDistrict", addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
 			model.addAttribute("selectedProvince", addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
+			System.out.println("name");
+			System.out.println("phone");
+			System.out.println("email");
+			
 			List<Province> listPros = addressService.listProvinces();
 			model.addAttribute("listPros", listPros);
 			List<District> listDicts = addressService.listDistricts(addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
@@ -377,6 +381,7 @@ public class CustomerController {
 			newCtmProfile.setAddress(wardId);
 			newCtmProfile.setCreateAt(sqlDate);
 			customer.setEmail(email);
+			customer.setCustomerProfile(newCtmProfile);
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction t = session.beginTransaction();
 			try {
