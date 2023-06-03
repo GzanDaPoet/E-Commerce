@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.dto.ProductDTO;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
@@ -107,7 +108,7 @@ public class AdminProductController {
 			System.out.println("imageUrl: " + imageUrl);
 			System.out.println("file: " + dest.getName() + " " + dest.getPath());
 			ProductItem item = new ProductItem(product, SKU.get(i), qtyInStock.get(i), imageUrl, productPrice.get(i),
-					warrantyTime.get(i), "available");
+					warrantyTime.get(i), SystemConstant.ProductStatus.ACTIVE);
 			listProductItems.add(item);
 		}
 
@@ -231,7 +232,7 @@ public class AdminProductController {
 			productImage.transferTo(dest);
 			String imageUrl = request.getContextPath() + "/uploads/" + fileName;
 			ProductItem item = new ProductItem(existingProduct, SKU.get(i), qtyInStock.get(i), imageUrl,
-					productPrice.get(i), warrantyTime.get(i), "available");
+					productPrice.get(i), warrantyTime.get(i), SystemConstant.ProductStatus.ACTIVE);
 			listProductItems.add(item);
 		}
 

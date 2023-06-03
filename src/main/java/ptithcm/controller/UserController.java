@@ -1,8 +1,6 @@
 package ptithcm.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,25 +10,19 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ptithcm.dto.ProductVariationDTO;
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.address.District;
 import ptithcm.model.address.Province;
 import ptithcm.model.address.Ward;
-import ptithcm.model.customer.Customer;
-import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.Variation;
 import ptithcm.model.user.User;
 import ptithcm.model.user.UserPermission;
 import ptithcm.model.user.UserProfile;
 import ptithcm.service.AddressService;
-import ptithcm.service.CategoryService;
 import ptithcm.service.UserService;
-import ptithcm.service.VariationService;
 import ptithcm.util.SessionUtil;
 
 @Controller
@@ -90,10 +82,10 @@ public class UserController {
 
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String userProfile(ModelMap model, HttpServletRequest request) {
-		if (SessionUtil.getInstance().getValue(request, "USER_MODEL") == null) {
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) == null) {
 			return "redirect:/admin/login.htm";
 		}
-		User user = ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL"));
+		User user = ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL));
 		if (user.getUserProfile() != null) {
 			model.addAttribute("name", user.getUserProfile().getName());
 			model.addAttribute("phone", user.getUserProfile().getPhoneNumber());
@@ -103,7 +95,8 @@ public class UserController {
 			model.addAttribute("selectedProvince", user.getUserProfile().getWard().getProvince().getId());
 			List<Province> listPros = addressService.listProvinces();
 			model.addAttribute("listPros", listPros);
-			List<District> listDicts = addressService.listDistricts(user.getUserProfile().getWard().getProvince().getId());
+			List<District> listDicts = addressService
+					.listDistricts(user.getUserProfile().getWard().getProvince().getId());
 			model.addAttribute("listDicts", listDicts);
 			List<Ward> listWards = addressService.listWards(user.getUserProfile().getWard().getDistrict().getId());
 			model.addAttribute("listWards", listWards);
@@ -151,10 +144,10 @@ public class UserController {
 			@RequestParam("name") String name, @RequestParam("phone") String phone,
 			@RequestParam("email") String email) {
 		Date sqlDate = new Date(System.currentTimeMillis());
-		if (SessionUtil.getInstance().getValue(request, "USER_MODEL") == null) {
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) == null) {
 			return "redirect:/admin/login.htm";
 		}
-		User user = ((User) SessionUtil.getInstance().getValue(request, "USER_MODEL"));
+		User user = ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL));
 		if (user.getUserProfile() != null) {
 			UserProfile editProfile = user.getUserProfile();
 			editProfile.setName(name);
@@ -177,7 +170,7 @@ public class UserController {
 			} finally {
 				session.close();
 			}
-			
+
 		} else {
 			UserProfile newUserProfile = new UserProfile();
 			newUserProfile.setUser(user);

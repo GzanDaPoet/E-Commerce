@@ -27,7 +27,7 @@
 			</div>
 			<h3>Chào mừng bạn quay trở lại!</h3>
 			<img
-				src="<c:url value ='/common/images/illustration_dashboard.svg'/>"
+				src="<c:url value ='/common/images/illustration_order_complete.svg'/>"
 				alt="">
 		</div>
 		<div class="login__form">

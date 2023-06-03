@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
 import ptithcm.model.product.ProductItem;
@@ -62,7 +63,7 @@ public class PromotionController {
 			@RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 		System.out.println("Vao day them KM");
 		LocalDate currentDate = LocalDate.now();
-		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
+		User user = (User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL);
 		Promotion promotion = new Promotion(promotionName, promotionDescription, discountPercentage,
 				Date.valueOf(startDate), Date.valueOf(endDate), Date.valueOf(currentDate), user);
 
@@ -133,7 +134,7 @@ public class PromotionController {
 			@RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 		Promotion promotion = promotionService.getPromotionById(promotionId);
 		LocalDate currentDate = LocalDate.now();
-		User user = (User) SessionUtil.getInstance().getValue(request, "USER_MODEL");
+		User user = (User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL);
 		promotion.setName(promotionName);
 		promotion.setDescription(promotionDescription);
 		promotion.setDiscountRate(discountPercentage);

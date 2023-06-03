@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.shop.ShopOrder;
@@ -45,7 +46,8 @@ public class PaymentController {
 	@RequestMapping(value = "address/deliver/checkout", method = RequestMethod.POST)
 	public String checkout(@RequestParam int PaymentMethod, @RequestParam int ShippingMethod, ModelMap model,
 			HttpSession session, HttpServletRequest request) {
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		int addressId = (int) session.getAttribute("addressId");
 		Long sum = (Long) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
 		List<Integer> price = (List<Integer>) session.getAttribute("price");

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.dto.ConfigProductDTO;
 import ptithcm.dto.ProductDTO;
 import ptithcm.model.customer.Customer;
@@ -118,8 +119,9 @@ public class ProductController {
 	public String product(HttpServletRequest request, ModelMap model, @PathVariable("productId") int productId,
 			@PathVariable("productItemId") int productItemId) {
 		int id = 0;
-		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
-			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
+			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+					.getId();
 		}
 
 		List<ProductItem> listProductItem = productService.getProductItemByProductId(productId);
@@ -207,8 +209,9 @@ public class ProductController {
 			@PathVariable("productItemId") int productItemId) {
 		int id = 0;
 
-		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
-			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
+			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+					.getId();
 		}
 		System.out.println("hihi" + id);
 		int quantityOrdered = 0;
@@ -237,8 +240,9 @@ public class ProductController {
 	public String buyNow(ModelMap model, @PathVariable("productId") int productId, HttpServletRequest request,
 			@PathVariable("productItemId") int productItemId) {
 		int id = 0;
-		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
-			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
+			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+					.getId();
 		}
 		int quantityOrdered = 0;
 		if (id > 0) {
@@ -267,8 +271,9 @@ public class ProductController {
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
 		int id = 0;
-		if (SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") != null) {
-			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
+			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+					.getId();
 		}
 		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
 		if (id > 0) {
