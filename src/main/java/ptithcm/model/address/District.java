@@ -31,9 +31,6 @@ public class District{
 	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
 	private List<Ward> wards;
 	
-	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
-	private Collection<Address> addresses;
-	
 	
 	public District() {
 		super();

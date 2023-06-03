@@ -90,8 +90,9 @@
 					<div class="paper-wrapper">
 						<h3 class="heading">Địa chỉ</h3>
 						<h4 class="titlemenu">${address }</h4>
+						<h3 class="heading">Số điện thoại giao hàng</h3>
+						<h4 class="titlemenu">${phone }</h4>
 						<div style="text-align: center;">
-
 							<c:if test="${test}">
 								<a href="${contextPath}/customer/editAddress.htm">
 									<button class="btn--add">

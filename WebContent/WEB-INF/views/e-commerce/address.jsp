@@ -57,6 +57,7 @@
 						<table>
 							<thead>
 								<tr>
+									<th class="th-header"><span>Số điện thoại</span></th>
 									<th class="th-header"><span>Địa chỉ</span></th>
 									<th class="th-header"><span>Xã</span></th>
 									<th class="th-header"><span>Huyện</span></th>
@@ -68,10 +69,11 @@
 							<tbody>
 								<c:forEach items="${customerAddress}" var="element">
 									<tr>
+										<td class="td-body">${element.address.phoneNumber}</td>
 										<td class="td-body">${element.address.detailAddress}</td>
 										<td class="td-body">${element.address.ward.name }</td>
-										<td class="td-body">${element.address.district.name}</td>
-										<td class="td-body">${element.address.province.name}</td>
+										<td class="td-body">${element.address.ward.district.name}</td>
+										<td class="td-body">${element.address.ward.province.name}</td>
 										<td class="td-body"><form
 												action="../customer/editAddress.htm" method="get">
 												<input type="hidden" name="id" value="${element.id }">

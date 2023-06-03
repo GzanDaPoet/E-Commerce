@@ -40,8 +40,8 @@ public class OrderDeliveryService {
 				if (shopOrder.getAddressDelivery() == null) {
 					address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
 							+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
-							+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
-							+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+							+ shopOrder.getCustomerAddress().getAddress().getWard().getDistrict().getName() + ", "
+							+ shopOrder.getCustomerAddress().getAddress().getWard().getProvince().getName();
 					orderDeliveryDTO.setCustomerAddress(address); 
 				}
 				else {
