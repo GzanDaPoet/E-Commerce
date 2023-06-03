@@ -1,40 +1,25 @@
 package ptithcm.controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.customer.Customer;
-import ptithcm.model.customer.CustomerProfile;
 import ptithcm.model.pay.CustomerPaymentMethod;
-import ptithcm.model.product.Product;
-import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.ProductItem;
-import ptithcm.model.promotion.Promotion;
-import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.service.CustomerService;
 import ptithcm.service.PaymentService;
-import ptithcm.service.ProductCategoryService;
-import ptithcm.service.ProductService;
-import ptithcm.service.UserService;
-import ptithcm.service.admin.LoginService;
 import ptithcm.util.SessionUtil;
-import ptithcm.model.user.User;
 
 @Transactional
 @Controller
@@ -46,7 +31,7 @@ public class EcommerceController {
 
 	@Autowired
 	PaymentService paymentService;
-	
+
 	@Autowired
 	CustomerService customerService;
 
@@ -65,7 +50,7 @@ public class EcommerceController {
 			HttpServletRequest request) {
 		Customer customer = customerService.getCustomerByUsernamePassword(username, password);
 		if (customer != null) {
-			SessionUtil.getInstance().putValue(request, "CUSTOMER_MODEL", customer);
+			SessionUtil.getInstance().putValue(request, SystemConstant.Model.CUSTOMER_MODEL, customer);
 			System.out.println(customer.getUserName());
 			return "redirect:/e-commerce/shop.htm";
 		}
@@ -78,10 +63,8 @@ public class EcommerceController {
 	}
 
 	@RequestMapping(value = "signIn", method = RequestMethod.POST)
-	public String newCustomer(@RequestParam("username") String username, 
-			@RequestParam("email") String email,
-			@RequestParam("password") String password, 
-			@RequestParam("password1") String password1, ModelMap model) {
+	public String newCustomer(@RequestParam("username") String username, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("password1") String password1, ModelMap model) {
 		if (password.equals(password1)) {
 			Customer newCustomer = new Customer();
 			newCustomer.setUserName(username);
@@ -90,7 +73,7 @@ public class EcommerceController {
 			System.out.println(newCustomer.getUserName());
 			System.out.println(newCustomer.getPassword());
 			System.out.println(newCustomer.getEmail());
-			
+
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction t = session.beginTransaction();
 			try {
@@ -113,7 +96,7 @@ public class EcommerceController {
 			org.hibernate.Transaction tr = session1.beginTransaction();
 			try {
 				session1.save(newCPM);
-				//session1.save(newCTMProfile);
+				// session1.save(newCTMProfile);
 				tr.commit();
 				model.addAttribute("message", "Thêm mới thành công! ");
 				System.out.println("done");

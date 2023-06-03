@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.customer.Customer;
 import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.pay.CustomerPaymentMethod;
@@ -41,12 +42,13 @@ public class AddressController {
 
 	@RequestMapping(value = "address")
 	public String showAddress(ModelMap model, HttpServletRequest request) {
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		List<CustomerAddress> addressList = addressService.getAddressListByID(id);
 		model.addAttribute("customerAddress", addressList);
 		return "e-commerce/address";
 	}
-	
+
 	@RequestMapping(value = "address/delete/{id}")
 	public String deleteAddress(@PathVariable int id) {
 		int addressId = addressService.getAddressById(id).getAddress().getId();
@@ -54,10 +56,11 @@ public class AddressController {
 		addressService.deleteAddress(addressId);
 		return "redirect:/e-commerce/address.htm";
 	}
-	
+
 	@RequestMapping(value = "address/deliver/{id}")
 	public String deliver(@PathVariable int id, ModelMap model, HttpServletRequest request, HttpSession session) {
-		int ctmid = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int ctmid = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		System.out.println(id);
 		session.setAttribute("addressId", id);
 		List<CustomerPaymentMethod> payment = paymentService.getPaymentListById(ctmid);
@@ -68,4 +71,3 @@ public class AddressController {
 	}
 
 }
-

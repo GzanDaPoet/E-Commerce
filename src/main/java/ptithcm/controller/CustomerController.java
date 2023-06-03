@@ -1,31 +1,23 @@
 package ptithcm.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.mapping.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.tags.EditorAwareTag;
 
-import com.google.gson.Gson;
-
-import ptithcm.dao.address.AddressDao;
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.address.Address;
 import ptithcm.model.address.District;
 import ptithcm.model.address.Province;
@@ -36,8 +28,6 @@ import ptithcm.model.customer.CustomerProfile;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.order.OrderStatus;
 import ptithcm.model.shop.ShopOrder;
-import ptithcm.model.user.User;
-import ptithcm.model.user.UserProfile;
 import ptithcm.service.AddressService;
 import ptithcm.service.CustomerService;
 import ptithcm.util.SessionUtil;
@@ -53,9 +43,7 @@ public class CustomerController {
 	AddressService addressService;
 	@Autowired
 	CustomerService customerService;
-	
-	
-	
+
 	@RequestMapping(value = "newAddress", method = RequestMethod.GET)
 	public String newAddress(ModelMap model) {
 		List<Province> listPros = addressService.listProvinces();
@@ -64,21 +52,18 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "newAddress", method = RequestMethod.POST)
-	public String showNewAddress1(ModelMap model,
-			@RequestParam("province") int provinceId, 
-			@RequestParam("district") int districtId,
-			@RequestParam("ward") int wardId,
-			@RequestParam("details") String details,
-			HttpServletRequest request) {
-		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
-		{
+	public String showNewAddress1(ModelMap model, @RequestParam("province") int provinceId,
+			@RequestParam("district") int districtId, @RequestParam("ward") int wardId,
+			@RequestParam("details") String details, HttpServletRequest request) {
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		model.addAttribute("details", details);
-		if(provinceId != 0) {
-			if(districtId != 0) {
-				if(wardId != 0) {
+		if (provinceId != 0) {
+			if (districtId != 0) {
+				if (wardId != 0) {
 					Address newAddress = new Address();
 					newAddress.setDetailAddress(details);
 					newAddress.setWard(addressService.getWard(wardId));
@@ -100,7 +85,8 @@ public class CustomerController {
 					}
 					CustomerAddress newCA = new CustomerAddress();
 					newCA.setAddress(newAddress);
-					newCA.setCustomer((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+					newCA.setCustomer((Customer) SessionUtil.getInstance().getValue(request,
+							SystemConstant.Model.CUSTOMER_MODEL));
 					newCA.setIsDefault(true);
 					Session session1 = sessionFactory.openSession();
 					org.hibernate.Transaction t1 = session1.beginTransaction();
@@ -123,7 +109,7 @@ public class CustomerController {
 				List<District> listDicts = addressService.listDistricts(provinceId);
 				model.addAttribute("listDicts", listDicts);
 				List<Ward> listWards = addressService.listWards(districtId);
-				model.addAttribute("listWards",listWards);
+				model.addAttribute("listWards", listWards);
 				model.addAttribute("selectedProvince", provinceId);
 				model.addAttribute("selectedDistrict", districtId);
 				return "customer/newAddress";
@@ -132,47 +118,46 @@ public class CustomerController {
 			model.addAttribute("listPros", listPros);
 			List<District> listDicts = addressService.listDistricts(provinceId);
 			model.addAttribute("listDicts", listDicts);
-	        model.addAttribute("selectedProvince", provinceId);
+			model.addAttribute("selectedProvince", provinceId);
 			return "customer/newAddress";
 		}
 		return "customer/newAddress";
-		}
-	
+	}
+
 	@RequestMapping(value = "orderManage")
 	public String orderManage(HttpServletRequest request, ModelMap model) {
-		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
-		{
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		List<ShopOrder> listOrders = customerService.getShopOrdersById(id);
-		model.addAttribute("listOrders",listOrders);
+		model.addAttribute("listOrders", listOrders);
 		return "customer/orderManage";
 	}
 
 	@RequestMapping(value = "orderManage/{id}")
-	public String orderDetails(HttpServletRequest request, ModelMap model,@PathVariable int id){
+	public String orderDetails(HttpServletRequest request, ModelMap model, @PathVariable int id) {
 		List<OrderLine> listLines = customerService.getLines(id);
-		model.addAttribute("listLines",listLines);
+		model.addAttribute("listLines", listLines);
 		ShopOrder shopOrder = customerService.getShopOrderById(id);
 		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
 				+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
 				+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
 				+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
-		model.addAttribute("address",address);
+		model.addAttribute("address", address);
 		System.out.println(shopOrder.getOrderStatus().getStatus());
 		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
 			model.addAttribute("test", true);
-		}
-		else {
+		} else {
 			model.addAttribute("test", false);
 		}
 		model.addAttribute("sum", shopOrder.getOrderTotal());
-		model.addAttribute("id",id );
+		model.addAttribute("id", id);
 		return "customer/orderDetails";
 	}
 
-	@RequestMapping(value="orderManage/cancel/{orderId}")
+	@RequestMapping(value = "orderManage/cancel/{orderId}")
 	public String cancelOrder(@PathVariable int orderId) {
 		ShopOrder shopOrder = customerService.getShopOrderById(orderId);
 		OrderStatus orderStatus = new OrderStatus();
@@ -194,10 +179,9 @@ public class CustomerController {
 		}
 		return "redirect:/customer/orderManage.htm";
 	}
-	
-	@RequestMapping(value="editAddress", method = RequestMethod.GET)
-	public String editAddress(@RequestParam("id") int id, ModelMap model,
-			HttpServletRequest request ) {
+
+	@RequestMapping(value = "editAddress", method = RequestMethod.GET)
+	public String editAddress(@RequestParam("id") int id, ModelMap model, HttpServletRequest request) {
 		int provinceId = addressService.getAddressById(id).getAddress().getProvince().getId();
 		int districtId = addressService.getAddressById(id).getAddress().getDistrict().getId();
 		int wardId = addressService.getAddressById(id).getAddress().getWard().getId();
@@ -209,19 +193,16 @@ public class CustomerController {
 		model.addAttribute("listDicts", listDicts);
 		model.addAttribute("selectedDistrict", districtId);
 		List<Ward> listWards = addressService.listWards(districtId);
-		model.addAttribute("listWards",listWards);
+		model.addAttribute("listWards", listWards);
 		model.addAttribute("selectedWard", wardId);
 		model.addAttribute("details", details);
-		model.addAttribute("id",id);
+		model.addAttribute("id", id);
 		return "customer/editAddress";
 	}
-	
+
 	@RequestMapping(value = "editAddress/done", method = RequestMethod.POST)
-	public String doneEdit(@RequestParam("province") int provinceId, 
-			@RequestParam("district") int districtId,
-			@RequestParam("ward") int wardId,
-			@RequestParam("details") String details,
-			@RequestParam("id") int id,
+	public String doneEdit(@RequestParam("province") int provinceId, @RequestParam("district") int districtId,
+			@RequestParam("ward") int wardId, @RequestParam("details") String details, @RequestParam("id") int id,
 			ModelMap model) {
 		Address editAddress = addressService.getAddressById(id).getAddress();
 		editAddress.setDetailAddress(details);
@@ -244,25 +225,21 @@ public class CustomerController {
 		}
 		return "redirect:/e-commerce/address.htm";
 	}
-	
-	@RequestMapping(value="editAddress", method = RequestMethod.POST)	
-	public String editAddress(ModelMap model,
-			@RequestParam("province") int provinceId, 
-			@RequestParam("district") int districtId,
-			@RequestParam("ward") int wardId,
-			@RequestParam("details") String details,
-			@RequestParam("id") int id,
-			HttpServletRequest request) {
+
+	@RequestMapping(value = "editAddress", method = RequestMethod.POST)
+	public String editAddress(ModelMap model, @RequestParam("province") int provinceId,
+			@RequestParam("district") int districtId, @RequestParam("ward") int wardId,
+			@RequestParam("details") String details, @RequestParam("id") int id, HttpServletRequest request) {
 		model.addAttribute("details", details);
-		model.addAttribute("id",id);
-		if(provinceId != 0) {
-			if(districtId != 0) {
+		model.addAttribute("id", id);
+		if (provinceId != 0) {
+			if (districtId != 0) {
 				List<Province> listPros = addressService.listProvinces();
 				model.addAttribute("listPros", listPros);
 				List<District> listDicts = addressService.listDistricts(provinceId);
 				model.addAttribute("listDicts", listDicts);
 				List<Ward> listWards = addressService.listWards(districtId);
-				model.addAttribute("listWards",listWards);
+				model.addAttribute("listWards", listWards);
 				model.addAttribute("selectedProvince", provinceId);
 				model.addAttribute("selectedDistrict", districtId);
 				return "customer/editAddress";
@@ -271,35 +248,40 @@ public class CustomerController {
 			model.addAttribute("listPros", listPros);
 			List<District> listDicts = addressService.listDistricts(provinceId);
 			model.addAttribute("listDicts", listDicts);
-	        model.addAttribute("selectedProvince", provinceId);
+			model.addAttribute("selectedProvince", provinceId);
 			return "customer/editAddress";
 		}
 		return "customer/editAddress";
-		}
-	
+	}
+
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String userProfile(ModelMap model, HttpServletRequest request) {
-		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
-		{
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request,
+				SystemConstant.Model.CUSTOMER_MODEL));
 		if (customer.getCustomerProfile() != null) {
 			model.addAttribute("name", customer.getCustomerProfile().getName());
 			model.addAttribute("phone", customer.getCustomerProfile().getPhoneNumber());
 			model.addAttribute("email", customer.getEmail());
-			model.addAttribute("selectedWard", addressService.getWard(customer.getCustomerProfile().getAddress()).getId());
-			model.addAttribute("selectedDistrict", addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
-			model.addAttribute("selectedProvince", addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
+			model.addAttribute("selectedWard",
+					addressService.getWard(customer.getCustomerProfile().getAddress()).getId());
+			model.addAttribute("selectedDistrict",
+					addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
+			model.addAttribute("selectedProvince",
+					addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
 			System.out.println("name");
 			System.out.println("phone");
 			System.out.println("email");
-			
+
 			List<Province> listPros = addressService.listProvinces();
 			model.addAttribute("listPros", listPros);
-			List<District> listDicts = addressService.listDistricts(addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
+			List<District> listDicts = addressService.listDistricts(
+					addressService.getWard(customer.getCustomerProfile().getAddress()).getProvince().getId());
 			model.addAttribute("listDicts", listDicts);
-			List<Ward> listWards = addressService.listWards(addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
+			List<Ward> listWards = addressService.listWards(
+					addressService.getWard(customer.getCustomerProfile().getAddress()).getDistrict().getId());
 			model.addAttribute("listWards", listWards);
 			return "customer/profile";
 		} else {
@@ -345,11 +327,11 @@ public class CustomerController {
 			@RequestParam("name") String name, @RequestParam("phone") String phone,
 			@RequestParam("email") String email) {
 		Date sqlDate = new Date(System.currentTimeMillis());
-		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
-		{
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL"));
+		Customer customer = ((Customer) SessionUtil.getInstance().getValue(request,
+				SystemConstant.Model.CUSTOMER_MODEL));
 		if (customer.getCustomerProfile() != null) {
 			CustomerProfile editProfile = customer.getCustomerProfile();
 			editProfile.setName(name);
@@ -372,7 +354,7 @@ public class CustomerController {
 			} finally {
 				session.close();
 			}
-			
+
 		} else {
 			CustomerProfile newCtmProfile = new CustomerProfile();
 			newCtmProfile.setCustomer(customer);
@@ -400,6 +382,5 @@ public class CustomerController {
 		}
 		return "redirect:/customer/profile.htm";
 	}
-	
-	
+
 }

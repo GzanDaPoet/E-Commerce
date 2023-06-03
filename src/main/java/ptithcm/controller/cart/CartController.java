@@ -1,7 +1,6 @@
 package ptithcm.controller.cart;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.customer.Customer;
-import ptithcm.model.customer.CustomerAddress;
 import ptithcm.model.product.ProductItem;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
-import ptithcm.model.user.User;
 import ptithcm.service.AddressService;
 import ptithcm.service.CartService;
 import ptithcm.util.SessionUtil;
@@ -40,14 +38,14 @@ public class CartController {
 	@RequestMapping(value = "cart")
 	public String showCart(ModelMap model, HttpSession ss, HttpServletRequest request) {
 		long sum = 0;
-		if(SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL") == null)
-		{
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, "CUSTOMER_MODEL")).getId();
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
 		List<ShoppingCartItem> listCart = cartService.getAllCartItemsById(id);
-		if(listCart.size()==0) {
-			return  "e-commerce/emptyCart";
+		if (listCart.size() == 0) {
+			return "e-commerce/emptyCart";
 		}
 		List<Integer> price = new ArrayList<>();
 		for (ShoppingCartItem item : listCart) {
@@ -58,23 +56,22 @@ public class CartController {
 				int salePrice = cartService.getSalePrice(item.getProductItem().getId())
 						* item.getProductItem().getPrice() / 100;
 				price.add(salePrice);
-				sum += salePrice* item.getQuantity();
-			}
-			else {
+				sum += salePrice * item.getQuantity();
+			} else {
 				price.add(item.getProductItem().getPrice());
 				sum += item.getProductItem().getPrice() * item.getQuantity();
 			}
 		}
 		System.out.println(listCart.size());
 		model.addAttribute("shoppingCart", listCart);
-		ss.setAttribute("price",price);
+		ss.setAttribute("price", price);
 		ss.setAttribute("sum", sum);
 		return "e-commerce/cart";
 	}
-	
+
 	@RequestMapping(value = "emptyCart")
 	public String showEmptyCart() {
-		return  "e-commerce/emptyCart";
+		return "e-commerce/emptyCart";
 	}
 
 	@RequestMapping(params = "checkOut")
