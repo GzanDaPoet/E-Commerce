@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -177,25 +178,30 @@ public class ProductController {
 				model.addAttribute("quantityOrdered", quantityOrdered);
 			}
 		}
-		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productItemId);
 		boolean isBought;
 		if (orderLine == null) {
 			isBought = false;
 		} else {
 			isBought = true;
 		}
+		
+		
+		
+		System.out.println("is bought: " + isBought);
 		model.addAttribute("isBought", isBought);
-		System.out.println("is bought: " + productItemId);
 
 		List<CustomerReview> comments = productService.getAllCommentsById(productItemId);
 		if (comments != null) {
 			Collections.reverse(comments);
+			boolean isReview = productService.isReviewed(id, productItemId, comments);
+			model.addAttribute("isReview", isReview);
 			for (CustomerReview customerReview : comments) {
 				model.addAttribute("ratingValue", customerReview.getRatingValue());
 			}
 			model.addAttribute("comments", comments);
 		}
-
+		
 		model.addAttribute("listConfigProduct", listConfigProductDTOs);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		model.addAttribute("product", product);
@@ -213,7 +219,6 @@ public class ProductController {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
 					.getId();
 		}
-		System.out.println("hihi" + id);
 		int quantityOrdered = 0;
 		if (id > 0) {
 			ProductItem productItem = productService.getProductItemById(productItemId);
@@ -248,7 +253,7 @@ public class ProductController {
 		if (id > 0) {
 			ProductItem productItem = productService.getProductItemById(productItemId);
 			model.addAttribute("product", productItem);
-			Integer quantity = Integer.valueOf(request.getParameter("quantityInput"));
+			Integer quantity = Integer.valueOf(request.getParameter("quantity"));
 			int cartId = shoppingCartService.checkExistCartId(id);
 			int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
 			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
@@ -269,13 +274,17 @@ public class ProductController {
 
 	@RequestMapping(value = "product/{productId}/detail/{productItemId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
-			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request) {
+			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request, @PathVariable("productItemId") int productItemId) {
 		int id = 0;
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
 					.getId();
 		}
-		OrderLine orderLine = productService.isBoughtThisProduct(id, productId);
+		System.out.println("ID customer: " + id);
+		OrderLine orderLine = productService.isBoughtThisProduct(id, productItemId);
+		if (orderLine == null) {
+			System.out.println("Order line null");
+		}
 		if (id > 0) {
 			System.out.println("Come here");
 			Customer customer = customerService.getCustomerById(id);
@@ -304,7 +313,7 @@ public class ProductController {
 		} else {
 			return "redirect:/e-commerce/login.htm";
 		}
-		return product(request, model, productId);
+		return "redirect:/e-commerce/product/" + productId + "/detail/" + productItemId + ".htm";
 	}
 
 }

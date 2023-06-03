@@ -2,6 +2,7 @@ package ptithcm.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,4 +109,13 @@ public class ProductService {
 		return productDao.getProductItemByProductId(productId);
 	}
 
+	public boolean isReviewed(int customerId, int productItemId, List<CustomerReview> listCustomerReiview) {
+		for (CustomerReview customerReview: listCustomerReiview) {
+			if (customerReview.getCustomer().getId() == customerId && customerReview.getOrderLine().getProductItem().getId() == productItemId) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
