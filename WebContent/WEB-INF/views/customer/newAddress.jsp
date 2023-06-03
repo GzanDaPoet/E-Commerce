@@ -77,8 +77,12 @@
 							</select> <label for="ward">Xã</label> <span class="select-icon"><i
 								class="fa-solid fa-angle-down"></i></span>
 						</div>
-
-
+						<div class="input-container">
+							<input type="number" required="required" id="phone"
+								 name="phone" value="${phone}"
+								aria-labelledby="phone"><span class="highlight"></span><span
+								class="bar"></span> <label for="phone">Số điện thoại</label>
+						</div>
 						<div class="input-container">
 							<input type="text" required="required" id="details"
 								 name="details" value="${details}"

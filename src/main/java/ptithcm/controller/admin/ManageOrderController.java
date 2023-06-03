@@ -64,8 +64,8 @@ public class ManageOrderController {
 		ShopOrder shopOrder = customerService.getShopOrderById(id);
 		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
 				+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getDistrict().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getProvince().getName();
 		model.addAttribute("address",address);
 		System.out.println(shopOrder.getOrderStatus().getStatus());
 		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
@@ -107,8 +107,8 @@ public class ManageOrderController {
 		if (shopOrder.getAddressDelivery() == null) {
 			address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
 					+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
-					+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
-					+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+					+ shopOrder.getCustomerAddress().getAddress().getWard().getDistrict().getName() + ", "
+					+ shopOrder.getCustomerAddress().getAddress().getWard().getProvince().getName();
 			shopOrder.setAddressDelivery(address);
 		}
 		else shopOrder.setAddressDelivery(shopOrder.getAddressDelivery());

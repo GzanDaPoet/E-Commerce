@@ -54,12 +54,11 @@ public class CustomerController {
 	@RequestMapping(value = "newAddress", method = RequestMethod.POST)
 	public String showNewAddress1(ModelMap model, @RequestParam("province") int provinceId,
 			@RequestParam("district") int districtId, @RequestParam("ward") int wardId,
-			@RequestParam("details") String details, HttpServletRequest request) {
+			@RequestParam("details") String details, @RequestParam("phone") String phone, HttpServletRequest request) {
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) == null) {
 			return "redirect:/e-commerce/login.htm";
 		}
-		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
-				.getId();
+		Date sqlDate = new Date(System.currentTimeMillis());
 		model.addAttribute("details", details);
 		if (provinceId != 0) {
 			if (districtId != 0) {
@@ -67,8 +66,8 @@ public class CustomerController {
 					Address newAddress = new Address();
 					newAddress.setDetailAddress(details);
 					newAddress.setWard(addressService.getWard(wardId));
-					newAddress.setDistrict(addressService.getDistrict(districtId));
-					newAddress.setProvince(addressService.getProvince(provinceId));
+					newAddress.setPhoneNumber(phone);
+					newAddress.setCreateAt(sqlDate);
 					Session session = sessionFactory.openSession();
 					org.hibernate.Transaction t = session.beginTransaction();
 					try {
@@ -143,8 +142,8 @@ public class CustomerController {
 		ShopOrder shopOrder = customerService.getShopOrderById(id);
 		String address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
 				+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getDistrict().getName() + ", "
-				+ shopOrder.getCustomerAddress().getAddress().getProvince().getName();
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getDistrict().getName() + ", "
+				+ shopOrder.getCustomerAddress().getAddress().getWard().getProvince().getName();
 		model.addAttribute("address", address);
 		System.out.println(shopOrder.getOrderStatus().getStatus());
 		if (shopOrder.getOrderStatus().getStatus().equals("ON_HOLD")) {
@@ -154,6 +153,7 @@ public class CustomerController {
 		}
 		model.addAttribute("sum", shopOrder.getOrderTotal());
 		model.addAttribute("id", id);
+		model.addAttribute("phone",shopOrder.getCustomerAddress().getAddress().getPhoneNumber());
 		return "customer/orderDetails";
 	}
 
@@ -182,10 +182,11 @@ public class CustomerController {
 
 	@RequestMapping(value = "editAddress", method = RequestMethod.GET)
 	public String editAddress(@RequestParam("id") int id, ModelMap model, HttpServletRequest request) {
-		int provinceId = addressService.getAddressById(id).getAddress().getProvince().getId();
-		int districtId = addressService.getAddressById(id).getAddress().getDistrict().getId();
+		int provinceId = addressService.getAddressById(id).getAddress().getWard().getProvince().getId();
+		int districtId = addressService.getAddressById(id).getAddress().getWard().getDistrict().getId();
 		int wardId = addressService.getAddressById(id).getAddress().getWard().getId();
 		String details = addressService.getAddressById(id).getAddress().getDetailAddress();
+		String phone = addressService.getAddressById(id).getAddress().getPhoneNumber();
 		List<Province> listPros = addressService.listProvinces();
 		model.addAttribute("listPros", listPros);
 		model.addAttribute("selectedProvince", provinceId);
@@ -196,19 +197,21 @@ public class CustomerController {
 		model.addAttribute("listWards", listWards);
 		model.addAttribute("selectedWard", wardId);
 		model.addAttribute("details", details);
+		model.addAttribute("phone", phone);
 		model.addAttribute("id", id);
 		return "customer/editAddress";
 	}
 
 	@RequestMapping(value = "editAddress/done", method = RequestMethod.POST)
 	public String doneEdit(@RequestParam("province") int provinceId, @RequestParam("district") int districtId,
-			@RequestParam("ward") int wardId, @RequestParam("details") String details, @RequestParam("id") int id,
-			ModelMap model) {
+			@RequestParam("ward") int wardId, @RequestParam("details") String details,
+			@RequestParam("phone") String phone, @RequestParam("id") int id, ModelMap model) {
+		Date sqlDate = new Date(System.currentTimeMillis());
 		Address editAddress = addressService.getAddressById(id).getAddress();
 		editAddress.setDetailAddress(details);
-		editAddress.setDistrict(addressService.getDistrict(districtId));
 		editAddress.setWard(addressService.getWard(wardId));
-		editAddress.setProvince(addressService.getProvince(provinceId));
+		editAddress.setPhoneNumber(phone);
+		editAddress.setModifiedAt(sqlDate);
 		Session session = sessionFactory.openSession();
 		org.hibernate.Transaction t = session.beginTransaction();
 		try {
@@ -229,8 +232,10 @@ public class CustomerController {
 	@RequestMapping(value = "editAddress", method = RequestMethod.POST)
 	public String editAddress(ModelMap model, @RequestParam("province") int provinceId,
 			@RequestParam("district") int districtId, @RequestParam("ward") int wardId,
-			@RequestParam("details") String details, @RequestParam("id") int id, HttpServletRequest request) {
+			@RequestParam("details") String details, @RequestParam("phone") String phone, @RequestParam("id") int id,
+			HttpServletRequest request) {
 		model.addAttribute("details", details);
+		model.addAttribute("phone", phone);
 		model.addAttribute("id", id);
 		if (provinceId != 0) {
 			if (districtId != 0) {

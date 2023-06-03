@@ -27,8 +27,7 @@ public class Province{
 	@OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     private List<District> districts;
 	
-	@OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
-	private Collection<Address> addresses;
+
 	
 	public Province() {
 		super();

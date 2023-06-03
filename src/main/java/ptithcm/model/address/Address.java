@@ -1,5 +1,6 @@
 package ptithcm.model.address;
 
+import java.sql.Date;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -23,30 +24,59 @@ public class Address {
 	@Column(name = "id")
 	private Integer id;
 	@ManyToOne
-	@JoinColumn(name = "province")
-	private Province province;
-	@ManyToOne
 	@JoinColumn(name = "ward")
 	private Ward ward;
-	@ManyToOne
-	@JoinColumn(name = "district")
-	private District district;
 	@Column(name="detail_address")
 	private String detailAddress;
-	
 	@OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
 	private Collection<CustomerAddress> customerAddress;
-	
+	@Column(name="phone_number")
+	private String phoneNumber;
+	@Column(name = "create_at")
+	private Date createAt;
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
+
+	public Date getDeleteAt() {
+		return deleteAt;
+	}
+
+	public void setDeleteAt(Date deleteAt) {
+		this.deleteAt = deleteAt;
+	}
+	@Column(name = "modified_at")
+	private Date modifiedAt;
+	@Column(name = "delete_at")
+	private Date deleteAt;
 	public Address() {
 		super();
 	}
 	
-	public Address(int id, Province province, Ward ward, District district, String detailAddress) {
+	public Address(int id, Ward ward, String detailAddress) {
 		super();
 		this.id = id;
-		this.province = province;
 		this.ward = ward;
-		this.district = district;
 		this.detailAddress = detailAddress;
 	}
 
@@ -59,13 +89,7 @@ public class Address {
 		this.id = id;
 	}
 	
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
-	}
+	
 
 	public Ward getWard() {
 		return ward;
@@ -75,14 +99,7 @@ public class Address {
 		this.ward = ward;
 	}
 
-	public District getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(District district) {
-		this.district = district;
-	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
