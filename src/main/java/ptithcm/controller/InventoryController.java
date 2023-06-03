@@ -76,7 +76,7 @@ public class InventoryController {
 		for(int i = 0;i < productItems.size();i++) {
 			InventoryReceivingDetails newIRDetails = new InventoryReceivingDetails();
 			newIRDetails.setInventoryReceiving(newInventoryReceiving);
-			newIRDetails.setProductItem(productService.getProductById(productItems.get(i)));
+			newIRDetails.setProductItem(productService.getProductItemById(productItems.get(i)));
 			newIRDetails.setPrice(qtys.get(i));
 			newIRDetails.setQty(prices.get(i));
 			Session session1 = sessionFactory.openSession();

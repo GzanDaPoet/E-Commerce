@@ -849,6 +849,21 @@
 	color: #FFD700;
 }
 
+
+.stars i {
+	font-size: 20px;
+	color: gray;
+	cursor: pointer;
+}
+
+.stars i.active {
+	color: gold;
+}
+
+.item-icon {
+	font-size: 40px;
+	margin-bottom: 10px;
+}
 .comment-container {
 	display: flex;
 	align-items: center;
