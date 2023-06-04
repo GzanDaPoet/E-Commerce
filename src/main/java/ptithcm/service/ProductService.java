@@ -173,7 +173,6 @@ public class ProductService {
 			}
 		}
 		for (Promotion promotion : promotionList) {
-			System.out.println("Vo day để kiểm tra hết hạn khuyến mãi chưa");
 			int compare = curentDate.compareTo(promotion.getEndDate());
 			System.out.println("compare ngay ket thuc: " + compare);
 			if (compare > 0) {

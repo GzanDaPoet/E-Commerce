@@ -30,21 +30,12 @@
 		<main class="content">
 			<div class="content-container">
 				<div class="list-header">
-					<div class="header-breadcrumb">
-						<h3 class="heading">Chi tiết đơn hàng vận chuyển</h3>
-						<nav aria-label="breadcrumb">
-							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
-										chủ</a></li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
-								</li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item">Danh sách nhãn</li>
-							</ul>
-						</nav>
+					<div>
+						<a href="${contextPath}/delivery/listDeliveryOrder.htm">
+							<button class="btn--add">
+								<span>Quay lại</span>
+							</button>
+						</a>
 					</div>
 				</div>
 				<div class="paper-wrapper">

@@ -1,10 +1,8 @@
 package ptithcm.dao.ManageOrder;
 
-import java.sql.Date;
 import java.util.List;
 
 import ptithcm.model.order.OrderDelivery;
-import ptithcm.model.order.OrderLine;
 import ptithcm.model.shop.ShopOrder;
 
 public interface ManageOrderDao {
@@ -14,6 +12,7 @@ public interface ManageOrderDao {
 
 	ShopOrder getShopOrderById(int orderId);
 
-	List<OrderDelivery> getListOfOrderShipping(int userId);
+	List<OrderDelivery> getListOfOrderShippingByShipper(int userId);
+	List<OrderDelivery> getAllOrderShipping();
 
 }

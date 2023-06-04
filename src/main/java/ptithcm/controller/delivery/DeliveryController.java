@@ -1,10 +1,12 @@
 package ptithcm.controller.delivery;
 
+import java.io.ObjectInputFilter.Status;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.filefilter.AndFileFilter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -44,18 +46,37 @@ public class DeliveryController {
 
 	@RequestMapping(value = "listDeliveryOrder")
 	public String getListDeliveryOrder(ModelMap modelMap, HttpServletRequest request) {
-		int userId = 0;
+		
+		String roleAdmin = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			userId = (int) ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL))
-					.getId();
+			roleAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
-		System.out.println("userId: " + userId);
-		List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.orderDeliveryDTOList(userId);
-		if (orderDeliveryDTOList == null) {
-			System.out.println("Null roi");
-		} else {
-			System.out.println("khong null");
+		
+		Boolean isAdmin = false;
+		
+		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+			isAdmin = true;
+		}
+		modelMap.addAttribute("isAdmin", isAdmin);
+		if (isAdmin) {
+			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.getAllOrderShipping();
 			modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
+		}
+		else  {
+			int userId = 0;
+			if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
+				userId = (int) ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL))
+						.getId();
+			}
+			System.out.println("userId: " + userId);
+			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.orderDeliveryDTOListByShipper(userId);
+			if (orderDeliveryDTOList == null) {
+				System.out.println("Null roi");
+			} else {
+				System.out.println("khong null");
+				modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
+			}
 		}
 		return "delivery/listDeliveryOrder";
 	}
@@ -84,18 +105,30 @@ public class DeliveryController {
 		System.out.println("Come here");
 		OrderDelivery orderDelivery = orderDeliveryService.getOrderDeliveryById(id, userId);
 		Integer orderId = orderDelivery.getShopOrder().getId();
+		
 		System.out.println("order id: " + orderId);
 		ShopOrder shopOrder = manageOrderService.getShopOrderById(orderId);
 		OrderStatus orderStatus = new OrderStatus();
 		DeliveryStatus deliveryStatus = new DeliveryStatus();
+		java.util.Date now = new java.util.Date();
 		if (status.equals("success")) {
 			System.out.println("Xác nhận giao hàng thành công");
+			orderDelivery.setReceivedDate(new java.sql.Date(now.getTime()));
 			orderStatus.setId(3);
 			deliveryStatus.setId(2);
-		} else {
+		} 
+		
+		else if (status.equals("ship_back")) {
+			System.out.println("Chuyển về kho giao lại");
+			deliveryStatus.setId(4);
+			orderDelivery.setReceivedDate(null);
+			orderStatus.setId(1);
+		}
+		else {
 			System.out.println("Xác nhận giao hàng thất bại");
 			deliveryStatus.setId(3);
-			orderStatus.setId(1);
+			orderDelivery.setReceivedDate(null);
+			orderStatus.setId(4);
 		}
 		shopOrder.setOrderStatus(orderStatus);
 		orderDelivery.setDeliveryStatus(deliveryStatus);
