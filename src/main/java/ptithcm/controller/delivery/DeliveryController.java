@@ -55,7 +55,8 @@ public class DeliveryController {
 		
 		Boolean isAdmin = false;
 		
-		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN) || 
+				roleAdmin.equals(SystemConstant.Authorization.USER)) {
 			isAdmin = true;
 		}
 		modelMap.addAttribute("isAdmin", isAdmin);
