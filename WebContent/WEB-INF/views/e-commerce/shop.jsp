@@ -1,7 +1,10 @@
+<%@page import="javax.xml.stream.events.Comment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -61,7 +64,8 @@
 								</span>
 							</div>
 							<div class="description-product">
-								<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">${u.name }</a>
+								<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">${u.name
+																}</a>
 								<div class="product-price">
 									<span class="sale-price"></span> <span class="normal-price">${u.defaultPrice}</span>
 								</div>
@@ -77,31 +81,31 @@
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script type="text/javascript">
-					const descriptionProducts = document.querySelectorAll('.shop-list-item');
+								const descriptionProducts = document.querySelectorAll('.shop-list-item');
 
-					descriptionProducts.forEach((product) => {
-						const priceElement = product.querySelector('.normal-price');
-						const saleElement = product.querySelector('.sale-price');
-						const saleStatus = product.querySelector(".product-status-sale")
-						saleStatus.style.display = "none";
+								descriptionProducts.forEach((product) => {
+									const priceElement = product.querySelector('.normal-price');
+									const saleElement = product.querySelector('.sale-price');
+									const saleStatus = product.querySelector(".product-status-sale")
+									saleStatus.style.display = "none";
 
-						const priceValue = parseFloat(priceElement.textContent);
+									const priceValue = parseFloat(priceElement.textContent);
 
-						if (saleElement) {
-							const saleValue = parseFloat(saleElement.textContent);
+									if (saleElement) {
+										const saleValue = parseFloat(saleElement.textContent);
 
-							if (!isNaN(saleValue) && saleValue <= priceValue) {
-								const formattedSalePrice = saleValue.toLocaleString();
-								console.log(formattedSalePrice)
-								saleElement.textContent = formattedSalePrice + " VND";
-							saleStatus.style.display = "inline-flex";
+										if (!isNaN(saleValue) && saleValue <= priceValue) {
+											const formattedSalePrice = saleValue.toLocaleString();
+											console.log(formattedSalePrice)
+											saleElement.textContent = formattedSalePrice + " VND";
+											saleStatus.style.display = "inline-flex";
 
-							}
-						} 
-						const formattedPrice = priceValue.toLocaleString();
-						priceElement.textContent = formattedPrice + " VND";
-					});
-				</script>
+										}
+									}
+									const formattedPrice = priceValue.toLocaleString();
+									priceElement.textContent = formattedPrice + " VND";
+								});
+							</script>
 </body>
 
 </html>

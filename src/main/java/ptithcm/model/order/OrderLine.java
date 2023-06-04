@@ -33,7 +33,7 @@ public class OrderLine {
 	@Column(name = "qty")
 	private Integer quantity;
 	@Column(name = "price")
-	private Integer price;
+	private Long price;
 	
 	@OneToMany(mappedBy = "orderLine", fetch = FetchType.LAZY)
 	private Collection<CustomerReview> customerReivew;
@@ -42,7 +42,7 @@ public class OrderLine {
 		super();
 	}
 
-	public OrderLine(Integer id, ProductItem productItem, ShopOrder shopOrder, Integer quantity, Integer price) {
+	public OrderLine(Integer id, ProductItem productItem, ShopOrder shopOrder, Integer quantity, Long price) {
 		super();
 		this.id = id;
 		this.productItem = productItem;
@@ -83,11 +83,11 @@ public class OrderLine {
 		this.quantity = quantity;
 	}
 
-	public Integer getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 

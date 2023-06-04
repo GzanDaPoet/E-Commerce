@@ -182,6 +182,10 @@ main {
 	font-family: "Public Sans", sans-serif;
 }
 
+.product-sale-price {product-sale-price
+	
+}
+
 .product-name {
 	margin: 0px;
 	font-weight: 700;
@@ -853,6 +857,17 @@ main {
 	gap: 12px;
 }
 
+input[type="text"], textarea {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	resize: none;
+}
+
 /* Thiết lập kiểu cho phần tử container */
 .box-comments {
 	margin-top: 20px;
@@ -880,6 +895,11 @@ main {
 .comment .message {
 	margin-top: 5px;
 	font-size: 0.9em;
+}
+
+.title_comment {
+	font-size: 25px;
+	font-weight: 500;
 }
 
 .cart-icon {
@@ -962,6 +982,25 @@ main {
 
 .form-control {
 	margin-top: 10px;
+}
+
+.stars {
+	display: inline-block;
+}
+
+.stars i {
+	font-size: 20px;
+	color: gray;
+	cursor: pointer;
+}
+
+.stars i.active {
+	color: gold;
+}
+
+.item-icon {
+	font-size: 40px;
+	margin-bottom: 10px;
 }
 
 .rating {

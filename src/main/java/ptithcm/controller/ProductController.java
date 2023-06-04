@@ -63,55 +63,14 @@ public class ProductController {
 
 	@RequestMapping("shop")
 	public String shop(ModelMap model, HttpServletRequest request) {
-		Date curentDate = new Date();
-		List<Promotion> promotionList = promotionService.getAllPromotions();
 		List<Product> listProducts = productService.getListProducts();
-		List<ProductItem> listProductItemAdd = new ArrayList<>();
 		List<ProductDTO> listProductDTOs = new ArrayList<ProductDTO>();
 
 		for (int i = 0; i < listProducts.size(); i++) {
 			ProductDTO productDTO = new ProductDTO(listProducts.get(i));
 			listProductDTOs.add(productDTO);
 		}
-
-		// for (Promotion promotion : promotionList) {
-		// int compare = curentDate.compareTo(promotion.getEndDate());
-		// if (compare > 0) {
-		// PromotionCategory promotionCategory =
-		// promotionService.getPromotionCategoryById(promotion.getId());
-		// int categoryId = promotionCategory.getProductCategory().getId();
-		// List<Product> listProductOutDatePromotionList =
-		// productService.getAllProductByCateId(categoryId);
-		// for (Product product : listProductOutDatePromotionList) {
-		// List<ProductItem> listProductItems = (List<ProductItem>)
-		// product.getProductItems();
-		// listProductItemAdd.addAll(listProductItems);
-		// }
-		// }
-		//
-		// Session session = sessionFactory.openSession();
-		// Transaction tx = null;
-		// try {
-		// tx = session.beginTransaction();
-		// for (ProductItem productItem : listProductItemAdd) {
-		// productItem.setStatus("");
-		// session.merge(productItem);
-		// }
-		// tx.commit();
-		// System.out.println("Thanh cong");
-		// } catch (Exception e) {
-		// if (tx != null) {
-		// tx.rollback();
-		// System.out.println("That bai: " + e.toString());
-		// }
-		// } finally {
-		// if (session != null) {
-		// session.close();
-		// }
-		// }
-		// }
-
-		// List<ProductItem> list = productService.getListProducts();
+		productService.checkPromotion();
 		model.addAttribute("listProduct", listProductDTOs);
 		return "e-commerce/shop";
 	}
@@ -136,17 +95,15 @@ public class ProductController {
 			ConfigProductDTO configProductDTO = new ConfigProductDTO(configProductItem, listProductItem.get(i).getId());
 			listConfigProductDTOs.add(configProductDTO);
 		}
-
-		// System.out.println("ID customer: " + id);
-		// System.out.println("Status: " + product.);
-		// Boolean onSale = false;
-		// if (product.getStatus().equals("ON_SALE")) {
-		// int salePrice = product.getPrice() * (100 -
-		// promotionService.getPriceDiscount(productId)) / 100;
-		// model.addAttribute("salePrice", salePrice);
-		// onSale = true;
-		// }
-		// model.addAttribute("onSale", onSale);
+		 Boolean onSale = false;
+		 if (productItem.getStatus().equals("ON_SALE")) {
+			 System.out.println("Price: " + productItem.getPrice());
+			 long salePrice = promotionService.getPriceDiscount(productItemId, productItem.getPrice());
+			 System.out.println("sale price: " + salePrice);
+			 model.addAttribute("salePrice", salePrice);
+			 onSale = true;
+		 }
+		 model.addAttribute("onSale", onSale);
 
 		int quantityOrdered = 0;
 		int cartId = 0;
@@ -185,8 +142,6 @@ public class ProductController {
 		} else {
 			isBought = true;
 		}
-		
-		
 		
 		System.out.println("is bought: " + isBought);
 		model.addAttribute("isBought", isBought);
@@ -276,6 +231,7 @@ public class ProductController {
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
 			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request, @PathVariable("productItemId") int productItemId) {
 		int id = 0;
+		System.out.println("Đang vào bình luận");
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {
 			id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
 					.getId();

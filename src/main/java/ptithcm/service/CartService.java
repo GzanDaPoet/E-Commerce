@@ -39,9 +39,8 @@ public class CartService {
 		return decrease;
 	}
 
-	public int getSalePrice(int productId){
-		int percent = 100 - promotionDao.getPriceDiscount(productId);
-		return percent;
+	public long getSalePrice(int productItemId, long OldPrice){
+		return promotionDao.getPriceDiscount(productItemId, OldPrice);
 	}
 
 }

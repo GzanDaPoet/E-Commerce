@@ -37,7 +37,7 @@ public class ProductItem {
 	@Column(name = "product_image")
 	private String productImage;
 	@Column(name = "price")
-	private Integer price;
+	private Long price;
 	@Column(name = "warranty_time")
 	private int warrantyTime;
 	@Column(name = "status")
@@ -58,7 +58,7 @@ public class ProductItem {
 		super();
 	}
 
-	public ProductItem(Product product, String SKU, int quantityInStock, String productImage, Integer price,
+	public ProductItem(Product product, String SKU, int quantityInStock, String productImage, long price,
 			int warrantyTime, String status) {
 		this.product = product;
 		this.SKU = SKU;
@@ -69,7 +69,7 @@ public class ProductItem {
 		this.warrantyTime = warrantyTime;
 	}
 
-	public ProductItem(int id, Product product, String SKU, int quantityInStock, String productImage, Integer price,
+	public ProductItem(int id, Product product, String SKU, int quantityInStock, String productImage, long price,
 			int warrantyTime, String status, Collection<OrderLine> orderLines, Collection<ShoppingCartItem> cartItems,
 			Collection<WarrantyDetail> warrantyDetails, Collection<UpdatePriceProductItem> updatePriceProductItems,
 			Collection<InventoryReceivingDetails> inventoryReceivingDetails) {
@@ -136,11 +136,11 @@ public class ProductItem {
 		this.productImage = productImage;
 	}
 
-	public Integer getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 
