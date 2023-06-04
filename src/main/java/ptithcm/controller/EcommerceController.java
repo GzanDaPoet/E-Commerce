@@ -46,15 +46,17 @@ public class EcommerceController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password,
-			HttpServletRequest request) {
+	public String handleCustomerLoginRequest(@RequestParam String username, @RequestParam String password,
+			HttpServletRequest request,ModelMap model) {
 		Customer customer = customerService.getCustomerByUsernamePassword(username, password);
 		if (customer != null) {
 			SessionUtil.getInstance().putValue(request, SystemConstant.Model.CUSTOMER_MODEL, customer);
+			SessionUtil.getInstance().removeValue(request,SystemConstant.Model.USER_MODEL);
 			System.out.println(customer.getUserName());
 			return "redirect:/e-commerce/shop.htm";
 		}
-		return "redirect:/e-commerce/login.htm";
+		model.addAttribute("error", "Thông tin đăng nhập không đúng");
+		return "e-commerce/login";
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
@@ -96,7 +98,6 @@ public class EcommerceController {
 			org.hibernate.Transaction tr = session1.beginTransaction();
 			try {
 				session1.save(newCPM);
-				// session1.save(newCTMProfile);
 				tr.commit();
 				model.addAttribute("message", "Thêm mới thành công! ");
 				System.out.println("done");
@@ -113,4 +114,10 @@ public class EcommerceController {
 		return "e-commerce/signIn";
 	}
 
+	@RequestMapping(value = "logOut",method = RequestMethod.GET)
+	public String logOut(HttpServletRequest request) {
+		SessionUtil.getInstance().removeValue(request,SystemConstant.Model.USER_MODEL);
+		SessionUtil.getInstance().removeValue(request,SystemConstant.Model.CUSTOMER_MODEL);
+		return "e-commerce/login";
+	}
 }

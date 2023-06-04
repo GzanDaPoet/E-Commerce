@@ -49,8 +49,13 @@
 							class="highlight"></span><span class="bar"></span> <label
 							for="searchText">Mật khẩu</label>
 					</div>
+					<c:if test="${not empty error}">
+						<div class="popup">
+							<p>${error}</p>
+						</div>
+					</c:if>
 					<div class="form-submit">
-						<a href="#">Quên mật khẩu?</a>
+						<a href="${contextPath}/admin/login.htm">Đăng nhập với tư cách quản trị viên</a>
 						<button type="submit">Đăng nhập</button>
 					</div>
 				</div>
