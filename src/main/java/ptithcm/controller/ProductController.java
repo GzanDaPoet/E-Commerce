@@ -67,7 +67,7 @@ public class ProductController {
 		List<ProductDTO> listProductDTOs = new ArrayList<ProductDTO>();
 
 		for (int i = 0; i < listProducts.size(); i++) {
-			ProductDTO productDTO = new ProductDTO(listProducts.get(i));
+			ProductDTO productDTO = new ProductDTO(listProducts.get(i), promotionService);
 			listProductDTOs.add(productDTO);
 		}
 		productService.checkPromotion();
@@ -95,15 +95,15 @@ public class ProductController {
 			ConfigProductDTO configProductDTO = new ConfigProductDTO(configProductItem, listProductItem.get(i).getId());
 			listConfigProductDTOs.add(configProductDTO);
 		}
-		 Boolean onSale = false;
-		 if (productItem.getStatus().equals("ON_SALE")) {
-			 System.out.println("Price: " + productItem.getPrice());
-			 long salePrice = promotionService.getPriceDiscount(productItemId, productItem.getPrice());
-			 System.out.println("sale price: " + salePrice);
-			 model.addAttribute("salePrice", salePrice);
-			 onSale = true;
-		 }
-		 model.addAttribute("onSale", onSale);
+		Boolean onSale = false;
+		if (productItem.getStatus().equals(SystemConstant.ProductStatus.ON_SALE)) {
+			System.out.println("Price: " + productItem.getPrice());
+			long salePrice = promotionService.getPriceDiscount(productItemId, productItem.getPrice());
+			System.out.println("sale price: " + salePrice);
+			model.addAttribute("salePrice", salePrice);
+			onSale = true;
+		}
+		model.addAttribute("onSale", onSale);
 
 		int quantityOrdered = 0;
 		int cartId = 0;
@@ -142,7 +142,7 @@ public class ProductController {
 		} else {
 			isBought = true;
 		}
-		
+
 		System.out.println("is bought: " + isBought);
 		model.addAttribute("isBought", isBought);
 
@@ -156,7 +156,7 @@ public class ProductController {
 			}
 			model.addAttribute("comments", comments);
 		}
-		
+
 		model.addAttribute("listConfigProduct", listConfigProductDTOs);
 		model.addAttribute("quantityOrdered", quantityOrdered);
 		model.addAttribute("product", product);
@@ -229,7 +229,8 @@ public class ProductController {
 
 	@RequestMapping(value = "product/{productId}/detail/{productItemId}", method = RequestMethod.POST, params = "addComment")
 	public String addComment(ModelMap model, @PathVariable("productId") int productId,
-			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request, @PathVariable("productItemId") int productItemId) {
+			@ModelAttribute("CustomerReview") CustomerReview customerReview, HttpServletRequest request,
+			@PathVariable("productItemId") int productItemId) {
 		int id = 0;
 		System.out.println("Đang vào bình luận");
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL) != null) {

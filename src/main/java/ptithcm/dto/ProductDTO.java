@@ -2,8 +2,10 @@ package ptithcm.dto;
 
 import java.util.List;
 
+import ptithcm.constant.SystemConstant;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.service.admin.PromotionService;
 
 public class ProductDTO {
 	private Integer id;
@@ -14,8 +16,9 @@ public class ProductDTO {
 	private String productCategoryName;
 	private int defaultProductItem = 0;
 	private long defaultPrice = 0;
+	private long defaultSalePrice = 0;
 
-	public ProductDTO(Product product) {
+	public ProductDTO(Product product, PromotionService promotionService) {
 		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
@@ -26,6 +29,13 @@ public class ProductDTO {
 		if (listProductItems.size() >= 1) {
 			defaultProductItem = listProductItems.get(0).getId();
 			defaultPrice = listProductItems.get(0).getPrice();
+			if (promotionService != null && listProductItems.get(0).getStatus().equals(SystemConstant.ProductStatus.ON_SALE)) {
+				System.out.println("Price: " + listProductItems.get(0).getPrice());
+				long salePrice = promotionService.getPriceDiscount(listProductItems.get(0).getId(),
+						listProductItems.get(0).getPrice());
+				System.out.println("sale price: " + salePrice);
+				this.defaultSalePrice = salePrice;
+			}
 		}
 	}
 
@@ -90,6 +100,18 @@ public class ProductDTO {
 	}
 
 	public void setDefaultPrice(int defaultPrice) {
+		this.defaultPrice = defaultPrice;
+	}
+
+	public long getDefaultSalePrice() {
+		return defaultSalePrice;
+	}
+
+	public void setDefaultSalePrice(long defaultSalePrice) {
+		this.defaultSalePrice = defaultSalePrice;
+	}
+
+	public void setDefaultPrice(long defaultPrice) {
 		this.defaultPrice = defaultPrice;
 	}
 

@@ -67,7 +67,17 @@
 								<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">${u.name
 																}</a>
 								<div class="product-price">
-									<span class="sale-price"></span> <span class="normal-price">${u.defaultPrice}</span>
+									<span class="sale-price"> <c:if
+											test="${u.defaultSalePrice > 0 }">
+									${u.defaultPrice}
+									</c:if>
+									</span> <span class="normal-price"><c:if
+											test="${u.defaultSalePrice <= 0 }">
+									${u.defaultPrice}
+									</c:if> <c:if test="${u.defaultSalePrice > 0 }">
+									
+									${u.defaultSalePrice}
+									</c:if> </span>
 								</div>
 
 							</div>
@@ -94,12 +104,11 @@
 									if (saleElement) {
 										const saleValue = parseFloat(saleElement.textContent);
 
-										if (!isNaN(saleValue) && saleValue <= priceValue) {
+										if (!isNaN(saleValue) && saleValue >= priceValue) {
 											const formattedSalePrice = saleValue.toLocaleString();
 											console.log(formattedSalePrice)
 											saleElement.textContent = formattedSalePrice + " VND";
 											saleStatus.style.display = "inline-flex";
-
 										}
 									}
 									const formattedPrice = priceValue.toLocaleString();

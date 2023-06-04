@@ -125,7 +125,7 @@ public class AdminProductController {
 		List<ProductDTO> productDTOs = new ArrayList<>();
 
 		for (Product product : listProducts) {
-			ProductDTO productDTO = new ProductDTO(product);
+			ProductDTO productDTO = new ProductDTO(product, null);
 			productDTOs.add(productDTO);
 		}
 
@@ -141,7 +141,7 @@ public class AdminProductController {
 		List<ProductCategory> allCategories = categoryService.getAllCategory();
 		List<ProductItem> listProductItems = productService.getListProductItemByProductId(id);
 		Product product = productService.getProductById(id);
-		ProductDTO productDTO = new ProductDTO(product);
+		ProductDTO productDTO = new ProductDTO(product, null);
 
 		modelMap.addAttribute("listProductItem", listProductItems);
 		modelMap.addAttribute("listCategory", allCategories);

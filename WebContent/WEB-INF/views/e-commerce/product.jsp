@@ -88,7 +88,7 @@
 											style="font-weight: bold; text-decoration: line-through; text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px;">
 											${currentProductItem.price} VND</p>
 										<p class="product-sale-price"
-											style="color: #FF0000; font-weight: bold; margin-top: 10px;">
+											style="color: #FF0000; font-weight: bold; margin-top: 10px; font-size: 1.25rem;">
 											${salePrice} VND</p>
 									</c:if>
 									<c:if test="${!onSale}">
