@@ -31,21 +31,38 @@
 			<div class="content-container">
 				<div class="list-header">
 					<div class="header-breadcrumb">
-						<h3 class="heading">Danh sách đơn hàng vận chuyển</h3>
+						<h3 class="heading">Chi tiết đơn hàng vận chuyển</h3>
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="${contextPath}/e-commerce/shop.htm">Trang
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
 										chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="#">Danh sách</a>
+									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Nhãn</a>
 								</li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Danh sách nhãn</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
 				<div class="paper-wrapper">
+				<%-- 	<form id="search-form">
+						<div class="search-container">
+							<!-- Input search -->
+							<div class="input-container">
+								<input type="text" id="search" name="search"
+									aria-labelledby="label-search" value="${search}"><span
+									class="highlight"></span><span class="bar"></span> <label
+									for="search">Tìm kiếm</label>
+								<button id="clear-search" type="button"
+									aria-label="Clear search text">
+									<i class="fa-solid fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</form> --%>
 					<div class="table-container">
 						<table>
 							<thead>
@@ -75,17 +92,14 @@
 														<option value="fail">Thất bại</option>
 													</select>
 												</div> -->
-												<c:if test="${!isAdmin}">
-													<div class="select-container">
-														<select name="status" id="status" class="select"
-															aria-invalid="false" onchange="submitForm()">
-															<option value="">Trạng thái vận chuyển</option>
-															<option value="success">Thành công</option>
-															<option value="fail">Thất bại</option>
-															<option value="ship_back">Giao lại</option>
-														</select>
-													</div>
-												</c:if>
+												<div class="select-container">
+													<select name="status" id="status" class="select"
+														aria-invalid="false" onchange="submitForm()">
+														<option value="">Trạng thái vận chuyển</option>
+														<option value="success">Thành công</option>
+														<option value="fail">Thất bại</option>
+													</select>
+												</div>
 											</form>
 											<div class="group-btn">
 												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
