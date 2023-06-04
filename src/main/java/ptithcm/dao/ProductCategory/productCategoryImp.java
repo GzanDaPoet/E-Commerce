@@ -30,7 +30,6 @@ public class productCategoryImp implements productCategoryDao{
 		String hql = "FROM ProductCategory pc where pc.id = :cateId";
 		Query query = session.createQuery(hql);
 		query.setParameter("cateId", cateId);
-		System.out.println("Thanh cong 2");
 		return (ProductCategory) query.uniqueResult();
 	}
 	

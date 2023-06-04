@@ -31,16 +31,7 @@
 
 
 /* Thiết lập kiểu cho phần tử trường văn bản */
-input[type="text"], textarea {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	box-sizing: border-box;
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	background-color: #f8f8f8;
-	resize: none;
-}
+
 
 /* Thiết lập kiểu cho phần tử container */
 .box-comments {
@@ -98,17 +89,6 @@ input[type="text"], textarea {
 	min-width: 20px;
 	justify-content: center;
 	align-items: center;
-}
-
-
-.btn_comment {
-	width: 80px;
-	padding: 4px;
-	background-color: burlywood;
-	border-radius: 10px;
-	border: none;
-	display: block;
-	margin: 0 auto;
 }
 
 .title_comment {
