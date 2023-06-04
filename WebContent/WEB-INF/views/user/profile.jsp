@@ -94,6 +94,7 @@
 								class="fa-solid fa-angle-down"></i></span>
 						</div>
 					</div>
+					<input type="hidden" name="userId" value="${userId}">
 					</form>
 					<div class="button-group">
 						<button class="button button-submit" onclick="submit('profile/done.htm')">
