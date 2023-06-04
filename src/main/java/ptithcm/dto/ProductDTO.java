@@ -2,10 +2,17 @@ package ptithcm.dto;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.service.admin.PromotionService;
 
-public class ProductDTO {
+
+
+@Component
+public class ProductDTO {	
 	private Integer id;
 	private Integer productCategoryId;
 	private String name;
@@ -91,6 +98,5 @@ public class ProductDTO {
 
 	public void setDefaultPrice(int defaultPrice) {
 		this.defaultPrice = defaultPrice;
-	}
-
+	}	
 }

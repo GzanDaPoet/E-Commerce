@@ -58,7 +58,15 @@ public class PromotionController {
 			@RequestParam("discount-percentage") int discountPercentage,
 			@RequestParam("start-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-		System.out.println("Vao day them KM");
+		String roleSupperAdmin = "";
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
+			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
+		}
+		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
+			return "redirect:/admin/product/promotion/list.htm";
+		}
+
 		LocalDate currentDate = LocalDate.now();
 		User user = (User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL);
 		Promotion promotion = new Promotion(promotionName, promotionDescription, discountPercentage,
@@ -93,15 +101,26 @@ public class PromotionController {
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String listPromotion(ModelMap model) {
+	public String listPromotion(ModelMap model, HttpServletRequest request) {
 		System.out.println("I came here");
 		List<Promotion> listPromotions = promotionService.getAllPromotions();
+		String roleSupperAdmin = "";
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
+			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
+		}
+		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
+			model.addAttribute("isSupperAdmin", true);
+		}
+		else {
+			model.addAttribute("isSupperAdmin", false);
+		}
 		model.addAttribute("listPromotions", listPromotions);
 		return "product/promotion/listPromotion";
 	}
 
 	@RequestMapping(value = "edit/{promotionId}", method = RequestMethod.GET)
-	public String editPromotion(ModelMap model, @PathVariable Integer promotionId) {
+	public String editPromotion(ModelMap model, @PathVariable Integer promotionId, HttpServletRequest request) {
 		Promotion promotion = promotionService.getPromotionById(promotionId);
 		Integer cateId = promotionService.getProductCategoryId(promotionId) - 1;
 		List<ProductCategory> listCategories = productCategoryService.getAllProductCategory();

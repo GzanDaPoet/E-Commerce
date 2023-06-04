@@ -35,24 +35,22 @@
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Trang
+									href="${contextPath}/e-commerce/shop.htm">Trang
 										chủ</a></li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="https://getbootstrap.com/docs/5.0/components/breadcrumb/#example">Sản phẩm</a>
-								</li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Danh sách khuyến mãi</li>
 							</ul>
 						</nav>
 					</div>
-					<div>
-						<a href="${contextPath}/admin/product/promotion/create.htm">
-							<button class="btn--add">
-								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
-							</button>
-						</a>
-					</div>
+					<c:if test="${!isSupperAdmin}">
+						<div>
+							<a href="${contextPath}/admin/product/promotion/create.htm">
+								<button class="btn--add">
+									<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
+								</button>
+							</a>
+						</div>
+					</c:if>
 				</div>
 				<div class="paper-wrapper">
 					<div class="table-container">
@@ -77,7 +75,8 @@
 										<td class="td-body">${element.getStartDate()}</td>
 										<td class="td-body">${element.getEndDate()}</td>
 										<td class="td-body">
-											<div class="group-btn">
+											<c:if test="${!isSupperAdmin}">
+												<div class="group-btn">
 												<a
 													href="${contextPath}/admin/product/promotion/edit/${element.id}.htm">
 													<button class="btn--add">
@@ -89,7 +88,8 @@
 														<span>Xoá</span>
 													</button>
 												</a>
-											</div>
+												</div>
+											</c:if>		
 										</td>
 									</tr>
 								</c:forEach>
