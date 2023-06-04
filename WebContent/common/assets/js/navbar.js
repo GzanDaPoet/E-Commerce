@@ -1,9 +1,27 @@
 const sideBar = document.querySelector(".sidebar");
 const toggleButton = document.getElementById("sidebar_button");
 const listCFMenu = document.querySelectorAll(".cf-menu");
+const containerCTS = document.querySelector(".container-cts");
+const buttonDisplayNav = document.querySelector(".button-display-nav");
 
 toggleButton.addEventListener("click", () => {
 	sideBar.classList.toggle("active");
+	if (sideBar.classList.contains("active")) {
+		containerCTS.style.marginLeft = "0";
+		containerCTS.style.width = "100%";
+		buttonDisplayNav.style.display = "block";
+	} else {
+		containerCTS.style.marginLeft = "280px";
+		containerCTS.style.width = "calc(100% - 280px)";
+		buttonDisplayNav.style.display = "none";
+	}
+});
+
+buttonDisplayNav.addEventListener("click", () => {
+	sideBar.classList.toggle("active");
+	containerCTS.style.marginLeft = "280px";
+	containerCTS.style.width = "calc(100% - 280px)";
+	buttonDisplayNav.style.display = "none";
 });
 
 // menu item
@@ -27,12 +45,21 @@ listMenu.forEach((item) => {
 	});
 });
 
+const dropdownBtn = document.getElementById("dropdown-btn");
+const dropdownContent = document.getElementById("dropdown-content");
+const overlay = document.querySelector(".overlay");
 
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search');
-const clearButton = document.getElementById('clear-search');
+dropdownBtn.addEventListener("click", function() {
+	dropdownContent.classList.toggle("show");
+	dropdownBtn.classList.toggle("button-display-nav");
+});
 
-clearButton.addEventListener('click', function() {
-	searchInput.value = '';
-	searchForm.submit();
+window.addEventListener("click", function(event) {
+	if (
+		!dropdownBtn.contains(event.target) &&
+		!dropdownContent.contains(event.target)
+	) {
+		dropdownContent.classList.remove("show");
+		dropdownBtn.classList.remove("button-display-nav");
+	}
 });
