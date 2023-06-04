@@ -56,8 +56,7 @@
 										<td class="td-body">${element.getPrice()}</td>
 										<td class="td-body">${element.getDateOrdered()}</td>
 										<td class="td-body">
-										<c:if test ="${!isSupperAdmin}">
-											<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
+										<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
 											<div class="select-container">
 												<select name="userId" id="userId" class="select"
 													aria-invalid="false" onchange="submitForm()">
@@ -68,19 +67,15 @@
 												</select>
 											</div>
 										</form>
-										</c:if>
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
-											<c:if test ="${!isSupperAdmin}">
-													<form action="list/cancel/${element.getOrderId()}.htm " method="post">
-														<input type="hidden" name="productId"
-															value="${shoppingCart.get(i).getId()}">
-														<button type="submit" class="btn--delete">Hủy đơn</button>
-													</form>
-											</c:if>
+												<form action="list/cancel/${element.getOrderId()}.htm " method="post">
+													<input type="hidden" name="productId"
+														value="${shoppingCart.get(i).getId()}">
+													<button type="submit" class="btn--delete">Hủy đơn</button>
+												</form>
 											</div>
-											
 
 										</td>
 										<td class="td-body">
