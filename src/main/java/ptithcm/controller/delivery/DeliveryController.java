@@ -49,12 +49,16 @@ public class DeliveryController {
 			userId = (int) ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL))
 					.getId();
 		}
-		System.out.println("userId: " + userId);
-		List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.orderDeliveryDTOList(userId);
-		if (orderDeliveryDTOList == null) {
-			System.out.println("Null roi");
-		} else {
-			System.out.println("khong null");
+		
+		Boolean isAdmin = false;
+		
+		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN) || 
+				roleAdmin.equals(SystemConstant.Authorization.USER)) {
+			isAdmin = true;
+		}
+		modelMap.addAttribute("isAdmin", isAdmin);
+		if (isAdmin) {
+			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.getAllOrderShipping();
 			modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
 		}
 		return "delivery/listDeliveryOrder";
