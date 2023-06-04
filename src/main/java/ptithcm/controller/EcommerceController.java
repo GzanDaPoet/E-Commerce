@@ -118,6 +118,6 @@ public class EcommerceController {
 	public String logOut(HttpServletRequest request) {
 		SessionUtil.getInstance().removeValue(request,SystemConstant.Model.USER_MODEL);
 		SessionUtil.getInstance().removeValue(request,SystemConstant.Model.CUSTOMER_MODEL);
-		return "e-commerce/login";
+		return "redirect:/e-commerce/login.htm";
 	}
 }

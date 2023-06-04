@@ -379,14 +379,14 @@
 							class="MuiTouchRipple-root css-w0pj6f"></span>
 					</li>
 					</a> <a href="www.google.com">
-						<li class="list-item" tabindex="-1" role="menuitem">thông tin
+						<li class="list-item" tabindex="-1" role="menuitem">Thông tin
 							cá nhân<span class="MuiTouchRipple-root css-w0pj6f"></span>
 					</li>
 					</a>
 				</div>
 				<hr>
 				<div class="dropdown-list">
-					<a href="www.google.com">
+					<a href="${contextPath}/e-commerce/logOut.htm">
 						<li class="list-item" tabindex="-1" role="menuitem">Đăng xuất<span
 							class="MuiTouchRipple-root css-w0pj6f"></span></li>
 					</a>
