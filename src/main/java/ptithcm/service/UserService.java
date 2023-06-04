@@ -62,4 +62,7 @@ public class UserService {
 		return null;
 	}
 	
+	public User getUserById(int id) {
+		return userDao.getUserById(id);
+	}
 }

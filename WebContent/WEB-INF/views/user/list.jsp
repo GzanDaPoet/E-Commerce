@@ -35,8 +35,7 @@
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="">Trang
-										chủ</a></li>
+									href="">Trang chủ</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
 									href="">Nhân viên</a></li>
@@ -93,23 +92,26 @@
 										<td class="td-body">${element.email }</td>
 										<td class="td-body">
 											<div class="mui-chip">
-												<span class="mui-chip-label">Hoạt động</span>
+												<span><c:if test="${element.status}">Hoạt động</c:if>
+													<c:if test="${!element.status}">Không hoạt động</c:if></span>
 											</div>
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
-												<a
-													href="${contextPath}/admin/product/variation/edit/${element.id}.htm">
-
-													<button class="btn--add">
-														<span>Chỉnh sửa</span>
-													</button>
-												</a> <a
-													href="${contextPath}/admin/product/variation/delete/${element.id}.htm">
+												<c:if test="${element.status}">
+													<a href="${contextPath}/user/edit/${element.id}.htm">
+														<button class="btn--add">
+															<span>Chỉnh sửa</span>
+														</button>
+													</a>
+												</c:if>
+												<a href="${contextPath}/user/delete/${element.id}.htm">
 													<button class="btn--delete">
-														<span>Xoá</span>
+														<span><c:if test="${element.status}">Xóa</c:if>
+															<c:if test="${!element.status}">Kích hoạt</c:if></span>
 													</button>
 												</a>
+
 											</div>
 										</td>
 									</tr>
