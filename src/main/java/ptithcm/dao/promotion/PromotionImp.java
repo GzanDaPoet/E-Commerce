@@ -27,11 +27,7 @@ public class PromotionImp implements PromotionDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("productId", productId);
 		int percentDiscount = (int) query.uniqueResult();
-		System.out.println("Old Price: " + oldPrice);
 		long newPrice = (oldPrice * (100 - percentDiscount)) / 100;
-		System.out.println("percent discount: " + percentDiscount);
-		
-		System.out.println("new price: " + newPrice);
 		return newPrice;
 	};
 

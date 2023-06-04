@@ -35,23 +35,22 @@
 						<nav aria-label="breadcrumb">
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="">Trang
+									href="${contextPath}/e-commerce/shop.htm">Trang
 										chủ</a></li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="">Đại lý</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Danh sách đại lý</li>
 							</ul>
 						</nav>
 					</div>
-					<div>
-						<a href="${contextPath}/admin/agency/create.htm">
-							<button class="btn--add">
-								<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
-							</button>
-						</a>
-					</div>
+					<c:if test="${!isSupperAdmin}">
+						<div>
+							<a href="${contextPath}/admin/agency/create.htm">
+								<button class="btn--add">
+									<i class="fa-solid fa-plus"></i><span>Thêm mới</span>
+								</button>
+							</a>
+						</div>
+					</c:if>
 				</div>
 				<div class="paper-wrapper">
 					<form id="search-form">
@@ -95,19 +94,21 @@
 										<td class="td-body">${element.phoneNumber }</td>
 										<td class="td-body">${element.address }</td>
 										<td class="td-body">
-											<div class="group-btn">
-												<a
-													href="${contextPath}/admin/agency/edit/${element.id}.htm">
-													<button class="btn--add">
-														<span>Chỉnh sửa</span>
-													</button>
-												</a> <a
-													href="${contextPath}/admin/agency/list/delete/${element.id}.htm">
-													<button class="btn--delete">
-														<span>Xoá</span>
-													</button>
-												</a>
-											</div>
+											<c:if test="${!isSupperAdmin}">
+												<div class="group-btn">
+													<a
+														href="${contextPath}/admin/agency/edit/${element.id}.htm">
+														<button class="btn--add">
+															<span>Chỉnh sửa</span>
+														</button>
+													</a> <a
+														href="${contextPath}/admin/agency/list/delete/${element.id}.htm">
+														<button class="btn--delete">
+															<span>Xoá</span>
+														</button>
+													</a>
+												</div>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>
