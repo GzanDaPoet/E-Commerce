@@ -50,13 +50,13 @@
 							class="bar"></span> <label for="searchText">Email</label>
 					</div>
 					<div class="input-container">
-						<input type="password" required="required" id="password"
+						<input type="password" required="required" id="password" minlength="4"
 							name="password" aria-labelledby="password"><span
 							class="highlight"></span><span class="bar"></span> <label
 							for="searchText">Mật khẩu</label>
 					</div>
 					<div class="input-container">
-						<input type="password" required="required" id="password1"
+						<input type="password" required="required" id="password1"  minlength="4"
 							name="password1" aria-labelledby="password1"><span
 							class="highlight"></span><span class="bar"></span> <label
 							for="searchText">Nhập lại mật khẩu</label>

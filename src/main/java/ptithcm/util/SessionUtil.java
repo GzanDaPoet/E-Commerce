@@ -24,4 +24,10 @@ public class SessionUtil {
 	public void removeValue(HttpServletRequest request, String key) {
 		request.getSession().removeAttribute(key);
 	}
+	
+	public static SessionUtil newInstance() {
+			sessionUtil = new SessionUtil();
+		return sessionUtil;
+	}
+	
 }
