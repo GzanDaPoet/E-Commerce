@@ -1,11 +1,9 @@
-<%@page import="javax.xml.stream.events.Comment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix='c'%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -20,9 +18,6 @@
 	href="<c:url value ='/common/assets/css/reset.css' />">
 <link rel="stylesheet"
 	href="<c:url value='/common/assets/css/ecommerce/product/detailProduct.css'/>">
-<link rel="stylesheet"
-	href="<c:url value='/common/assets/css/ecommerce/product/style.css'/>">
-		
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -84,7 +79,18 @@
 								<span class="product-status-out">${currentProductItem.status
 														}</span>
 								<h5 class="product-name">${product.name }</h5>
-								<h4 class="product-price">${currentProductItem.price }VND</h4>
+								<c:if test="${onSale}">
+									<p class="product-price"
+										style="font-weight: bold; text-decoration: line-through; text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px;">
+										${currentProductItem.price} VND</p>
+									<p class="product-sale-price"
+										style="color: #FF0000; font-weight: bold; margin-top: 10px;">
+										${salePrice} VND</p>
+								</c:if>
+								<c:if test="${!onSale}">
+									<h4 class="product-price">${currentProductItem.price }VND</h4>
+								</c:if>
+								
 								<hr class="product-devider">
 							</div>
 							<h6 class="variation-name"
@@ -260,16 +266,16 @@
 				<div class="description">
 					<div class="detail-scription"></div>
 				</div>
+				
 				<div class="review" style="display:none;">
-					<form:form action="${product.getId()}.htm">
+					<c:if test="${isBought and !isReview}">
 					<label> Đánh giá sản phẩm </label>
-
-					<button name="ratingProduct" type="submit" style="border: none">
-
-					</button>
-				</form:form>
-
-				<c:if test="${isBought and !isReview}">
+					<form:form action="${currentProductItem.getId()}.htm">
+				
+						<button name="ratingProduct" type="submit" style="border: none">
+		
+						</button>
+					</form:form>
 					<form:form action="${currentProductItem.getId()}.htm"
 						modelAttribute="CustomerReview">
 						<div>
@@ -309,35 +315,36 @@
 						</div>
 					</form:form>
 				</c:if>
-				<c:set var="commentList" value="${comments}" />
-				<div class="box-comments">
-					<c:forEach var="comment" items="${commentList}">
-						<div class="comment-container">
-							<div class="left-col">
-								<img
-									src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
-									alt="Avatar" class="avatar">
-								<h4 class="username">${comment.getCustomer().getCustomerProfile().getName()}</h4>
-							</div>
-							<div class="right-col">
-								<div class="mb-3">
-									<div class="stars">
-										<c:forEach var="i" begin="1" end="5">
-											<c:if test="${i <= comment.ratingValue}">
-												<i class="fas fa-star active"></i>
-											</c:if>
-											<c:if test="${i > comment.ratingValue}">
-												<i class="fas fa-star"></i>
-											</c:if>
-										</c:forEach>
+					<c:set var="commentList" value="${comments}" />
+					<div class="box-comments">
+						<c:forEach var="comment" items="${commentList}">
+							<div class="comment-container">
+								<div class="left-col">
+									<img
+										src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
+										alt="Avatar" class="avatar">
+									<h4 class="username">${comment.getCustomer().getCustomerProfile().getName()}</h4>
+								</div>
+								<div class="right-col">
+									<div class="mb-3">
+										<div class="stars">
+											<c:forEach var="i" begin="1" end="5">
+												<c:if test="${i <= comment.ratingValue}">
+													<i class="fas fa-star active"></i>
+												</c:if>
+												<c:if test="${i > comment.ratingValue}">
+													<i class="fas fa-star"></i>
+												</c:if>
+											</c:forEach>
+										</div>
+										<p class="comment-text">${comment.getComment()}</p>
 									</div>
-									<p class="comment-text">${comment.getComment()}</p>
 								</div>
 							</div>
-						</div>
-						<hr>
-					</c:forEach>
-				</div>
+							<hr />
+						</c:forEach>
+
+					</div>
 				</div>
 		</main>
 	</div>
@@ -429,6 +436,10 @@
 		const formattedPrice = price.toLocaleString();
 		const priceElement = document.querySelector('.product-price');
 		priceElement.textContent = formattedPrice + " VND";
+		const salePrice = ${salePrice};
+		const formattedSalePrice = salePrice.toLocaleString();
+		const salePriceElement = document.querySelector('.product-sale-price');
+		salePriceElement.textContent = formattedSalePrice + " VND";
 	</script>
 </body>
 

@@ -7,7 +7,7 @@ import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 
 public interface PromotionDao {
-	public Integer getPriceDiscount(int productId);
+	public long getPriceDiscount(int productItemId, long oldPrice);
 	public List<Promotion> getListPromotion();
 	public Promotion getPromotionById(int promotionId);
 	public Integer getProductCategoryId(int promotionId);

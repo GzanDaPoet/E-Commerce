@@ -89,11 +89,11 @@ public class DeliveryController {
 		OrderStatus orderStatus = new OrderStatus();
 		DeliveryStatus deliveryStatus = new DeliveryStatus();
 		if (status.equals("success")) {
-			System.out.println("success");
+			System.out.println("Xác nhận giao hàng thành công");
 			orderStatus.setId(3);
 			deliveryStatus.setId(2);
 		} else {
-			System.out.println("Don hang giao khong thanh cong");
+			System.out.println("Xác nhận giao hàng thất bại");
 			deliveryStatus.setId(3);
 			orderStatus.setId(1);
 		}
@@ -106,7 +106,7 @@ public class DeliveryController {
 				session.saveOrUpdate(orderDelivery);
 				session.merge(shopOrder);
 				t.commit();
-				System.out.println("Thanh cong");
+				System.out.println("Đơn hàng đã được giao thành công");
 			} catch (Exception e) {
 				System.out.println("Error: " + e.toString());
 				t.rollback();

@@ -2,7 +2,6 @@ package ptithcm.controller.promotion;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.constant.SystemConstant;
-import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.model.user.User;
@@ -69,13 +66,6 @@ public class PromotionController {
 
 		ProductCategory productCategory = productCategoryService.getProductCategory(cateId);
 		PromotionCategory promotionCategory = new PromotionCategory();
-
-		List<Product> listProducts = productService.getAllProductByCateId(cateId);
-		List<ProductItem> listProductAdd = new ArrayList<>();
-		for (Product product : listProducts) {
-			List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
-			listProductAdd.addAll(listProductItems);
-		}
 		promotionCategory.setProductCategory(productCategory);
 		promotionCategory.setPromotion(promotion);
 		Session session = sessionFactory.openSession();
@@ -85,12 +75,8 @@ public class PromotionController {
 			tx = session.beginTransaction();
 			session.save(promotion);
 			session.merge(promotionCategory);
-			for (ProductItem productItem : listProductAdd) {
-				productItem.setStatus("ON_SALE");
-				session.merge(productItem);
-			}
 			tx.commit();
-			System.out.println("Thanh cong");
+			System.out.println("Them khuyen mai Thanh cong");
 			model.addAttribute("message", "Success");
 		} catch (Exception e) {
 			if (tx != null) {
@@ -103,7 +89,7 @@ public class PromotionController {
 				session.close();
 			}
 		}
-		return "product/promotion/createPromotion";
+		return "redirect:/admin/product/promotion/list.htm";
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
@@ -154,12 +140,6 @@ public class PromotionController {
 		System.out.println("Hãng đang được chỉnh sửa: " + promotionCategory.getProductCategory().getCategoryName());
 		promotionService.updatePromotion(promotion);
 		promotionService.updatePromotionCategory(promotionCategory);
-		if (cateId != oldCateId) {
-			PromotionCategory oldPromotionCategory = new PromotionCategory();
-			oldPromotionCategory = promotionService.getPromotionCategoryByCateId(promotionId, oldCateId);
-			System.out.println("Hãng đã bị chỉnh sửa: " + oldPromotionCategory.getProductCategory().getCategoryName());
-			promotionService.deleteOldPromotionCategory(oldPromotionCategory);
-		}
 		return "redirect:/admin/product/promotion/list.htm";
 	}
 

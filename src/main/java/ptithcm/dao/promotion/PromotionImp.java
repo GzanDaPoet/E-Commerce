@@ -21,12 +21,18 @@ public class PromotionImp implements PromotionDao {
 	SessionFactory sessionFactory;
 
 	@Override
-	public Integer getPriceDiscount(int productId) {
+	public long getPriceDiscount(int productId, long oldPrice) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT PM.discountRate FROM ProductItem PI JOIN PI.product P JOIN P.productCategory PC JOIN PC.promotionCategories PMC JOIN PMC.promotion PM WHERE PI.id = :productId";
 		Query query = session.createQuery(hql);
 		query.setParameter("productId", productId);
-		return (Integer) query.uniqueResult();
+		int percentDiscount = (int) query.uniqueResult();
+		System.out.println("Old Price: " + oldPrice);
+		long newPrice = (oldPrice * (100 - percentDiscount)) / 100;
+		System.out.println("percent discount: " + percentDiscount);
+		
+		System.out.println("new price: " + newPrice);
+		return newPrice;
 	};
 
 	@Override

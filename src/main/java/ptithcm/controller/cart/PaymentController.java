@@ -50,7 +50,7 @@ public class PaymentController {
 				.getId();
 		int addressId = (int) session.getAttribute("addressId");
 		Long sum = (Long) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
-		List<Integer> price = (List<Integer>) session.getAttribute("price");
+		List<Long> price = (List<Long>) session.getAttribute("price");
 		System.out.println(addressId);
 		System.out.println("zoday");
 

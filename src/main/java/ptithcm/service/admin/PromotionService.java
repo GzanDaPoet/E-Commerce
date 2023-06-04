@@ -17,9 +17,10 @@ public class PromotionService {
 	@Autowired
 	PromotionDao promotionDao;
 	
-	public Integer getPriceDiscount(int productId) {
-		int price = promotionDao.getPriceDiscount(productId);
+	public long getPriceDiscount(int productItemId, long oldPrice) {
+		long price = promotionDao.getPriceDiscount(productItemId, oldPrice);
 		if (price >= 0) {
+			System.out.println("percent: " + price);
 			return price;
 		}
 		return -1;

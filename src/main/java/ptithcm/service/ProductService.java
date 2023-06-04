@@ -1,8 +1,13 @@
 package ptithcm.service;
 
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +16,21 @@ import ptithcm.model.customer.CustomerReview;
 import ptithcm.model.order.OrderLine;
 import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductItem;
+import ptithcm.model.promotion.Promotion;
+import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.model.shoppingCart.ShoppingCartItem;
+import ptithcm.service.admin.PromotionService;
 
 @Service
 public class ProductService {
 	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Autowired
 	private ProductDao productDao;
+
+	@Autowired
+	private PromotionService promotionService;
 
 	public List<Product> getListProducts() {
 		return productDao.getAllProducts();
@@ -110,12 +124,88 @@ public class ProductService {
 	}
 
 	public boolean isReviewed(int customerId, int productItemId, List<CustomerReview> listCustomerReiview) {
-		for (CustomerReview customerReview: listCustomerReiview) {
-			if (customerReview.getCustomer().getId() == customerId && customerReview.getOrderLine().getProductItem().getId() == productItemId) {
+		for (CustomerReview customerReview : listCustomerReiview) {
+			if (customerReview.getCustomer().getId() == customerId
+					&& customerReview.getOrderLine().getProductItem().getId() == productItemId) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
+	public void checkPromotion() {
+		List<ProductItem> listProductItemAdd = new ArrayList<>();
+		Date curentDate = new Date();
+		List<Promotion> promotionList = promotionService.getAllPromotions();
+		System.out.println("Vao check promotion");
+		System.out.println("Size of promotion: " + promotionList.size());
+		for (Promotion promotion : promotionList) {
+			int compare = curentDate.compareTo(promotion.getStartDate());
+			System.out.println("compare ngay bat dau: " + compare);
+			if (compare >= 0) {
+				PromotionCategory promotionCategory = promotionService.getPromotionCategoryById(promotion.getId());
+				int categoryId = promotionCategory.getProductCategory().getId();
+				List<Product> listProductPromotion = getAllProductByCateId(categoryId);
+				for (Product product : listProductPromotion) {
+					List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
+					listProductItemAdd.addAll(listProductItems);
+				}
+				Session session = sessionFactory.openSession();
+				Transaction tx = null;
+				try {
+					tx = session.beginTransaction();
+					for (ProductItem productItem : listProductItemAdd) {
+						productItem.setStatus("ON_SALE");
+						session.merge(productItem);
+					}
+					tx.commit();
+					System.out.println("Thanh cong");
+				} catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+						System.out.println("That bai: " + e.toString());
+					}
+				} finally {
+					if (session != null) {
+						session.close();
+					}
+				}
+			}
+		}
+		for (Promotion promotion : promotionList) {
+			System.out.println("Vo day để kiểm tra hết hạn khuyến mãi chưa");
+			int compare = curentDate.compareTo(promotion.getEndDate());
+			System.out.println("compare ngay ket thuc: " + compare);
+			if (compare > 0) {
+				PromotionCategory promotionCategory = promotionService.getPromotionCategoryById(promotion.getId());
+				int categoryId = promotionCategory.getProductCategory().getId();
+				List<Product> listProductPromotion = getAllProductByCateId(categoryId);
+				for (Product product : listProductPromotion) {
+					List<ProductItem> listProductItems = (List<ProductItem>) product.getProductItems();
+					listProductItemAdd.addAll(listProductItems);
+				}
+				Session session = sessionFactory.openSession();
+				Transaction tx = null;
+				try {
+					tx = session.beginTransaction();
+					for (ProductItem productItem : listProductItemAdd) {
+						productItem.setStatus("");
+						session.merge(productItem);
+					}
+					tx.commit();
+					System.out.println("Thanh cong");
+				} catch (Exception e) {
+					if (tx != null) {
+						tx.rollback();
+						System.out.println("That bai: " + e.toString());
+					}
+				} finally {
+					if (session != null) {
+						session.close();
+					}
+				}
+			}
+		}
+	}
+
 }

@@ -13,7 +13,7 @@ public class ProductDTO {
 	private String productImage;
 	private String productCategoryName;
 	private int defaultProductItem = 0;
-	private int defaultPrice = 0;
+	private long defaultPrice = 0;
 
 	public ProductDTO(Product product) {
 		this.id = product.getId();
@@ -85,7 +85,7 @@ public class ProductDTO {
 		this.defaultProductItem = defaultProductItem;
 	}
 
-	public int getDefaultPrice() {
+	public long getDefaultPrice() {
 		return defaultPrice;
 	}
 

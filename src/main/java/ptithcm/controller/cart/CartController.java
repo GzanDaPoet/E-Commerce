@@ -47,14 +47,12 @@ public class CartController {
 		if (listCart.size() == 0) {
 			return "e-commerce/emptyCart";
 		}
-		List<Integer> price = new ArrayList<>();
+		List<Long> price = new ArrayList<>();
 		for (ShoppingCartItem item : listCart) {
 			System.out.println(item.getProductItem().getStatus());
 			if (item.getProductItem().getStatus().equals("ON_SALE")) {
 				System.out.println(item.getProductItem().getId());
-				System.out.println(cartService.getSalePrice(item.getProductItem().getId()));
-				int salePrice = cartService.getSalePrice(item.getProductItem().getId())
-						* item.getProductItem().getPrice() / 100;
+				Long salePrice = cartService.getSalePrice(item.getProductItem().getId(), item.getProductItem().getPrice());
 				price.add(salePrice);
 				sum += salePrice * item.getQuantity();
 			} else {
