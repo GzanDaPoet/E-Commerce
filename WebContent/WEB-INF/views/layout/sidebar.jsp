@@ -39,20 +39,6 @@
 			</a>
 		</div>
 		<div class="menu">
-			<ul class="menu">
-				<c:if
-					test="${not empty CUSTOMER_MODEL || not empty USER_MODEL}">
-					<li class="menu-item"><a
-						href="${contextPath}/e-commerce/logOut.htm" class="menu-item-btn-s">
-							<div class="icon">
-								<span><i class="fa-solid fa-gauge-high"></i></span>
-							</div>
-							<div class="label">
-								<span>Đăng xuất</span>
-							</div>
-					</a></li>
-				</c:if>
-			</ul>
 			<h4>Chung</h4>
 			<ul class="menu">
 				<c:if
