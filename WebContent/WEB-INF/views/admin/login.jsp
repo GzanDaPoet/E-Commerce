@@ -19,6 +19,7 @@
 	href="<c:url value ='/common/assets/css/admin/login.css' />">
 </head>
 <body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<div class="login">
 		<div class="login__image">
 			<div class="login__logo">
@@ -34,7 +35,7 @@
 				<div class="login__form-group">
 					<div class="group-header">
 						<h3>Đăng nhập vào thương mại điện tử</h3>
-						<span>Người dùng mới? <a href="#">Tạo tài khoản</a></span>
+						<span><a href="${contextPath}/e-commerce/login.htm">Đăng nhập với tư cách khách hàng</a></span>
 					</div>
 					<div class="input-container">
 						<input type="text" required="required" id="username"
@@ -48,8 +49,12 @@
 							class="highlight"></span><span class="bar"></span> <label
 							for="searchText">Mật khẩu</label>
 					</div>
+					<c:if test="${not empty error}">
+						<div class="popup">
+							<p>${error}</p>
+						</div>
+					</c:if>
 					<div class="form-submit">
-						<a href="#">Quên mật khẩu?</a>
 						<button type="submit">Đăng nhập</button>
 					</div>
 				</div>

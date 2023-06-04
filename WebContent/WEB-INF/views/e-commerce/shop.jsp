@@ -18,8 +18,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/layout/sidebar.css'/>">
 <link rel="stylesheet"
 	href="<c:url value ='/common/assets/css/reset.css' />">
@@ -34,34 +32,89 @@
 <body>
 	<div class="container-cts">
 		<%@include file="/WEB-INF/views/layout/sidebar.jsp"%>
-		<div class="content">
+		<main class="content">
 			<div class="content-container">
-				<div class="row">
+				<div class="list-header">
+					<div class="header-breadcrumb">
+						<h3 class="heading">Cửa hàng</h3>
+						<nav aria-label="breadcrumb">
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a class="breadcrumb__link"
+									href="">Trang chủ</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item"><a class="breadcrumb__link"
+									href="">Cửa hàng</a></li>
+								<li class="breadcrumb__divider"></li>
+								<li class="breadcrumb__item">Danh sách sản phẩm</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="shop-list">
 					<c:forEach var="u" items="${listProduct}">
-						<div class="col-sm-3">
-							<div class="card">
-								<img class="card-img-top" src="${u.productImage}" alt="Shoe">
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">
-											${u.name}</a>
-									</h4>
-									<p class="product-price">Giá: ${u.defaultPrice}VND</p>
+						<div class="shop-list-item">
+							<div class="product-image-wrapper">
+								<span class="product-status-sale">sale</span> <span
+									class="wrapper"> <span class="wrapper-2"
+									style="color: transparent; display: inline-block;"> <img
+										class="MuiBox-root css-6jrdpz"
+										alt="Relaxed Adjustable Strap Slingback Sandal"
+										src="${u.productImage}">
+								</span>
+								</span>
+							</div>
+							<div class="description-product">
+								<a href="product/${u.id}/detail/${u.defaultProductItem }.htm">${u.name
+																}</a>
+								<div class="product-price">
+									<span class="sale-price"> <c:if
+											test="${u.defaultSalePrice > 0 }">
+									${u.defaultPrice}
+									</c:if>
+									</span> <span class="normal-price"><c:if
+											test="${u.defaultSalePrice <= 0 }">
+									${u.defaultPrice}
+									</c:if> <c:if test="${u.defaultSalePrice > 0 }">
+									
+									${u.defaultSalePrice}
+									</c:if> </span>
 								</div>
+
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
-		</div>
+	</div>
+	</main>
 	</div>
 	<script type="text/javascript"
-		src="<c:url value='/common/assets/js/navbar.js'/>">
-		const price = ${u.defaultPrice};
-		const formattedPrice = price.toLocaleString();
-		const priceElement = document.querySelector('.product-price');
-		priceElement.textContent = formattedPrice + " VND";
-	</script>
+		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script type="text/javascript">
+								const descriptionProducts = document.querySelectorAll('.shop-list-item');
+
+								descriptionProducts.forEach((product) => {
+									const priceElement = product.querySelector('.normal-price');
+									const saleElement = product.querySelector('.sale-price');
+									const saleStatus = product.querySelector(".product-status-sale")
+									saleStatus.style.display = "none";
+
+									const priceValue = parseFloat(priceElement.textContent);
+
+									if (saleElement) {
+										const saleValue = parseFloat(saleElement.textContent);
+
+										if (!isNaN(saleValue) && saleValue >= priceValue) {
+											const formattedSalePrice = saleValue.toLocaleString();
+											console.log(formattedSalePrice)
+											saleElement.textContent = formattedSalePrice + " VND";
+											saleStatus.style.display = "inline-flex";
+										}
+									}
+									const formattedPrice = priceValue.toLocaleString();
+									priceElement.textContent = formattedPrice + " VND";
+								});
+							</script>
 </body>
 
 </html>

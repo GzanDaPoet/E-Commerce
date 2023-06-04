@@ -46,7 +46,10 @@ public class AdminController {
 		User user = userService.findByUserNameAndPasswordAndStatus(username, password, true);
 		if (user != null) {
 			SessionUtil.getInstance().putValue(request, SystemConstant.Model.USER_MODEL, user);
+			SessionUtil.getInstance().removeValue(request,SystemConstant.Model.CUSTOMER_MODEL);
+			return "redirect:/admin/product/list.htm";
 		}
-		return "redirect:/admin/product/list.htm";
+		model.addAttribute("error", "Thông tin đăng nhập không đúng");
+		return "admin/login";
 	}
 }

@@ -3,7 +3,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <aside class="layout">
 	<div class="sidebar">
-		<Button class="sidebar_button" id="sidebar_button">close</Button>
+		<button class="sidebar_button" id="sidebar_button">
+			<i class="fa-solid fa-x"></i>
+		</button>
 		<div class="sidebar__header">
 			<a href="#" class="sidebar__header-navigate">
 				<div>
@@ -288,27 +290,6 @@
 					<div class="cf-menu">
 						<li class="menu-item"><a class="menu-item-btn">
 								<div class="icon">
-									<span><i class="fa-solid fa-table-list"></i></span>
-								</div>
-								<div class="label">
-									<span>Giá trị thuộc tính</span>
-								</div>
-								<div class="icon">
-									<span><i class="fa-solid fa-angle-down"></i></span>
-								</div>
-						</a></li>
-						<ul class="submenu">
-							<li class="submenu-item"><a
-								href="${contextPath}/admin/product/variation-option/list.htm">Danh
-									sách giá trị</a></li>
-							<li class="submenu-item"><a
-								href="${contextPath}/admin/product/variation-option/new.htm">Tạo
-									mới giá trị</a></li>
-						</ul>
-					</div>
-					<div class="cf-menu">
-						<li class="menu-item"><a class="menu-item-btn">
-								<div class="icon">
 									<span><i class="fa-solid fa-percent"></i></span>
 								</div>
 								<div class="label">
@@ -353,3 +334,64 @@
 		</c:if>
 	</div>
 </aside>
+<header class="area-header">
+	<button class="button-display-nav" tabindex="0" type="button">
+		<svg xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+			role="img" class="MuiBox-root css-1t9pz9x iconify iconify--eva"
+			width="1em" height="1em" viewBox="0 0 24 24">
+                    <g id="iconifyReact555">
+                        <g id="iconifyReact556">
+                            <g id="iconifyReact557" fill="currentColor">
+                                <circle cx="4" cy="12" r="1"></circle>
+                                <rect width="14" height="2" x="7" y="11"
+				rx=".94" ry=".94"></rect>
+                                <rect width="18" height="2" x="3" y="16"
+				rx=".94" ry=".94"></rect>
+                                <rect width="18" height="2" x="3" y="6"
+				rx=".94" ry=".94"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+		<span class="MuiTouchRipple-root css-w0pj6f"></span>
+	</button>
+	<div class="header-tab">
+		<div class="tab-wrapper" tabindex="0"
+			style="transform: scale(1.09) translateZ(0px);">
+			<button id="dropdown-btn" tabindex="0" type="button">
+				<div class="avatar-warapper">
+					<img alt="Minimal UI"
+						src="https://images.unsplash.com/photo-1685703206477-aa1df00a1f0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60">
+				</div>
+				<span class="touchable"></span>
+				<div class="overlay"></div>
+			</button>
+			<div id="dropdown-content">
+				<div class="dropdown-item">
+					<h6>Minimal UI</h6>
+					<p>demo@minimals.cc</p>
+				</div>
+				<hr>
+				<div class="dropdown-list">
+					<a href="www.google.com">
+						<li class="list-item" tabindex="-1" role="menuitem">Trang chủ<span
+							class="MuiTouchRipple-root css-w0pj6f"></span>
+					</li>
+					</a> <a href="www.google.com">
+						<li class="list-item" tabindex="-1" role="menuitem">Thông tin
+							cá nhân<span class="MuiTouchRipple-root css-w0pj6f"></span>
+					</li>
+					</a>
+				</div>
+				<hr>
+				<div class="dropdown-list">
+					<a href="${contextPath}/e-commerce/logOut.htm">
+						<li class="list-item" tabindex="-1" role="menuitem">Đăng xuất<span
+							class="MuiTouchRipple-root css-w0pj6f"></span></li>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
