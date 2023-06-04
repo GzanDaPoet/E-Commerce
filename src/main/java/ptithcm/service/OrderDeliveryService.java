@@ -1,6 +1,8 @@
 package ptithcm.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ public class OrderDeliveryService {
 	
 	
 	
-	public List<OrderDeliveryDTO> orderDeliveryDTOListByShipper(int userId) {
-		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShippingByShipper(userId);
+	public List<OrderDeliveryDTO> orderDeliveryDTOList(int userId) {
+		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping(userId);
 		System.out.println("List shipping: " + listOrderForShipping.size());
 		List<OrderDeliveryDTO> orderDeliveryList = new ArrayList<>();
 		if (listOrderForShipping.size() > 0) {
@@ -47,7 +49,7 @@ public class OrderDeliveryService {
 				}
 				
 				String customerName = shopOrder.getCustomerAddress().getCustomer().getCustomerProfile().getName();
-				String phoneNumber = shopOrder.getCustomerAddress().getAddress().getPhoneNumber();
+				String phoneNumber = shopOrder.getCustomerAddress().getCustomer().getCustomerProfile().getPhoneNumber();
 				orderDeliveryDTO.setCustomerName(customerName);
 				orderDeliveryDTO.setPhoneNumber(phoneNumber);
 				orderDeliveryDTO.setTotalMoney(shopOrder.getOrderTotal());
@@ -59,46 +61,8 @@ public class OrderDeliveryService {
 		return null;
 	}
 	
-	public List<OrderDeliveryDTO> getAllOrderShipping() {
-		List<OrderDelivery> listOrderForShipping = manageOrderDao.getAllOrderShipping();
-		List<OrderDeliveryDTO> orderDeliveryList = new ArrayList<>();
-		if (listOrderForShipping.size() > 0) {
-			for (OrderDelivery orderDelivery: listOrderForShipping) {
-				List<OrderLine> orderItemList = (List<OrderLine>) orderDelivery.getShopOrder().getOrderLines();
-				OrderDeliveryDTO orderDeliveryDTO = new OrderDeliveryDTO();
-				orderDeliveryDTO.setId(orderDelivery.getId());
-				orderDeliveryDTO.setUserId(orderDelivery.getUser().getId());
-				orderDeliveryDTO.setDeliveryDate(orderDelivery.getDeliveryDate());
-				orderDeliveryDTO.setDeliveryReceived(orderDelivery.getReceivedDate());
-				orderDeliveryDTO.setListOrderDelivery(orderItemList);
-				orderDeliveryDTO.setOrderId(orderDelivery.getShopOrder().getId());
-				ShopOrder shopOrder = orderDelivery.getShopOrder();
-				String address = "";
-				if (shopOrder.getAddressDelivery() == null) {
-					address = shopOrder.getCustomerAddress().getAddress().getDetailAddress() + ", "
-							+ shopOrder.getCustomerAddress().getAddress().getWard().getName() + ", "
-							+ shopOrder.getCustomerAddress().getAddress().getWard().getDistrict().getName() + ", "
-							+ shopOrder.getCustomerAddress().getAddress().getWard().getProvince().getName();
-					orderDeliveryDTO.setCustomerAddress(address); 
-				}
-				else {
-					orderDeliveryDTO.setCustomerAddress(shopOrder.getAddressDelivery());
-				}
-				
-				String customerName = shopOrder.getCustomerAddress().getCustomer().getCustomerProfile().getName();
-				String phoneNumber = shopOrder.getCustomerAddress().getAddress().getPhoneNumber();
-				orderDeliveryDTO.setCustomerName(customerName);
-				orderDeliveryDTO.setPhoneNumber(phoneNumber);
-				orderDeliveryDTO.setTotalMoney(shopOrder.getOrderTotal());
-				orderDeliveryList.add(orderDeliveryDTO);
-			}
-			return orderDeliveryList;
-		}
-		return null;
-	}
-	
 	public OrderDeliveryDTO getOrderDeliveryDTOById(int id, int userId) {
-		for (OrderDeliveryDTO orderDeliveryDTO: getAllOrderShipping()) {
+		for (OrderDeliveryDTO orderDeliveryDTO: orderDeliveryDTOList(userId)) {
 			if (orderDeliveryDTO.getId() == id) {
 				return orderDeliveryDTO;
 			}
@@ -107,7 +71,7 @@ public class OrderDeliveryService {
 	}
 	
 	public OrderDelivery getOrderDeliveryById(int orderId, int userId) {
-		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShippingByShipper(userId);
+		List<OrderDelivery> listOrderForShipping = manageOrderDao.getListOfOrderShipping(userId);
 		for (OrderDelivery orderDelivery: listOrderForShipping) {
 			if (orderDelivery.getId() == orderId) {
 				return orderDelivery;

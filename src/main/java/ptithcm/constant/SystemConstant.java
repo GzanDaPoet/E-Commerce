@@ -14,7 +14,6 @@ public class SystemConstant {
 		public static final String USER = "ROLE_USER";
 		public static final String SUPER_ADMIN = "ROLE_SUPER_ADMIN";
 		public static final String CUSTOMER = "CUSTOMER";
-		public static final String SHIPPER = "ROLE_SHIPPER";
 	}
 
 	public static class OrderStatus {

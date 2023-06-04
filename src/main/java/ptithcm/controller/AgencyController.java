@@ -4,7 +4,6 @@ package ptithcm.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ptithcm.constant.SystemConstant;
 import ptithcm.model.agency.Agency;
-import ptithcm.model.user.User;
 import ptithcm.service.AgencyService;
-import ptithcm.util.SessionUtil;
 
 
 @Transactional
@@ -43,7 +39,7 @@ public class AgencyController {
 	
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String createAgency(ModelMap model, @RequestParam("agencyName") String agencyName, @RequestParam("email") String email,
-			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address, HttpServletRequest request) {
+			@RequestParam("phoneNumber") String phoneNumber, @RequestParam("address") String address) {
 		Agency agency = new Agency();
 		agency.setName(agencyName);
 		agency.setEmail(email);
@@ -72,25 +68,14 @@ public class AgencyController {
 	
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String listAgencies(ModelMap model, HttpServletRequest request) {
-		String roleSupperAdmin = "";
-		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
-					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
-		}
-		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
-			model.addAttribute("isSupperAdmin", true);
-		}
-		else {
-			model.addAttribute("isSupperAdmin", false);
-		}
+	public String listAgencies(ModelMap model) {
 		List<Agency> listAgencies = agencyService.getListAgencies();
 		model.addAttribute("listAgencies", listAgencies);
 		return "admin/agency/list";
 	}
 	
 	@RequestMapping(value = "list/delete/{id}")
-	public String deleteAgency(@PathVariable("id") Integer id, HttpServletRequest request) {
+	public String deleteAgency(@PathVariable("id") Integer id) {
 		System.out.println("hello");
 		if (agencyService.deleteAgencyById(id) == 1) {
 			System.out.println("Xoa thanh cong");
