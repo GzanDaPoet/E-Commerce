@@ -21,7 +21,7 @@ public class PromotionImp implements PromotionDao {
 	SessionFactory sessionFactory;
 
 	@Override
-	public long getPriceDiscount(int productId, Integer oldPrice) {
+	public long getPriceDiscount(int productId, long oldPrice) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "SELECT PM.discountRate FROM ProductItem PI JOIN PI.product P JOIN P.productCategory PC JOIN PC.promotionCategories PMC JOIN PMC.promotion PM WHERE PI.id = :productId";
 		Query query = session.createQuery(hql);

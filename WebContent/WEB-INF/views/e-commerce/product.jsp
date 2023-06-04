@@ -79,7 +79,18 @@
 								<span class="product-status-out">${currentProductItem.status
 														}</span>
 								<h5 class="product-name">${product.name }</h5>
-								<h4 class="product-price">${currentProductItem.price }VND</h4>
+								<c:if test="${onSale}">
+									<p class="product-price"
+										style="font-weight: bold; text-decoration: line-through; text-decoration-line: line-through; text-decoration-color: black; margin-top: 10px;">
+										${currentProductItem.price} VND</p>
+									<p class="product-sale-price"
+										style="color: #FF0000; font-weight: bold; margin-top: 10px;">
+										${salePrice} VND</p>
+								</c:if>
+								<c:if test="${!onSale}">
+									<h4 class="product-price">${currentProductItem.price }VND</h4>
+								</c:if>
+								
 								<hr class="product-devider">
 							</div>
 							<h6 class="variation-name"
@@ -312,7 +323,7 @@
 									<img
 										src="https://d11a6trkgmumsb.cloudfront.net/original/3X/d/8/d8b5d0a738295345ebd8934b859fa1fca1c8c6ad.jpeg"
 										alt="Avatar" class="avatar">
-									<h4 class="username">${comment.getCustomer().getUserName()}</h4>
+									<h4 class="username">${comment.getCustomer().getCustomerProfile().getName()}</h4>
 								</div>
 								<div class="right-col">
 									<div class="mb-3">
@@ -425,6 +436,10 @@
 		const formattedPrice = price.toLocaleString();
 		const priceElement = document.querySelector('.product-price');
 		priceElement.textContent = formattedPrice + " VND";
+		const salePrice = ${salePrice};
+		const formattedSalePrice = salePrice.toLocaleString();
+		const salePriceElement = document.querySelector('.product-sale-price');
+		salePriceElement.textContent = formattedSalePrice + " VND";
 	</script>
 </body>
 

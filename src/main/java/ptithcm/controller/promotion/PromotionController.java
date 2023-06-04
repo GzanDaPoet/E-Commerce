@@ -2,7 +2,6 @@ package ptithcm.controller.promotion;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.constant.SystemConstant;
-import ptithcm.model.product.Product;
 import ptithcm.model.product.ProductCategory;
-import ptithcm.model.product.ProductItem;
 import ptithcm.model.promotion.Promotion;
 import ptithcm.model.promotion.PromotionCategory;
 import ptithcm.model.user.User;
