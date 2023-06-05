@@ -47,19 +47,19 @@ public class DeliveryController {
 	@RequestMapping(value = "listDeliveryOrder")
 	public String getListDeliveryOrder(ModelMap modelMap, HttpServletRequest request) {
 		
-		String roleAdmin = "";
+		String roleViewAll = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			roleViewAll = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
 		
-		Boolean isUser = false;
+		Boolean isViewAll = false;
 		
-		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.USER)) {
-			isUser = true;
+		if (roleViewAll.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleViewAll.equals(SystemConstant.Authorization.USER) || roleViewAll.equals(SystemConstant.Authorization.ADMIN)) {
+			isViewAll = true;
 		}
-		modelMap.addAttribute("isUser", isUser);
-		if (isUser) {
+		modelMap.addAttribute("isViewAll", isViewAll);
+		if (isViewAll) {
 			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.getAllOrderShipping();
 			modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
 		}

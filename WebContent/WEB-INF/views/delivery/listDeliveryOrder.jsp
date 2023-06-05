@@ -55,6 +55,9 @@
 									<th class="th-header"><span>Địa chỉ</span></th>
 									<th class="th-header"><span>Số điện thoại</span></th>
 									<th class="th-header"><span>Tổng tiền</span></th>
+									 <c:if test="${isViewAll}">
+										<th class="th-header"><span>Người giao</span></th>
+									</c:if>
 									<th class="th-header"><span></span></th>
 								</tr>
 							</thead>
@@ -66,16 +69,15 @@
 										<td class="td-body">${element.getCustomerAddress()}</td>
 										<td class="td-body">${element.getPhoneNumber()}</td>
 										<td class="td-body">${element.getTotalMoney()}</td>
+										<c:if test="${isViewAll}">
+												
+											<td class="td-body">${element.getUserName()}</td>
+													
+										</c:if>
+										<c:if test="${!isViewAll}">
 										<td class="td-body">
+											
 											<form action="confirmed/${element.getId()}.htm" method="post">
-												<!-- <div class="form-group mr-3">
-													<select class="form-control" id="status" name="status" onchange="submitForm()" aria-invalid="false">
-														<option value="">Trạng thái vận chuyển</option>
-														<option value="success">Thành công</option>
-														<option value="fail">Thất bại</option>
-													</select>
-												</div> -->
-												<c:if test="${!isUser}">
 													<div class="select-container">
 														<select name="status" id="status" class="select"
 															aria-invalid="false" onchange="submitForm()">
@@ -85,8 +87,9 @@
 															<option value="ship_back">Giao lại</option>
 														</select>
 													</div>
-												</c:if>
+												
 											</form>
+											
 											<div class="group-btn">
 												<a href="${contextPath}/delivery/detail/${element.getId()}.htm">
 													<button class="btn--add">
@@ -95,6 +98,7 @@
 												</a>
 											</div>
 										</td>
+										</c:if>
 									</tr>
 								</c:forEach>
 							</tbody>

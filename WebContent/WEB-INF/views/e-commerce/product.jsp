@@ -171,6 +171,14 @@
 											</div>
 										</div>
 									</div>
+									<div class="cart-icon">
+										<a href="${contextPath}/e-commerce/cart.htm"> <i
+											class="fa fa-shopping-cart"></i> <span> ${quantityOrdered}</span>
+										</a>
+
+									</div>
+									
+									
 									<hr class="product-devider">
 									<div class="button-group">
 										<button class="button--add-to-cart" tabindex="0" type="submit"

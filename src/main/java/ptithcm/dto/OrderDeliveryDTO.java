@@ -16,13 +16,14 @@ public class OrderDeliveryDTO {
 	private List<OrderLine> listOrderDelivery;
 	private String customerAddress;
 	private Long totolMoney;
+	private String userName;
 
 	public OrderDeliveryDTO() {
 		super();
 	}
 
 	public OrderDeliveryDTO(Integer orderId, String status, Date deliveryDate, Date deliveryReceived, Integer userId,
-			List<OrderLine> listOrderDelivery, String customerName, String phoneNumber, String customerAddress, Long totalMoney) {
+			List<OrderLine> listOrderDelivery, String customerName, String phoneNumber, String customerAddress, Long totalMoney, String userName) {
 		super();
 		this.orderId = orderId;
 		this.deliveryDate = deliveryDate;
@@ -33,6 +34,7 @@ public class OrderDeliveryDTO {
 		this.phoneNumber = phoneNumber;
 		this.customerAddress = customerAddress;
 		this.totolMoney = totalMoney;
+		this.userName = userName;
 	}
 
 	public Integer getId() {
@@ -114,6 +116,24 @@ public class OrderDeliveryDTO {
 	public void setTotalMoney(Long totalMoney) {
 		this.totolMoney = totalMoney;
 	}
+
+	public Long getTotolMoney() {
+		return totolMoney;
+	}
+
+	public void setTotolMoney(Long totolMoney) {
+		this.totolMoney = totolMoney;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	
 	
 
 }
