@@ -27,19 +27,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 			response.sendRedirect(request.getContextPath() + "/admin/login.htm");
 			return false;
 		}
-
-		if (request.getRequestURI().startsWith(request.getContextPath() + "/admin")
-				&& request.getSession().getAttribute(SystemConstant.Model.USER_MODEL) != null) {
-			System.out.println("Handle here");
-			String userRole = "";
-			userRole = (String) ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL))
-					.getUserPermission().getValue();
-			if (request.getRequestURI().startsWith(request.getContextPath() + "/admin") && userRole == SystemConstant.Authorization.SHIPPER) {
-				System.out.println("shipper login");
-				response.sendRedirect(request.getContextPath() + "/delivery/listDeliveryOrder.htm");
-			}
-			return false;
-		}
 		
 		if ((request.getRequestURI().startsWith(request.getContextPath() + "/e-commerce")
 				|| request.getRequestURI().startsWith(request.getContextPath() + "/customer"))
