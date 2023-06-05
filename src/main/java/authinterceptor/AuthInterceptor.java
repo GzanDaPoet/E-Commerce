@@ -8,6 +8,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import ptithcm.constant.SystemConstant;
+import ptithcm.model.customer.Customer;
+import ptithcm.model.user.User;
+import ptithcm.util.SessionUtil;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -25,6 +28,19 @@ public class AuthInterceptor implements HandlerInterceptor {
 			return false;
 		}
 
+		if (request.getRequestURI().startsWith(request.getContextPath() + "/admin")
+				&& request.getSession().getAttribute(SystemConstant.Model.USER_MODEL) != null) {
+			System.out.println("Handle here");
+			String userRole = "";
+			userRole = (String) ((User) SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL))
+					.getUserPermission().getValue();
+			if (request.getRequestURI().startsWith(request.getContextPath() + "/admin") && userRole == SystemConstant.Authorization.SHIPPER) {
+				System.out.println("shipper login");
+				response.sendRedirect(request.getContextPath() + "/delivery/listDeliveryOrder.htm");
+			}
+			return false;
+		}
+		
 		if ((request.getRequestURI().startsWith(request.getContextPath() + "/e-commerce")
 				|| request.getRequestURI().startsWith(request.getContextPath() + "/customer"))
 				&& request.getSession().getAttribute(SystemConstant.Model.CUSTOMER_MODEL) == null) {

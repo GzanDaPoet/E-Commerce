@@ -44,6 +44,7 @@ public class DeliveryController {
 	@Autowired
 	ManageOrderService manageOrderService;
 
+	
 	@RequestMapping(value = "listDeliveryOrder")
 	public String getListDeliveryOrder(ModelMap modelMap, HttpServletRequest request) {
 		

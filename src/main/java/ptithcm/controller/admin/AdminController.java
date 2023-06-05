@@ -44,6 +44,9 @@ public class AdminController {
 	public String handleAdminLoginRequest(@RequestParam String username, @RequestParam String password, ModelMap model,
 			HttpServletRequest request) {
 		User user = userService.findByUserNameAndPasswordAndStatus(username, password, true);
+		if (user.getUserPermission().getValue().equals(SystemConstant.Authorization.SHIPPER)) {
+			return "redirect:/delivery/listDeliveryOrder.htm";
+		}
 		if (user != null) {
 			SessionUtil.getInstance().putValue(request, SystemConstant.Model.USER_MODEL, user);
 			SessionUtil.getInstance().removeValue(request,SystemConstant.Model.CUSTOMER_MODEL);
