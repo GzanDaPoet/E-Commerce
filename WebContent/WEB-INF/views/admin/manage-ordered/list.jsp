@@ -53,7 +53,7 @@
 									<tr>
 										<td class="td-body">${element.getOrderId()}</td>
 										<td class="td-body">${element.getQuantity()}</td>
-										<td class="td-body">${element.getPrice()}</td>
+										<td class="td-body"><span class="price"> ${element.getPrice()} </span></td>
 										<td class="td-body">${element.getDateOrdered()}</td>
 										<td class="td-body">
 										<c:if test ="${!isAdmin}">
@@ -143,4 +143,12 @@
 			document.querySelector('form').submit();
 		}
 	</script>
+		<script>
+  var productPrices = document.getElementsByClassName("price");
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>

@@ -77,7 +77,7 @@
 												<img src="${element.productItem.productImage}" alt="">
 											</div>
 										</td>
-										<td class="td-body">${element.price }</td>
+										<td class="td-body"><span class="price">${element.price } </span></td>
 										<td class="td-body">${element.quantity }</td>
 										<td class="td-body">${element.price * element.quantity}</td>
 									</tr>
@@ -103,5 +103,13 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+			<script>
+  var productPrices = document.getElementsByClassName("price");
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>
 </html>
