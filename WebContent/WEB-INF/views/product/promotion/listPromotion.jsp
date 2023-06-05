@@ -42,7 +42,7 @@
 							</ul>
 						</nav>
 					</div>
-					<c:if test="${!isSupperAdmin}">
+					<c:if test="${!isAdmin}">
 						<div>
 							<a href="${contextPath}/admin/product/promotion/create.htm">
 								<button class="btn--add">
@@ -75,7 +75,7 @@
 										<td class="td-body">${element.getStartDate()}</td>
 										<td class="td-body">${element.getEndDate()}</td>
 										<td class="td-body">
-											<c:if test="${!isSupperAdmin}">
+											<c:if test="${!isAdmin}">
 												<div class="group-btn">
 												<a
 													href="${contextPath}/admin/product/promotion/edit/${element.id}.htm">

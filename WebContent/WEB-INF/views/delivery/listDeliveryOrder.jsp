@@ -75,7 +75,7 @@
 														<option value="fail">Thất bại</option>
 													</select>
 												</div> -->
-												<c:if test="${!isAdmin}">
+												<c:if test="${!isUser}">
 													<div class="select-container">
 														<select name="status" id="status" class="select"
 															aria-invalid="false" onchange="submitForm()">

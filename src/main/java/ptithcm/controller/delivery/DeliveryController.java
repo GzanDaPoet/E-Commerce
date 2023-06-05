@@ -53,13 +53,13 @@ public class DeliveryController {
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
 		
-		Boolean isAdmin = false;
+		Boolean isUser = false;
 		
-		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
-			isAdmin = true;
+		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.USER)) {
+			isUser = true;
 		}
-		modelMap.addAttribute("isAdmin", isAdmin);
-		if (isAdmin) {
+		modelMap.addAttribute("isUser", isUser);
+		if (isUser) {
 			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.getAllOrderShipping();
 			modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
 		}

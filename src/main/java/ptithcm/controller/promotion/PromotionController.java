@@ -58,12 +58,12 @@ public class PromotionController {
 			@RequestParam("discount-percentage") int discountPercentage,
 			@RequestParam("start-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam("end-date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-		String roleSupperAdmin = "";
+		String isAdmin = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			isAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
-		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
+		if (isAdmin.equals(SystemConstant.Authorization.ADMIN)) {
 			return "redirect:/admin/product/promotion/list.htm";
 		}
 
@@ -104,16 +104,16 @@ public class PromotionController {
 	public String listPromotion(ModelMap model, HttpServletRequest request) {
 		System.out.println("I came here");
 		List<Promotion> listPromotions = promotionService.getAllPromotions();
-		String roleSupperAdmin = "";
+		String isAdmin = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			isAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
-		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
-			model.addAttribute("isSupperAdmin", true);
+		if (isAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+			model.addAttribute("isAdmin", true);
 		}
 		else {
-			model.addAttribute("isSupperAdmin", false);
+			model.addAttribute("isAdmin", false);
 		}
 		model.addAttribute("listPromotions", listPromotions);
 		return "product/promotion/listPromotion";
