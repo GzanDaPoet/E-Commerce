@@ -44,7 +44,17 @@
 			<h4>Chung</h4>
 			<ul class="menu">
 			
-				
+				<c:if test="${not empty USER_MODEL && USER_MODEL.userPermission.value == 'ROLE_SHIPPER'}">
+					<li class="menu-item"><a
+						href="${contextPath}/delivery/listDeliveryOrder.htm" class="menu-item-btn-s">
+							<div class="icon">
+								<span><i class="fa-solid fa-chart-line"></i></span>
+							</div>
+							<div class="label">
+								<span>Danh sách đơn hàng đang vận chuyển</span>
+							</div>
+					</a></li>
+				</c:if>
 				<c:if
 					test="${not empty CUSTOMER_MODEL || empty CUSTOMER_MODEL && empty USER_MODEL}">
 
@@ -114,7 +124,7 @@
 
 			</ul>
 		</div>
-		<c:if test="${not empty USER_MODEL}">
+		<c:if test="${not empty USER_MODEL && USER_MODEL.userPermission.value != 'ROLE_SHIPPER'}">
 
 			<div class="menu">
 				<h4>Quản lý</h4>
