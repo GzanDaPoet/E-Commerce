@@ -56,7 +56,7 @@
 										<td class="td-body">${element.getPrice()}</td>
 										<td class="td-body">${element.getDateOrdered()}</td>
 										<td class="td-body">
-										<c:if test ="${!isSupperAdmin}">
+										<c:if test ="${!isAdmin}">
 											<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
 											<div class="select-container">
 												<select name="userId" id="userId" class="select"
@@ -72,7 +72,7 @@
 										</td>
 										<td class="td-body">
 											<div class="group-btn">
-											<c:if test ="${!isSupperAdmin}">
+											<c:if test ="${!isAdmin}">
 													<form action="list/cancel/${element.getOrderId()}.htm " method="post">
 														<input type="hidden" name="productId"
 															value="${shoppingCart.get(i).getId()}">

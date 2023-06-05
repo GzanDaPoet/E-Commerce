@@ -73,16 +73,16 @@ public class AgencyController {
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String listAgencies(ModelMap model, HttpServletRequest request) {
-		String roleSupperAdmin = "";
+		String roleAdmin = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			roleAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
-		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
-			model.addAttribute("isSupperAdmin", true);
+		if (roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+			model.addAttribute("isAdmin", true);
 		}
 		else {
-			model.addAttribute("isSupperAdmin", false);
+			model.addAttribute("isAdmin", false);
 		}
 		List<Agency> listAgencies = agencyService.getListAgencies();
 		model.addAttribute("listAgencies", listAgencies);

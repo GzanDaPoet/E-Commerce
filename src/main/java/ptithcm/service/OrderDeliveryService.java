@@ -72,6 +72,7 @@ public class OrderDeliveryService {
 				orderDeliveryDTO.setDeliveryReceived(orderDelivery.getReceivedDate());
 				orderDeliveryDTO.setListOrderDelivery(orderItemList);
 				orderDeliveryDTO.setOrderId(orderDelivery.getShopOrder().getId());
+				orderDeliveryDTO.setUserName(orderDelivery.getUser().getUserProfile().getName());
 				ShopOrder shopOrder = orderDelivery.getShopOrder();
 				String address = "";
 				if (shopOrder.getAddressDelivery() == null) {

@@ -53,16 +53,16 @@ public class ManageOrderController {
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String showOrderedList(ModelMap model, HttpServletRequest request) {
-		String roleSupperAdmin = "";
+		String roleAdmin = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleSupperAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			roleAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
-		if (roleSupperAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN)) {
-			model.addAttribute("isSupperAdmin", true);
+		if (roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+			model.addAttribute("isAdmin", true);
 		}
 		else {
-			model.addAttribute("isSupperAdmin", false);
+			model.addAttribute("isAdmin", false);
 		}
 
 		List<CustomerOrderDTO> customerOrderList = manageOrderService.getOderCustomerDTOList();
@@ -108,7 +108,17 @@ public class ManageOrderController {
 		orderDelivery.setShopOrder(shopOrder);
 		orderDelivery.setUser(user);
 		orderDelivery.setCreatedAt(new java.sql.Date(now.getTime()));
-		orderDelivery.setDeliveryDate(deliveryDate);
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		cal.setTime(new java.util.Date());
+		int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
+		if (hour < 12) {
+		    System.out.println("Đang là buổi sáng");
+		    orderDelivery.setDeliveryDate(deliveryDate);
+		} else {
+			deliveryDate = new java.sql.Date(deliveryDate.getTime());
+		    orderDelivery.setDeliveryDate(deliveryDate);
+		}
+		
 		DeliveryStatus deliveryStatus = new DeliveryStatus();
 		deliveryStatus.setId(1);
 		orderDelivery.setDeliveryStatus(deliveryStatus);

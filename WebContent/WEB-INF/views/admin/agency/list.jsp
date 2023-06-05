@@ -42,7 +42,7 @@
 							</ul>
 						</nav>
 					</div>
-					<c:if test="${!isSupperAdmin}">
+					<c:if test="${!isAdmin}">
 						<div>
 							<a href="${contextPath}/admin/agency/create.htm">
 								<button class="btn--add">
@@ -94,7 +94,7 @@
 										<td class="td-body">${element.phoneNumber }</td>
 										<td class="td-body">${element.address }</td>
 										<td class="td-body">
-											<c:if test="${!isSupperAdmin}">
+											<c:if test="${!isAdmin}">
 												<div class="group-btn">
 													<a
 														href="${contextPath}/admin/agency/edit/${element.id}.htm">

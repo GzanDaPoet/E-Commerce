@@ -44,22 +44,23 @@ public class DeliveryController {
 	@Autowired
 	ManageOrderService manageOrderService;
 
+	
 	@RequestMapping(value = "listDeliveryOrder")
 	public String getListDeliveryOrder(ModelMap modelMap, HttpServletRequest request) {
 		
-		String roleAdmin = "";
+		String roleViewAll = "";
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
-			roleAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+			roleViewAll = (String) ((User) SessionUtil.getInstance().getValue(request,
 					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
 		}
 		
-		Boolean isAdmin = false;
+		Boolean isViewAll = false;
 		
-		if (roleAdmin.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleAdmin.equals(SystemConstant.Authorization.ADMIN)) {
-			isAdmin = true;
+		if (roleViewAll.equals(SystemConstant.Authorization.SUPER_ADMIN) || roleViewAll.equals(SystemConstant.Authorization.USER) || roleViewAll.equals(SystemConstant.Authorization.ADMIN)) {
+			isViewAll = true;
 		}
-		modelMap.addAttribute("isAdmin", isAdmin);
-		if (isAdmin) {
+		modelMap.addAttribute("isViewAll", isViewAll);
+		if (isViewAll) {
 			List<OrderDeliveryDTO> orderDeliveryDTOList = orderDeliveryService.getAllOrderShipping();
 			modelMap.addAttribute("orderDeliveryDTOList", orderDeliveryDTOList);
 		}
