@@ -99,8 +99,10 @@
 						</div>
 					</c:if>
 				</c:if>
-				<c:if test="${not empty USER_MODEL}">
-					<li class="menu-item"><a href="#" class="menu-item-btn-s">
+				<c:if
+					test="${not empty USER_MODEL && (USER_MODEL.userPermission.value == 'ROLE_ADMIN' || USER_MODEL.userPermission.value == 'ROLE_SUPER_ADMIN')}">
+					<li class="menu-item"><a
+						href="${contextPath}/admin/analytics.htm" class="menu-item-btn-s">
 							<div class="icon">
 								<span><i class="fa-solid fa-chart-line"></i></span>
 							</div>
@@ -109,6 +111,7 @@
 							</div>
 					</a></li>
 				</c:if>
+
 			</ul>
 		</div>
 		<c:if test="${not empty USER_MODEL}">
@@ -359,41 +362,89 @@
 		<span class="MuiTouchRipple-root css-w0pj6f"></span>
 	</button>
 	<div class="header-tab">
-		<div class="tab-wrapper" tabindex="0"
-			style="transform: scale(1.09) translateZ(0px);">
-			<button id="dropdown-btn" tabindex="0" type="button">
-				<div class="avatar-warapper">
-					<img alt="Minimal UI"
-						src="https://images.unsplash.com/photo-1685703206477-aa1df00a1f0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60">
+		<div class="tab-wrapper">
+			<c:if test="${not empty USER_MODEL}">
+				<div class="btn-home">
+					<img src="<c:url value ='/common/assets/icons/ic_logo.svg'/>"
+						alt="header_menu_item_home"><a
+						href="${contextPath}/admin/analytics.htm">Trang chủ</a>
 				</div>
-				<span class="touchable"></span>
-				<div class="overlay"></div>
-			</button>
-			<div id="dropdown-content">
-				<div class="dropdown-item">
-					<h6>Minimal UI</h6>
-					<p>demo@minimals.cc</p>
+			</c:if>
+			<c:if test="${not empty CUSTOMER_MODEL || (empty USER_MODEL && empty CUSTOMER_MODEL)}">
+				<div class="btn-home">
+					<img src="<c:url value ='/common/assets/icons/ic_logo.svg'/>"
+						alt="header_menu_item_home"><a
+						href="${contextPath}/e-commerce/shop.htm">Trang chủ</a>
 				</div>
-				<hr>
-				<div class="dropdown-list">
-					<a href="www.google.com">
-						<li class="list-item" tabindex="-1" role="menuitem">Trang chủ<span
-							class="MuiTouchRipple-root css-w0pj6f"></span>
-					</li>
-					</a> <a href="www.google.com">
-						<li class="list-item" tabindex="-1" role="menuitem">Thông tin
-							cá nhân<span class="MuiTouchRipple-root css-w0pj6f"></span>
-					</li>
-					</a>
-				</div>
-				<hr>
-				<div class="dropdown-list">
-					<a href="${contextPath}/e-commerce/logOut.htm">
-						<li class="list-item" tabindex="-1" role="menuitem">Đăng xuất<span
-							class="MuiTouchRipple-root css-w0pj6f"></span></li>
-					</a>
+			</c:if>
+			
+		</div>
+		<c:if test="${empty USER_MODEL && empty CUSTOMER_MODEL}">
+
+			<div class="tab-wrapper">
+				<div class="btn-register">
+					<a href="${contextPath}/e-commerce/login.htm">Đăng nhập</a>
 				</div>
 			</div>
-		</div>
+			<div class="tab-wrapper">
+				<div class="btn-register">
+					<a href="${contextPath}/e-commerce/signIn.htm">Đăng ký</a>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${not empty USER_MODEL || not empty CUSTOMER_MODEL}">
+			<div class="tab-wrapper" tabindex="0"
+				style="transform: scale(1.09) translateZ(0px);">
+				<button id="dropdown-btn" tabindex="0" type="button">
+					<div class="avatar-warapper">
+						<img alt="Minimal UI"
+							src="https://images.unsplash.com/photo-1685703206477-aa1df00a1f0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60">
+					</div>
+					<span class="touchable"></span>
+					<div class="overlay"></div>
+				</button>
+				<div id="dropdown-content">
+					<div class="dropdown-item">
+						<h6>Minimal UI</h6>
+						<p>demo@minimals.cc</p>
+					</div>
+					<hr>
+					<div class="dropdown-list">
+						<c:if test="${not empty CUSTOMER_MODEL}">
+							<a href="${contextPath}/e-commerce/shop.htm">
+								<li class="list-item" tabindex="-1" role="menuitem">Trang
+									chủ<span class="MuiTouchRipple-root css-w0pj6f"></span>
+							</li>
+							</a>
+							<a href="${contextPath}/customer/profile.htm">
+								<li class="list-item" tabindex="-1" role="menuitem">Thông
+									tin cá nhân<span class="MuiTouchRipple-root css-w0pj6f"></span>
+							</li>
+							</a>
+						</c:if>
+						<c:if test="${not empty USER_MODEL}">
+							<a href="${contextPath}/admin/analytics.htm">
+								<li class="list-item" tabindex="-1" role="menuitem">Trang
+									chủ<span class="MuiTouchRipple-root css-w0pj6f"></span>
+							</li>
+							</a>
+							<a href="${contextPath}/user/profile.htm">
+								<li class="list-item" tabindex="-1" role="menuitem">Thông
+									tin cá nhân<span class="MuiTouchRipple-root css-w0pj6f"></span>
+							</li>
+							</a>
+						</c:if>
+					</div>
+					<hr>
+					<div class="dropdown-list">
+						<a href="${contextPath}/e-commerce/logOut.htm">
+							<li class="list-item" tabindex="-1" role="menuitem">Đăng
+								xuất<span class="MuiTouchRipple-root css-w0pj6f"></span>
+						</li>
+						</a>
+					</div>
+				</div>
+			</div>
+		</c:if>
 	</div>
 </header>
