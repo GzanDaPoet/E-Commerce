@@ -77,9 +77,9 @@
 												<img src="${element.productItem.productImage}" alt="">
 											</div>
 										</td>
-										<td class="td-body">${element.price }</td>
+										<td class="td-body"><span class="price">${element.price }</span></td>
 										<td class="td-body">${element.quantity }</td>
-										<td class="td-body">${element.price * element.quantity}</td>
+										<td class="td-body"><span class="price">${element.price * element.quantity}</span></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -104,7 +104,7 @@
 					</div>
 					<div class="paper-wrapper">
 						<h3 class="heading">Tổng tiền</h3>
-						<h4 class="titlemenu">${sum}</h4>
+						<h4 class="titlemenu"><span class="price">${sum}</span></h4>
 						<c:if test="${test}">
 							<a href="${contextPath}/customer/orderManage/cancel/${id}.htm">
 								<button class="btn--delete">
@@ -119,5 +119,14 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script>
+  var productPrices = document.getElementsByClassName("price");
+
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>
 </html>

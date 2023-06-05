@@ -67,8 +67,8 @@
 								<c:forEach items="${list}" var="element">
 									<tr>
 										<td class="td-body">${element.productItem.product.name}</td>
-										<td class="td-body">${element.price }</td>
-										<td class="td-body">${element.qty}</td>
+										<td class="td-body"><span class="price">${element.qty }</span></td>
+										<td class="td-body">${element.price}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -79,7 +79,7 @@
 					<h3 class="heading">Chi tiết đơn nhập</h3>
 					<h4 class="detailsmenu">Mã đơn hàng: ${id }</h4>
 					<h4 class="detailsmenu">Nhà cung cấp: ${iR.agency.name }</h4>
-					<h4 class="detailsmenu"> Giá trị đơn hàng: ${sum }</h4>
+					<h4 class="detailsmenu"> Giá trị đơn hàng: <span class="price">${sum }</span></h4>
 					<h4 class="detailsmenu">Người lập đơn: ${iR.user.id }</h4>
 					<h4 class="detailsmenu">Ngày lập: ${iR.date }</h4>
 					<form action="done.htm" method="post">
@@ -108,5 +108,14 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script>
+  var productPrices = document.getElementsByClassName("price");
+
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>
 </html>
