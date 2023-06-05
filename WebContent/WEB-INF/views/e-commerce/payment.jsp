@@ -87,7 +87,7 @@
 									Tiền hàng: <span id="total-price">${sum} VND</span>
 								</h5>
 								<h5 class="titlemenu">
-									Tiền vận chuyển: <span id="shipping-price"></span> VND
+									Tiền vận chuyển: <span id="shipping-price"></span> 
 								</h5>
 								<hr>
 								<h4 class="heading">
@@ -112,15 +112,23 @@
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script>
+		var shippingPrice = document.getElementById("shipping-price");
+		var totalPrice = document.getElementById("total-price");
+		var currentTotalPrice = parseInt(totalPrice.textContent);
+	
+		var currentTotal = parseInt(totalPrice.textContent).toLocaleString();
+	
+		totalPrice.textContent = currentTotal + " VND";
+		document.getElementById("total").textContent = currentTotal + " VND";
+	
 		function getprice(price) {
-			document.getElementById("shipping-price").innerHTML = price;
-			var ship = parseInt(price);
-			var currentTotal = parseInt(document.getElementById("total-price").textContent);
-			// Hiển thị giá lên trang web
-			document.getElementById("shipping-price").textContent = price;
-			var newTotal = currentTotal + ship;
-			document.getElementById("total").textContent = newTotal;
-		}
+		document.getElementById("shipping-price").innerHTML = price;
+		var ship = parseInt(price);
+		var currentTotal = parseInt(currentTotalPrice);
+		document.getElementById("shipping-price").textContent = parseInt(ship).toLocaleString() + " VND";
+		var newTotal = currentTotal + ship;
+		document.getElementById("total").textContent = newTotal.toLocaleString() + " VND";
+	}
 	</script>
 </body>
 </html>
