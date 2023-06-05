@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.filefilter.AndFileFilter;
 import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -210,7 +211,11 @@ public class ProductController {
 			model.addAttribute("product", productItem);
 			Integer quantity = Integer.valueOf(request.getParameter("quantity"));
 			int cartId = shoppingCartService.checkExistCartId(id);
-			int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productId, id);
+			int bonusQuantity = shoppingCartService.getQuantityOfProductAdded(productItemId, id);
+			System.out.println("bonus quantity: " + bonusQuantity);
+			if (quantity == 1 & bonusQuantity > 0) {
+				return "redirect:/e-commerce/cart.htm";
+			}
 			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
 			shoppingCartItem.setProductItem(productItem);
 			productService.addToCart(shoppingCartItem, cartId, id, bonusQuantity, quantity);
