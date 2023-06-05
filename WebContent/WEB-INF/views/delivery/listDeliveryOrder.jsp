@@ -32,17 +32,6 @@
 				<div class="list-header">
 					<div class="header-breadcrumb">
 						<h3 class="heading">Danh sách đơn hàng vận chuyển</h3>
-						<nav aria-label="breadcrumb">
-							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a class="breadcrumb__link"
-									href="${contextPath}/e-commerce/shop.htm">Trang
-										chủ</a></li>
-								<li class="breadcrumb__divider"></li>
-								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="#">Danh sách</a>
-								</li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 				<div class="paper-wrapper">
