@@ -92,8 +92,8 @@
 														<p>Available:${shoppingCart.get(i).productItem.quantityInStock}</p>
 													</div>
 												</div></td>
-											<td class="td-body">${price.get(i)}VNĐ</td>
-											<td class="td-body">${price.get(i) * shoppingCart.get(i).quantity }VNĐ
+											<td class="td-body"><span class="price">${price.get(i)}</span></td>
+											<td class="td-body"><span class="price">${price.get(i) * shoppingCart.get(i).quantity }</span>
 											</td>
 											<td class="td-body">
 												<div class="group-btn">
@@ -124,9 +124,9 @@
 					<div class="paper-wrapper"">
 						<div>
 							<h4 class="heading">Tổng tiền</h4>
-							<h5 class="titlemenu">Tổng tiền hàng: ${sum} VND</h5>
+							<h5 class="titlemenu">Tổng tiền hàng: <span class="price">${sum}</span> </h5>
 							<hr>
-							<h4 class="heading">Tổng cộng: ${sum} VND</h4>
+							<h4 class="heading">Tổng cộng:<span class="price"> ${sum} </span></h4>
 						</div>
 						<div style="text-align: center;">
 							<form action="address.htm" method="post">
@@ -142,5 +142,14 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script>
+  var productPrices = document.getElementsByClassName("price");
+
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>
 </html>

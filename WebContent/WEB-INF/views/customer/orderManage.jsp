@@ -38,8 +38,7 @@
 									href="">E-Commerce</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item"><a class="breadcrumb__link"
-									href="">Đơn hàng</a>
-								</li>
+									href="">Đơn hàng</a></li>
 								<li class="breadcrumb__divider"></li>
 								<li class="breadcrumb__item">Đơn hàng đã mua</li>
 							</ul>
@@ -63,7 +62,7 @@
 									<tr>
 										<td class="td-body">${element.id}</td>
 										<td class="td-body">${element.orderDate }</td>
-										<td class="td-body">${element.orderTotal}</td>
+										<td class="td-body"><span class="price">${element.orderTotal}</span></td>
 										<td class="td-body">
 											<div class="mui-chip">
 												<span class="mui-chip-label">${element.orderStatus.status}</span>
@@ -76,7 +75,7 @@
 													<button class="btn--add">
 														<span>Chi tiết</span>
 													</button>
-												</a> 
+												</a>
 											</div>
 										</td>
 									</tr>
@@ -90,5 +89,17 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+	<script>
+		var productPrices = document.getElementsByClassName("price");
+
+		for (var i = 0; i < productPrices.length; i++) {
+			var priceValue = parseInt(productPrices[i].innerHTML);
+			var formattedPrice = priceValue.toLocaleString("vi-VN", {
+				style : "currency",
+				currency : "VND"
+			});
+			productPrices[i].innerHTML = formattedPrice;
+		}
+	</script>
 </body>
 </html>
