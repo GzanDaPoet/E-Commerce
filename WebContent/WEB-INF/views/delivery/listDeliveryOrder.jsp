@@ -57,7 +57,7 @@
 										<td class="td-body">${element.getCustomerName()}</td>
 										<td class="td-body">${element.getCustomerAddress()}</td>
 										<td class="td-body">${element.getPhoneNumber()}</td>
-										<td class="td-body">${element.getTotalMoney()}</td>
+										<td class="td-body"><span class="price"> ${element.getTotalMoney()} </span></td>
 										<c:if test="${isViewAll}">
 												
 											<td class="td-body">${element.getUserName()}</td>
@@ -139,5 +139,13 @@
 			document.querySelector('form').submit();
 		}
 	</script>
+		<script>
+  var productPrices = document.getElementsByClassName("price");
+  for (var i = 0; i < productPrices.length; i++) {
+    var priceValue = parseInt(productPrices[i].innerHTML);
+    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+    productPrices[i].innerHTML = formattedPrice;
+  }
+</script>
 </body>
 </html>

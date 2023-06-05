@@ -62,7 +62,7 @@
 											</div>
 										</td>
 										<td class="td-body">${element.getQuantity()}</td>
-										<td class="td-body">${element.getPrice()}</td>
+										<td class="td-body"> <span class="price"> ${element.getPrice()} </span></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -109,5 +109,13 @@
 	</div>
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
+		<script>
+		  var productPrices = document.getElementsByClassName("price");
+		  for (var i = 0; i < productPrices.length; i++) {
+		    var priceValue = parseInt(productPrices[i].innerHTML);
+		    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+		    productPrices[i].innerHTML = formattedPrice;
+		  }
+		</script>
 </body>
 </html>
