@@ -94,7 +94,7 @@
 						<h4 class="titlemenu">${phone }</h4>
 						<div style="text-align: center;">
 							<c:if test="${test}">
-								<a href="${contextPath}/customer/editAddress.htm">
+								<a href="${contextPath}/customer/orderManage/edit/${id }.htm">
 									<button class="btn--add">
 										<span> Chỉnh sửa</span>
 									</button>
@@ -104,14 +104,18 @@
 					</div>
 					<div class="paper-wrapper">
 						<h3 class="heading">Tổng tiền</h3>
-						<h4 class="titlemenu"><span class="price">${sum}</span></h4>
-						<c:if test="${test}">
-							<a href="${contextPath}/customer/orderManage/cancel/${id}.htm">
-								<button class="btn--delete">
-									<span> Hủy </span>
-								</button>
-							</a>
-						</c:if>
+						<h4 class="titlemenu">
+							<span class="price">${sum}</span>
+						</h4>
+						<div style="text-align: center;">
+							<c:if test="${test}">
+								<a href="${contextPath}/customer/orderManage/cancel/${id}.htm">
+									<button class="btn--delete">
+										<span> Hủy </span>
+									</button>
+								</a>
+							</c:if>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -120,13 +124,16 @@
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script>
-  var productPrices = document.getElementsByClassName("price");
+		var productPrices = document.getElementsByClassName("price");
 
-  for (var i = 0; i < productPrices.length; i++) {
-    var priceValue = parseInt(productPrices[i].innerHTML);
-    var formattedPrice = priceValue.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-    productPrices[i].innerHTML = formattedPrice;
-  }
-</script>
+		for (var i = 0; i < productPrices.length; i++) {
+			var priceValue = parseInt(productPrices[i].innerHTML);
+			var formattedPrice = priceValue.toLocaleString("vi-VN", {
+				style : "currency",
+				currency : "VND"
+			});
+			productPrices[i].innerHTML = formattedPrice;
+		}
+	</script>
 </body>
 </html>

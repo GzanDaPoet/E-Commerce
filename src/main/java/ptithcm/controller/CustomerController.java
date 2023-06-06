@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -153,10 +154,11 @@ public class CustomerController {
 		}
 		model.addAttribute("sum", shopOrder.getOrderTotal());
 		model.addAttribute("id", id);
+		// model.addAttribute("idAddress", shopOrder.getCustomerAddress());
 		model.addAttribute("phone",shopOrder.getCustomerAddress().getAddress().getPhoneNumber());
 		return "customer/orderDetails";
 	}
-
+	
 	@RequestMapping(value = "orderManage/cancel/{orderId}")
 	public String cancelOrder(@PathVariable int orderId) {
 		ShopOrder shopOrder = customerService.getShopOrderById(orderId);
@@ -180,6 +182,41 @@ public class CustomerController {
 		return "redirect:/customer/orderManage.htm";
 	}
 
+	@RequestMapping(value = "orderManage/edit/{orderId}")
+	public String editOrder(@PathVariable int orderId,ModelMap model, HttpServletRequest request,HttpSession httpSession) {
+		httpSession.setAttribute("orderId", orderId);
+		int id = (int) ((Customer) SessionUtil.getInstance().getValue(request, SystemConstant.Model.CUSTOMER_MODEL))
+				.getId();
+		List<CustomerAddress> addressList = addressService.getAddressListByID(id);
+		model.addAttribute("customerAddress", addressList);
+		model.addAttribute("test","test");
+		return "e-commerce/address";
+	}
+	
+	@RequestMapping(value = "order/edit/{idAddress}")
+	public String editAddressOrder(@PathVariable int idAddress,ModelMap model, HttpServletRequest request,HttpSession httpSession) {
+		int orderId = (int) httpSession.getAttribute("orderId");
+		ShopOrder shopOrder = customerService.getShopOrderById(orderId);
+		CustomerAddress customerAddress = addressService.getAddressById(idAddress);
+		shopOrder.setCustomerAddress(customerAddress);
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		if (shopOrder != null) {
+			try {
+				session.merge(shopOrder);
+				t.commit();
+				System.out.println("Cap nhat don hang thanh cong");
+			} catch (Exception e) {
+				System.out.println("Error: " + e.toString());
+				t.rollback();
+			} finally {
+				session.close();
+			}
+		}
+		return "redirect:/customer/orderManage.htm";
+	}
+	
+	
 	@RequestMapping(value = "editAddress", method = RequestMethod.GET)
 	public String editAddress(@RequestParam("id") int id, ModelMap model, HttpServletRequest request) {
 		int provinceId = addressService.getAddressById(id).getAddress().getWard().getProvince().getId();
