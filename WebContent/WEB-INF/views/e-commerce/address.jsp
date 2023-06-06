@@ -81,18 +81,28 @@
 											</form></td>
 										<td class="td-body">
 											<div class="group-btn">
+												<c:if test="${test == null }">
+													<a
+														href="${contextPath}/e-commerce/address/delete/${element.id}.htm">
+														<button class="btn--delete">
+															<span>Xoá</span>
+														</button>
+													</a>
 
-												<a
-													href="${contextPath}/e-commerce/address/delete/${element.id}.htm">
-													<button class="btn--delete">
-														<span>Xoá</span>
-													</button>
-												</a> <a
-													href="${contextPath}/e-commerce/address/deliver/${element.id}.htm">
-													<button class="btn--add">
-														<span>Chuyển đến đây</span>
-													</button>
-												</a>
+													<a
+														href="${contextPath}/e-commerce/address/deliver/${element.id}.htm">
+														<button class="btn--add">
+															<span>Chuyển đến đây</span>
+														</button>
+													</a>
+												</c:if>
+												<c:if test="${test != null }">
+													<a href="${contextPath}/customer/order/edit/${element.id}.htm">
+														<button class="btn--add">
+															<span>Chuyển đến đây</span>
+														</button>
+													</a>
+												</c:if>
 											</div>
 										</td>
 									</tr>
