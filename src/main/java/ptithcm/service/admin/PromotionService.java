@@ -31,7 +31,7 @@ public class PromotionService {
 		if (!list.isEmpty()) {
 			return list;
 		}
-		return list;
+		return null;
 	}
 	
 	public Promotion getPromotionById(int promotionId) {

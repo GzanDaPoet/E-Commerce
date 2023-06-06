@@ -186,7 +186,7 @@
 								</div>
 						</span></li>
 						<ul class="submenu">
-							<li class="submenu-item"><a href="#">Danh sách khách
+							<li class="submenu-item"><a href="${contextPath}/admin/customer/list.htm">Danh sách khách
 									hàng</a></li>
 
 						</ul>
