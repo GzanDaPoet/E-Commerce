@@ -95,8 +95,10 @@
 						</div>
 					</div>
 					</form>
+					<c:if test="${test == null }">
 					<div class="button-group">
-						<button class="button button-submit" onclick="submit('profile/done.htm')">
+						<button class="button button-submit"
+							onclick="submit('profile/done.htm')">
 							<span> <i class="fa-solid fa-plus"></i>
 							</span> <span> Hoàn thành </span>
 						</button>
@@ -105,6 +107,8 @@
 							</span> <span>Huỷ</span>
 						</button>
 					</div>
+				</c:if>
+					
 				
 			</div>
 		</main>
