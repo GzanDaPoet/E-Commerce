@@ -62,6 +62,7 @@ public class AdminCustomerController {
 	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
 	public String showCustomer(ModelMap model, @PathVariable int id) {
 		Customer thisCustomer = customerService.getCustomerById(id);
+		model.addAttribute("test","aaa");
 		if (thisCustomer.getCustomerProfile() != null) {
 			model.addAttribute("name", thisCustomer.getCustomerProfile().getName());
 			model.addAttribute("phone", thisCustomer.getCustomerProfile().getPhoneNumber());
