@@ -71,7 +71,7 @@ public class UserController {
 		} finally {
 			session1.close();
 		}
-		return "redirect:/user/new.htm";
+		return "redirect:/user/list.htm";
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)

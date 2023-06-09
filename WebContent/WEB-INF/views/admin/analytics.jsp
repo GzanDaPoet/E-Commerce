@@ -203,9 +203,9 @@
 		var dataOrderStatus = {
 			labels : [ 'Đang xử lý', 'Đơn huỷ', 'Đang vận chuyển', "Thành công" ], // Tên các loại sản phẩm
 			datasets : [ {
-				data : [ ${orderCountByStatus['PROCESSING'] != null ? orderCountByStatus['PROCESSING'] : 0},
+				data : [ ${orderCountByStatus['ON_HOLD'] != null ? orderCountByStatus['ON_HOLD'] : 0},
 					${orderCountByStatus['CANCELLED'] != null ? orderCountByStatus['CANCELLED'] : 0},
-					${orderCountByStatus['ON_HOLD'] != null ? orderCountByStatus['ON_HOLD'] : 0},
+					${orderCountByStatus['PROCESSING'] != null ? orderCountByStatus['PROCESSING'] : 0},
 					${orderCountByStatus['COMPLETED'] != null ? orderCountByStatus['COMPLETED'] : 0} ], // Phần trăm của mỗi loại sản phẩm
 				backgroundColor : [ 'rgba(255, 228, 220, 0.5)',
 						'rgba(211, 245, 249, 0.5)', 'rgb(255, 242, 212, 0.5)',

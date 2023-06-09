@@ -80,8 +80,8 @@ public class InventoryController {
 			InventoryReceivingDetails newIRDetails = new InventoryReceivingDetails();
 			newIRDetails.setInventoryReceiving(newInventoryReceiving);
 			newIRDetails.setProductItem(productService.getProductItemById(productItems.get(i)));
-			newIRDetails.setPrice(qtys.get(i));
-			newIRDetails.setQty(prices.get(i));
+			newIRDetails.setPrice(prices.get(i));
+			newIRDetails.setQty(qtys.get(i));
 			Session session1 = sessionFactory.openSession();
 			Transaction t1 = session1.beginTransaction();
 			try {
@@ -98,7 +98,7 @@ public class InventoryController {
 			productService.updateQty(productItems.get(i), qtys.get(i));
 			}
 		}
-		return "redirect:/admin/inventory.htm";
+		return "redirect:/admin/inventory/list.htm";
 	}
 	
 	@RequestMapping(value = "inventory/list",method = RequestMethod.GET)

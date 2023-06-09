@@ -53,7 +53,7 @@
 							<input type="text" required="required" id="variationName"
 								name="variationName" aria-labelledby="variationName"><span
 								class="highlight"></span><span class="bar"></span> <label
-								for="variationName">Tên nhãn</label>
+								for="variationName">Tên thuộc tính</label>
 						</div>
 						<div class="select-container">
 							<select name="categoryId" id="categoryId" class="select"

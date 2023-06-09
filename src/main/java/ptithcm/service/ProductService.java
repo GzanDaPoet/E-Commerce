@@ -137,8 +137,9 @@ public class ProductService {
 		List<ProductItem> listProductItemAdd = new ArrayList<>();
 		Date curentDate = new Date();
 		List<Promotion> promotionList = promotionService.getAllPromotions();
-		System.out.println("Vao check promotion");
-		System.out.println("Size of promotion: " + promotionList.size());
+		if(promotionList == null) {
+			return;
+		}
 		for (Promotion promotion : promotionList) {
 			int compare = curentDate.compareTo(promotion.getStartDate());
 			System.out.println("compare ngay bat dau: " + compare);

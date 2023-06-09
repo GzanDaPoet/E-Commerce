@@ -15,7 +15,7 @@ function addProduct() {
                   <input type="text" class="form-control" placeholder="Đơn giá" name="price">
                 </div>
                 <div class="col-1">
-                  <button type="button" class="btn btn-danger" onclick="removeProduct(this)"><i class="bi bi-trash"></i> Del</button>
+                  <button type="button" class="btn btn-danger" onclick="removeProduct(this)"><i class="bi bi-trash"></i> Xoá</button>
                 </div>`;
 	productList.appendChild(newProduct);
 }

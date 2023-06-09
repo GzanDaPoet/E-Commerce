@@ -59,16 +59,16 @@
 							<thead>
 								<tr>
 									<th class="th-header"><span>Sản phẩm</span></th>
-									<th class="th-header"><span>Giá</span></th>
 									<th class="th-header"><span>Số lượng</span></th>
+									<th class="th-header"><span>Giá</span></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="element">
 									<tr>
 										<td class="td-body">${element.productItem.product.name}</td>
-										<td class="td-body"><span class="price">${element.qty }</span></td>
-										<td class="td-body">${element.price}</td>
+										<td class="td-body">${element.qty }</td>
+										<td class="td-body"><span class="price">${element.price}</span></td>
 									</tr>
 								</c:forEach>
 							</tbody>
