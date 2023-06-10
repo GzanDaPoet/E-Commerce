@@ -96,7 +96,7 @@ public class DeliveryController {
 	}
 
 	@RequestMapping(value = "confirmed/{id}", method = RequestMethod.POST)
-	public String confirmedSucccess(@RequestParam("status") String status, @PathVariable Integer id,
+	public String confirmedOrderDelivery(@RequestParam("status") String status, @PathVariable Integer id,
 			HttpServletRequest request) {
 		int userId = 0;
 		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
