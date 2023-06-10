@@ -99,7 +99,7 @@
 												<c:if test="${test != null }">
 													<a href="${contextPath}/customer/order/edit/${element.id}.htm">
 														<button class="btn--add">
-															<span>Chuyển đến đây</span>
+															<span>Chuyển đến đây 1234</span>
 														</button>
 													</a>
 												</c:if>
