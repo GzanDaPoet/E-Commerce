@@ -60,7 +60,7 @@
 											<form action="list/confirmed/${element.getOrderId()}.htm" method="post">
 											<div class="select-container">
 												<select name="userId" id="userId" class="select"
-													aria-invalid="false" onchange="submitForm()">
+													aria-invalid="false" onchange="submitForm(this)">
 													<option value="">Giao hàng cho</option>
 													<c:forEach items="${shipperList}" var="shipper">
 														<option value="${shipper.getId()}"> ${shipper.getUserProfile().getName()}</option>
@@ -139,9 +139,10 @@
 	<script type="text/javascript"
 		src="<c:url value='/common/assets/js/navbar.js'/>"></script>
 	<script>
-		function submitForm() {
-			document.querySelector('form').submit();
-		}
+	function submitForm(selectBox) {
+	    const form = selectBox.closest('form');
+	    form.submit();
+	}
 	</script>
 		<script>
   var productPrices = document.getElementsByClassName("price");
