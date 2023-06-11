@@ -67,6 +67,7 @@ public class AddressController {
 		model.addAttribute("payment", payment);
 		List<ShippingMethod> shipping = paymentService.getListShippingMethods();
 		model.addAttribute("shipping", shipping);
+		
 		return "e-commerce/payment";
 	}
 

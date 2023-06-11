@@ -46,6 +46,15 @@ public class PromotionController {
 
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String showPromotion(ModelMap model, HttpServletRequest request) {
+		String isAdmin = "";
+		if (SessionUtil.getInstance().getValue(request, SystemConstant.Model.USER_MODEL) != null) {
+			isAdmin = (String) ((User) SessionUtil.getInstance().getValue(request,
+					SystemConstant.Model.USER_MODEL)).getUserPermission().getValue();
+		}
+		if (isAdmin.equals(SystemConstant.Authorization.ADMIN)) {
+			return "redirect:/admin/login.htm";
+		}
+
 		List<ProductCategory> listCategories = productCategoryService.getAllProductCategory();
 		model.addAttribute("categories", listCategories);
 		return "product/promotion/createPromotion";

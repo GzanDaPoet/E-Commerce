@@ -72,9 +72,9 @@
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
 												name="ShippingMethod" id="${q.id}" value="${q.id }"
-												onclick="getprice('${q.price}')"> <label
+												onclick="getprice('${q.price}')" checked> <label
 												class="form-check-label" for="${q.id }"> ${q.name }
-												${ q.price } VND</label>
+												</label>
 										</div>
 									</c:forEach>
 								</div>
@@ -87,11 +87,11 @@
 									Tiền hàng: <span id="total-price">${sum} VND</span>
 								</h5>
 								<h5 class="titlemenu">
-									Tiền vận chuyển: <span id="shipping-price"></span> 
+									Tiền vận chuyển: <span id="shipping-price">300,000 VND</span> 
 								</h5>
 								<hr>
 								<h4 class="heading">
-									Tổng cộng: <span id="total">${sum} VND</span>
+									Tổng cộng: <span id="total">${sum1 }VND</span>
 								</h4>
 							</div>
 							<div style="text-align: center;">
@@ -116,7 +116,7 @@
 		var totalPrice = document.getElementById("total-price");
 		var currentTotalPrice = parseInt(totalPrice.textContent);
 	
-		var currentTotal = parseInt(totalPrice.textContent).toLocaleString();
+		var currentTotal = (parseInt(totalPrice.textContent)+300000).toLocaleString();
 	
 		totalPrice.textContent = currentTotal + " VND";
 		document.getElementById("total").textContent = currentTotal + " VND";

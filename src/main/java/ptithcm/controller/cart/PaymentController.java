@@ -52,8 +52,6 @@ public class PaymentController {
 		Long sum = (Long) session.getAttribute("sum") + paymentService.getShippingById(ShippingMethod).getPrice();
 		List<Long> price = (List<Long>) session.getAttribute("price");
 		System.out.println(addressId);
-		System.out.println("zoday");
-
 		Date sqlDate = new Date(System.currentTimeMillis());
 		ShopOrder shopOrder = new ShopOrder();
 		shopOrder.setShippingMethod(paymentService.getShippingById(ShippingMethod));
